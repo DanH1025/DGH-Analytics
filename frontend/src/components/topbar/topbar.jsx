@@ -73,7 +73,7 @@ export default function Topbar() {
                     <div className="searchWrapper">
 
                         <div className="category">
-                           <FormControl className='searchCategoryForm'>
+                           <FormControl variant="outlined" className='searchCategoryForm'>
                            <InputLabel id="searchcategoryLable">Category</InputLabel>
                                 <Select className='searchCategory'
                                         labelId='searchCategory-items-lable'
@@ -97,13 +97,12 @@ export default function Topbar() {
 
                         </div>
                         <div className="searchInput">
-                           <input aria-placeholder='Search...' placeholder='Search...'
+                           <input  placeholder='Search...'
                            className='searchInputField' type="text" />
                         </div>
-                        <div className="searchbtn">
-                            <Search className='middleTopbarSearchIcon' fontSize='large'/>
-                        </div>
-                        
+                    </div>
+                    <div className="searchbtn">
+                        <Search className='middleTopbarSearchIcon' fontSize='large'/>
                     </div>
                      
                 </div>
