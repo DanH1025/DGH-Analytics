@@ -1,0 +1,130 @@
+.productCard{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    padding: 0;
+    margin: 0;
+}
+.productCardWrapper{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    margin: 15px auto;
+    top: 5;
+    padding: 20px;
+
+}
+.productCardTitle{
+    justify-content: center;
+    display: flex;
+    align-items: right;
+    font-size: 20px;
+    font-weight: bolder;
+}
+.cardView{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    margin: 0;
+    padding: 20px;
+}
+.card{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
+}
+.cardImg{
+    width: fit-content;
+    height: fit-content;
+    padding: 50%;
+    overflow: hidden;
+}
+.viewItemDetail{
+    width: fit-content;
+    padding: 4px;
+    margin: 0;
+    background-color: rgba(26, 85, 196, 0.582);
+    border: none;
+    border-radius: 3px;
+    color: white;
+    font-weight: 200;
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+
+/* media query for responsiveness */
+
+@media(max-width:769px ){
+    
+    .cardView{
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        margin: 0;
+        top: 5;
+        padding: 10px;
+    }
+    .card{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: fit-content;
+    }
+}
+@media(max-width:480px){
+    .cardView{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        margin: 0;
+        padding: 3px;
+        width: 100%;
+        height: fit-content;
+        justify-content: center;
+        align-items: center;
+    }
+    .card{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: fit-content;
+        justify-content: center;
+    }
+    .productCardTitle{
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        margin-bottom: 15px;
+    }
+    .productCardWrapper{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        
+        justify-content: center;
+        align-items: center;
+    
+    }
+}
+@media(max-width:320px){
+    .cardView{
+        display: grid;
+        grid-template-columns: repeat(1,1fr);
+        margin: 0;
+        padding: 3px;
+        width: 100%;
+        height: fit-content;
+        justify-content: center;
+        align-items: center;
+    }
+    .card{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: fit-content;
+        justify-content: center;
+    }
+}
