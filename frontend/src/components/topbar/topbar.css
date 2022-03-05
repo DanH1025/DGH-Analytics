@@ -222,6 +222,8 @@
     font-size: 15px;
     color: white;
     cursor: pointer;
+    text-decoration:underline;
+    
 }
 .allCategorySelection{
     width: 45%;

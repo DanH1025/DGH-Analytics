@@ -1,5 +1,6 @@
 import React from 'react'
 import './topbar.css'
+import {Link} from 'react-router-dom'
 import {Phone, EventNote,Search,ShoppingCartOutlined, FavoriteBorderOutlined } from '@material-ui/icons'
 
 // import for the list item to select the categories
@@ -145,9 +146,15 @@ export default function Topbar() {
                     </div>
                     <div className="bottomTopbar-right">
                     <ul className='lowerSelection'>
-                        <li className='lowerSelectionItem'>Home</li>
-                        <li className='lowerSelectionItem'>About</li>
-                        <li className='lowerSelectionItem'>Contact Us</li>
+                        <Link to='/'>
+                            <li className='lowerSelectionItem'>Home</li>
+                        </Link>
+                        <Link to='/about'>
+                            <li className='lowerSelectionItem'>About</li>
+                        </Link>
+                        <Link to='/contactUs'>
+                            <li className='lowerSelectionItem'>Contact Us</li>
+                        </Link>                        
                     </ul>
                     </div>
                   
