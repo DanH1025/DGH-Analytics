@@ -1,0 +1,19 @@
+.footer{
+ background-color: #232f3e;
+ color: white;
+ font-family: 'sans-serif', 'Rubik','Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', Verdana ;
+}
+
+.footerWrapper{
+ border-top: 1px solid rgb(194, 194, 194) ;
+ /* max-width: 900px; */
+}
+
+.footerView{
+ display: grid;
+ grid-template-columns: auto auto;
+ justify-content: space-between;
+ padding: 2rem;
+ margin: auto;
+}
+
