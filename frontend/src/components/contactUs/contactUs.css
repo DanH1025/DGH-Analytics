@@ -1,0 +1,42 @@
+.contactUs{
+ background-color: #232f3e;
+ color: white;
+ font-family: 'sans-serif', 'Rubik','Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', Verdana ;
+}
+
+ul{
+ list-style: none;
+}
+
+li, p{
+ font-size: 14px;
+ padding: 5px 0;
+}
+
+p{
+ font-size: 14px;
+ padding: 2px 0;
+}
+
+.contactUsWrapper{
+ padding: 5rem;
+}
+
+.contactUsView{
+ display: grid;
+ grid-template-columns: 400px 180px 180px 180px 260px;
+ justify-content: center;
+}
+
+.contactUsViewItem{
+ padding: 0 10px;
+}
+
+.contactUsViewItem h4{
+ padding: 1.5rem 0;
+}
+
+.contactUsViewItem li:hover{
+ color: rgb(78, 38, 255);
+ transform: translate(10px, 0);
+}
