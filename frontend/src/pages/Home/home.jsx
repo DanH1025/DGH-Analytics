@@ -6,6 +6,7 @@ import ImageSlider from '../../components/imageSlider/imageSlider'
 import FeaturedInfo from '../../components/featuredInfo/featuredInfo'
 import ProductCard from '../../components/productCard/productCard'
 import ContactUs from '../../components/contactUs/contactUs'
+import Footer from '../../components/footer/footer'
 import { sliderData } from '../../components/imageSlider/sliderData'
 
 export default function Home() {
@@ -16,6 +17,7 @@ export default function Home() {
         <FeaturedInfo />
         <ProductCard className="productList" /> 
         <ContactUs />
+        <Footer />
     </>
   )
 }
