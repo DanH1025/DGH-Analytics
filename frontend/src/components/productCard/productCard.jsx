@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     },    
   }));
 
-export default function ProductCard() {
+export default function ProductCard({productId, name,price , brand, imageUrl}) {
 
     const classes = useStyles(); 
     
@@ -45,18 +45,18 @@ export default function ProductCard() {
                 <Card className='card'>
                             <CardMedia
                                 className="cardImg"
-                                image="	http://bigone4.demo.towerthemes.com/image/cache/catalog/category%20thumb/accessories-170x151.jpg"
-                                title="Paella dish"
+                                image={imageUrl} alt={name}
+                                title="device"
                             />
                             <CardContent>
                                 <Typography variant='body2' color='textSecondary' component='p'>
-                                    Product Name
+                                    {name}
                                 </Typography>
                                 <Typography variant='body2' color='textSecondary' component='p'>
-                                    Product Brand
+                                    {brand}
                                 </Typography>
                                 <Typography variant='body2' color='textSecondary' component='p'>
-                                    Product Price
+                                    {price} 
                                 </Typography>
                             </CardContent>
                             <CardActions disableSpacing>

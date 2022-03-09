@@ -1,18 +1,21 @@
 import './App.css';
-import {Routes, BrowserRouter,Route} from 'react-router-dom'
+import {Switch,Router, BrowserRouter,Route} from 'react-router-dom'
 
 import Home from './pages/Home/home';
 import About from './pages/About/about'
+import AddProduct from './pages/AddProduct/addProduct';
+
 
 function App() {
   return (
     <BrowserRouter>
       <main>
-        <Routes>
-          <Route exact path='/' element={<Home/>} />
-          <Route exact path='/about' component={About}/>
-        </Routes>
+        <Switch>
+           <Route exact path='/' component={Home} />
+           <Route exact path='/addToStock' component={AddProduct} />
+        </Switch>
       </main>
+      
                  
     </BrowserRouter>
   );

@@ -1,11 +1,10 @@
-import React, {useState , useEffect} from 'react'
 import './footer.css'
 
 // import {TwitterIcon} from '@mui/icons-material/Twitter';
 // import {FacebookIcon} from '@mui/icons-material/Facebook';
 // import {InstagramIcon} from '@mui/icons-material/Instagram';
 
-import {InstagramIcon, FacebookIcon, TwitterIcon} from '@mui/icons-material';
+import {Instagram, Facebook, Twitter} from '@material-ui/icons';
 
 
 export default function Footer(){
@@ -17,9 +16,9 @@ export default function Footer(){
 							<p>Copyright © 2017 Plazathemes. All Rights Reserved.</p>
 						</div>
 						<div className='footerItem footer'>
-							<InstagramIcon/>
-							<FacebookIcon/>
-							<TwitterIcon/>
+							<Instagram/>
+							<Facebook/>
+							<Twitter/>
 						</div>
 				 </div>
 			</div>
