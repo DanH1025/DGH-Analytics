@@ -39,39 +39,38 @@ export default function ProductCard({productId, name,price , brand, imageUrl}) {
     
   return (
     <div className='productCard'>
-        <div className="productCardWrapper">
+      <div className="productCardWrapper">
         <h3 productCardTitle>Our Products</h3>
-            <div className="cardView">
-                <Card className='card'>
-                            <CardMedia
-                                className="cardImg"
-                                image={imageUrl} alt={name}
-                                title="device"
-                            />
-                            <CardContent>
-                                <Typography variant='body2' color='textSecondary' component='p'>
-                                    {name}
-                                </Typography>
-                                <Typography variant='body2' color='textSecondary' component='p'>
-                                    {brand}
-                                </Typography>
-                                <Typography variant='body2' color='textSecondary' component='p'>
-                                    {price} 
-                                </Typography>
-                            </CardContent>
-                            <CardActions disableSpacing>
-                                <IconButton aria-label="add to favorites">
-                                <FavoriteIcon />
-                                </IconButton>
-                                <IconButton aria-label="share">
-                                <ShareIcon />
-                                </IconButton>
-                                <button className='viewItemDetail'>View</button>                        
-                            </CardActions>   
-                        </Card>
-            </div>
+        <div className="cardView">
+          <Card className='card'>
+          <CardMedia
+            className="cardImg"
+            image={imageUrl} alt={name}
+            title="device"
+          />
+          <CardContent>
+            <Typography variant='body2' color='textSecondary' component='p'>
+              {name}
+            </Typography>
+            <Typography variant='body2' color='textSecondary' component='p'>
+              {brand}
+            </Typography>
+            <Typography variant='body2' color='textSecondary' component='p'>
+              {price} 
+            </Typography>
+          </CardContent>
+          <CardActions disableSpacing>
+            <IconButton aria-label="add to favorites">
+              <FavoriteIcon />
+            </IconButton>
+            <IconButton aria-label="share">
+              <ShareIcon />
+            </IconButton>
+            <button className='viewItemDetail'>View</button>                        
+          </CardActions>   
+          </Card>
         </div>
-        
+      </div>    
     </div>
   );
 }

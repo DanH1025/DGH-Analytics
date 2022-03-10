@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import './home.css'
 
 import Topbar from '../../components/topbar/topbar'
@@ -14,7 +14,7 @@ import { useSelector,useDispatch } from 'react-redux';
 
 //import redux actions to call all the functions
 import { getProducts as listProducts } from '../../redux/actions/productActions'
-
+import Axios from 'axios';
 
 
 
@@ -24,10 +24,18 @@ export default function Home() {
 
   // const {loading,products,error} = getProducts;
 
-  // useEffect(()=>{
-  //   dispatch(listProducts())
-  // },[dispatch])
+  const [productList, setProduct] = useState([]);
 
+  useEffect(()=>{
+    Axios.get('http://localhost:5000/api/getAllProducts').then((product) => {
+      const prodcu = product.data;
+      console.log('in ordo');
+      console.log(prodcu);
+      setProduct(product.data);
+      console.log('in state:');
+      console.log(productList);
+    })
+  }, [])
 
   return (
     <>
@@ -36,20 +44,18 @@ export default function Home() {
         <FeaturedInfo />
         <div className='homeScreen_products'>
         {/* {loading? <h3>Loading ...</h3>: error? <h3>{error}</h3>: products.map(product =>(
-          
-          
-
         ))} */}
-
-<ProductCard className="productList"
-            // key={product.id}
-            // productId={product.productID}
-            // name={product.product_name}
-            // price={product.product_price}
-            // imageUrl={product.product_img}
-            // brand={product.product_brand}          
-          
-          /> 
+        {console.log(productList)}
+        {productList.map((product) => { 
+          <ProductCard className="productList"
+            key={product.id}
+            productId={product.productID}
+            name={product.product_name}
+            price={product.product_price}
+            imageUrl={product.product_img}
+            brand={product.product_brand}          
+          />
+        })}
 
         </div>
         <ContactUs />
