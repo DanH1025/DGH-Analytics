@@ -10,10 +10,11 @@ import Footer from '../../components/footer/footer'
 import { sliderData } from '../../components/imageSlider/sliderData'
 
 //import redux to use redux action and constants
-import { useSelector,useDispatch } from 'react-redux';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { getProducts } from '../../redux/actions/productActions';
 //import redux actions to call all the functions
-import { getProducts as listProducts } from '../../redux/actions/productActions'
+// import { getProducts as listProducts } from '../../redux/actions/productActions'
 
 
 
@@ -24,56 +25,50 @@ export default function Home() {
 
   // const {loading,products,error} = getProducts;
 
-  // useEffect(()=>{
-  //   dispatch(listProducts())
-  // },[dispatch])
+  const dispatch = useDispatch();
+
+ 	useEffect(() => {
+ 	  dispatch(getProducts());
+ 	}, [dispatch]);
+
+	const products = useSelector((state) => state.getProduct.products);
+	console.log(products);
 
 
   const [productList, setProduct] = useState([]);
 
-  // useEffect(()=>{
-  //   Axios.get('http://localhost:5000/api/getAllProducts').then((product) => {
-  //     const prodcu = product.data;
-  //     console.log('in ordo');
-  //     console.log(prodcu);
-  //     setProduct(product.data);
-  //     console.log('in state:');
-  //     console.log(productList);
-  //   })
-  // }, [])
-
   return (
     <>
-        <Topbar />
-        <ImageSlider className="imageSliderComponent" slides={sliderData} />
-        <FeaturedInfo />
-        <div className='homeScreen_products'>
-        {/* {loading? <h3>Loading ...</h3>: error? <h3>{error}</h3>: products.map(product =>(
-          
-          
-
-        ))} */}
-        {console.log('in home'+ productList)}
-        {productList.map((product) => { 
-          <div>
-            <h1>some thing please</h1>
-          </div>
-          console.log('product' + product.productName);
-        })}
-
-        <ProductCard className="productList"
-            // key={product.id}
-            // productId={product.productID}
-            // name={product.product_name}
-            // price={product.product_price}
-            // imageUrl={product.product_img}
-            // brand={product.product_brand}          
-          
-          /> 
-
-        </div>
-        <ContactUs />
-        <Footer />
+      <Topbar />
+      <ImageSlider 
+        className="imageSliderComponent" 
+        slides={sliderData} />
+      <FeaturedInfo />
+      <div className='homeScreen_products'>
+        {/* {console.log('in home'+ productList)}
+        {console.log(products)} */}
+        <h3 productCardTitle>Our Products</h3>
+        {
+          !products.length ? <div></div> : (
+            products.map((val, key) => {
+              console.log(val.product_img);
+              return (
+                <div className="items">
+                  <ProductCard 
+                    productId={val.id}
+                    name={val.productName}
+                    price={val.productPrice}
+                    imageUrl={val.productImg}
+                    brand={val.productBrand} 
+                    />
+                </div>
+              )
+            }) 
+          )
+        }
+      </div>
+      <ContactUs />
+      <Footer />
     </>
   )
 }

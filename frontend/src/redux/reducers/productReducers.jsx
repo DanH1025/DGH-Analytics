@@ -1,4 +1,4 @@
-import * as actionTypes from '../constants/productConstants';
+import * as actionTypes from '../constants/productConstant';
 
 
 export const getProductsReducer = (state = {products: [] }, action)=>{
@@ -17,7 +17,20 @@ export const getProductsReducer = (state = {products: [] }, action)=>{
             return{
                 loading:false,
                 error: action.payload
-            } 
+            }
+        case actionTypes.CREATE_PRODUCTS_REQUEST:
+            return{
+                loading: true,
+            }
+        case actionTypes.CREATE_PRODUCTS_SUCCESS:
+            return [
+                ...state, action.payload
+            ];
+        case actionTypes.CREATE_PRODUCTS_FAIL:
+            return{
+                loading:false,
+                error: action.payload
+            }
         default:
             return state;
     }
