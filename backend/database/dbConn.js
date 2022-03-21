@@ -1,25 +1,14 @@
-const mysql =  require('mysql');
+const mysql =  require('mysql2');
 const dotenv = require('dotenv');
 
+dotenv.config();
 
-dotenv.config({path:'../../.env'});
+const DBcon = mysql.createPool({
+    host:process.env.DATABASE_HOST,
+    user:process.env.DATABASE_USER ,
+    password:process.env.DATABASE_PASSWORD,
+    database:process.env.DATABASE
 
-exports.DBcon = ()=>{
-    try{
-        const db = mysql.createConnection({
-            host:process.env.DATABASE_HOST,
-            user:process.env.DATABASE_USER ,
-            password:process.env.DATABASE_PASSWORD,
-            database:process.env.DATABASE
-        });
-        console.log("DATABASE connected successfully")
+});
 
-    }catch(error){
-        console.log("Error while connecting to database");
-    }
-}
-
-
-
-
-
+module.exports = DBcon.promise();
