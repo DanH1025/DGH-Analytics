@@ -10,8 +10,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
+import BackgroundDim from '../backgroundDim/backgroundDim';
 
-
+import SettingsIcon from '@material-ui/icons/Settings';
 
 export default function Topbar() {
 
@@ -45,7 +46,12 @@ export default function Topbar() {
     const handleOpen = () => {
       setOpen_allCategories(true);
     };
-
+    //to handle signup
+    const signUpHandler = () =>{
+        <BackgroundDim />
+     
+    }
+   
   return (
     <div className='topbar'>
         <div className="topbarWrapper">
@@ -62,8 +68,8 @@ export default function Topbar() {
                     <div className='trackOrder'>
                         <EventNote className='upperTopbarIcon' /> <a href='#'>Track Your Order</a> 
                     </div>|
-                    <div className='signUp'>
-                        SignUp
+                    <div className='signUp' onClick={signUpHandler}>
+                        <SettingsIcon/> Setting
                     </div>
                   
                 </div>
@@ -75,7 +81,7 @@ export default function Topbar() {
 
                         <div className="category">
                            <FormControl variant="outlined" className='searchCategoryForm'>
-                           <InputLabel id="searchcategoryLable">Category</InputLabel>
+                           <InputLabel id="searchcategoryLable"><h4 className="searchCategoryLable">Category</h4></InputLabel>
                                 <Select className='searchCategory'
                                         labelId='searchCategory-items-lable'
                                         id='searchCategory-items'
@@ -112,7 +118,10 @@ export default function Topbar() {
                             <FavoriteBorderOutlined/>
                         </div>
                         <div className="cart">
-                            <ShoppingCartOutlined/>
+                            <Link to='/cart'>
+                               <ShoppingCartOutlined className='cartIcon' />
+                            </Link>
+                            
                         </div>
                 </div>
             </div>
@@ -122,7 +131,7 @@ export default function Topbar() {
 
                     <div className="bottomTopbar-left">
                     <FormControl className='allCategorySelection'>
-                        <InputLabel id="allCategorySelection">All Categories</InputLabel>
+                        <InputLabel id="allCategorySelection"><h3 className='allCategoryLable'>All Categories</h3></InputLabel>
                             <Select className='allcategory'
                                 labelId="allCategorySelection-items-lable"
                                 id="allCategorySelection-items"
@@ -144,7 +153,7 @@ export default function Topbar() {
                             </Select>
                     </FormControl>
                     </div>
-                    <div className="bottomTopbar-right">
+                    {/* <div className="bottomTopbar-right">
                     <ul className='lowerSelection'>
                         <Link to='/'>
                             <li className='lowerSelectionItem'>Home</li>
@@ -156,7 +165,7 @@ export default function Topbar() {
                             <li className='lowerSelectionItem'>Contact Us</li>
                         </Link>                        
                     </ul>
-                    </div>
+                    </div> */}
                   
                 </div>
             </div>
