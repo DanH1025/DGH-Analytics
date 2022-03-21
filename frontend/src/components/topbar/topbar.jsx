@@ -21,7 +21,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-import BackgroundDim from '../backgroundDim/backgroundDim';
 
 import SettingsIcon from '@material-ui/icons/Settings';
 
@@ -57,22 +56,25 @@ export default function Topbar() {
     const handleOpen = () => {
       setOpen_allCategories(true);
     };
-    //to handle signup
-    const signUpHandler = () =>{
-       return <BackgroundDim />
-     
-    }
+ 
 
     //for the dialog
     
-    const [open, setOpen] = React.useState(false);
+    const [openLogin, setOpenLogin] = React.useState(false);
+    const [openSignUp, setOpenSignUp] = React.useState(false);
 
-    const handleClickOpen = () => {
-        setOpen(true);
+    const handleClickOpenLogin = () => {
+        setOpenSignUp(false);
+        setOpenLogin(true);
     };
+    const handleClickOpenSignUp = () =>{
+        setOpenLogin(false)
+        setOpenSignUp(true);
+    }
 
     const handleDialogClose = () => {
-        setOpen(false);
+        setOpenSignUp(false);
+        setOpenLogin(false);
     };
 
 
@@ -96,7 +98,7 @@ export default function Topbar() {
                     <div className='trackOrder'>
                         <EventNote className='upperTopbarIcon' /> <a href='#'>Track Your Order</a> 
                     </div>|
-                    <div className='signUp' onClick={handleClickOpen}>
+                    <div className='signUp' onClick={handleClickOpenLogin}>
                         <SettingsIcon/> Setting
                     </div>
                   
@@ -199,29 +201,102 @@ export default function Topbar() {
             </div>
         </div>
 
-        <div className="signUpD">
-            <Dialog open={open} onClose={handleDialogClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+        <div className="signUpDialog">
+            <Dialog open={openLogin} onClose={handleDialogClose} aria-labelledby="form-dialog-title">
+                <DialogTitle id="form-dialog-title">Login</DialogTitle>
                 <DialogContent>
                 <DialogContentText>
-                    To subscribe to this website, please enter your email address here. We will send updates
-                    occasionally.
+                    Im A Returning Customer 
                 </DialogContentText>
                 <TextField
                     autoFocus
                     margin="dense"
-                    id="name"
+                    id="loginEmail"
                     label="Email Address"
                     type="email"
                     fullWidth
                 />
+                 <TextField
+                    autoFocus
+                    margin="dense"
+                    id="loginPasswor"
+                    label="Password"
+                    type="password"
+                    fullWidth
+                />
                 </DialogContent>
                 <DialogActions>
-                <Button onClick={handleDialogClose} color="primary">
-                    Cancel
+                <Button onClick={handleDialogClose} variant='outlined'  color="primary">
+                    Login
                 </Button>
-                <Button onClick={handleDialogClose} color="primary">
-                    Subscribe
+                <Button onClick={handleClickOpenSignUp} variant='outlined' color="primary">
+                    Create an Account
+                </Button>
+                </DialogActions>
+            </Dialog> 
+
+
+            <Dialog open={openSignUp} onClose={handleDialogClose} aria-labelledby="form-dialog-title">
+                <DialogTitle id="form-dialog-title">SignUp</DialogTitle>
+                <DialogContent>
+                <DialogContentText>
+                    Im A New Customer
+                </DialogContentText>
+                <TextField
+                    autoFocus
+                    margin="dense"
+                    id="first_name"
+                    label="First Name"
+                    type="text"
+                    fullWidth
+                />
+                 <TextField
+                    autoFocus
+                    margin="dense"
+                    id="last_name"
+                    label="Last Name"
+                    type="text"
+                    fullWidth
+                />
+                 <TextField
+                    autoFocus
+                    margin="dense"
+                    id="Email"
+                    label="Email"
+                    type="email"
+                    fullWidth
+                />
+                 <TextField
+                    autoFocus
+                    margin="dense"
+                    id="confirm_email"
+                    label="Confirm Email"
+                    type="email"
+                    fullWidth
+                />
+                 <TextField
+                    autoFocus
+                    margin="dense"
+                    id="password"
+                    label="Password"
+                    type="password"
+                    fullWidth
+                />
+                 <TextField
+                    autoFocus
+                    margin="dense"
+                    id="confirm_password"
+                    label="Confirm Password"
+                    type="password"
+                    fullWidth
+                />
+                </DialogContent>
+                <DialogActions>
+                <Button onClick={handleDialogClose} variant='outlined'  color="primary">
+                    Register
+                </Button>
+                <Button onClick={handleClickOpenLogin} variant='outlined' color="primary">
+                    Login
                 </Button>
                 </DialogActions>
             </Dialog> 
