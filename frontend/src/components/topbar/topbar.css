@@ -1,7 +1,8 @@
 *{
  
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    max-width: 1300px;
+    max-width: 1400px;
+    
 }
 
 .topbar{
@@ -21,6 +22,8 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    padding: 0;
+    margin: 0;
 
 }
 .upperTopbar{
@@ -40,8 +43,8 @@
 .middleTopbar{
     display: flex;
     color: white;
-    padding: 4px 5px;
-    margin: 7px 0px;
+    padding: 0;
+    margin: 10px 10px;
     justify-content: space-around;
     
 }
@@ -96,6 +99,12 @@
     margin: 0;
     justify-content: center;
     align-items: center;
+}
+.searchCategoryLable{
+    color: white;
+    font-weight: lighter;
+    align-items: center;
+    justify-content: center;
 }
 
 .searchCategoryForm{
@@ -186,6 +195,11 @@
 .wishlist,.cart{
     margin-right: 30px;
     cursor: pointer;
+    color: white;
+}
+.cartIcon{
+    text-decoration: none;
+    color: white;
 }
 
 .bottomTobbarWrapper{
@@ -236,6 +250,11 @@
     text-underline-offset: none;
 
 }
+.allCategoryLable{
+    color: white;
+    font-size: 15px;
+    font-weight: 200;
+}
 
 /* media for responsiveness */
 
@@ -255,6 +274,9 @@
     .allCategorySelection{
         width: 35%;
     }
+    .allCategoryLable,.searchCategoryLable{
+        font-size: 13px;
+    }
 
 }
 
@@ -264,6 +286,9 @@
     }
     .bottomTopbar-left{
         flex:3;
+    }
+    .allCategoryLable,.searchCategoryLable{
+        font-size: 12px;
     }
 }
 @media(max-width: 760px){
@@ -287,6 +312,9 @@
     .searchWrapper{
         width: 80%;
         margin: 0px 5px;
+    }
+    .allCategoryLable,.searchCategoryLable{
+        font-size: 11px;
     }
 
 
@@ -331,6 +359,9 @@
         font-size: 9px;
 
     }
+    .allCategoryLable,.searchCategoryLable{
+        font-size: 10px;
+    }
 
 
 }
@@ -354,6 +385,9 @@
         font-size: 6px;
 
     }
+    .allCategoryLable,.searchCategoryLable{
+        font-size: 9px;
+    }
 }
 
 @media(max-width: 453px){
@@ -363,7 +397,12 @@
     .allCategorySelection{
         width: 70%;
     }
-    .lowerSelectionItem{
+    .lowerSelectionItem,.bottomTopbar-left{
         font-size: 10px;
+        margin-top: 0;
+        margin-bottom: 20px;
+    }
+    .allCategoryLable,.searchCategoryLable{
+        font-size: 8px;
     }
 }
