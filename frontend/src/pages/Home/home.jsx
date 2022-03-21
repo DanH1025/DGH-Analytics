@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import './home.css'
-
+import { Axios } from 'axios'
 import Topbar from '../../components/topbar/topbar'
 import ImageSlider from '../../components/imageSlider/imageSlider'
 import FeaturedInfo from '../../components/featuredInfo/featuredInfo'
@@ -29,6 +29,19 @@ export default function Home() {
   // },[dispatch])
 
 
+  const [productList, setProduct] = useState([]);
+
+  // useEffect(()=>{
+  //   Axios.get('http://localhost:5000/api/getAllProducts').then((product) => {
+  //     const prodcu = product.data;
+  //     console.log('in ordo');
+  //     console.log(prodcu);
+  //     setProduct(product.data);
+  //     console.log('in state:');
+  //     console.log(productList);
+  //   })
+  // }, [])
+
   return (
     <>
         <Topbar />
@@ -40,8 +53,15 @@ export default function Home() {
           
 
         ))} */}
+        {console.log('in home'+ productList)}
+        {productList.map((product) => { 
+          <div>
+            <h1>some thing please</h1>
+          </div>
+          console.log('product' + product.productName);
+        })}
 
-<ProductCard className="productList"
+        <ProductCard className="productList"
             // key={product.id}
             // productId={product.productID}
             // name={product.product_name}
