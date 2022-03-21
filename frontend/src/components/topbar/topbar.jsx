@@ -3,6 +3,17 @@ import './topbar.css'
 import {Link} from 'react-router-dom'
 import {Phone, EventNote,Search,ShoppingCartOutlined, FavoriteBorderOutlined } from '@material-ui/icons'
 
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
+
+
+
 // import for the list item to select the categories
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -48,9 +59,26 @@ export default function Topbar() {
     };
     //to handle signup
     const signUpHandler = () =>{
-        <BackgroundDim />
+       return <BackgroundDim />
      
     }
+
+    //for the dialog
+    
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleDialogClose = () => {
+        setOpen(false);
+    };
+
+
+
+
+
    
   return (
     <div className='topbar'>
@@ -68,7 +96,7 @@ export default function Topbar() {
                     <div className='trackOrder'>
                         <EventNote className='upperTopbarIcon' /> <a href='#'>Track Your Order</a> 
                     </div>|
-                    <div className='signUp' onClick={signUpHandler}>
+                    <div className='signUp' onClick={handleClickOpen}>
                         <SettingsIcon/> Setting
                     </div>
                   
@@ -170,6 +198,40 @@ export default function Topbar() {
                 </div>
             </div>
         </div>
+
+        <div className="signUpD">
+            <Dialog open={open} onClose={handleDialogClose} aria-labelledby="form-dialog-title">
+                <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+                <DialogContent>
+                <DialogContentText>
+                    To subscribe to this website, please enter your email address here. We will send updates
+                    occasionally.
+                </DialogContentText>
+                <TextField
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    label="Email Address"
+                    type="email"
+                    fullWidth
+                />
+                </DialogContent>
+                <DialogActions>
+                <Button onClick={handleDialogClose} color="primary">
+                    Cancel
+                </Button>
+                <Button onClick={handleDialogClose} color="primary">
+                    Subscribe
+                </Button>
+                </DialogActions>
+            </Dialog> 
+        
+        
+        </div>
+
+
+
+
     </div>
   )
 }
