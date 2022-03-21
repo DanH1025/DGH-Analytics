@@ -14,9 +14,7 @@ function App() {
            <Route exact path='/' component={Home} />
            <Route exact path='/addToStock' component={AddProduct} />
         </Switch>
-      </main>
-      
-                 
+      </main>    
     </BrowserRouter>
   );
 }

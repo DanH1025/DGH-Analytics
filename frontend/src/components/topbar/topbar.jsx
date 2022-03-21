@@ -73,30 +73,28 @@ export default function Topbar() {
                 <div className="search">
                     <div className="searchWrapper">
 
-                        <div className="category">
-                           <FormControl variant="outlined" className='searchCategoryForm'>
-                           <InputLabel id="searchcategoryLable">Category</InputLabel>
-                                <Select className='searchCategory'
-                                        labelId='searchCategory-items-lable'
-                                        id='searchCategory-items'
-                                        open={open_category}
-                                        onClose={handleCloseSearchCategory}
-                                        onOpen={handleOpenSearchCategory}
-                                        value={searchCategory}
-                                        onChange={handleSearchCategoryChange}
-                                        >
-                                    <MenuItem value=""><em>None</em></MenuItem>
-                                    <MenuItem value={"television"}>TV</MenuItem>
-                                    <MenuItem value={"smart phone"}>Smart Phone</MenuItem>
-                                    <MenuItem value={"smart watch"}>Smart Watch</MenuItem>
-                                    <MenuItem value={"PC"}>Computer</MenuItem>
-                                    <MenuItem value={"Moniter"}>Moniter</MenuItem>
-                                    <MenuItem value={"play station"}>PS</MenuItem>
-
-                                </Select>
-                           </FormControl>
-
-                        </div>
+            <div className="category">
+               <FormControl variant="outlined" className='searchCategoryForm'>
+               <InputLabel id="searchcategoryLable">Category</InputLabel>
+                    <Select className='searchCategory'
+                            labelId='searchCategory-items-lable'
+                            id='searchCategory-items'
+                            open={open_category}
+                            onClose={handleCloseSearchCategory}
+                            onOpen={handleOpenSearchCategory}
+                            value={searchCategory}
+                            onChange={handleSearchCategoryChange}
+                            >
+                        <MenuItem value=""><em>None</em></MenuItem>
+                        <MenuItem value={"television"}>TV</MenuItem>
+                        <MenuItem value={"smart phone"}>Smart Phone</MenuItem>
+                        <MenuItem value={"smart watch"}>Smart Watch</MenuItem>
+                        <MenuItem value={"PC"}>Computer</MenuItem>
+                        <MenuItem value={"Moniter"}>Moniter</MenuItem>
+                        <MenuItem value={"play station"}>PS</MenuIte
+                    </Select>
+               </FormContro
+            </div>
                         <div className="searchInput">
                            <input  placeholder='Search...'
                            className='searchInputField' type="text" />
