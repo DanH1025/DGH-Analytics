@@ -91,9 +91,9 @@ export default function Topbar() {
                         <MenuItem value={"smart watch"}>Smart Watch</MenuItem>
                         <MenuItem value={"PC"}>Computer</MenuItem>
                         <MenuItem value={"Moniter"}>Moniter</MenuItem>
-                        <MenuItem value={"play station"}>PS</MenuIte
+                        <MenuItem value={"play station"}>PS</MenuItem>
                     </Select>
-               </FormContro
+               </FormControl>
             </div>
                         <div className="searchInput">
                            <input  placeholder='Search...'

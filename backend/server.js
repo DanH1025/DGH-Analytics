@@ -4,7 +4,8 @@ const express = require('express');
 const cors = require('cors');
 const mysql = require('mysql');
 const Product = require('../backend/model/product');
-
+const db = require('./database/dbConn');
+const routes = require('./routes/routes');
 
     // const db = mysql.createConnection({
     //     host:process.env.DATABASE_HOST,
@@ -20,34 +21,7 @@ app.use(express.json()); // allows to recieve data with json format from our req
 app.use(bodyParser.urlencoded({extended: true})); 
 app.use(cors()); 
 
-
-app.get('/' , (req,res)=>{
-    res.send("this is the home url /");
-})
-
-
-app.post('/api/addToStock' , (req, res)=>{
-    const {productName,productPrice,productBrand,productCategory,productDetail,productImg} = req.body;
-
-    const prod = new Product(productName,productPrice,productBrand,productCategory,productDetail,productImg);
-
-    prod.save();
-    // const sqlInsert = 
-    // "INSERT INTO product (product_name,product_detail,product_price,product_category,product_brand,product_img) VALUES (?,?,?,?,?,?)"
-    // db.query(sqlInsert, [productName,productDetail,productPrice,productCategory,productBrand,productImg,] , (error,results)=>{
-        
-    // })
-})
-
-app.get('/api/getAllProducts', async(req,res)=>{
-    console.log('in appi get product');
-    const [product, metaData] = await Product.fetchAll();
-    console.log(product);
-    // const sqlGet= "SELECT * FROM product";
-    // db.query(sqlGet, (error,resutls)=>{
-        res.send(product);
-    // })
-})
+app.use('/api', routes);
 
 
 const PORT = process.env.PORT || 5000

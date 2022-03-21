@@ -20,9 +20,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 
-
-
-
 const useStyles = makeStyles((theme) => ({
     root: {
       maxWidth: 300,
@@ -35,42 +32,45 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ProductCard({productId, name,price , brand, imageUrl}) {
 
-    const classes = useStyles(); 
-    
+  const classes = useStyles(); 
+  console.log('in product card');
   return (
-    <div className='productCard'>
-      <div className="productCardWrapper">
-        <h3 productCardTitle>Our Products</h3>
-        <div className="cardView">
-          <Card className='card'>
-          <CardMedia
-            className="cardImg"
-            image={imageUrl} alt={name}
-            title="device"
-          />
-          <CardContent>
-            <Typography variant='body2' color='textSecondary' component='p'>
-              {name}
-            </Typography>
-            <Typography variant='body2' color='textSecondary' component='p'>
-              {brand}
-            </Typography>
-            <Typography variant='body2' color='textSecondary' component='p'>
-              {price} 
-            </Typography>
-          </CardContent>
-          <CardActions disableSpacing>
-            <IconButton aria-label="add to favorites">
-              <FavoriteIcon />
-            </IconButton>
-            <IconButton aria-label="share">
-              <ShareIcon />
-            </IconButton>
-            <button className='viewItemDetail'>View</button>                        
-          </CardActions>   
-          </Card>
-        </div>
-      </div>    
+    <div>
+      <h1>{name}</h1>
     </div>
+    // <div className='productCard'>
+    //   <div className="productCardWrapper">
+    //     <h3 productCardTitle>Our Products</h3>
+    //     <div className="cardView">
+    //       <Card className='card'>
+    //       <CardMedia
+    //         className="cardImg"
+    //         image={imageUrl} alt={name}
+    //         title="device"
+    //       />
+    //       <CardContent>
+    //         <Typography variant='body2' color='textSecondary' component='p'>
+    //           {name}
+    //         </Typography>
+    //         <Typography variant='body2' color='textSecondary' component='p'>
+    //           {brand}
+    //         </Typography>
+    //         <Typography variant='body2' color='textSecondary' component='p'>
+    //           {price} 
+    //         </Typography>
+    //       </CardContent>
+    //       <CardActions disableSpacing>
+    //         <IconButton aria-label="add to favorites">
+    //           <FavoriteIcon />
+    //         </IconButton>
+    //         <IconButton aria-label="share">
+    //           <ShareIcon />
+    //         </IconButton>
+    //         <button className='viewItemDetail'>View</button>                        
+    //       </CardActions>   
+    //       </Card>
+    //     </div>
+    //   </div>    
+    // </div>
   );
 }

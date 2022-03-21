@@ -45,16 +45,20 @@ export default function Home() {
         <div className='homeScreen_products'>
         {/* {loading? <h3>Loading ...</h3>: error? <h3>{error}</h3>: products.map(product =>(
         ))} */}
-        {console.log(productList)}
+        {console.log('in home'+ productList)}
         {productList.map((product) => { 
+          <div>
+            <h1>some thing please</h1>
+          </div>
+          console.log('product' + product.productName);
           <ProductCard className="productList"
             key={product.id}
-            productId={product.productID}
-            name={product.product_name}
-            price={product.product_price}
-            imageUrl={product.product_img}
-            brand={product.product_brand}          
-          />
+            productId={product.id}
+            name={product.productName}
+            price={product.productPrice}
+            imageUrl={product.productImg}
+            brand={product.productBrand}          
+            />
         })}
 
         </div>
