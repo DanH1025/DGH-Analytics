@@ -1,5 +1,5 @@
 const ProductModel = require('../model/product');
-const async = require('hbs/lib/async');
+// const async = require('hbs/lib/async');
 
 const addProduct = (req, res) => {
   const {productName,productPrice,productBrand,productCategory,productDetail,productImg} = req.body;
@@ -26,6 +26,11 @@ const getProductsByCatagory = async(req,res) => {
     res.send(product);
   
 }
+
+
+
+
+
 
 module.exports = {
 	getProducts,

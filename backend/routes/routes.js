@@ -12,4 +12,7 @@ router.post('/addToStock' , addProduct);
 router.get('/getAllProducts', getProducts);
 router.post('/getProductsByCategory', getProductsByCatagory);
 
+
+
+
 module.exports = router;

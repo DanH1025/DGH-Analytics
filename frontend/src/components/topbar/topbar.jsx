@@ -199,7 +199,7 @@ export default function Topbar() {
                     </Select>
                   </FormControl>
                     </div>
-                    {/* <div className="bottomTopbar-right">
+                    <div className="bottomTopbar-right">
                     <ul className='lowerSelection'>
                         <Link to='/'>
                             <li className='lowerSelectionItem'>Home</li>
@@ -211,7 +211,7 @@ export default function Topbar() {
                             <li className='lowerSelectionItem'>Contact Us</li>
                         </Link>                        
                     </ul>
-                    </div> */}
+                    </div>
                   
                 </div>
             </div>

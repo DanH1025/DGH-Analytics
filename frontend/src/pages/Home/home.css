@@ -25,7 +25,7 @@ body {
 
 .productHolder {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   margin: 10px 10px;
   padding: 20px;
 }
@@ -35,7 +35,4 @@ body {
   width: 100%;
   margin: 10px;
   padding: 0;
-}
-
-.items .productHolder {
 }

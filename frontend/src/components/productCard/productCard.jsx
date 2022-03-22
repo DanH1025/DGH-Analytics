@@ -1,6 +1,6 @@
 import React from 'react'
 import './productCard.css'
-
+import {Link} from 'react-router-dom';
 //import for the card view
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
@@ -33,20 +33,22 @@ const useStyles = makeStyles((theme) => ({
     },    
   }));
 
+
 export default function ProductCard( props ) {
 
   const classes = useStyles(); 
-  console.log(props.imageUrl);
+  console.log(props);
   return (
     <div className='productCard'>
       <div className="productCardWrapper">
         <div className="cardView">
-          <Card className='card'>
-            <CardMedia
+          <Card className='card' >
+            <Link to={`/productDetails/:${props.productId}`}>
+            <CardMedia 
               className="cardImg"
               image={props.imageUrl} alt={props.name}
               title="device"
-            />
+            /></Link>
             <CardContent>
               <Typography variant='body2' color='textSecondary' component='p'>
                   {props.name}
@@ -65,9 +67,7 @@ export default function ProductCard( props ) {
               <IconButton aria-label="share">
                 <ShareIcon />
               </IconButton>
-              <button className='viewItemDetail'>
-                View
-              </button>                        
+                                    
             </CardActions>   
           </Card>
         </div>
