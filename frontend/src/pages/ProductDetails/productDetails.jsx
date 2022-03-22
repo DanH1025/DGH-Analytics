@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './productDetails.css'
 import Topbar from '../../components/topbar/topbar'
 import Footer from '../../components/footer/footer'
@@ -11,8 +11,30 @@ import AddShoppingCartOutlinedIcon from '@material-ui/icons/AddShoppingCartOutli
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 import { useState } from 'react';
 
-export default function ProductDetails() {
+import { useDispatch, useSelector } from 'react-redux';
+import { getProductsById } from '../../redux/actions/productActions';
 
+export default function ProductDetails({ match }) {
+    const id = match.params.id;
+    console.log('id = ' + id);
+    const dispatch = useDispatch();
+    let product = [];
+    useEffect(() => {
+        dispatch(getProductsById(id));
+    }, [dispatch]);
+    
+	const produc = useSelector((state) => state.getProductsDetail.products);
+    // console.log(produc[0]['id']);
+    // const product = produc[0];
+    // console.log(product);
+    // console.log(product[0]);
+
+    // console.log({...produc[0], id});
+    {produc.map((pro) => {
+        product = pro;
+        console.log(product);
+	})}
+    console.log(product.productImg);
     
     //handler state change in qty 
     const [qtyCounter , setQtyCounter] = useState(1);
@@ -34,8 +56,6 @@ export default function ProductDetails() {
         setQtyCounter( qtyCounter + 1);
     }
 
-
-
   return (
      <> 
      <Topbar/>
@@ -46,24 +66,24 @@ export default function ProductDetails() {
                 </div>
                 <div className="productDetailContainer">
                     <div className="productImgHolder">
-                            <img src="http://bigone4.demo.towerthemes.com/image/cache/catalog/category%20thumb/smartphone-170x151.jpg" alt="ProductName" />
+                            <img src={product.productImg} />
                     </div>
                     <div className="productInfoHolder">
                         <div className="productNameHolder">
-                            <p>Product Name</p>
+                            <p>{product.productName}</p>
                         </div>
                         <div className="productRatingHolder">
                             <span>Ratting starts</span>
                         </div>
                         <div className="productPriceHolder">
                             
-                            <p>$ Price</p>    
+                            <p>$ {product.productPrice}</p>    
                         </div>
                         <div className="productDescription">
-                            <span>Product Description information goes here</span>
+                            <span>{product.productDetail}</span>
                         </div>
                         <div className="productBrand_availablity">
-                           <span>Product Brand  product Availability</span>
+                           <span>{product.productBrand}  product Availability</span>
                         </div>
                        
                         <div className="addingToCart">
@@ -98,7 +118,7 @@ export default function ProductDetails() {
                 </div>
             </div>
         </div>
-
+    
         <Footer/>
     </>
   )
