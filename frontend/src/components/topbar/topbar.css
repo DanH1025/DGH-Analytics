@@ -201,6 +201,10 @@
     text-decoration: none;
     color: white;
 }
+.cart span{
+    color: white;
+}
+
 
 .bottomTobbarWrapper{
     display: flex;
