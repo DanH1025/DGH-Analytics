@@ -24,6 +24,50 @@ export const getProducts = () => async (dispatch)=>{
     }
 };
 
+export const getProductsByCategory = (catagory) => async (dispatch)=>{
+    console.log('in actioning: ' + catagory);
+    try {
+        dispatch({
+            type: actionType.GET_PRODUCTS_BY_CATEGORY_REQUEST,
+        });
+        const {data} = await api.fetchProductsByCategory(catagory);
+        
+        dispatch({
+            type: actionType.GET_PRODUCTS_BY_CATEGORY_SUCCESS,
+            payload: data,
+        }); 
+    } catch (error) {
+        dispatch({
+            type:actionType.GET_PRODUCTS_BY_CATEGORY_FAIL,
+            payload: 
+                error.response && error.response.data.message 
+                ?error.response.data.message:error.message,
+        });
+    }
+};
+
+export const createProduct = (product) => async (dispatch) => {
+	try{
+        dispatch({
+            type: actionType.CREATE_PRODUCTS_REQUEST,
+        });
+		const { data } = await  api.createProduct(product);
+		
+		dispatch({ 
+            type: actionType.CREATE_PRODUCTS_SUCCESS, 
+            payload: data 
+        });
+	} catch (error) {
+		dispatch({
+            type:actionType.CREATE_PRODUCTS_FAIL,
+            payload: 
+                error.response && error.response.data.message 
+                ?error.response.data.message:error.message,
+        });
+	}
+};
+
+
 // export const getProductsDetails = (id) => async (dispatch)=>{
 //     try {
 //         dispatch({
@@ -54,26 +98,26 @@ export const getProducts = () => async (dispatch)=>{
 
 
 
-export const createProduct = (product) => async (dispatch) => {
-	try{
-        dispatch({
-            type: actionType.CREATE_PRODUCTS_REQUEST,
-        });
-		const { data } = await  api.createProduct(product);
+// export const createProduct = (product) => async (dispatch) => {
+// 	try{
+//         dispatch({
+//             type: actionType.CREATE_PRODUCTS_REQUEST,
+//         });
+// 		const { data } = await  api.createProduct(product);
 		
-		dispatch({ 
-            type: actionType.CREATE_PRODUCTS_SUCCESS, 
-            payload: data 
-        });
-	} catch (error) {
-		dispatch({
-            type:actionType.CREATE_PRODUCTS_FAIL,
-            payload: 
-                error.response && error.response.data.message 
-                ?error.response.data.message:error.message,
-        });
-	}
-};
+// 		dispatch({ 
+//             type: actionType.CREATE_PRODUCTS_SUCCESS, 
+//             payload: data 
+//         });
+// 	} catch (error) {
+// 		dispatch({
+//             type:actionType.CREATE_PRODUCTS_FAIL,
+//             payload: 
+//                 error.response && error.response.data.message 
+//                 ?error.response.data.message:error.message,
+//         });
+// 	}
+// };
 
 
 

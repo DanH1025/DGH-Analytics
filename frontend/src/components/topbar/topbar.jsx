@@ -21,6 +21,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { getProducts, getProductsByCategory } from '../../redux/actions/productActions';
+
 
 import SettingsIcon from '@material-ui/icons/Settings';
 
@@ -31,6 +34,8 @@ export default function Topbar() {
     const [open_category ,  setOpen_category] = React.useState(false);//open and close the select option for search 
     const [open_allCategories, setOpen_allCategories] = React.useState(false);//open and close the select option for all
     
+		const dispatch = useDispatch();
+
     // to handle the changes on the search catagory option
     const handleSearchCategoryChange = (event)=>{
         setSearchCategory(event.target.value);
@@ -46,6 +51,12 @@ export default function Topbar() {
     //to handle the changes on all the catagories changing on the home page
     const handleChange = (event) => {
       setAllCategory(event.target.value);
+			console.log('in top bar' + event.target.value);
+			if(event.target.value === ''){
+				dispatch(getProducts());
+			}else{
+				dispatch(getProductsByCategory(event.target.value));
+			}
     };
     
     //to handle when all category option closes
@@ -85,103 +96,108 @@ export default function Topbar() {
   return (
     <div className='topbar'>
         <div className="topbarWrapper">
-            <div className="upperTopbar">
-                <div className="upperTopbar_left">
-                    <div className="currency">
-                         Currency: ETB 
-                    </div>
-                </div>
-                <div className="upperTopbar_right">
-                    <div className='orderNowInfo'>
-                        <Phone className='upperTopbarIcon' /> Order Now , Shipped Today - Support:(+251)935123440
-                    </div>|
-                    <div className='trackOrder'>
-                        <EventNote className='upperTopbarIcon' /> <a href='#'>Track Your Order</a> 
-                    </div>|
-                    <div className='signUp' onClick={handleClickOpenLogin}>
-                        <SettingsIcon/> Setting
-                    </div>
-                  
-                </div>
-            </div>
+          <div className="upperTopbar">
+            <div className="upperTopbar_left">
+              <div className="currency">
+							Currency: ETB 
+            	</div>
+          	</div>
+          	<div className="upperTopbar_right">
+          	  <div className='orderNowInfo'>
+								<Phone className='upperTopbarIcon' /> Order Now , Shipped Today - Support:(+251)935123440
+          	  </div>|
+          	  <div className='trackOrder'>
+								<EventNote className='upperTopbarIcon' /> <a href='#'>Track Your Order</a> 
+          	  </div>|
+          	  <div className='signUp' onClick={handleClickOpenLogin}>
+								<SettingsIcon/> Setting
+          	  </div>               
+          	</div>
+          </div>
             <hr className='bnUM' />
             <div className="middleTopbar">
-                <div className="search">
-                    <div className="searchWrapper">
-
-                        <div className="category">
-                           <FormControl variant="outlined" className='searchCategoryForm'>
-                           <InputLabel id="searchcategoryLable"><h4 className="searchCategoryLable">Category</h4></InputLabel>
-                                <Select className='searchCategory'
-                                        labelId='searchCategory-items-lable'
-                                        id='searchCategory-items'
-                                        open={open_category}
-                                        onClose={handleCloseSearchCategory}
-                                        onOpen={handleOpenSearchCategory}
-                                        value={searchCategory}
-                                        onChange={handleSearchCategoryChange}
-                                        >
-                                    <MenuItem value=""><em>None</em></MenuItem>
-                                    <MenuItem value={"television"}>TV</MenuItem>
-                                    <MenuItem value={"smart phone"}>Smart Phone</MenuItem>
-                                    <MenuItem value={"smart watch"}>Smart Watch</MenuItem>
-                                    <MenuItem value={"PC"}>Computer</MenuItem>
-                                    <MenuItem value={"Moniter"}>Moniter</MenuItem>
-                                    <MenuItem value={"play station"}>PS</MenuItem>
-
-                                </Select>
-                           </FormControl>
-
-                        </div>
-                        <div className="searchInput">
-                           <input  placeholder='Search...'
-                           className='searchInputField' type="text" />
-                        </div>
-                    </div>
-                    <div className="searchbtn">
-                        <Search className='middleTopbarSearchIcon' fontSize='large'/>
-                    </div>
-                     
-                </div>
-                <div className="infos">
-                        <div className='wishlist'>
-                            <FavoriteBorderOutlined/>
-                        </div>
-                        <div className="cart">
-                            <Link to='/cart'>
-                               <ShoppingCartOutlined className='cartIcon' />
-                            </Link>
-                            
-                        </div>
-                </div>
+              <div className="search">
+                <div className="searchWrapper">
+                	<div className="category">
+										<FormControl variant="outlined" className='searchCategoryForm'>
+										<InputLabel id="searchcategoryLable"><h4 className="searchCategoryLable">Category</h4></InputLabel>
+										<Select className='searchCategory'
+											labelId='searchCategory-items-lable'
+											id='searchCategory-items'
+                	    open={open_category}
+                	    onClose={handleCloseSearchCategory}
+                	    onOpen={handleOpenSearchCategory}
+                	    value={searchCategory}
+                	    onChange={handleSearchCategoryChange}
+                	    >
+                	      <MenuItem value=""><em>
+													None</em></MenuItem>
+                	      <MenuItem value={"television"}>
+													TV</MenuItem>
+                	      <MenuItem value={"smart phone"}>
+													Smart Phone</MenuItem>
+                	      <MenuItem value={"smart watch"}>
+													Smart Watch</MenuItem>
+                	      <MenuItem value={"PC"}>
+													Computer</MenuItem>
+                	      <MenuItem value={"Moniter"}>
+													Moniter</MenuItem>
+                	      <MenuItem value={"play station"}>
+													PS</MenuItem>
+                	  	</Select>
+                	  </FormControl>
+                	</div>
+								<div className="searchInput">
+									<input  placeholder='Search...'
+										className='searchInputField' type="text" />
+								</div>
+							</div>
+              <div className="searchbtn">
+								<Search className='middleTopbarSearchIcon' fontSize='large'/>
+              </div>
             </div>
+            <div className="infos">
+              <div className='wishlist'>
+								<FavoriteBorderOutlined/>
+              </div>
+              <div className="cart">
+								<Link to='/cart'>
+									<ShoppingCartOutlined className='cartIcon' />
+								</Link>  
+              </div>
+            </div>
+          </div>
          
             <div className="bottomTopbar">
-                <div className="bottomTobbarWrapper">
-
-                    <div className="bottomTopbar-left">
-                    <FormControl className='allCategorySelection'>
-                        <InputLabel id="allCategorySelection"><h3 className='allCategoryLable'>All Categories</h3></InputLabel>
-                            <Select className='allcategory'
-                                labelId="allCategorySelection-items-lable"
-                                id="allCategorySelection-items"
-                                open={open_allCategories}
-                                onClose={handleClose}
-                                onOpen={handleOpen}
-                                value={Allcategory}
-                                onChange={handleChange}
-                                >
-                                <MenuItem value="">
-                                    <em>None</em>
-                                </MenuItem>
-                                <MenuItem value={"television"}>TV</MenuItem>
-                                <MenuItem value={"smart phone"}>Smart Phone</MenuItem>
-                                <MenuItem value={"smart watch"}>Smart Watch</MenuItem>
-                                <MenuItem value={"PC"}>Computer</MenuItem>
-                                <MenuItem value={"Moniter"}>Moniter</MenuItem>
-                                <MenuItem value={"play station"}>PS</MenuItem>
-                            </Select>
-                    </FormControl>
+							<div className="bottomTobbarWrapper">
+								<div className="bottomTopbar-left">
+									<FormControl className='allCategorySelection'>
+										<InputLabel id="allCategorySelection"><h3 className='allCategoryLable'>All Categories</h3></InputLabel>
+										<Select className='allcategory'
+											labelId="allCategorySelection-items-lable"
+                      id="allCategorySelection-items"
+                      open={open_allCategories}
+                      onClose={handleClose}
+                      onOpen={handleOpen}
+                      value={Allcategory}
+                      onChange={handleChange}>
+                        <MenuItem value="">
+                            <em>None</em>
+                        </MenuItem>
+                        <MenuItem value={"television"}>
+													TV</MenuItem>
+                        <MenuItem value={"smart phone"}>
+													Smart Phone</MenuItem>
+                        <MenuItem value={"smart watch"}>
+													Smart Watch</MenuItem>
+                        <MenuItem value={"PC"}>
+													Computer</MenuItem>
+                        <MenuItem value={"Moniter"}>
+													Moniter</MenuItem>
+                        <MenuItem value={"play station"}>
+													PS</MenuItem>
+                    </Select>
+                  </FormControl>
                     </div>
                     <div className="bottomTopbar-right">
                     <ul className='lowerSelection'>
