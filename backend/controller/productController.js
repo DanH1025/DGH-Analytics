@@ -15,6 +15,7 @@ const getProducts = async(req,res) => {
   console.log(product);
   res.send(product);
 }
+
 const getProductsByCatagory = async(req,res) => {
   console.log('in get product by catagory');
   console.log(req.body.category);
@@ -24,16 +25,22 @@ const getProductsByCatagory = async(req,res) => {
   const [product, metaData] = await ProductModel.fetchByCategory(catagory);
   console.log(product);
     res.send(product);
-  
 }
 
-
-
-
+const getProductsById = async(req,res) => {
+  console.log('in get product by id');
+  const id= req.body.id;
+  console.log('cat: ' + id);
+  console.log('in appi get product id');
+  const [product, metaData] = await ProductModel.findById(id);
+  console.log(product);
+    res.send(product);
+}
 
 
 module.exports = {
 	getProducts,
 	addProduct,
   getProductsByCatagory,
+  getProductsById,
 };

@@ -46,6 +46,10 @@ module.exports = class Request {
       console.log(err);
     }
   }
+  
+  static findById(id) {
+    return db.execute('SELECT * FROM product WHERE product.id = ?', [id]);
+  }
 
   // static fetchNew() {
   //   try{
@@ -64,10 +68,6 @@ module.exports = class Request {
   //   }catch(err){
   //     console.log(err);
   //   }
-  // }
-
-  // static findById(id) {
-  //   return db.execute('SELECT * FROM requests WHERE requests.id = ?', [id]);
   // }
 
   // static fetchType() {

@@ -20,9 +20,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 
-
-
-
 const useStyles = makeStyles((theme) => ({
     root: {
       maxWidth: 300,
@@ -43,7 +40,7 @@ export default function ProductCard( props ) {
       <div className="productCardWrapper">
         <div className="cardView">
           <Card className='card' >
-            <Link to={`/productDetails/:${props.productId}`}>
+            <Link to={`/productDetails/${props.productId}`}>
             <CardMedia 
               className="cardImg"
               image={props.imageUrl} alt={props.name}
