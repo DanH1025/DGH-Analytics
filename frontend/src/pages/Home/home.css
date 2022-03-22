@@ -1,8 +1,38 @@
-.homeScreen_products {
-  display: grid;
-  grid-template-columns: auto auto auto auto;
-  justify-content: space-between;
+*{
+  padding: 0;
+  margin: 0;
 }
 
-.homeScreen_products .items {
+body{
+  margin: 0;
+  padding: 0;
+}
+.homeScreen_products{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.homeScreen_products h3{
+  font-size: 20px;
+  font-weight: bold;
+  color: rgb(66, 47, 47);
+  padding: 0;
+  margin: 10px 20px;
+}
+
+.productHolder{
+  display: grid;
+  grid-template-columns: repeat(6,1fr);
+  margin: 10px 10px;
+  padding: 20px;
+}
+
+.items{
+  display: flex;
+  width: 100%;
+  margin: 10px;
+  padding: 0;
 }

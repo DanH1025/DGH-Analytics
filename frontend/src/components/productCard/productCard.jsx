@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ProductCard( props ) {
 
   const classes = useStyles(); 
-  console.log(props.imageUrl);
+  console.log(props);
   return (
     <div className='productCard'>
       <div className="productCardWrapper">

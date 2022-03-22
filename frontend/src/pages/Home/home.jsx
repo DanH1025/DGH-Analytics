@@ -48,24 +48,30 @@ export default function Home() {
         {/* {console.log('in home'+ productList)}
         {console.log(products)} */}
         <h3 productCardTitle>Our Products</h3>
-        {
-          !products.length ? <div></div> : (
-            products.map((val, key) => {
-              console.log(val.product_img);
-              return (
-                <div className="items">
-                  <ProductCard 
-                    productId={val.id}
-                    name={val.productName}
-                    price={val.productPrice}
-                    imageUrl={val.productImg}
-                    brand={val.productBrand} 
-                    />
-                </div>
+
+        <div className="productHolder">
+            {
+              !products.length ? <div></div> : (
+                products.map((val, key) => {
+                  console.log(val);
+                  return (
+                    <div className='items'>
+                    
+                      <ProductCard 
+                        productId={val.id}
+                        name={val.product_name}
+                        price={val.product_price}
+                        imageUrl={val.product_img}
+                        brand={val.product_brand} 
+                        />
+
+                    </div>
+                    
+                  )
+                }) 
               )
-            }) 
-          )
-        }
+            }
+        </div>
       </div>
       <ContactUs />
       <Footer />
