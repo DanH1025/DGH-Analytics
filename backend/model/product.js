@@ -28,6 +28,7 @@ module.exports = class Request {
       console.log(err);
     }
   }
+ 
   // static fetchNew() {
   //   try{
   //      const result =db.execute('SELECT * FROM product WHERE requests.status = "pending"');
