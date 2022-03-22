@@ -7,21 +7,23 @@ import AddProduct from './pages/AddProduct/addProduct';
 import Cart from './pages/Cart/cart';
 import Checkout from './pages/Checkout/checkout';
 
+import { Provider } from 'react-redux'
+import store from './redux/store';
 
 function App() {
   return (
-    <BrowserRouter>
-      <main>
-        <Switch>
-           <Route exact path='/' component={Home} />
-           <Route exact path='/addToStock' component={AddProduct} />
-           <Route exact path='/cart' component={Cart} />
-           <Route exact path='/checking' component={Checkout}/>
-        </Switch>
-      </main>
-      
-                 
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <main>
+          <Switch>
+             <Route exact path='/' component={Home} />
+             <Route exact path='/addToStock' component={AddProduct} />
+             <Route exact path='/cart' component={Cart} />
+             <Route exact path='/checking' component={Checkout}/>
+          </Switch>
+        </main>
+      </BrowserRouter>
+    </Provider>
   );
 }
 
