@@ -11,7 +11,7 @@ router.post('/addToStock' , addProduct);
 
 router.get('/getAllProducts', getProducts);
 
-
+// router.get('getProductDetail/${id}' , getProductDetail)
 
 
 module.exports = router;

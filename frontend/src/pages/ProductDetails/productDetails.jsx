@@ -9,7 +9,10 @@ import IconButton from '@material-ui/core/IconButton';
 import { Button } from '@material-ui/core';
 import AddShoppingCartOutlinedIcon from '@material-ui/icons/AddShoppingCartOutlined';
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
+
+import { getProductsDetails } from '../../redux/actions/productActions';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function ProductDetails() {
 
@@ -34,7 +37,7 @@ export default function ProductDetails() {
         setQtyCounter( qtyCounter + 1);
     }
 
-
+  
 
   return (
      <> 
