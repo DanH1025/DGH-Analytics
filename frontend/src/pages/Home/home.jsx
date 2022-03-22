@@ -51,7 +51,7 @@ export default function Home() {
         {
           !products.length ? <div></div> : (
             products.map((val, key) => {
-              console.log(val.product_img);
+              // console.log(val.productImg);
               return (
                 <div className="items">
                   <ProductCard 

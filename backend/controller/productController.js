@@ -7,24 +7,28 @@ const addProduct = (req, res) => {
   const prod = new ProductModel(productName,productPrice,productBrand,productCategory,productDetail,productImg);
 
   prod.save();
-  // const sqlInsert = 
-  // "INSERT INTO product (product_name,product_detail,product_price,product_category,product_brand,product_img) VALUES (?,?,?,?,?,?)"
-  // db.query(sqlInsert, [productName,productDetail,productPrice,productCategory,productBrand,productImg,] , (error,results)=>{
-      
-  // })
 }
 
 const getProducts = async(req,res) => {
   console.log('in appi get product');
   const [product, metaData] = await ProductModel.fetchAll();
   console.log(product);
-  // const sqlGet= "SELECT * FROM product";
-  // db.query(sqlGet, (error,resutls)=>{
-      res.send(product);
-  // })
+  res.send(product);
+}
+const getProductsByCatagory = async(req,res) => {
+  console.log('in get product by catagory');
+  console.log(req.body.category);
+  const catagory= req.body.category;
+  console.log('cat: ' + catagory);
+  console.log('in appi get product catagory');
+  const [product, metaData] = await ProductModel.fetchByCategory(catagory);
+  console.log(product);
+    res.send(product);
+  
 }
 
 module.exports = {
 	getProducts,
 	addProduct,
+  getProductsByCatagory,
 };

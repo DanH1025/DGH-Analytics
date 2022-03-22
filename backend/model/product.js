@@ -28,6 +28,25 @@ module.exports = class Request {
       console.log(err);
     }
   }
+
+  static fetchSearch(name) {
+    try{
+       const result =db.execute('SELECT * FROM product WHERE product.productName = ?', [name]);
+       return result;
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+  static fetchByCategory(name) {
+    try{
+       const result =db.execute('SELECT * FROM product WHERE product.productCategory = ?', [name]);
+       return result;
+    }catch(err){
+      console.log(err);
+    }
+  }
+
   // static fetchNew() {
   //   try{
   //      const result =db.execute('SELECT * FROM product WHERE requests.status = "pending"');
@@ -37,14 +56,7 @@ module.exports = class Request {
   //   }
   // }
 
-  // static fetchSearch(name) {
-  //   try{
-  //      const result =db.execute('SELECT * FROM requests WHERE requests.mineral_name = ?', [name]);
-  //      return result;
-  //   }catch(err){
-  //     console.log(err);
-  //   }
-  // }
+
   // static fetchSearchLicense(name) {
   //   try{
   //      const result =db.execute('SELECT * FROM requests WHERE requests.License_number = ?', [name]);

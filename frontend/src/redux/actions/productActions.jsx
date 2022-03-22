@@ -24,6 +24,28 @@ export const getProducts = () => async (dispatch)=>{
     }
 };
 
+export const getProductsByCategory = (catagory) => async (dispatch)=>{
+    console.log('in actioning: ' + catagory);
+    try {
+        dispatch({
+            type: actionType.GET_PRODUCTS_BY_CATEGORY_REQUEST,
+        });
+        const {data} = await api.fetchProductsByCategory(catagory);
+        
+        dispatch({
+            type: actionType.GET_PRODUCTS_BY_CATEGORY_SUCCESS,
+            payload: data,
+        }); 
+    } catch (error) {
+        dispatch({
+            type:actionType.GET_PRODUCTS_BY_CATEGORY_FAIL,
+            payload: 
+                error.response && error.response.data.message 
+                ?error.response.data.message:error.message,
+        });
+    }
+};
+
 export const createProduct = (product) => async (dispatch) => {
 	try{
         dispatch({
