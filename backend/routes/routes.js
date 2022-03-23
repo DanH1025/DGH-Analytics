@@ -14,7 +14,7 @@ router.post('/getProductsByCategory', getProductsByCatagory);
 router.post('/getProductsById', getProductsById);
 router.post('/getProductsBySearch', getProductsBySearch);
 
-
+// router.get('getProductDetail/${id}' , getProductDetail)
 
 
 module.exports = router;

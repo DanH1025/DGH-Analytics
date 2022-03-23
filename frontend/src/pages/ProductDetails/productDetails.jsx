@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react'
 import './productDetails.css'
 import Topbar from '../../components/topbar/topbar'
 import Footer from '../../components/footer/footer'
@@ -9,14 +8,18 @@ import IconButton from '@material-ui/core/IconButton';
 import { Button } from '@material-ui/core';
 import AddShoppingCartOutlinedIcon from '@material-ui/icons/AddShoppingCartOutlined';
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 
+import { getProductsDetails } from '../../redux/actions/productActions';
 import { useDispatch, useSelector } from 'react-redux';
+import { addToCart } from '../../redux/actions/cartActions';
+
 import { getProductsById } from '../../redux/actions/productActions';
 
-export default function ProductDetails({ match }) {
+export default function ProductDetails({ match, history }) {
+
     const id = match.params.id;
-    console.log('id = ' + id);
+    // console.log('id = ' + id);
     const dispatch = useDispatch();
     let product = [];
     
@@ -36,7 +39,7 @@ export default function ProductDetails({ match }) {
         product = pro;
         console.log(product);
 	})}
-    console.log(product.productImg);
+    // console.log({...product[0].id});
     
     //handler state change in qty 
     const [qtyCounter , setQtyCounter] = useState(1);
@@ -55,8 +58,26 @@ export default function ProductDetails({ match }) {
     //increase the value if qty
     // add counter should only go as far as the ammount in stock , check validity
     const handlePlusQty =()=>{
-        setQtyCounter( qtyCounter + 1);
+        if(qtyCounter >= product.countInStock){
+            alert("Maximum amount of product Available is:" + qtyCounter);
+        }
+        else{
+            setQtyCounter( qtyCounter + 1);
+        }
     }
+
+    //adding to cart
+    const addToCartHandler = () =>{
+        if(product.countInStock === 0){
+            alert("Product Not Available");
+        }else{
+
+            dispatch(addToCart(product.id , qtyCounter));
+            history.push('/cart');
+        }
+
+    }
+
 
   return (
      <> 
@@ -84,9 +105,14 @@ export default function ProductDetails({ match }) {
                         <div className="productDescription">
                             <span>{product.productDetail}</span>
                         </div>
-                        <div className="productBrand_availablity">
-                           <span>{product.productBrand}  product Availability</span>
+                        <div className="productBrand">
+                           <span>{product.productBrand}</span> <br />
+                          
                         </div>
+                        <div className="productStatus">
+                            <span>Status:    <p> {product.countInStock > 0? "In Stock" : "Product Not In Stock"}</p></span>
+                        </div>
+
                        
                         <div className="addingToCart">
 
@@ -103,7 +129,7 @@ export default function ProductDetails({ match }) {
                             </div>
 
                             <div className="addToCartBtnHolder">
-                                <Button variant="outlined" className='add_to_cart_btn'>
+                                <Button variant="outlined" className='add_to_cart_btn' onClick={addToCartHandler}>
                                    <AddShoppingCartOutlinedIcon/>  Add To Cart
                                 </Button>
                                 

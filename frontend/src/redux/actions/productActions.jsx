@@ -119,7 +119,7 @@ export const createProduct = (product) => async (dispatch) => {
 //         dispatch({
 //             type: actionType.GET_PRODUCT_DETAILS_REQUEST,
 //         });
-//         const {data} = await axios.get(`/api/products/${id}`);
+//         const {data} = await axios.get(`/api/getProductDetail/${id}`);
         
 //         dispatch({
 //             type: actionType.GET_PRODUCT_DETAILS_SUCCESS,
@@ -137,6 +137,36 @@ export const createProduct = (product) => async (dispatch) => {
         
 //     }
 // };
+
+
+
+
+
+
+
+// export const createProduct = (product) => async (dispatch) => {
+// 	try{
+//         dispatch({
+//             type: actionType.CREATE_PRODUCTS_REQUEST,
+//         });
+// 		const { data } = await  api.createProduct(product);
+		
+// 		dispatch({ 
+//             type: actionType.CREATE_PRODUCTS_SUCCESS, 
+//             payload: data 
+//         });
+// 	} catch (error) {
+// 		dispatch({
+//             type:actionType.CREATE_PRODUCTS_FAIL,
+//             payload: 
+//                 error.response && error.response.data.message 
+//                 ?error.response.data.message:error.message,
+//         });
+// 	}
+// };
+
+
+
 
 // export const removeProductDetails = ()=> (dispatch)=>{
 //     dispatch({

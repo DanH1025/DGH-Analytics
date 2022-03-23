@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './topbar.css'
 import {Link} from 'react-router-dom'
 import {Phone, EventNote,Search,ShoppingCartOutlined, FavoriteBorderOutlined } from '@material-ui/icons'
@@ -99,8 +99,14 @@ export default function Topbar() {
     };
 
 
+    //track cart and wishlist span numbers 
+    const cart = useSelector(state => state.cart);
+    const {cartItems} = cart;
 
-
+    //get the cart counter value for the cart icon
+    const getCartCount = ()=>{
+      return cartItems.reduce((qtyCounter, item)=> qtyCounter + Number(item.qtyCounter) ,0)
+    }
 
    
   return (
@@ -184,11 +190,11 @@ export default function Topbar() {
             </div>
             <div className="infos">
               <div className='wishlist'>
-								<FavoriteBorderOutlined/>
+								<FavoriteBorderOutlined/> <span>0</span>
               </div>
               <div className="cart">
 								<Link to='/cart'>
-									<ShoppingCartOutlined className='cartIcon' />
+									<ShoppingCartOutlined className='cartIcon' /> <span>{getCartCount()}</span>
 								</Link>  
               </div>
             </div>

@@ -33,7 +33,7 @@ const getProductsById = async(req,res) => {
   console.log('cat: ' + id);
   console.log('in appi get product id');
   const [product, metaData] = await ProductModel.findById(id);
-  console.log(product);
+  // console.log(product);
     res.send(product);
 }
 
@@ -60,6 +60,8 @@ const getProductsBySearch = async(req,res) => {
 module.exports = {
 	getProducts,
 	addProduct,
+  
+  
   getProductsByCatagory,
   getProductsById,
   getProductsBySearch,
