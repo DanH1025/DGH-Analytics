@@ -15,26 +15,29 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getProductsById } from '../../redux/actions/productActions';
 
 export default function ProductDetails({ match }) {
+
     const id = match.params.id;
-    console.log('id = ' + id);
+    // console.log('id = ' + id);
     const dispatch = useDispatch();
-    let product = [];
+    // let product = [];
     useEffect(() => {
         dispatch(getProductsById(id));
     }, [dispatch]);
     
-	const produc = useSelector((state) => state.getProductsDetail.products);
+	const product = useSelector((state) => state.getProductsDetail.product);
+
+    console.log(product);
     // console.log(produc[0]['id']);
     // const product = produc[0];
     // console.log(product);
     // console.log(product[0]);
 
     // console.log({...produc[0], id});
-    {produc.map((pro) => {
-        product = pro;
-        console.log(product);
-	})}
-    console.log(product.productImg);
+    // {product.map((pro) => {
+    //     product = pro;
+    //     console.log(product);
+	// })}
+    // console.log({...product[0].id});
     
     //handler state change in qty 
     const [qtyCounter , setQtyCounter] = useState(1);
