@@ -37,10 +37,28 @@ const getProductsById = async(req,res) => {
     res.send(product);
 }
 
+const getProductsBySearch = async(req,res) => {
+  console.log('in get product by search');
+  const name= req.body.name;
+  const category= req.body.category;
+  console.log('cat: ' + category);
+  console.log('in appi get product id');
+  if(category === ''){
+    const [product, metaData] = await ProductModel.findByName(name);
+    console.log(product);
+      res.send(product);
+  } else {
+    const [product, metaData] = await ProductModel.findByNameCategory(name, category);
+    console.log(product);
+      res.send(product);
+  }
+}
+
 
 module.exports = {
 	getProducts,
 	addProduct,
   getProductsByCatagory,
   getProductsById,
+  getProductsBySearch,
 };
