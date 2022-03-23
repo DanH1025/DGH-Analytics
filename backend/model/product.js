@@ -51,6 +51,14 @@ module.exports = class Request {
     return db.execute('SELECT * FROM product WHERE product.id = ?', [id]);
   }
 
+  static findByName(name) {
+    return db.execute('SELECT * FROM product WHERE product.productName LIKE "%?%"', [name]);
+  }
+
+  static findByNameCategory(name, category) {
+    return db.execute('SELECT * FROM product WHERE productCategory = ? AND product.productName LIKE "%?%"', [category, name]);
+  }
+
   // static fetchNew() {
   //   try{
   //      const result =db.execute('SELECT * FROM product WHERE requests.status = "pending"');

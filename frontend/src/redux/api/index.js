@@ -4,6 +4,7 @@ const readProductUrl = 'http://localhost:5000/api/getAllProducts';
 const addProducturl = 'http://localhost:5000/api/addToStock';
 const readProductByCategoryUrl = 'http://localhost:5000/api/getProductsByCategory';
 const readProductByIdUrl = 'http://localhost:5000/api/getProductsById';
+const readProductBySearchUrl = 'http://localhost:5000/api/getProductsBySearch';
 
 
 export const fetchProducts = () => axios.get(readProductUrl);
@@ -15,6 +16,12 @@ export const fetchProductsByCategory = (catagory) =>
 export const fetchProductsById = (id) =>
   axios.post(readProductByIdUrl, {
       id: id  
+    }
+  );
+export const fetchProductsBySearch = (name, category) =>
+  axios.post(readProductByIdUrl, {
+      name: name,
+      category: category
     }
   );
 export const createProduct = (newProduct) => axios.post(addProducturl, newProduct);

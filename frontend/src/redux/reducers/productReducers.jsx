@@ -17,7 +17,7 @@ export const getProductsReducer = (state = {products: [] }, action)=>{
             return{
                 loading:false,
                 error: action.payload,
-                products: []
+                // products: []
             }
         case actionTypes.GET_PRODUCTS_BY_CATEGORY_REQUEST:
             return{
@@ -59,7 +59,7 @@ export const getProductsDetailsReducer = (state = {product: []}, action)=>{
         case actionTypes.GET_PRODUCT_DETAILS_REQUEST:
             return{
                 loading: true,
-                //products: []
+                product: []
             }
         case actionTypes.GET_PRODUCT_DETAILS_SUCCESS:
             return{
@@ -69,13 +69,28 @@ export const getProductsDetailsReducer = (state = {product: []}, action)=>{
         case actionTypes.GET_PRODUCT_DETAILS_FAIL:
             return{
                 loading:false,
-                // error: action.payload,
-                product: []
+                error: action.payload
             }
         case actionTypes.GET_PRODUCT_DETAILS_RESET:
             return{
                 product: [],
             };
+        case actionTypes.GET_PRODUCTS_BY_SEARCH_REQUEST:
+            return{
+                loading: true,
+                product: []
+            }
+        case actionTypes.GET_PRODUCTS_BY_SEARCH_SUCCESS:
+            return{
+                loading:false,
+                product: action.payload,
+            }  
+        case actionTypes.GET_PRODUCTS_BY_SEARCH_FAIL:
+            return{
+                loading:false,
+                error: action.payload,
+                product: []
+            }
         default:
             return state;
     }
