@@ -7,6 +7,7 @@ import AddProduct from './pages/AddProduct/addProduct';
 import Cart from './pages/Cart/cart';
 import Checkout from './pages/Checkout/checkout';
 import ProductDetails from './pages/ProductDetails/productDetails';
+import SearchResult from './pages/SearchResult/searchResult';
 
 import { Provider } from 'react-redux'
 import store from './redux/store';
@@ -22,6 +23,7 @@ function App() {
              <Route exact path='/cart' component={Cart} />
              <Route exact path='/checking' component={Checkout}/>
              <Route exact path='/productDetails/:id' component={ProductDetails} />
+             <Route exact path='/search' component={SearchResult} />
           </Switch>
         </main>
       </BrowserRouter>

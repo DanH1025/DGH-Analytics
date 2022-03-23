@@ -23,7 +23,7 @@ import Select from '@material-ui/core/Select';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts, getProductsByCategory } from '../../redux/actions/productActions';
-
+import { getProductsBySearch } from '../../redux/actions/productActions';
 
 import SettingsIcon from '@material-ui/icons/Settings';
 
@@ -31,9 +31,11 @@ export default function Topbar() {
 
     const [Allcategory, setAllCategory] = React.useState(''); // for all the categories
     const [searchCategory , setSearchCategory]= React.useState(''); // search category selection
+    const [searchValue , setSearchValue]= 
+    React.useState(''); // search category selection
     const [open_category ,  setOpen_category] = React.useState(false);//open and close the select option for search 
     const [open_allCategories, setOpen_allCategories] = React.useState(false);//open and close the select option for all
-    
+
 		const dispatch = useDispatch();
 
     // to handle the changes on the search catagory option
@@ -67,6 +69,14 @@ export default function Topbar() {
     const handleOpen = () => {
       setOpen_allCategories(true);
     };
+
+    const handleSearch = () => {
+      // console.log('search handler');
+      // console.log(searchValue.searchValue);
+      // console.log('category' + searchCategory);
+      dispatch(getProductsBySearch(searchValue.searchValue, searchCategory));
+
+    }
  
 
     //for the dialog
@@ -122,13 +132,13 @@ export default function Topbar() {
 										<FormControl variant="outlined" className='searchCategoryForm'>
 										<InputLabel id="searchcategoryLable"><h4 className="searchCategoryLable">Category</h4></InputLabel>
 										<Select className='searchCategory'
-											labelId='searchCategory-items-lable'
-											id='searchCategory-items'
-                	    open={open_category}
-                	    onClose={handleCloseSearchCategory}
-                	    onOpen={handleOpenSearchCategory}
-                	    value={searchCategory}
-                	    onChange={handleSearchCategoryChange}
+										labelId='searchCategory-items-lable'
+										id='searchCategory-items'
+                	  open={open_category}
+                	  onClose={handleCloseSearchCategory}
+                	  onOpen={handleOpenSearchCategory}
+                	  value={searchCategory}
+                	  onChange={handleSearchCategoryChange}
                 	    >
                 	      <MenuItem value=""><em>
 													None</em></MenuItem>
@@ -148,12 +158,28 @@ export default function Topbar() {
                 	  </FormControl>
                 	</div>
 								<div className="searchInput">
-									<input  placeholder='Search...'
-										className='searchInputField' type="text" />
+									<input  
+                    placeholder='Search...'
+										className='searchInputField' 
+                    name='search'
+                    value={searchValue.task}
+                    onChange={(e) => {
+                      let value = {task: e.target.value}
+                      let search = value.task;
+                      console.log(search);
+                      setSearchValue({
+                        searchValue: search 
+                      })
+                    }   
+                    }
+                    type="text" />
 								</div>
 							</div>
               <div className="searchbtn">
-								<Search className='middleTopbarSearchIcon' fontSize='large'/>
+                <Link to='/search'>
+                  <Search className='middleTopbarSearchIcon' fontSize='large'
+                  onClick={handleSearch}/>
+                </Link> 
               </div>
             </div>
             <div className="infos">
