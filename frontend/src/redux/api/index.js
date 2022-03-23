@@ -19,9 +19,10 @@ export const fetchProductsById = (id) =>
     }
   );
 export const fetchProductsBySearch = (name, category) =>
-  axios.post(readProductByIdUrl, {
+  axios.post(readProductBySearchUrl, {
       name: name,
       category: category
     }
   );
-export const createProduct = (newProduct) => axios.post(addProducturl, newProduct);
+export const createProduct = (newProduct) => 
+axios.post(addProducturl, newProduct);

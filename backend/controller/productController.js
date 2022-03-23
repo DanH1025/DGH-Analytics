@@ -23,7 +23,7 @@ const getProductsByCatagory = async(req,res) => {
   console.log('cat: ' + catagory);
   console.log('in appi get product catagory');
   const [product, metaData] = await ProductModel.fetchByCategory(catagory);
-  console.log(product);
+  // console.log(product);
     res.send(product);
 }
 
@@ -41,13 +41,15 @@ const getProductsBySearch = async(req,res) => {
   console.log('in get product by search');
   const name= req.body.name;
   const category= req.body.category;
-  console.log('cat: ' + category);
+  console.log('cat: ' + name);
   console.log('in appi get product id');
   if(category === ''){
+    console.log('in search no catagory');
     const [product, metaData] = await ProductModel.findByName(name);
     console.log(product);
-      res.send(product);
+    res.send(product);
   } else {
+    console.log('in search with  catagory');
     const [product, metaData] = await ProductModel.findByNameCategory(name, category);
     console.log(product);
       res.send(product);

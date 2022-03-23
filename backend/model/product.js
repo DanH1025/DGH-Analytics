@@ -52,11 +52,11 @@ module.exports = class Request {
   }
 
   static findByName(name) {
-    return db.execute('SELECT * FROM product WHERE product.productName LIKE "%?%"', [name]);
+    return db.execute('SELECT * FROM product WHERE product.productName LIKE ?', ["%"+name+"%"]);
   }
 
   static findByNameCategory(name, category) {
-    return db.execute('SELECT * FROM product WHERE productCategory = ? AND product.productName LIKE "%?%"', [category, name]);
+    return db.execute('SELECT * FROM product WHERE productCategory = ? AND product.productName LIKE ?', [category, "%"+name+"%"]);
   }
 
   // static fetchNew() {
