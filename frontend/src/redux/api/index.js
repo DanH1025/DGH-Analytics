@@ -19,7 +19,7 @@ export const fetchProductsById = (id) =>
     }
   );
 export const fetchProductsBySearch = (name, category) =>
-  axios.post(readProductByIdUrl, {
+  axios.post(readProductBySearchUrl, {
       name: name,
       category: category
     }
