@@ -75,21 +75,28 @@ export const getProductsDetailsReducer = (state = {product: []}, action)=>{
             return{
                 product: [],
             };
+        default:
+            return state;
+    }
+}
+
+export const getProductsSearchReducer = (state = {productSearch: []}, action)=>{
+    switch(action.type){
         case actionTypes.GET_PRODUCTS_BY_SEARCH_REQUEST:
             return{
                 loading: true,
-                product: []
+                productSearch: []
             }
         case actionTypes.GET_PRODUCTS_BY_SEARCH_SUCCESS:
             return{
                 loading:false,
-                product: action.payload,
+                productSearch: action.payload,
             }  
         case actionTypes.GET_PRODUCTS_BY_SEARCH_FAIL:
             return{
                 loading:false,
                 error: action.payload,
-                product: []
+                productSearch: []
             }
         default:
             return state;
