@@ -24,4 +24,5 @@ export const fetchProductsBySearch = (name, category) =>
       category: category
     }
   );
-export const createProduct = (newProduct) => axios.post(addProducturl, newProduct);
+export const createProduct = (newProduct) => 
+axios.post(addProducturl, newProduct);
