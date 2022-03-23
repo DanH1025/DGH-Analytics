@@ -9,8 +9,37 @@ import Topbar from '../../components/topbar/topbar'
 import ContactUs from '../../components/contactUs/contactUs'
 import CartItem from '../../components/cartItem/cartItem'
 
+import { useSelector, useDispatch } from 'react-redux';
+import { addToCart, removeFromCart } from '../../redux/actions/cartActions'
 
 export default function Cart() {
+
+    const dispatch = useDispatch();
+    const cart = useSelector(state => state.cart);
+    const {cartItems} = cart;
+
+
+    const qtyChangeHandler = (id,qty) =>{
+        dispatch(addToCart(id,qty))
+    }
+
+    const removeFromCartHandler=(id) =>{
+        dispatch(removeFromCart(id));
+    }
+
+    //handle how many items are in the total cart
+    const getCartCount = ()=>{
+        return cartItems.reduce((qtyCounter, item) => Number(item.qtyCounter) + qtyCounter , 0);
+    }
+
+    //handle total price calculation
+    const getTotalProductPrice = ()=>{
+        return cartItems.reduce((price , item)=> item.price * item.qtyCounter + price , 0)
+    }
+
+
+
+
   return (
      
     <div className='cart'>
@@ -22,7 +51,14 @@ export default function Cart() {
             <div className="cartTable">
                 <div className="cartTableTitle"><h2 className='cartTableTitleContent' >Shopping Cart</h2></div>
                 <div className="table">
-                    <CartItem/>
+                    {cartItems.length === 0?(
+                        <h3>Your cart is Empty </h3>
+                    ): cartItems.map((item)=>
+                         <CartItem item={item} 
+                                    qtyChangeHandler={qtyChangeHandler} 
+                                    removeFromCartHandler={removeFromCartHandler}    
+                        /> )}
+                                    
                 </div>
             </div>
 
@@ -31,18 +67,18 @@ export default function Cart() {
                     <div className="infoBox">
                         <div className="subTotal">
                             <div className="tag">
-                                <p>SubTotal:</p> 
+                                <p>SubTotal Items:</p> 
                             </div>
                             <div className="amount">
-                                $40,000
+                                {getCartCount()}
                             </div>
                         </div>
                         <div className="total">
                             <div className="tag">
-                                <p>Total:</p> 
+                                <p>Total Price:</p> 
                             </div>
                             <div className="amount">
-                                $40,000
+                               ${getTotalProductPrice().toFixed(2)}
                             </div>
                         </div>
                     </div>
@@ -52,8 +88,8 @@ export default function Cart() {
 
             <div className="buttons">
                 <div className="buttonHolder">
-                    <Link to={'/'}><Button variant="outlined" color="primary">Continue Shopping</Button></Link>
-                    <Link to={'/checking'}><Button variant="outlined" color="primary">Checkout</Button></Link>
+                    <Link to={'/'}><Button variant="contained" color="primary">Continue Shopping</Button></Link>
+                    <Link to={'/checking'}><Button variant="contained" color="primary">Checkout</Button></Link>
                 </div>                
             </div>        
         </div>
