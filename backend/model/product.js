@@ -40,7 +40,7 @@ module.exports = class Request {
 
   static fetchByCategory(name) {
     try{
-       const result =db.execute('SELECT * FROM product WHERE product.product_category = ?', [name]);
+       const result =db.execute('SELECT * FROM product WHERE product.productCategory = ?', [name]);
        return result;
     }catch(err){
       console.log(err);

@@ -33,10 +33,10 @@ export default function ProductDetails({ match }) {
     // console.log(product[0]);
 
     // console.log({...produc[0], id});
-    // {product.map((pro) => {
-    //     product = pro;
-    //     console.log(product);
-	// })}
+    {produc.map((pro) => {
+        product = pro;
+        console.log(product);
+	})}
     // console.log({...product[0].id});
     
     //handler state change in qty 
