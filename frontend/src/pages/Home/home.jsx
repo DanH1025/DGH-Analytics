@@ -59,10 +59,10 @@ export default function Home() {
                     
                       <ProductCard 
                         productId={val.id} // this id is not the product id should be the random generated number for the product id
-                        name={val.product_name}
-                        price={val.product_price}
-                        imageUrl={val.product_img}
-                        brand={val.product_brand} 
+                        name={val.productName}
+                        price={val.productPrice}
+                        imageUrl={val.productImg}
+                        brand={val.productBrand} 
                         />
 
                     </div>

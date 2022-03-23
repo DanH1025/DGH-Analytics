@@ -40,11 +40,23 @@ module.exports = class Request {
 
   static fetchByCategory(name) {
     try{
-       const result =db.execute('SELECT * FROM product WHERE product.product_category = ?', [name]);
+       const result =db.execute('SELECT * FROM product WHERE product.productCategory = ?', [name]);
        return result;
     }catch(err){
       console.log(err);
     }
+  }
+  
+  static findById(id) {
+    return db.execute('SELECT * FROM product WHERE product.id = ?', [id]);
+  }
+
+  static findByName(name) {
+    return db.execute('SELECT * FROM product WHERE product.productName LIKE "%?%"', [name]);
+  }
+
+  static findByNameCategory(name, category) {
+    return db.execute('SELECT * FROM product WHERE productCategory = ? AND product.productName LIKE "%?%"', [category, name]);
   }
 
   // static fetchNew() {
@@ -64,10 +76,6 @@ module.exports = class Request {
   //   }catch(err){
   //     console.log(err);
   //   }
-  // }
-
-  // static findById(id) {
-  //   return db.execute('SELECT * FROM requests WHERE requests.id = ?', [id]);
   // }
 
   // static fetchType() {
