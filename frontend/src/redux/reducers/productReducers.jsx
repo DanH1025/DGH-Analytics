@@ -17,7 +17,7 @@ export const getProductsReducer = (state = {products: [] }, action)=>{
             return{
                 loading:false,
                 error: action.payload,
-                products: []
+                // products: []
             }
         case actionTypes.GET_PRODUCTS_BY_CATEGORY_REQUEST:
             return{
@@ -54,28 +54,43 @@ export const getProductsReducer = (state = {products: [] }, action)=>{
     
 };
 
-export const getProductsDetailsReducer = (state = {product: {}}, action)=>{
+export const getProductsDetailsReducer = (state = {product: []}, action)=>{
     switch(action.type){
         case actionTypes.GET_PRODUCT_DETAILS_REQUEST:
             return{
                 loading: true,
-                products: []
+                product: []
             }
         case actionTypes.GET_PRODUCT_DETAILS_SUCCESS:
             return{
                 loading:false,
-                products: action.payload,
+                product: action.payload,
             }  
         case actionTypes.GET_PRODUCT_DETAILS_FAIL:
             return{
                 loading:false,
-                // error: action.payload,
-                products: []
+                error: action.payload
             }
         case actionTypes.GET_PRODUCT_DETAILS_RESET:
             return{
-                product: {},
+                product: [],
             };
+        case actionTypes.GET_PRODUCTS_BY_SEARCH_REQUEST:
+            return{
+                loading: true,
+                product: []
+            }
+        case actionTypes.GET_PRODUCTS_BY_SEARCH_SUCCESS:
+            return{
+                loading:false,
+                product: action.payload,
+            }  
+        case actionTypes.GET_PRODUCTS_BY_SEARCH_FAIL:
+            return{
+                loading:false,
+                error: action.payload,
+                product: []
+            }
         default:
             return state;
     }

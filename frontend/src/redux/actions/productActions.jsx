@@ -65,6 +65,30 @@ export const getProductsById = (id) => async (dispatch)=>{
                 error.response && error.response.data.message 
                 ?error.response.data.message:error.message,
         });
+        dispatch({
+            type:actionType.GET_PRODUCT_DETAILS_RESET,
+        });
+    }
+};
+export const getProductsBySearch = (name, category) => async (dispatch)=>{
+    // console.log('in actioning: ' + id);
+    try {
+        dispatch({
+            type: actionType.GET_PRODUCTS_BY_SEARCH_REQUEST,
+        });
+        const {data} = await api.fetchProductsBySearch(name, category);
+        
+        dispatch({
+            type: actionType.GET_PRODUCTS_BY_SEARCH_SUCCESS,
+            payload: data,
+        }); 
+    } catch (error) {
+        dispatch({
+            type:actionType.GET_PRODUCTS_BY_SEARCH_FAIL,
+            payload: 
+                error.response && error.response.data.message 
+                ?error.response.data.message:error.message,
+        });
     }
 };
 

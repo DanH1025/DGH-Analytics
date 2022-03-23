@@ -19,12 +19,14 @@ export default function ProductDetails({ match }) {
     console.log('id = ' + id);
     const dispatch = useDispatch();
     let product = [];
+    
     useEffect(() => {
+        console.log('in use effect');
         dispatch(getProductsById(id));
     }, [dispatch]);
     
-	const produc = useSelector((state) => state.getProductsDetail.products);
-    // console.log(produc[0]['id']);
+	const produc = useSelector((state) => state.getProductsDetail.product);
+    console.log(produc);    
     // const product = produc[0];
     // console.log(product);
     // console.log(product[0]);
