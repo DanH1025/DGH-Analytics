@@ -10,13 +10,14 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
-
-
-
+import TvIcon from '@material-ui/icons/Tv';
+import PhoneAndroidIcon from '@material-ui/icons/PhoneAndroid';
+import WatchIcon from '@material-ui/icons/Watch';
+import ComputerIcon from '@material-ui/icons/Computer';
+import DesktopMacIcon from '@material-ui/icons/DesktopMac';
+import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
 // import for the list item to select the categories
-import { makeStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
+
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
@@ -43,10 +44,12 @@ export default function Topbar() {
         setSearchCategory(event.target.value);
     }
     //to handle when the search category option closes
+
+
     const handleCloseSearchCategory = () =>{
         setOpen_category(false);
     }
-    //to handle hwen the search category option opens
+    // //to handle hwen the search category option opens
     const handleOpenSearchCategory = () =>{
         setOpen_category(true);
     }
@@ -99,6 +102,7 @@ export default function Topbar() {
     };
 
 
+
     //track cart and wishlist span numbers 
     const cart = useSelector(state => state.cart);
     const {cartItems} = cart;
@@ -107,6 +111,9 @@ export default function Topbar() {
     const getCartCount = ()=>{
       return cartItems.reduce((qtyCounter, item)=> qtyCounter + Number(item.qtyCounter) ,0)
     }
+    
+
+    
 
    
   return (
@@ -115,58 +122,60 @@ export default function Topbar() {
           <div className="upperTopbar">
             <div className="upperTopbar_left">
               <div className="currency">
-							Currency: ETB 
+							   <p>Currency: ETB</p>  
             	</div>
           	</div>
           	<div className="upperTopbar_right">
           	  <div className='orderNowInfo'>
-								<Phone className='upperTopbarIcon' /> Order Now , Shipped Today - Support:(+251)935123440
+								<Phone className='upperTopbarIcon' /> <p>Order Now , Shipped Today - Support:(+251)935123440</p> 
           	  </div>|
           	  <div className='trackOrder'>
 								<EventNote className='upperTopbarIcon' /> <a href='#'>Track Your Order</a> 
           	  </div>|
           	  <div className='signUp' onClick={handleClickOpenLogin}>
-								<SettingsIcon/> Setting
+								<SettingsIcon className='upperTopbarIcon' /> <p> Setting </p>
           	  </div>               
           	</div>
           </div>
-            <hr className='bnUM' />
+           
             <div className="middleTopbar">
-              <div className="search">
-                <div className="searchWrapper">
+               <div className="search">
                 	<div className="category">
 										<FormControl variant="outlined" className='searchCategoryForm'>
-										<InputLabel id="searchcategoryLable"><h4 className="searchCategoryLable">Category</h4></InputLabel>
-										<Select className='searchCategory'
+										
+                    {/* <InputLabel className='searchCategoryInputLable'><h5 className='searchCategoryLabelContent'>Category</h5></InputLabel> */}
+										
+                    <Select className='searchCategory'
 										labelId='searchCategory-items-lable'
 										id='searchCategory-items'
+                    displayEmpty="true"
                 	  open={open_category}
                 	  onClose={handleCloseSearchCategory}
                 	  onOpen={handleOpenSearchCategory}
                 	  value={searchCategory}
                 	  onChange={handleSearchCategoryChange}
                 	    >
-                	      <MenuItem value=""><em>
-													None</em></MenuItem>
-                	      <MenuItem value={"television"}>
-													TV</MenuItem>
-                	      <MenuItem value={"smart phone"}>
-													Smart Phone</MenuItem>
-                	      <MenuItem value={"smart watch"}>
-													Smart Watch</MenuItem>
-                	      <MenuItem value={"PC"}>
-													Computer</MenuItem>
-                	      <MenuItem value={"Moniter"}>
-													Moniter</MenuItem>
-                	      <MenuItem value={"play station"}>
-													PS</MenuItem>
+                	      <MenuItem value="">
+													Category </MenuItem>
+                          <MenuItem value={"television"}>
+												  <TvIcon className='menuItemIcons' />	TV</MenuItem>
+                        <MenuItem value={"smart phone"}>
+												 <PhoneAndroidIcon className='menuItemIcons' />	Smart Phone</MenuItem>
+                        <MenuItem value={"smart watch"}>
+													<WatchIcon className='menuItemIcons' />  Smart Watch</MenuItem>
+                        <MenuItem value={"PC"}>
+												 <ComputerIcon className='menuItemIcons' />	Computer</MenuItem>
+                        <MenuItem value={"Moniter"}>
+												 <DesktopMacIcon className='menuItemIcons' /> 	Moniter</MenuItem>
+                        <MenuItem value={"play station"}>
+												 <SportsEsportsIcon className='menuItemIcons' />	PS</MenuItem>
                 	  	</Select>
+                     
                 	  </FormControl>
                 	</div>
 								<div className="searchInput">
 									<input  
-                    placeholder='Search...'
-										className='searchInputField' 
+                    placeholder='Search...' 
                     name='search'
                     value={searchValue.task}
                     onChange={(e) => {
@@ -180,21 +189,21 @@ export default function Topbar() {
                     }
                     type="text" />
 								</div>
-							</div>
-              <div className="searchbtn">
-                <Link to='/search'>
-                  <Search className='middleTopbarSearchIcon' fontSize='large'
-                  onClick={handleSearch}/>
-                </Link> 
-              </div>
-            </div>
+							
+                <div className="searchbtn">
+                  <Link to='/search'>
+                    <Search className='middleTopbarSearchIcon' fontSize='large'
+                    onClick={handleSearch}/>
+                  </Link> 
+                </div>
+            </div> 
             <div className="infos">
               <div className='wishlist'>
-								<FavoriteBorderOutlined/> <span>0</span>
+								<FavoriteBorderOutlined className='infosIcons' /> <span>0</span>
               </div>
-              <div className="cart">
+              <div className="cartIconHolder">
 								<Link to='/cart'>
-									<ShoppingCartOutlined className='cartIcon' /> <span>{getCartCount()}</span>
+									<ShoppingCartOutlined className='infosIcons' /> <span>{getCartCount()}</span>
 								</Link>  
               </div>
             </div>
@@ -203,46 +212,46 @@ export default function Topbar() {
             <div className="bottomTopbar">
 							<div className="bottomTobbarWrapper">
 								<div className="bottomTopbar-left">
-									<FormControl className='allCategorySelection'>
-										<InputLabel id="allCategorySelection"><h3 className='allCategoryLable'>All Categories</h3></InputLabel>
+									<FormControl variant='outlined'  className='allCategorySelection'>
 										<Select className='allcategory'
 											labelId="allCategorySelection-items-lable"
                       id="allCategorySelection-items"
                       open={open_allCategories}
+                      displayEmpty="true"
                       onClose={handleClose}
                       onOpen={handleOpen}
                       value={Allcategory}
                       onChange={handleChange}>
                         <MenuItem value="">
-                            <em>None</em>
+                            All Categories
                         </MenuItem>
                         <MenuItem value={"television"}>
-													TV</MenuItem>
+												  <TvIcon className='menuItemIcons' />	TV</MenuItem>
                         <MenuItem value={"smart phone"}>
-													Smart Phone</MenuItem>
+												 <PhoneAndroidIcon className='menuItemIcons' />	Smart Phone</MenuItem>
                         <MenuItem value={"smart watch"}>
-													Smart Watch</MenuItem>
+													<WatchIcon className='menuItemIcons' />  Smart Watch</MenuItem>
                         <MenuItem value={"PC"}>
-													Computer</MenuItem>
+												 <ComputerIcon className='menuItemIcons' />	Computer</MenuItem>
                         <MenuItem value={"Moniter"}>
-													Moniter</MenuItem>
+												 <DesktopMacIcon className='menuItemIcons' /> 	Moniter</MenuItem>
                         <MenuItem value={"play station"}>
-													PS</MenuItem>
+												 <SportsEsportsIcon className='menuItemIcons' />	PS</MenuItem>
                     </Select>
                   </FormControl>
                     </div>
                     <div className="bottomTopbar-right">
-                    <ul className='lowerSelection'>
-                        <Link to='/'>
-                            <li className='lowerSelectionItem'>Home</li>
-                        </Link>
-                        <Link to='/about'>
-                            <li className='lowerSelectionItem'>About</li>
-                        </Link>
-                        <Link to='/contactUs'>
-                            <li className='lowerSelectionItem'>Contact Us</li>
-                        </Link>                        
-                    </ul>
+                      <ul className='lowerSelection'>
+                          <Link to='/'>
+                              <li className='lowerSelectionItem'>Home</li>
+                          </Link>
+                          <Link to='/about'>
+                              <li className='lowerSelectionItem'>About</li>
+                          </Link>
+                          <Link to='/contactUs'>
+                              <li className='lowerSelectionItem'>Contact Us</li>
+                          </Link>                        
+                      </ul>
                     </div>
                   
                 </div>

@@ -41,9 +41,9 @@ export default function Cart() {
 
 
   return (
-     
+     <><Topbar />
     <div className='cart'>
-         <Topbar />
+         
         <div className="cartWrapper">
             <div className="headerBar">
                 <p className='headerBarContent'>Home      /     Shopping Cart</p>
@@ -93,9 +93,10 @@ export default function Cart() {
                 </div>                
             </div>        
         </div>
-        <ContactUs />
-        <Footer />
+        {/* <ContactUs />
+        <Footer /> */}
 
     </div>
+    </>
   )
 }
