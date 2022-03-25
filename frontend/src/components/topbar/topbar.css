@@ -1,21 +1,19 @@
 *{
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
  
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    
 }
 
 .topbar{
-    width: 100%;
-    height: 200px;
-    background-color: #1b8aca;
+    height: 160px;
+    background-color: #34305f;
     position: relative; /* to stick to the top during scrolling*/
     top: 0;
-    z-index: 999;
-    font-size: 13px !important;
-    box-shadow: -2px 6px 6px 0px rgba(84,80,80,0.63);
--webkit-box-shadow: -2px 6px 6px 0px rgba(84,80,80,0.63);
--moz-box-shadow: -2px 6px 6px 0px rgba(84,80,80,0.63);
-
+    padding: 0;
+    margin: 0;
+    border-bottom: 1px solid black;
 }
 .topbarWrapper{
     height: 100%;
@@ -28,34 +26,15 @@
 .upperTopbar{
     display: flex;
     color: white;
-    padding: 4px 5px;
-    justify-content: space-between;
-
-}
-.bnUM{
-    color: white;
-    width: 100%;
-    font-weight: 100;
-    border: 0.4px solid white;
-}
-
-.middleTopbar{
-    display: flex;
-    color: white;
     padding: 0;
-    margin: 10px 10px;
-    justify-content: space-around;
-    
-}
-.bottomTopbar{
-    display: flex;
-    padding: 0px;
-    margin: 0px;
-
+    margin: 0;
+    justify-content: space-between;
+    border-bottom: 0.3px solid rgb(201, 198, 198);
 }
 .upperTopbar_left,.upperTopbar_right{
     display: flex;
 }   
+
 
 .orderNowInfo,.trackOrder,.signUp{
     display: flex;
@@ -68,148 +47,230 @@
 
 .upperTopbarIcon{
     margin-right: 5px;
-    font-size: 20px !important  ;
+    font-size: 15px !important  ;
 }
+
+.currency p
+,.orderNowInfo p 
+,.signUp p
+,.trackOrder a{
+    display: flex;
+    font-size: 11px;
+    font-weight: lighter;
+    padding-left: 3px;
+    margin: 2px 4px;
+    color: white;
+}
+
+
+
+
+
+.middleTopbar{
+    display: flex;
+    color: white;
+    padding: 0;
+    margin: 10px 10px;
+    justify-content: space-around;
+    
+}
+
+
 
 .search{
     display: flex;
-    flex:6;
+    flex: 2.5;
     padding: 0;
+    margin: 0;
+    height: 40px;
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 50px;
+    align-items: center;
+
 }
-.searchWrapper{
-    background-color:rgb(0 0 0 / 8%);
-    width: 70%;
-    border-radius: 3px;
-    height: 45px;
-    display: flex;
-    justify-content: space-between;
-}
+
 .category,.searchInput,.searchbtn{
     display: flex;
     align-items: center;
     width: 100%;
     height: 100%;
     border:none;
-    margin: 0px 4px;
 }
+
+
+
 .category{
     display: flex;
     flex: 1.5;
     padding: 0;
     margin: 0;
-    justify-content: center;
-    align-items: center;
-}
-.searchCategoryLable{
-    color: white;
-    font-weight: lighter;
     align-items: center;
     justify-content: center;
+    width: 80%;
+    height: 80%;
+    border: none;
+    outline: none;
 }
 
 .searchCategoryForm{
-    width: 100%;
-    height: 100%;
+    display: flex;
+    list-style: none;
+    text-decoration: none;
+    width: 80%;
+    height: 90%;
     align-items: center;
     justify-content: center;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    border-color: transparent;
+    padding: 4px;
+    margin: 0px 4px;
     
 }
-.searchCategoryForm:active{
-    border: solid 1px white;
-    color: white;
+.category .MuiSelect-outlined{
+    outline: none;
+    border: none;
 }
 .searchCategory{
     list-style: none;
     text-decoration: none;
     width: 100%;
     height: 100%;
-    color: white;
+    color: rgb(0, 0, 0);
+    outline:none;
+    border: none;
 }
 
-.searchCategoryLable{
-    font-size: 14px;
-    color: white;
+.searchCategory .MuiSelect-selectMenu{
+    color: rgb(0, 0, 0);
+    font-size: 12px;
+    font-style: normal;
 }
+
+.searchCategory:focus{
+    border: 0;
+    outline: none;
+}
+.searchCategory:active{
+    border: 0;
+    outline: none;
+}
+
+
 .searchInput{
     display: flex;
     flex: 6;
     width: 100%;
     height: 100%;
-    background-color: transparent;
+    background-color: white;
     border: none;
-    border-left: 1px solid white;
-    border-radius: 4px;
     padding: 0;
     margin: 0;
 }
-
-.searchInputField{
-    color: white;
+.searchInput input{
     width: 100%;
-    height: 100%;
+    height: 60%;
+    outline: none;
+    padding: 0px 10px;
+    margin: 0px 4px;
     border: none;
-    font-size: 12px;
-    font-weight: lighter;
-    padding-left:5px;
-    overflow: none;
-    background: transparent;
+    border-left: 1px solid black;
 
 }
-.searchInput:active{
+.searchInput input:focus{
     border: none;
-    overflow: hidden;
-    background-color: transparent;
+    background-color: none;
+    outline: none;
 }
-.category.active,
-.searchInput:hover,
-.category:hover{
-    overflow: none;
-    cursor: pointer;
-    border: none;
-    border: 1px solid white;
-}
+
+
+
+
 .searchbtn{
     padding:0;
-    margin:0;
+    margin: 0;
     display: flex;
-    flex: 0.2;
-    align-items: center;
+    width: 100%;
+    height: 90%;
+    flex: 0.7;
     justify-content: center;
+    align-items: center;
     cursor: pointer;
     transform: 0;
+} 
+.searchbtn svg{
+    display: flex;
+    padding: 4px;
+    margin: 4px auto;
+    color: #1b8aca;
+    transform: 0;
 }
-/* .searchbtn:active,.searchbtn:hover{
-    border: none;
-    border: 1px solid white;
-    cursor: pointer;
-    transition: all ease-in-out 0.3ms;
+.searchbtn svg:hover{
+    color: #13577e;
+    transform: scale(1.2);
+    transition: all ease 0.4s;
 }
- */
+
 
 .infos{
     display: flex;
     flex:1;
     justify-content: center;
     align-items: center;
+    padding: 0;
+    margin: 0;
 }
-.wishlist,.cart{
-    margin-right: 30px;
+.wishlist,.cartIconHolder{
     cursor: pointer;
     color: white;
+    padding: 4px;
+    margin: 0px 20px;
+    transform: 0;
 }
-.cartIcon{
+.cartIconHolder a{
     text-decoration: none;
+}
+.infosIcons{
     color: white;
 }
-.cart span{
+.cartIconHolder span , .wishlist span{
+    top: 0;
     color: white;
+    bottom: 100%;
+    padding: 0;
+    margin-left: -5px;
 }
 
+.wishlist:hover , .cartIconHolder:hover{
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    transform: scale(1.2);
+    transition: all ease 0.3s;
+    border: none;
+    outline: none;
+    border-radius: 50%;
+}
+
+
+
+
+
+
+.bottomTopbar{
+    display: flex;
+    padding: 0px;
+    margin: 0px;
+
+}
 
 .bottomTobbarWrapper{
     display: flex;
     width: 100%;
-    margin-top: 10px;
+    margin: 0;
+    padding: 0;
     flex-direction: row;
     justify-content: space-between;
     
@@ -219,51 +280,111 @@
     flex: 2;
     justify-content: left;
     width: 100%;
-    margin-left: 20px;
+    margin:0;
+    padding: 0;
     
 }
+
+.allCategorySelection {
+    width: 50%;
+    margin: 5px 20px;
+    outline: white ;
+    height: 90%;
+}
+
+.allcategory.MuiInputBase-formControl{
+    display: flex;
+    height: 60%;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 10px auto;
+}
+.MuiInputBase-input.MuiOutlinedInput-input{
+    display: flex;
+    /* background-color: blue; */
+    align-items: center;
+}
+
+
+.allcategory{
+    display: flex;
+    text-decoration: none;
+    text-underline-offset: none;
+    align-items: center;
+
+}
+
+.allcategory .MuiSelect-selectMenu{
+    color: rgb(255, 255, 255);
+    font-size: 12px;
+    font-style: normal;
+}
+
+
+
+
+.menuItemIcons{
+    padding: 0;
+    display: flex;
+    font-size: 16px;
+    align-items: center;
+    margin: 0px 11px;
+    font-weight: bold;
+}
+
+
+
+
+
+
 .bottomTopbar-right{
     display: flex;
     flex: 6;
     flex-direction: row;
     align-items: center;
-    margin-right: 20px;   
+    margin: 0;
+    padding: 0;  
 }
 .lowerSelection{
     list-style: none;
     display: flex;
     justify-content: right;
     width: 100%;
+    margin: 0px 34px;
+  
 }
 .lowerSelectionItem{
     margin: 0px 15px;
-    font-size: 15px;
+    font-size: 12px !important;
     color: white;
     cursor: pointer;
-    text-decoration:underline;
+    
     
 }
-.allCategorySelection{
-    width: 45%;
-    color: white;
-}
-.allcategory{
-    color: white;
-    font-size: 12px;
-    text-decoration: none;
-    text-underline-offset: none;
 
-}
-.allCategoryLable{
-    color: white;
-    font-size: 15px;
-    font-weight: 200;
+@media(max-width: 910px){
+    .currency p
+    ,.orderNowInfo p 
+    ,.signUp p
+    ,.trackOrder a{
+        font-size: 9px;
+      
+    }
+    .search{
+        flex: 3;
+    }
+    .searchCategory .MuiSelect-selectMenu{
+        font-size: 9px;
+       
+    }
+    
 }
 
 /* media for responsiveness */
 
 
-@media(max-width: 1040px){
+/* @media(max-width: 1040px){
     *{
         font-size: 11px;
     }
@@ -282,8 +403,8 @@
         font-size: 13px;
     }
 
-}
-
+} */
+/* 
 @media(max-width: 830px){
     .allCategorySelection{
         width: 34%;
@@ -411,6 +532,6 @@
     }
 }
 
-
+ */
 
 

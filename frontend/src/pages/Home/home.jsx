@@ -73,8 +73,8 @@ export default function Home() {
             }
         </div>
       </div>
-      <ContactUs />
-      <Footer />
+      {/* <ContactUs />
+      <Footer /> */}
     </>
   )
 }
