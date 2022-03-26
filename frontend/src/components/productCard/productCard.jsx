@@ -36,6 +36,7 @@ export default function ProductCard( props ) {
   const classes = useStyles(); 
   console.log(props);
   return (
+    <>
     <div className='productCard'>
       <div className="productCardWrapper">
         <div className="cardView">
@@ -44,20 +45,20 @@ export default function ProductCard( props ) {
             <CardMedia 
               className="cardImg"
               image={props.imageUrl} alt={props.name}
-              title="device"
+              title={props.name}
             /></Link>
-            <CardContent>
-              <Typography variant='body2' color='textSecondary' component='p'>
-                  {props.name}
+            <CardContent className='itemCardBodyHolder'>
+              <Typography className='ItemsCardBodyProductName' >
+                 <p>{props.name}</p>  
               </Typography>
-              <Typography variant='body2' color='textSecondary' component='p'>
-                  {props.brand}
+              <Typography   className='ItemsCardBodyProductBrand' >
+                  <p>{props.brand} </p>
               </Typography>
-              <Typography variant='body2' color='textSecondary' component='p'>
-                  {props.price} 
+              <Typography  className='ItemsCardBodyProductPrice' >
+                <p> <b>$</b>{props.price}  </p>
               </Typography>
             </CardContent>
-            <CardActions disableSpacing>
+            <CardActions className='itemCardActionButtonHolder'>
               <IconButton aria-label="add to favorites">
                 <FavoriteIcon />
               </IconButton>
@@ -70,5 +71,7 @@ export default function ProductCard( props ) {
         </div>
       </div>  
     </div>
+
+    </>
   );
 }

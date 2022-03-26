@@ -40,11 +40,11 @@ export default function Home() {
   return (
     <>
       <Topbar />
-      <ImageSlider 
+      {/* <ImageSlider 
         className="imageSliderComponent" 
         slides={sliderData} />
-      <FeaturedInfo />
-      {/* <div className='homeScreen_products'>
+      <FeaturedInfo /> */}
+      <div className='homeScreen_products'>
         
         <h3 productCardTitle>Our Products</h3>
 
@@ -54,7 +54,7 @@ export default function Home() {
                 products.map((val, key) => {
                   console.log(val);
                   return (
-                    <div className='items'>
+                    <div className='productListItems' >
                     
                       <ProductCard 
                         productId={val.id} // this id is not the product id should be the random generated number for the product id
@@ -71,7 +71,7 @@ export default function Home() {
               )
             }
         </div>
-      </div> */}
+      </div>
       {/* <ContactUs />
       <Footer /> */}
     </>
