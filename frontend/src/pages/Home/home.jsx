@@ -44,9 +44,8 @@ export default function Home() {
         className="imageSliderComponent" 
         slides={sliderData} />
       <FeaturedInfo />
-      <div className='homeScreen_products'>
-        {/* {console.log('in home'+ productList)}
-        {console.log(products)} */}
+      {/* <div className='homeScreen_products'>
+        
         <h3 productCardTitle>Our Products</h3>
 
         <div className="productHolder">
@@ -72,7 +71,7 @@ export default function Home() {
               )
             }
         </div>
-      </div>
+      </div> */}
       {/* <ContactUs />
       <Footer /> */}
     </>

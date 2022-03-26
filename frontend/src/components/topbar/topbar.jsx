@@ -127,13 +127,13 @@ export default function Topbar() {
           	</div>
           	<div className="upperTopbar_right">
           	  <div className='orderNowInfo'>
-								<Phone className='upperTopbarIcon' /> <p>Order Now , Shipped Today - Support:(+251)935123440</p> 
-          	  </div>|
+								<Phone className='upperTopbarIconPhone' /> <p>Order Now , Shipped Today - Support:(+251)935123440</p> 
+          	  </div>
           	  <div className='trackOrder'>
-								<EventNote className='upperTopbarIcon' /> <a href='#'>Track Your Order</a> 
-          	  </div>|
+								<EventNote className='upperTopbarIconEvent' /> <a href='#'>Track Your Order</a> 
+          	  </div>
           	  <div className='signUp' onClick={handleClickOpenLogin}>
-								<SettingsIcon className='upperTopbarIcon' /> <p> Setting </p>
+								<SettingsIcon className='upperTopbarIconSetting' /> <p> Setting </p>
           	  </div>               
           	</div>
           </div>
@@ -155,20 +155,21 @@ export default function Topbar() {
                 	  value={searchCategory}
                 	  onChange={handleSearchCategoryChange}
                 	    >
-                	      <MenuItem value="">
-													Category </MenuItem>
-                          <MenuItem value={"television"}>
-												  <TvIcon className='menuItemIcons' />	TV</MenuItem>
-                        <MenuItem value={"smart phone"}>
-												 <PhoneAndroidIcon className='menuItemIcons' />	Smart Phone</MenuItem>
-                        <MenuItem value={"smart watch"}>
-													<WatchIcon className='menuItemIcons' />  Smart Watch</MenuItem>
-                        <MenuItem value={"PC"}>
-												 <ComputerIcon className='menuItemIcons' />	Computer</MenuItem>
-                        <MenuItem value={"Moniter"}>
-												 <DesktopMacIcon className='menuItemIcons' /> 	Moniter</MenuItem>
-                        <MenuItem value={"play station"}>
-												 <SportsEsportsIcon className='menuItemIcons' />	PS</MenuItem>
+                	       <MenuItem  className='allCategoryMenuItem' value="">
+                            <p>Category </p>
+                        </MenuItem>
+                        <MenuItem className='allCategoryMenuItem' value={"television"}>
+												  <TvIcon className='menuItemIcons' /> <p>TV</p> </MenuItem>
+                        <MenuItem  className='allCategoryMenuItem' value={"smart phone"}>
+												 <PhoneAndroidIcon className='menuItemIcons' /> <p>	Smart Phone </p></MenuItem>
+                        <MenuItem  className='allCategoryMenuItem' value={"smart watch"}>
+													<WatchIcon className='menuItemIcons' /> <p>Smart Watch </p></MenuItem>
+                        <MenuItem  className='allCategoryMenuItem' value={"PC"}>
+												 <ComputerIcon className='menuItemIcons' /> <p>Computer </p></MenuItem>
+                        <MenuItem  className='allCategoryMenuItem' value={"Moniter"}>
+												 <DesktopMacIcon className='menuItemIcons' /> <p>Moniter </p></MenuItem>
+                        <MenuItem  className='allCategoryMenuItem' value={"play station"}>
+												 <SportsEsportsIcon className='menuItemIcons' /> <p>PS </p></MenuItem>
                 	  	</Select>
                      
                 	  </FormControl>
@@ -222,21 +223,21 @@ export default function Topbar() {
                       onOpen={handleOpen}
                       value={Allcategory}
                       onChange={handleChange}>
-                        <MenuItem value="">
-                            All Categories
+                        <MenuItem  className='allCategoryMenuItem' value="">
+                            <p>All Categories </p>
                         </MenuItem>
-                        <MenuItem value={"television"}>
-												  <TvIcon className='menuItemIcons' />	TV</MenuItem>
-                        <MenuItem value={"smart phone"}>
-												 <PhoneAndroidIcon className='menuItemIcons' />	Smart Phone</MenuItem>
-                        <MenuItem value={"smart watch"}>
-													<WatchIcon className='menuItemIcons' />  Smart Watch</MenuItem>
-                        <MenuItem value={"PC"}>
-												 <ComputerIcon className='menuItemIcons' />	Computer</MenuItem>
-                        <MenuItem value={"Moniter"}>
-												 <DesktopMacIcon className='menuItemIcons' /> 	Moniter</MenuItem>
-                        <MenuItem value={"play station"}>
-												 <SportsEsportsIcon className='menuItemIcons' />	PS</MenuItem>
+                        <MenuItem className='allCategoryMenuItem' value={"television"}>
+												  <TvIcon className='menuItemIcons' /> <p>TV</p> </MenuItem>
+                        <MenuItem  className='allCategoryMenuItem' value={"smart phone"}>
+												 <PhoneAndroidIcon className='menuItemIcons' /> <p>	Smart Phone </p></MenuItem>
+                        <MenuItem  className='allCategoryMenuItem' value={"smart watch"}>
+													<WatchIcon className='menuItemIcons' /> <p>Smart Watch </p></MenuItem>
+                        <MenuItem  className='allCategoryMenuItem' value={"PC"}>
+												 <ComputerIcon className='menuItemIcons' /> <p>Computer </p></MenuItem>
+                        <MenuItem  className='allCategoryMenuItem' value={"Moniter"}>
+												 <DesktopMacIcon className='menuItemIcons' /> <p>Moniter </p></MenuItem>
+                        <MenuItem  className='allCategoryMenuItem' value={"play station"}>
+												 <SportsEsportsIcon className='menuItemIcons' /> <p>PS </p></MenuItem>
                     </Select>
                   </FormControl>
                     </div>
