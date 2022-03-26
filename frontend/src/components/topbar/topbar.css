@@ -371,9 +371,16 @@
     font-size: 12px !important;
     color: white;
     cursor: pointer;
+    transform: 0;
     
     
 }
+.lowerSelectionItem:hover{
+    transform: scale(1.2);
+    color: rgb(31, 221, 228);
+    transition: all ease 0.4s;
+}
+
 
 /* media for responsiveness */
 
