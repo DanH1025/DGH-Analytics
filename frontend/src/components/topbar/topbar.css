@@ -45,7 +45,9 @@
     margin: 0px 20px;   
 }
 
-.upperTopbarIcon{
+.upperTopbarIconPhone,
+.upperTopbarIconEvent,
+.upperTopbarIconSetting{
     margin-right: 5px;
     font-size: 15px !important  ;
 }
@@ -118,7 +120,7 @@
     display: flex;
     list-style: none;
     text-decoration: none;
-    width: 80%;
+    width: 100%;
     height: 90%;
     align-items: center;
     justify-content: center;
@@ -126,7 +128,7 @@
     border: none;
     background-color: transparent;
     border-color: transparent;
-    padding: 4px;
+    padding-left: 9px;
     margin: 0px 4px;
     
 }
@@ -144,10 +146,9 @@
     border: none;
 }
 
-.searchCategory .MuiSelect-selectMenu{
+.searchCategory .MuiSelect-selectMenu p{
     color: rgb(0, 0, 0);
     font-size: 12px;
-    font-style: normal;
 }
 
 .searchCategory:focus{
@@ -294,11 +295,15 @@
 
 .allcategory.MuiInputBase-formControl{
     display: flex;
+    background-color: #2a274e;
+    color:white;
     height: 60%;
     align-items: center;
     justify-content: center;
     padding: 0;
     margin: 10px auto;
+    margin-left: 10px;
+    
 }
 .MuiInputBase-input.MuiOutlinedInput-input{
     display: flex;
@@ -315,22 +320,29 @@
 
 }
 
-.allcategory .MuiSelect-selectMenu{
+.allcategory .MuiSelect-selectMenu p{
     color: rgb(255, 255, 255);
     font-size: 12px;
-    font-style: normal;
+   
 }
 
 
-
+.allCategoryMenuItem p{
+    font-size: 12px;
+ 
+}
 
 .menuItemIcons{
     padding: 0;
     display: flex;
-    font-size: 16px;
+    font-size: 12px;
     align-items: center;
-    margin: 0px 11px;
-    font-weight: bold;
+    margin: 0px 11px; 
+    
+}
+
+.allcategory svg{
+    color: rgb(12, 233, 196);
 }
 
 
@@ -363,6 +375,8 @@
     
 }
 
+/* media for responsiveness */
+
 @media(max-width: 910px){
     .currency p
     ,.orderNowInfo p 
@@ -371,15 +385,206 @@
         font-size: 9px;
       
     }
+    .upperTopbarIconPhone,
+    .upperTopbarIconEvent,
+    .upperTopbarIconSetting{
+        font-size: 13px !important  ;
+    }
+    
     .search{
         flex: 3;
     }
-    .searchCategory .MuiSelect-selectMenu{
+    .searchCategory .MuiSelect-selectMenu p{
+        font-size: 9px;      
+    }
+    
+    .searchInput input{
+        width: 100%;
+        height: 60%;
+        font-size: 10px;
+        outline: none;
+        padding: 0px 10px;
+        margin: 0px 4px;
+        border: none;
+        border-left: 1px solid black;
+    
+    }
+    .infos svg{
+        font-size: 16px;
+    }
+   
+    .cartIconHolder span , .wishlist span{
+      font-size: 11px;
+    }
+    .allCategoryMenuItem p{
+        font-size: 10px;
+    }
+    .allcategory .MuiSelect-selectMenu p{
+        color: rgb(255, 255, 255);
+        font-size: 10px;
+    }
+    .lowerSelectionItem{
+        font-size: 10px !important;              
+    }
+   
+    
+    
+    
+    
+    
+    
+}
+
+
+@media(max-width: 700px){
+    .currency p
+    ,.orderNowInfo p 
+    ,.signUp p
+    ,.trackOrder a{
+        font-size: 7px;
+      
+    } 
+    .upperTopbarIconPhone,
+    .upperTopbarIconEvent,
+    .upperTopbarIconSetting{
+        font-size: 11px !important  ;
+    }
+    
+    .search{
+        flex: 2.5;       
+        height: 30px;               
+    }
+    .searchCategory .MuiSelect-selectMenu p{
+        color: rgb(0, 0, 0);
+        font-size: 8px;
+    }
+
+    
+    .searchInput input{
+        width: 100%;
+        height: 60%;
         font-size: 9px;
-       
+        outline: none;
+        padding: 0px 10px;
+        margin: 0px 4px;
+        border: none;
+        border-left: 1px solid black;
+    
+    }
+    .infos svg{
+        font-size: 15px;
+    }
+   
+    .cartIconHolder span , .wishlist span{
+      font-size: 10px;
+    }
+    .allCategoryMenuItem p{
+        font-size: 9px;
+    }
+    .allcategory .MuiSelect-selectMenu p{
+        color: rgb(255, 255, 255);
+        font-size: 9px;
+    }
+    .lowerSelectionItem{
+        font-size: 9px !important;              
+    }
+    
+    
+    
+
+}
+
+@media(max-width:560px){
+    .currency p
+    ,.orderNowInfo p,
+    .signUp p 
+    ,.trackOrder a ,
+    .trackOrder svg,
+    .orderNowInfo svg,
+    .upperTopbarIconPhone,
+    .upperTopbarIconEven{
+        display: none;
+      
+    } 
+    .upperTopbar{
+     border: none;
+    }
+  
+    
+    .upperTopbarIconSetting{
+        font-size: 14px !important  ;
+        margin: 4px -8px;
+    }
+
+    .middleTopbar{
+        display: flex;
+        flex-direction: column;
+        color: white;
+        padding: 0;
+        margin: 0px 10px;
+        justify-content: space-around;
+        height: 40%;
+        
+    }
+    .search{
+        height: 10%;               
+    }
+    .searchCategory .MuiSelect-selectMenu p{
+        color: rgb(0, 0, 0);
+        font-size: 7px;
+    }
+
+    
+    .searchInput input{
+        width: 100%;
+        height: 60%;
+        font-size: 8px;
+        outline: none;
+        padding: 0px 10px;
+        margin: 0px 4px;
+        border: none;
+        border-left: 1px solid black;
+    
+    }
+    .infos svg{
+        margin-top: 5px;
+        font-size: 15px;
+    }
+   
+    .cartIconHolder span , .wishlist span{
+      font-size: 10px;
+    }
+    .allCategoryMenuItem p{
+        font-size: 7px;
+    }
+    .allcategory .MuiSelect-selectMenu p{
+        color: rgb(255, 255, 255);
+        font-size: 7px;
+    }
+    .lowerSelectionItem{
+        font-size: 8px !important;              
+    }
+    
+    
+    
+}
+
+@media(max-Width: 350px){
+    .infos svg{
+        margin-top: 5px;
+        font-size: 13px;
+    }
+    .lowerSelectionItem{
+        font-size: 6.5px !important;              
+    }
+
+    .allcategory .MuiSelect-selectMenu p{
+        color: rgb(255, 255, 255);
+        font-size: 6px;
     }
     
 }
+
 
 /* media for responsiveness */
 
