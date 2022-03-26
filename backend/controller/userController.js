@@ -1,8 +1,16 @@
 const UserModel = require('../model/user');
 
+
+const crypto = require('crypto');
+const algorithm = 'aes-256-cbc';
+const key = crypto.randomBytes(32);
+const iv = crypto.randomBytes(16);
+
 const addUser = (req, res) => {
   const {first_name,last_name,email,password} = req.body;
-  const user = new UserModel(first_name,last_name,email,password);
+  const hashPass = encrypt(password);
+  console.log(hashPass.encryptedData);
+  const user = new UserModel(first_name,last_name,email,hashPass.encryptedData);
   console.log(user);
   user.save();
 }
@@ -11,11 +19,30 @@ const getUser = async(req,res) => {
   console.log('in appi get user');
   const email = req.body.email;
   const password = req.body.password;
-
-  const [user, metaData] = await UserModel.fetchAll(email, password)  
+  const hashPass = encrypt(password);
+  console.log(hashPass.encryptedData);
+  const [user, metaData] = await UserModel.fetchAll(email, hashPass.encryptedData)  
   console.log(user);
   res.send(user);
 }
+
+function encrypt(text) {
+  let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(key), iv);
+  let encrypted = cipher.update(text);
+  encrypted = Buffer.concat([encrypted, cipher.final()]);
+  return { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
+  // return encrypted.toString('hex');
+ }
+
+ function decrypt(text) {
+  let iv = Buffer.from(text.iv, 'hex');
+  let encryptedText = Buffer.from(text.encryptedData, 'hex');
+  let decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(key), iv);
+  let decrypted = decipher.update(encryptedText);
+  decrypted = Buffer.concat([decrypted, decipher.final()]);
+  return decrypted.toString();
+}
+
 
 module.exports = {
 	getUser,

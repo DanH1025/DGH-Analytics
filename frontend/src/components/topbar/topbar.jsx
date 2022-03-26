@@ -31,18 +31,27 @@ import SettingsIcon from '@material-ui/icons/Settings';
 
 export default function Topbar() {
 
-    const [Allcategory, setAllCategory] = React.useState(''); // for all the categories
-    const [searchCategory , setSearchCategory]= React.useState(''); // search category selection
-    const [searchValue , setSearchValue]= 
+    const [Allcategory, setAllCategory] = 
+    React.useState(''); // for all the categories
+    const [searchCategory , setSearchCategory]= 
     React.useState(''); // search category selection
-    const [open_category ,  setOpen_category] = React.useState(false);//open and close the select option for search 
-    const [open_allCategories, setOpen_allCategories] = React.useState(false);//open and close the select option for all
+    const [searchValue , setSearchValue] = 
+    React.useState(''); // search category selection
+    const [open_category ,  setOpen_category] = 
+    React.useState(false);//open and close the select option for search 
+    const [open_allCategories, setOpen_allCategories]= React.useState(false);//open and close the select option for all
     
+    const [emailError, setEmailError] = React.useState('');
+
     const [loginData , setloginData] = useState({
       email: "",
       password: ""
     });
-
+ 
+    const dispatch = useDispatch();
+    
+    useEffect(() => {
+    }, [dispatch]);
     const user = useSelector((state) => state.getUser.user);
 
     const [signUpData , setSignUpData] = useState({
@@ -54,7 +63,6 @@ export default function Topbar() {
       confirm_password: "",
     });
 
-		const dispatch = useDispatch();
 
     // to handle the changes on the search catagory option
     const handleSearchCategoryChange = (event)=>{
@@ -95,7 +103,18 @@ export default function Topbar() {
       dispatch(getProductsBySearch(searchValue.searchValue, searchCategory));
 
     }
- 
+    
+    // validation
+    const validateEmail = (email) => {
+      const pattern = /[a-zA-Z0-9]+[\.]?([a-zA-Z0-9]+)?[\@][a-z]{3,9}[\.][a-z]{2,5}/g;
+      // const pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      const result = pattern.test(email);
+      if(result === true){
+        setEmailError('false');
+      } else{
+        setEmailError('true');
+      }
+    }
 
     //for the dialog
     
@@ -113,8 +132,8 @@ export default function Topbar() {
 
     const handleDialogClose = () => {
       dispatch(getUser(loginData.email, loginData.password));
-      console.log(user);
-      if(user === ""){
+      console.log(user.length);
+      if(user.length){
         setOpenSignUp(false);
         setOpenLogin(false);
         console.log(loginData);
@@ -122,14 +141,29 @@ export default function Topbar() {
         loginData.password = "";
       }else{
         console.log('no data incorect');
+        setOpenSignUp(false);
+        setOpenLogin(false);
       }
     };
     const handleRegisterDialogClose = () => {
       if((signUpData.email === signUpData.confirm_email)&&(signUpData.password === signUpData.confirm_password)){
-        setOpenSignUp(false);
-        setOpenLogin(false);
-        console.log(signUpData);
-        dispatch(createUser(signUpData));
+        // validateEmail(signUpData.email);
+        // console.log(emailError);
+        fetch(`http://apilayer.net/api/check?access_key=e88cb97fc068e62599ee94d965979c19&email=${signUpData.email}&smtp=1&format=1`).
+        then(res => res.json()).
+        then(data => {
+          console.log(data.format_valid);
+          if (data.format_valid && data.smtp_check) {  
+            console.log(signUpData);
+            dispatch(createUser(signUpData));
+            setOpenSignUp(false);
+            setOpenLogin(false);
+            setEmailError('false');
+          }else{
+            console.log('incorrect email format');
+            setEmailError('true');
+          }
+        });
       }else{
         console.log('wrong input');
       }
@@ -338,12 +372,14 @@ export default function Topbar() {
                 </DialogActions>
             </Dialog> 
 
-
             <Dialog open={openSignUp} onClose={handleDialogClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">SignUp</DialogTitle>
                 <DialogContent>
                 <DialogContentText>
                     Im A New Customer
+                </DialogContentText>
+                <DialogContentText>
+                {emailError === 'true' ? <span style={{color: "red"}}>Please Enter correct email</span> : ''} 
                 </DialogContentText>
                 <TextField
                     autoFocus
