@@ -46,7 +46,7 @@ export default function Cart() {
          
         <div className="cartWrapper">
             <div className="headerBar">
-                <p className='headerBarContent'>Home      /     Shopping Cart</p>
+                <p className='headerBarContent'>Home / Shopping Cart</p>
             </div>
             <div className="cartTable">
                 <div className="cartTableTitle"><h2 className='cartTableTitleContent' >Shopping Cart</h2></div>

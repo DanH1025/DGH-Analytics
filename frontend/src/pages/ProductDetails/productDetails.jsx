@@ -85,64 +85,69 @@ export default function ProductDetails({ match, history }) {
         <div className='productDetials'>
             <div className="productDetailsWrapper">
                 <div className="pathTitle">
-                    <p>    Home / <span>Product Name</span> </p>
+                    <p>    Home / {product.productName} </p>
                 </div>
                 <div className="productDetailContainer">
                     <div className="productImgHolder">
                             <img src={product.productImg} />
                     </div>
                     <div className="productInfoHolder">
-                        <div className="productNameHolder">
-                            <p>{product.productName}</p>
-                        </div>
-                        <div className="productRatingHolder">
-                            <span>Ratting starts</span>
-                        </div>
-                        <div className="productPriceHolder">
+
+                        <div className='productInfo'>
+                            <div className="productNameHolder">
+                                <p>{product.productName}</p>
+                            </div>
+                            <div className="productRatingHolder">
+                                <span>Ratting starts</span>
+                            </div>
+                            <div className="productPriceHolder">
+                                
+                                 <p> ${product.productPrice}</p>    
+                            </div>
+                            <div className="productDescription">
+                                <span>Description</span>
+                                <p>{product.productDetail}</p>
+                            </div>
+                            <div className="productBrand">
+                            <span>{product.productBrand}</span> <br />
                             
-                            <p>$ {product.productPrice}</p>    
-                        </div>
-                        <div className="productDescription">
-                            <span>{product.productDetail}</span>
-                        </div>
-                        <div className="productBrand">
-                           <span>{product.productBrand}</span> <br />
-                          
-                        </div>
-                        <div className="productStatus">
-                            <span>Status:    <p> {product.countInStock > 0? "In Stock" : "Product Not In Stock"}</p></span>
-                        </div>
-
-                       
-                        <div className="addingToCart">
-
-                            <div className="addQtyHolder">
-                               <p> Qty: <span> <RemoveOutlinedIcon onClick={handleMinQty} />
-                                <input type="text"
-                                        min={0}
-                                        value={qtyCounter}
-                                              
-                                /> <AddOutlinedIcon  onClick={handlePlusQty} /> 
-                                
-                                        </span>
-                                </p>
+                            </div>
+                            <div className="productStatus">
+                                <span>Status:  <p> {product.countInStock > 0? "In Stock" : "Out of Stock"}</p></span>
                             </div>
 
-                            <div className="addToCartBtnHolder">
-                                <Button variant="outlined" className='add_to_cart_btn' onClick={addToCartHandler}>
-                                   <AddShoppingCartOutlinedIcon/>  Add To Cart
-                                </Button>
-                                
-                                <IconButton aria-label="add to wish list">
-                                    <FavoriteBorderOutlinedIcon />
-                                </IconButton>
+                        
+                            <div className="addingToCart">
+
+                                <div className="addQtyHolder">
+                                <p> Qty: <span> <RemoveOutlinedIcon onClick={handleMinQty} />
+                                    <input type="text"
+                                            min={0}
+                                            value={qtyCounter}
+                                                
+                                    /> <AddOutlinedIcon  onClick={handlePlusQty} /> 
+                                    
+                                            </span>
+                                    </p>
+                                </div>
+
+                                <div className="addToCartBtnHolder">
+                                    <Button variant="outlined" className='add_to_cart_btn' onClick={addToCartHandler}>
+                                    <AddShoppingCartOutlinedIcon/> <p>Add To Cart </p>
+                                    </Button>
+                                    
+                                    <IconButton aria-label="add to wish list">
+                                        <FavoriteBorderOutlinedIcon />
+                                    </IconButton>
+
+
+                                </div>
 
 
                             </div>
-
-
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
