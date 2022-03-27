@@ -9,6 +9,9 @@ import Topbar from '../../components/topbar/topbar'
 import ContactUs from '../../components/contactUs/contactUs'
 import CartItem from '../../components/cartItem/cartItem'
 
+
+import ShopOutlinedIcon from '@material-ui/icons/ShopOutlined';
+
 import { useSelector, useDispatch } from 'react-redux';
 import { addToCart, removeFromCart } from '../../redux/actions/cartActions'
 
@@ -48,8 +51,11 @@ export default function Cart() {
             <div className="headerBar">
                 <p className='headerBarContent'>Home / Shopping Cart</p>
             </div>
+            <div className="cartTitle">
+                <h2 className='cartTitleContent' >Shopping Cart </h2><ShopOutlinedIcon/>
+            </div>
             <div className="cartTable">
-                <div className="cartTableTitle"><h2 className='cartTableTitleContent' >Shopping Cart</h2></div>
+                
                 <div className="table">
                     {cartItems.length === 0?(
                         <h3>Your cart is Empty </h3>
@@ -65,12 +71,12 @@ export default function Cart() {
             <div className="checkoutInfo">
                 <div className="checkoutInfoWrapper">
                     <div className="infoBox">
-                        <div className="subTotal">
+                        <div className="selectedItems">
                             <div className="tag">
-                                <p>SubTotal Items:</p> 
+                                <p>Selected Items:</p> 
                             </div>
                             <div className="amount">
-                                {getCartCount()}
+                               <p className='itemCountNumber'> {getCartCount()} </p>
                             </div>
                         </div>
                         <div className="total">
@@ -78,7 +84,7 @@ export default function Cart() {
                                 <p>Total Price:</p> 
                             </div>
                             <div className="amount">
-                               ${getTotalProductPrice().toFixed(2)}
+                              <p className='totalPriceNumber'>${getTotalProductPrice().toFixed(2)} </p>
                             </div>
                         </div>
                     </div>
@@ -88,8 +94,8 @@ export default function Cart() {
 
             <div className="buttons">
                 <div className="buttonHolder">
-                    <Link to={'/'}><Button variant="contained" color="primary">Continue Shopping</Button></Link>
-                    <Link to={'/checking'}><Button variant="contained" color="primary">Checkout</Button></Link>
+                    <Link to={'/'}><Button className='cartPageButton'  variant="contained" size='small' color="primary"> <p>Continue Shopping</p></Button></Link>
+                    <Link to={'/checking'}><Button className='cartPageButton'  size='small' variant="contained" color='primary' > <p>Checkout </p> </Button></Link>
                 </div>                
             </div>        
         </div>
