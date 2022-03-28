@@ -64,7 +64,6 @@
 }
 
 .table{
-    display: flex;
     padding: 0;
     margin: 0;
     width: 100%;
@@ -72,7 +71,7 @@
     justify-content: center;
 }
 
-.table p{
+/* .table p{
     font-size: 15px;
     display: flex;
     width: 100%;
@@ -85,7 +84,7 @@
     color: rgb(151, 151, 151);
     font-size: 30px;
     margin: 0px 10px;
-}
+} */
 
 
 
