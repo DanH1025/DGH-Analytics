@@ -25,6 +25,8 @@ import Select from '@material-ui/core/Select';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts, getProductsByCategory } from '../../../redux/actions/productActions';
 import { getProductsBySearch } from '../../../redux/actions/productActions';
+import { getUser } from '../../../redux/actions/userActions'
+import { createUser } from '../../../redux/actions/userActions'
 
 import SettingsIcon from '@material-ui/icons/Settings';
 
@@ -37,7 +39,25 @@ export default function Topbar() {
     const [open_category ,  setOpen_category] = React.useState(false);//open and close the select option for search 
     const [open_allCategories, setOpen_allCategories] = React.useState(false);//open and close the select option for all
 
+    const [emailError, setEmailError] = React.useState('');
+
+    const [loginData , setloginData] = useState({
+      email: "",
+      password: ""
+    });
+
+    const [signUpData , setSignUpData] = useState({
+      first_name: "",
+      last_name: "",
+      email: "",
+      confirm_email:"",
+      password: "",
+      confirm_password: "",
+    });
+
 		const dispatch = useDispatch();
+
+    const user = useSelector((state) => state.getUser.user);
 
     // to handle the changes on the search catagory option
     const handleSearchCategoryChange = (event)=>{
@@ -97,8 +117,43 @@ export default function Topbar() {
     }
 
     const handleDialogClose = () => {
+      dispatch(getUser(loginData.email, loginData.password));
+      console.log(user.length);
+      if(user.length){
         setOpenSignUp(false);
         setOpenLogin(false);
+        console.log(loginData);
+        loginData.email = "";
+        loginData.password = "";
+      }else{
+        console.log('no data incorect');
+        setOpenSignUp(false);
+        setOpenLogin(false);
+      }
+    };
+
+    const handleRegisterDialogClose = () => {
+      if((signUpData.email === signUpData.confirm_email)&&(signUpData.password === signUpData.confirm_password)){
+        // validateEmail(signUpData.email);
+        // console.log(emailError);
+        fetch(`http://apilayer.net/api/check?access_key=e88cb97fc068e62599ee94d965979c19&email=${signUpData.email}&smtp=1&format=1`).
+        then(res => res.json()).
+        then(data => {
+          console.log(data.format_valid);
+          if (data.format_valid && data.smtp_check) {  
+            console.log(signUpData);
+            dispatch(createUser(signUpData));
+            setOpenSignUp(false);
+            setOpenLogin(false);
+            setEmailError('false');
+          }else{
+            console.log('incorrect email format');
+            setEmailError('true');
+          }
+        });
+      }else{
+        console.log('wrong input');
+      }
     };
 
 
@@ -111,10 +166,6 @@ export default function Topbar() {
     const getCartCount = ()=>{
       return cartItems.reduce((qtyCounter, item)=> qtyCounter + Number(item.qtyCounter) ,0)
     }
-    
-
-    
-
    
   return (
     <div className='topbar'>
@@ -260,8 +311,11 @@ export default function Topbar() {
         </div>
 
         <div className="signUpDialog">
-            <Dialog open={openLogin} onClose={handleDialogClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">Login</DialogTitle>
+        <Dialog 
+              open={openLogin} 
+              onClose={handleDialogClose} aria-labelledby="form-dialog-title">
+                <DialogTitle id="form-dialog-title">
+                  Login</DialogTitle>
                 <DialogContent>
                 <DialogContentText>
                     Im A Returning Customer 
@@ -272,6 +326,10 @@ export default function Topbar() {
                     id="loginEmail"
                     label="Email Address"
                     type="email"
+                    value={loginData.email}
+                    onChange={(e)=>{
+                      setloginData({...loginData, email: e.target.value})
+                    }}
                     fullWidth
                 />
                  <TextField
@@ -280,11 +338,19 @@ export default function Topbar() {
                     id="loginPasswor"
                     label="Password"
                     type="password"
+                    value={loginData.password}
+                    onChange={(e)=>{
+                      setloginData(
+                        {...loginData, 
+                        password: e.target.value})
+                    }}
                     fullWidth
                 />
                 </DialogContent>
                 <DialogActions>
-                <Button onClick={handleDialogClose} variant='outlined'  color="primary">
+                <Button 
+                onClick={handleDialogClose} variant='outlined'  
+                color="primary">
                     Login
                 </Button>
                 <Button onClick={handleClickOpenSignUp} variant='outlined' color="primary">
@@ -293,12 +359,14 @@ export default function Topbar() {
                 </DialogActions>
             </Dialog> 
 
-
             <Dialog open={openSignUp} onClose={handleDialogClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">SignUp</DialogTitle>
                 <DialogContent>
                 <DialogContentText>
                     Im A New Customer
+                </DialogContentText>
+                <DialogContentText>
+                {emailError === 'true' ? <span style={{color: "red"}}>Please Enter correct email</span> : ''} 
                 </DialogContentText>
                 <TextField
                     autoFocus
@@ -306,6 +374,10 @@ export default function Topbar() {
                     id="first_name"
                     label="First Name"
                     type="text"
+                    value={signUpData.first_name}
+                    onChange={(e)=>{
+                      setSignUpData({...signUpData, first_name: e.target.value})
+                    }}
                     fullWidth
                 />
                  <TextField
@@ -314,6 +386,10 @@ export default function Topbar() {
                     id="last_name"
                     label="Last Name"
                     type="text"
+                    value={signUpData.last_name}
+                    onChange={(e)=>{
+                      setSignUpData({...signUpData, last_name: e.target.value})
+                    }}
                     fullWidth
                 />
                  <TextField
@@ -322,6 +398,10 @@ export default function Topbar() {
                     id="Email"
                     label="Email"
                     type="email"
+                    value={signUpData.email}
+                    onChange={(e)=>{
+                      setSignUpData({...signUpData, email: e.target.value})
+                    }}
                     fullWidth
                 />
                  <TextField
@@ -330,6 +410,10 @@ export default function Topbar() {
                     id="confirm_email"
                     label="Confirm Email"
                     type="email"
+                    value={signUpData.confirm_email}
+                    onChange={(e)=>{
+                      setSignUpData({...signUpData, confirm_email: e.target.value})
+                    }}
                     fullWidth
                 />
                  <TextField
@@ -338,6 +422,10 @@ export default function Topbar() {
                     id="password"
                     label="Password"
                     type="password"
+                    value={signUpData.password}
+                    onChange={(e)=>{
+                      setSignUpData({...signUpData, password: e.target.value})
+                    }}
                     fullWidth
                 />
                  <TextField
@@ -346,11 +434,15 @@ export default function Topbar() {
                     id="confirm_password"
                     label="Confirm Password"
                     type="password"
+                    value={signUpData.confirm_password}
+                    onChange={(e)=>{
+                      setSignUpData({...signUpData, confirm_password: e.target.value})
+                    }}
                     fullWidth
                 />
                 </DialogContent>
                 <DialogActions>
-                <Button onClick={handleDialogClose} variant='outlined'  color="primary">
+                <Button onClick={handleRegisterDialogClose} variant='outlined'  color="primary">
                     Register
                 </Button>
                 <Button onClick={handleClickOpenLogin} variant='outlined' color="primary">

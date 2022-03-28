@@ -12,7 +12,7 @@ const addProduct = (req, res) => {
 const getProducts = async(req,res) => {
   console.log('in appi get product');
   const [product, metaData] = await ProductModel.fetchAll();
-  console.log(product);
+  // console.log(product);
   res.send(product);
 }
 
