@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import './searchResult.css'
-import Topbar from '../../components/topbar/topbar'
-import ProductCard from '../../components/productCard/productCard'
-import ContactUs from '../../components/contactUs/contactUs'
-import Footer from '../../components/footer/footer'
+import Topbar from '../../../components/Client/topbar/topbar'
+import ProductCard from '../../../components/Client/productCard/productCard'
+import ContactUs from '../../../components/Client/contactUs/contactUs'
+import Footer from '../../../components/Client/footer/footer'
 
 //import redux to use redux action and constants
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getProductsBySearch } from '../../redux/actions/productActions';
+import { getProductsBySearch } from '../../../redux/actions/productActions';
 //import redux actions to call all the functions
-// import { getProducts as listProducts } from '../../redux/actions/productActions'
+// import { getProducts as listProducts } from '../../../redux/actions/productActions'
 
 export default function SearchResult({ match }) {
   const name = match.params.name;

@@ -1,6 +1,6 @@
 import React from 'react'
-import ContactUs from '../../components/contactUs/contactUs'
-import Topbar from '../../components/topbar/topbar'
+import ContactUs from '../../../components/Client/contactUs/contactUs'
+import Topbar from '../../../components/Client/topbar/topbar'
 import './checkout.css'
 import { ArrowDropDown } from '@material-ui/icons'
 import Button from '@material-ui/core/Button';

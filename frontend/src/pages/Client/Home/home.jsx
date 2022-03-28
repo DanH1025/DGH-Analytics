@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import './home.css'
 import { Axios } from 'axios'
-import Topbar from '../../components/topbar/topbar'
-import ImageSlider from '../../components/imageSlider/imageSlider'
-import FeaturedInfo from '../../components/featuredInfo/featuredInfo'
-import ProductCard from '../../components/productCard/productCard'
-import ContactUs from '../../components/contactUs/contactUs'
-import Footer from '../../components/footer/footer'
-import { sliderData } from '../../components/imageSlider/sliderData'
+import Topbar from '../../../components/Client/topbar/topbar'
+import ImageSlider from '../../../components/Client/imageSlider/imageSlider'
+import FeaturedInfo from '../../../components/Client/featuredInfo/featuredInfo'
+import ProductCard from '../../../components/Client/productCard/productCard'
+import ContactUs from '../../../components/Client/contactUs/contactUs'
+import Footer from '../../../components/Client/footer/footer'
+import { sliderData } from '../../../components/Client/imageSlider/sliderData'
 
 //import redux to use redux action and constants
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getProducts } from '../../redux/actions/productActions';
+import { getProducts } from '../../../redux/actions/productActions';
 //import redux actions to call all the functions
 // import { getProducts as listProducts } from '../../redux/actions/productActions'
 

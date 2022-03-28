@@ -1,6 +1,6 @@
 import './productDetails.css'
-import Topbar from '../../components/topbar/topbar'
-import Footer from '../../components/footer/footer'
+import Topbar from '../../../components/Client/topbar/topbar'
+import Footer from '../../../components/Client/footer/footer'
 
 import RemoveOutlinedIcon from '@material-ui/icons/RemoveOutlined';
 import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
@@ -10,11 +10,11 @@ import AddShoppingCartOutlinedIcon from '@material-ui/icons/AddShoppingCartOutli
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 import { useState,useEffect } from 'react';
 
-import { getProductsDetails } from '../../redux/actions/productActions';
+import { getProductsDetails } from '../../../redux/actions/productActions';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart } from '../../redux/actions/cartActions';
+import { addToCart } from '../../../redux/actions/cartActions';
 
-import { getProductsById } from '../../redux/actions/productActions';
+import { getProductsById } from '../../../redux/actions/productActions';
 
 export default function ProductDetails({ match, history }) {
 
