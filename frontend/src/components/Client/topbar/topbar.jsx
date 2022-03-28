@@ -23,8 +23,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getProducts, getProductsByCategory } from '../../redux/actions/productActions';
-import { getProductsBySearch } from '../../redux/actions/productActions';
+import { getProducts, getProductsByCategory } from '../../../redux/actions/productActions';
+import { getProductsBySearch } from '../../../redux/actions/productActions';
 
 import SettingsIcon from '@material-ui/icons/Settings';
 

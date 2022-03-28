@@ -4,16 +4,16 @@ import './cart.css'
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 
-import Footer from '../../components/footer/footer'
-import Topbar from '../../components/topbar/topbar'
-import ContactUs from '../../components/contactUs/contactUs'
-import CartItem from '../../components/cartItem/cartItem'
-
+import Footer from '../../../components/Client/footer/footer'
+import Topbar from '../../../components/Client/topbar/topbar'
+import ContactUs from '../../../components/Client/contactUs/contactUs'
+import CartItem from '../../../components/Client/cartItem/cartItem'
+import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
 
 import ShopOutlinedIcon from '@material-ui/icons/ShopOutlined';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { addToCart, removeFromCart } from '../../redux/actions/cartActions'
+import { addToCart, removeFromCart } from '../../../redux/actions/cartActions'
 
 export default function Cart() {
 
@@ -58,7 +58,7 @@ export default function Cart() {
                 
                 <div className="table">
                     {cartItems.length === 0?(
-                        <h3>Your cart is Empty </h3>
+                       <p>  Your Cart Is Empty:  <span> <SentimentVeryDissatisfiedIcon /></span>  </p>
                     ): cartItems.map((item)=>
                          <CartItem item={item} 
                                     qtyChangeHandler={qtyChangeHandler} 
