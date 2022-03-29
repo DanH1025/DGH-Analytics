@@ -5,9 +5,19 @@ import './checkout.css'
 import { ArrowDropDown } from '@material-ui/icons'
 import Button from '@material-ui/core/Button';
 
+import { useSelector, useDispatch } from 'react-redux';
+
+
 export default function Checkout() {
+
+    const dispatch = useDispatch();
+    const cart = useSelector(state => state.cart);
+    const {cartItems} = cart;
+    const handleConfirm = () => {
+     console.log(cartItems);
+    }
+
   return (
-    
     <>
     <Topbar/>
 
@@ -139,7 +149,7 @@ export default function Checkout() {
                 </div>
                 </div>
 
-                <Button variant="contained" className='submitAll' color="primary" href="#">
+                <Button variant="contained" className='submitAll' color="primary" href="#" onClick={handleConfirm}>
                     Confirm
                  </Button>
 
