@@ -12,3 +12,8 @@ code {
     monospace;
 }
 
+title{
+  font-size: 12px;
+  color: rgb(255, 208, 1);
+  font-weight: bold;
+}
