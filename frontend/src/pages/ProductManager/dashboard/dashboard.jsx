@@ -8,6 +8,7 @@ import {Link} from 'react-router-dom'
 import {Switch,Router, BrowserRouter,Route} from 'react-router-dom';
 
 import WishList from '../wishlist/wishlist';
+import ProductList from '../../../components/ProductManager/productList/productList';
 
 import { Layout, Menu, Breadcrumb } from 'antd';
 import {
@@ -30,7 +31,7 @@ const { SubMenu } = Menu;
 export default function PM_Dashboard() {
 
 // handle the state of the sidebar slider
-  const [sidebarCollapsed , setSidebarCollapsed] = useState(false);
+const [sidebarCollapsed , setSidebarCollapsed] = useState(false);
 // handle the state of the body components
   const [compCounter , setCompCounter] = useState("");
     const handlerSidebarCollapse = () =>{
@@ -45,6 +46,12 @@ export default function PM_Dashboard() {
       if(compCounter === "1"){
         return <WishList/>
       }
+      else if(compCounter === "2"){
+        return <ProductList />
+        
+        
+      }
+
   }
 
 
@@ -59,7 +66,7 @@ export default function PM_Dashboard() {
                  Profile            
          </Menu.Item>
          <SubMenu key="sub1" icon={<UserOutlined />} title="Products">
-           <Menu.Item key="2">Product List</Menu.Item>
+           <Menu.Item key="2" onClick={()=>setCompCounter("2")}  >Product List</Menu.Item>
            <Menu.Item key="3">Product Details</Menu.Item>
          </SubMenu>
          <Menu.Item key="4" icon={<PieChartOutlined />}>
@@ -82,13 +89,16 @@ export default function PM_Dashboard() {
        <Header className='pm_dash_header' />
        <Content style={{ margin: '0 16px' }}>
          <Breadcrumb style={{ margin: '16px 0' }}>
-           <Breadcrumb.Item>Profile</Breadcrumb.Item>
-           <Breadcrumb.Item></Breadcrumb.Item>
+           <Breadcrumb.Item>
+              {compCounter === "" ? "Default" : compCounter === "1" ? "Profile" : compCounter === "2"? "Product List" : 
+                compCounter === "3" ? "Others" : "Others" }
+           </Breadcrumb.Item>
+           
          </Breadcrumb>
          <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
 
-                 {getComponent()}
-        
+                  {getComponent()} 
+              
          </div>
        </Content>
        <Footer style={{ textAlign: 'center' }}></Footer>
