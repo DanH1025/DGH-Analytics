@@ -12,8 +12,8 @@ import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 
 
 
-
-
+import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 
 export default function ProductList() {
 
@@ -112,15 +112,22 @@ export default function ProductList() {
             title:'Status',
             dataIndex: 'status',
             key: "status",
-            width:70,
+            width:60,
             fixed: 'right'
         },
         {
-          title: "Action",
-          key: 'action',
-          render: () => <a>View</a>,
+    
+          key: 'edit_action',
+          render: () => <EditOutlinedIcon className='editProductIcon' onClick={()=> alert("Im editing")}  />,
           fixed: 'right',
-          width: 100
+          width: 60
+        },
+        {
+          
+          key: 'delete_action',
+          render: () => <DeleteOutlineOutlinedIcon className='deleteProductBtn' onClick={()=> alert("Im deleting")} />,
+          fixed: 'right',
+          width: 60
         }
 
       ];
@@ -165,7 +172,7 @@ export default function ProductList() {
           <Table.Summary.Cell index={2} colSpan={8}>
             Scroll Context
           </Table.Summary.Cell>
-          <Table.Summary.Cell index={10}>Fix Right</Table.Summary.Cell>
+          <Table.Summary.Cell index={10}></Table.Summary.Cell>
         </Table.Summary.Row>
       </Table.Summary>
     )}
