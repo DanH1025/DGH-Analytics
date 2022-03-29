@@ -15,6 +15,9 @@ import ShopOutlinedIcon from '@material-ui/icons/ShopOutlined';
 import { useSelector, useDispatch } from 'react-redux';
 import { addToCart, removeFromCart } from '../../../redux/actions/cartActions'
 
+// SELECT orderdetails.id, product.productName, product.productPrice, orderdetails.productQuantity FROM orderdetails INNER JOIN product ON orderdetails.productId=product.id
+// SELECT orders.id, orderdetails.id, product.productName, product.productPrice, orderdetails.productQuantity FROM orders INNER JOIN orderdetails ON orders.orderId=orderdetails.id INNER JOIN product ON orderdetails.productId=product.id
+
 export default function Cart() {
 
     const dispatch = useDispatch();
