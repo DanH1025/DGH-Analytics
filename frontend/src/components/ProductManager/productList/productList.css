@@ -1,0 +1,25 @@
+body{
+    padding: 0;
+    margin: 0;
+}
+
+.MuiSvgIcon-root.editProductIcon{
+    font-size: 20px;
+    color: silver;
+    transform: 0;
+}
+
+ 
+.MuiSvgIcon-root.deleteProductBtn{
+    font-size: 20px;
+    color: red;
+    transform: 0;
+
+}
+.MuiSvgIcon-root.editProductIcon:hover,
+.MuiSvgIcon-root.deleteProductBtn:hover{
+    transform: scale(1.1);
+    transition: all ease 0.4s;
+    cursor: pointer;
+    font-weight: bolder;
+}

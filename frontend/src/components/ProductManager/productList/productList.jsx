@@ -2,7 +2,7 @@ import React from 'react'
 import './productList.css'
 
 
-import { Table, Switch } from 'antd';
+import { Table , Switch} from 'antd';
 
 import {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,8 +12,8 @@ import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 
 
 
-
-
+import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 
 export default function ProductList() {
 
@@ -49,7 +49,8 @@ export default function ProductList() {
   };
 
 
-
+ 
+  const [fixedTop, setFixedTop] = React.useState(false);
 
 
   
@@ -61,11 +62,15 @@ export default function ProductList() {
           title: 'ID',
           dataIndex: 'id',
           key: 'id',
+          fixed: 'left',
+          width: 50
         },
         {
           title: 'Name',
           dataIndex: 'name',
           key: 'name',
+          width:150,
+          fixed:'left'
        
          
         },
@@ -73,28 +78,62 @@ export default function ProductList() {
           title: 'Brand',
           dataIndex: 'brand',
           key: 'brand',
+          width:150
+
     
         },
         {
             title: 'Price',
             dataIndex: 'price',
             key: 'price',
+            width:70
            
         },
         {
             title: 'Count In Stock',
             dataIndex: 'count_in_stock',
             key: 'count_in_stock',
+            width:100
 
         },
         {
+          title: 'Category',
+          dataIndex:'category',
+          key: 'category',
+          width:100
+        },
+        {
+          title: 'Details',
+          dataIndex:'detail',
+          key:'detail',
+          width:250
+        },
+        {
+            title:'Status',
             dataIndex: 'status',
             key: "status",
+            width:60,
+            fixed: 'right'
         },
+        {
+    
+          key: 'edit_action',
+          render: () => <EditOutlinedIcon className='editProductIcon' onClick={()=> alert("Im editing")}  />,
+          fixed: 'right',
+          width: 60
+        },
+        {
+          
+          key: 'delete_action',
+          render: () => <DeleteOutlineOutlinedIcon className='deleteProductBtn' onClick={()=> alert("Im deleting")} />,
+          fixed: 'right',
+          width: 60
+        }
 
       ];
     
     
+
       if(!products.length){
           return <div></div>
       }
@@ -113,19 +152,36 @@ export default function ProductList() {
                 status:  val.countInStock === 0 ? <FiberManualRecordIcon style={{color:"#ff0000"}} /> : <FiberManualRecordIcon style={{color:"#19ff05"}} /> 
             })
           })
-      }
+      };
 
 
 
 
-
-
+      
 
   return (
-        <Table
-        columns={columns}
-        rowSelection={{ ...rowSelection }}
-        dataSource={data}
-    /> 
+    <Table
+    rowSelection={{ ...rowSelection }}
+    columns={columns}
+    dataSource={data}
+    scroll={{ x: 1300 }}
+    summary={pageData => (
+      <Table.Summary fixed={fixedTop ? 'top' : 'bottom'}>
+        <Table.Summary.Row>
+       
+          <Table.Summary.Cell index={2} colSpan={8}>
+            Scroll Context
+          </Table.Summary.Cell>
+          <Table.Summary.Cell index={10}></Table.Summary.Cell>
+        </Table.Summary.Row>
+      </Table.Summary>
+    )}
+    sticky
+  />
+
+
+
+
+       
   )
 }

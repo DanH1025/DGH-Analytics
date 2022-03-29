@@ -10,12 +10,11 @@ import { Input,Button } from 'antd';
 
 import { Select, Divider,  Typography, Space } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-import { PoweroffOutlined } from '@ant-design/icons';
+
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 
 const { Option } = Select;
 
-let index = 0;
 
 
 
@@ -120,7 +119,7 @@ export default function AddProduct() {
                     <Input className='product_name_input' type='text' placeholder="Product Name" />
                 </div>
 
-                <div className='pBrand'>
+               
                     <Select
                             className='product_brand_select'
                             placeholder="Product Brand"
@@ -141,8 +140,7 @@ export default function AddProduct() {
                                 <Option key={item}>{item}</Option>
                             ))}
                         </Select>
-                </div>
-                <div className='pCategory'>
+             
                     <Select
                             className='product_category_select'
                             placeholder="Product Category"
@@ -163,7 +161,7 @@ export default function AddProduct() {
                                 <Option key={item}>{item}</Option>
                             ))}
                         </Select>
-                </div>
+              
                 <div className='pPrice'>
                     <Input className='product_price_input' prefix="$"  type='number' placeholder="Price" />
                 </div>
