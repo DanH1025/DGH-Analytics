@@ -2,11 +2,11 @@ import React from 'react'
 import './productList.css'
 
 
-import { Table , Switch} from 'antd';
+import { Table , Switch , Button} from 'antd';
 
 import {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { getProducts } from '../../../redux/actions/productActions';
+import { getProducts ,deleteProductById } from '../../../redux/actions/productActions';
 
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 
@@ -32,13 +32,17 @@ export default function ProductList() {
    console.log(products);
 
 
+
     // rowSelection objects indicates the need for row selection
     const rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
         console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
         },
-        onSelect: (record, selected, selectedRows) => {
+        onSelect: (record, selected, selectedRows ) => {
         console.log(record, selected, selectedRows);
+        console.log("this is the record" + record);
+        console.log("this is selected" + selected);
+        console.log("this is selectedRow" + selectedRows)
         console.log( selectedRows[0].id);
         
         },
@@ -115,20 +119,7 @@ export default function ProductList() {
             width:60,
             fixed: 'right'
         },
-        {
-    
-          key: 'edit_action',
-          render: () => <EditOutlinedIcon className='editProductIcon' onClick={()=> alert("Im editing")}  />,
-          fixed: 'right',
-          width: 60
-        },
-        {
-          
-          key: 'delete_action',
-          render: () => <DeleteOutlineOutlinedIcon className='deleteProductBtn' onClick={()=> alert("Im deleting")} />,
-          fixed: 'right',
-          width: 60
-        }
+        
 
       ];
     
@@ -160,6 +151,13 @@ export default function ProductList() {
       
 
   return (
+    <>
+    <div className='deleteEditButtonHolder'>
+      <Button type="primary" danger onClick={()=> rowSelection}  >
+        Delete
+      </Button>
+    </div>
+
     <Table
     rowSelection={{ ...rowSelection }}
     columns={columns}
@@ -179,7 +177,7 @@ export default function ProductList() {
     sticky
   />
 
-
+</>
 
 
        

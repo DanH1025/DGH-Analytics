@@ -51,6 +51,10 @@ module.exports = class Request {
     return db.execute('SELECT * FROM product WHERE product.id = ?', [id]);
   }
 
+  static deleteById(id){
+    return db.execute('DELETE * FROM product WHERE product.id = ?' , [id]);
+  }
+
   static findByName(name) {
     return db.execute('SELECT * FROM product WHERE product.productName LIKE ?', ["%"+name+"%"]);
   }

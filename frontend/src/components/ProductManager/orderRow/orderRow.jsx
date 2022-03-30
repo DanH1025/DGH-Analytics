@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import { render } from 'react-dom';
-import { slideDown, slideUp } from 'anim';
-// import {slideDown, slideUp} from 'react-slidedown'
+// import { render } from 'react-dom';
+// import { slideDown, slideUp } from 'anim';
+// // import {slideDown, slideUp} from 'react-slidedown'
 
 function formatDate(str) {
   return str.substr(0, 10);
