@@ -3,12 +3,12 @@ import * as api from '../api/index';
 import axios from 'axios';
 
 
-export const getOrderDetails = () => async (dispatch)=>{
+export const getOrderDetails = (id) => async (dispatch)=>{
     try {
         dispatch({
             type: actionType.GET_ORDER_DETAILS_REQUEST,
         });
-        const {data} = await api.fetchOrderDetails();
+        const {data} = await api.fetchOrderDetails(id);
         
         dispatch({
             type: actionType.GET_ORDERS_DETAILS_SUCCESS,

@@ -14,7 +14,8 @@ const addOrderDetail = (req, res) => {
 }
 
 const getOrderDetails = async(req,res) => {
-  const [order, metaData] = await OrderModle.fetchAll()  
+  const id = req.body.id;
+  const [order, metaData] = await OrderDetailModel.fetchAll(id);
   console.log(order);
   res.send(order);
 }

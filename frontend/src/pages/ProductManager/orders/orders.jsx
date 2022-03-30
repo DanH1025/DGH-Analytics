@@ -1,7 +1,9 @@
 import React, {useEffect} from 'react'
 import './orders.css'
-
-import { Table } from "react-bootstrap";
+import { Box, Collapse, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Paper} from '@mui/material';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+// import { Table } from "react-bootstrap";
 // Bootstrap CSS
 import "bootstrap/dist/css/bootstrap.min.css";
 // To make rows collapsible
@@ -11,6 +13,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getOrders } from '../../../redux/actions/orderActions';
 
 import UserTableRow from '../../../components/ProductManager/orderRow/orderRow'
+ 
+import Row from '../../../components/ProductManager/orderRow/orderRow';
 
 export default function Orders() {
   const dispatch = useDispatch();
@@ -27,7 +31,44 @@ export default function Orders() {
       <main>
         <div>
           <div>
-            <Table striped bordered hover>
+          <TableContainer component={Paper}>
+            <Table aria-label="collapsible table">
+              <TableHead>
+                <TableRow>
+                  <TableCell />
+                  <TableCell>Id</TableCell>
+                  <TableCell align="right">
+                    Fullname</TableCell>
+                  <TableCell align="right">
+                    LastName</TableCell>
+                  <TableCell align="right">
+                    Email</TableCell>
+                  <TableCell align="right">
+                    Total</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+              {
+                  !orders.length ? <div>empty</div> : (
+                    orders.map((val, key) => {
+                      // console.log(val);
+                      return (
+                        <Row 
+                        key = {val.orderId}   
+                        id = {val.orderId}
+                        fname = {val.userFirstName}
+                        lname = {val.userLastName}
+                        email = {val.userEmail} 
+                        total = {val.total} />
+                        )
+                    }
+                  ))
+              }
+              </TableBody>
+            </Table>
+          </TableContainer>
+
+            {/* <Table striped bordered hover>
               <thead>
                 <tr>
                   <th className="uk-table-shrink" />
@@ -73,7 +114,7 @@ export default function Orders() {
                   )
                 }
               </tbody>
-            </Table>
+            </Table> */}
           </div>
         </div>
       </main>
