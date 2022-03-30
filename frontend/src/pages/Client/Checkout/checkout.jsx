@@ -72,33 +72,40 @@ export default function Checkout() {
             </div>
             
             <div className="stepsWrapper">
-                <div className='stepOne'>
-                    <input className='collapsibleCheckbox' type="checkbox" id='stepOne_collapsible-head' />
-                <label for='stepOne_collapsible-head'><p> Step1: Checkout Option </p>  <ArrowDropDown style={{fontSize:30}}/>  </label> 
+							<div className='stepOne'>
+								<input className='collapsibleCheckbox' type="checkbox" id='stepOne_collapsible-head' />
+                <label for='stepOne_collapsible-head'>
+									<p> Step1: Checkout Option </p>  
+									<ArrowDropDown style={{fontSize:30}}/>  
+								</label> 
                 <div className='collapisble-content'>
-                    <div className="forms">
-                        <div className="new_customer_form">
-                            <h2 className='newCustomerTitle'>New Customer</h2>
-                            <p>Checkout Options:</p> 
-                            <input type="checkbox" label="Register" className='ckecked' />
-                            <p>By creating an account you will be able to shop faster, be up to date on an order's status,and keep track of the orders you have previously made.</p>
-                            <Button variant="outlined" className='new_customer_form_btn'
-                                color="primary" href="#">
-                                         Continue
-                            </Button>
-                        </div>
-                        <div className='returning_customer_form'>
-                            <h2 className='returningCustomerTitle'>Returning Customer</h2>
-                            <p>I am a returning customer</p>
-                            <p>Email</p>
-                            <input type="email" placeholder='Email' className='email_input' id='email' name='email'  />
-                            <p>Password</p>
-                            <input type="password" placeholder='Password' className='password_input' id='password' name='password' />
-                            <Button variant="contained" className='loginBtn' color="primary" href="#">
-                                Login
-                            </Button>
-                        </div>
-                    </div>                   
+									<div className="forms">
+										<div className="new_customer_form">
+											<h2 className='newCustomerTitle'>
+												New Customer
+											</h2>
+											<p>Checkout Options:</p> 
+											<input type="checkbox" label="Register" className='ckecked' />
+											<p>By creating an account you will be able to shop faster, be up to date on an order's status,and keep track of the orders you have previously made.</p>
+											<Button variant="outlined" className='new_customer_form_btn'
+                      color="primary" href="#">
+												Continue
+											</Button>
+										</div>
+										<div className='returning_customer_form'>
+											<h2 className='returningCustomerTitle'>
+												Returning Customer
+											</h2>
+											<p>I am a returning customer</p>
+											<p>Email</p>
+											<input type="email" placeholder='Email' className='email_input' id='email' name='email'  />
+											<p>Password</p>
+											<input type="password" placeholder='Password' className='password_input' id='password' name='password' />
+												<Button variant="contained" className='loginBtn' color="primary" href="#">
+													Login
+												</Button>
+									</div>
+                  	  </div>                   
                 </div>
                 </div>
 
