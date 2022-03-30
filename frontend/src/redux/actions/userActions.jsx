@@ -9,7 +9,7 @@ export const getUser = (email, password) => async (dispatch)=>{
             type: actionType.GET_USER_REQUEST,
         });
         const {data} = await api.fetchUsers(email, password);
-        
+        console.log(data);
         dispatch({
             type: actionType.GET_USER_SUCCESS,
             payload: data,
