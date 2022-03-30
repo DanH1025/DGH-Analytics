@@ -17,6 +17,12 @@ import { addToCart, removeFromCart } from '../../../redux/actions/cartActions'
 
 // SELECT orderdetails.id, product.productName, product.productPrice, orderdetails.productQuantity FROM orderdetails INNER JOIN product ON orderdetails.productId=product.id
 // SELECT orders.id, orderdetails.id, product.productName, product.productPrice, orderdetails.productQuantity FROM orders INNER JOIN orderdetails ON orders.orderId=orderdetails.id INNER JOIN product ON orderdetails.productId=product.id
+// SELECT orderdetails.id, product.productName, product.productPrice, orderdetails.productQuantity FROM orderdetails INNER JOIN product ON orderdetails.productId=product.id
+
+
+// SELECT orders.orderId, users.userFirstName, users.userLastName, users.userEmail, orders.total FROM orders INNER JOIN users ON orders.userId = users.userId
+
+// SELECT orderdetails.id, product.productName, product.productPrice, product.productCategory, orderdetails.productQuantity FROM orderdetails INNER JOIN product ON orderdetails.productId = product.id WHERE orderdetails.orderId = 'Wed Mar 30 2022 10:27:32 GMT+0300 (East Africa Time)'
 
 export default function Cart() {
 

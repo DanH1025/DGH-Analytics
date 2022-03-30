@@ -18,6 +18,43 @@ const readUserUrl =
 const createUserUrl = 
   'http://localhost:5000/api/addUser'
 
+// orders url
+const fetchOrdersUrl = 
+  'http://localhost:5000/api/getOrders'
+const createOrdersUrl = 
+  'http://localhost:5000/api/addOrder'
+  
+// order details url
+const createOrderDetailsUrl = 
+  'http://localhost:5000/api/addOrderDetail'
+const fetchOrderDetailsUrl = 
+  'http://localhost:5000/api/getOrdersDetail'
+
+const deleteProductByIdUrl =
+  'http://localhost:5000/api/deleteProductById'
+
+
+// orders
+export const fetchOrderDetails = (id) =>
+  axios.post(fetchOrderDetailsUrl, {
+    id: id
+  });
+export const createOrderDetails = (orderId, productId, productQuantity) => 
+  axios.post(createOrderDetailsUrl, {
+    orderId: orderId,
+    productId: productId,
+    productQuantity: productQuantity
+  });
+
+// orders
+export const fetchOrders = () =>
+  axios.post(fetchOrdersUrl);
+export const createOrders = (date, userId, total) => 
+  axios.post(createOrdersUrl, {
+    date: date,
+    userId: userId,
+    total: total
+  });
 
 // users
 export const fetchUsers = (email, password) =>
@@ -42,6 +79,12 @@ export const fetchProductsById = (id) =>
       id: id  
     }
   );
+export const deleteProductById = (id) =>
+    axios.post(deleteProductByIdUrl, {
+      id: id
+    });
+
+
 export const fetchProductsBySearch = (name, category) =>
   axios.post(readProductBySearchUrl, {
       name: name,

@@ -6,15 +6,57 @@ import { ArrowDropDown } from '@material-ui/icons'
 import Button from '@material-ui/core/Button';
 
 import { useSelector, useDispatch } from 'react-redux';
+import { useState } from 'react'
 
+import { createOrders } from '../../../redux/actions/orderActions';
+import { createOrderDetails } from '../../../redux/actions/orderDetailAction'
 
 export default function Checkout() {
 
     const dispatch = useDispatch();
     const cart = useSelector(state => state.cart);
     const {cartItems} = cart;
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const user = useSelector((state) => state.getUser.user);
+		let users = [];
+
+		{user.map((pro) => {
+			users = pro;
+			console.log(users);
+		})}
+
+		// if(user.length){
+    //     setIsLoggedIn(true);
+    // }else{
+    //     setIsLoggedIn(false);
+    // }
+
+		const getTotalProductPrice = ()=>{
+			return cartItems.reduce((price , item)=> item.price * item.qtyCounter + price , 0)
+		}
+
+		function User() { 
+			const user = useSelector((state) => state.getUser.user); // Rule 1: call hooks in top-level
+			return <>{user}</>
+		}
+
     const handleConfirm = () => {
-     console.log(cartItems);
+      console.log(cartItems);
+			let date = Date();
+			// const pt = user;
+			// console.log('cun pt: ' + pt);
+			// console.log(users);
+      if(1){
+        console.log(user);
+				console.log(users);
+				dispatch(createOrders(date,users.userId, 100));
+				{cartItems.map((cart) => {
+					console.log('chekh out' + cart.product + cart.qtyCounter);
+					dispatch(createOrderDetails(date, cart.product, cart.qtyCounter));
+				})}
+      }else{
+        console.log('login in first');
+      }
     }
 
   return (
@@ -30,37 +72,42 @@ export default function Checkout() {
             </div>
             
             <div className="stepsWrapper">
-                <div className='stepOne'>
-                    <input className='collapsibleCheckbox' type="checkbox" id='stepOne_collapsible-head' />
-                <label for='stepOne_collapsible-head'><p> Step1: Checkout Option </p>  <ArrowDropDown style={{fontSize:30}}/>  </label> 
+							<div className='stepOne'>
+								<input className='collapsibleCheckbox' type="checkbox" id='stepOne_collapsible-head' />
+                <label for='stepOne_collapsible-head'>
+									<p> Step1: Checkout Option </p>  
+									<ArrowDropDown style={{fontSize:30}}/>  
+								</label> 
                 <div className='collapisble-content'>
-                    <div className="forms">
-                        <div className="new_customer_form">
-                            <h2 className='newCustomerTitle'>New Customer</h2>
-                            <p>Checkout Options:</p> 
-                            <input type="checkbox" label="Register" className='ckecked' />
-                            <p>By creating an account you will be able to shop faster, be up to date on an order's status,and keep track of the orders you have previously made.</p>
-                            <Button variant="outlined" className='new_customer_form_btn'
-                                color="primary" href="#">
-                                         Continue
-                            </Button>
-                        </div>
-                        <div className='returning_customer_form'>
-                            <h2 className='returningCustomerTitle'>Returning Customer</h2>
-                            <p>I am a returning customer</p>
-                            <p>Email</p>
-                            <input type="email" placeholder='Email' className='email_input' id='email' name='email'  />
-                            <p>Password</p>
-                            <input type="password" placeholder='Password' className='password_input' id='password' name='password' />
-                            <Button variant="contained" className='loginBtn' color="primary" href="#">
-                                Login
-                            </Button>
-                        </div>
-                    </div>                   
+									<div className="forms">
+										<div className="new_customer_form">
+											<h2 className='newCustomerTitle'>
+												New Customer
+											</h2>
+											<p>Checkout Options:</p> 
+											<input type="checkbox" label="Register" className='ckecked' />
+											<p>By creating an account you will be able to shop faster, be up to date on an order's status,and keep track of the orders you have previously made.</p>
+											<Button variant="outlined" className='new_customer_form_btn'
+                      color="primary" href="#">
+												Continue
+											</Button>
+										</div>
+										<div className='returning_customer_form'>
+											<h2 className='returningCustomerTitle'>
+												Returning Customer
+											</h2>
+											<p>I am a returning customer</p>
+											<p>Email</p>
+											<input type="email" placeholder='Email' className='email_input' id='email' name='email'  />
+											<p>Password</p>
+											<input type="password" placeholder='Password' className='password_input' id='password' name='password' />
+												<Button variant="contained" className='loginBtn' color="primary" href="#">
+													Login
+												</Button>
+									</div>
+                  	  </div>                   
                 </div>
                 </div>
-
-
 
                 <div className='stepTwo'>
                     <input className='collapsibleCheckbox' type="checkbox" id='stepTwo_collapsible-head' />

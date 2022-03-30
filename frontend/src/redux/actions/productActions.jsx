@@ -70,6 +70,32 @@ export const getProductsById = (id) => async (dispatch)=>{
         });
     }
 };
+
+//delete products 
+export const deleteProductById = (id) => async (dispatch)=>{
+    console.log("deleting product:"  + id);
+    try {
+        dispatch({
+            type: actionType.PRODUCT_DELETE_REQUEST
+        })
+        const {data} = await api.deleteProductById(id);
+        dispatch({
+            type: actionType.PRODUCT_DELETE_SUCCESS,
+            // payload: data,
+        }); 
+
+    } catch (error) {
+        dispatch({
+            type:actionType.PRODUCT_DELETE_FAIL,
+            payload: 
+                error.response && error.response.data.message 
+                ?error.response.data.message:error.message,
+        });
+    }
+}
+
+
+
 export const getProductsBySearch = (name, category) => async (dispatch)=>{
     // console.log('in actioning: ' + id);
     try {
