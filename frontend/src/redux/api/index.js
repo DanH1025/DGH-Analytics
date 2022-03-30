@@ -35,8 +35,10 @@ const deleteProductByIdUrl =
 
 
 // orders
-export const fetchOrderDetails = () =>
-  axios.post(fetchOrderDetailsUrl);
+export const fetchOrderDetails = (id) =>
+  axios.post(fetchOrderDetailsUrl, {
+    id: id
+  });
 export const createOrderDetails = (orderId, productId, productQuantity) => 
   axios.post(createOrderDetailsUrl, {
     orderId: orderId,

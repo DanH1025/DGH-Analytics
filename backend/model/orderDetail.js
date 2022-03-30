@@ -23,9 +23,9 @@ module.exports = class Request {
     }
   }
 
-  static fetchAll() {
+  static fetchAll(id) {
     try{
-       const result =db.execute('SELECT * FROM orderdetails');
+       const result =db.execute('SELECT orderdetails.id, product.productName, product.productPrice, product.productCategory, orderdetails.productQuantity FROM orderdetails INNER JOIN product ON orderdetails.productId = product.id WHERE orderdetails.orderId = ?', [id]);
        return result;
     }catch(err){
       console.log(err);
