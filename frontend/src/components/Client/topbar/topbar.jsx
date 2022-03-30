@@ -118,7 +118,7 @@ export default function Topbar() {
 
     const handleDialogClose = () => {
       dispatch(getUser(loginData.email, loginData.password));
-      console.log(user.length);
+      console.log(user);
       if(user.length){
         setOpenSignUp(false);
         setOpenLogin(false);

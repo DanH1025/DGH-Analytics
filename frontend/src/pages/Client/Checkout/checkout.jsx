@@ -6,15 +6,57 @@ import { ArrowDropDown } from '@material-ui/icons'
 import Button from '@material-ui/core/Button';
 
 import { useSelector, useDispatch } from 'react-redux';
+import { useState } from 'react'
 
+import { createOrders } from '../../../redux/actions/orderActions';
+import { createOrderDetails } from '../../../redux/actions/orderDetailAction'
 
 export default function Checkout() {
 
     const dispatch = useDispatch();
     const cart = useSelector(state => state.cart);
     const {cartItems} = cart;
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const user = useSelector((state) => state.getUser.user);
+		let users = [];
+
+		{user.map((pro) => {
+			users = pro;
+			console.log(users);
+		})}
+
+		// if(user.length){
+    //     setIsLoggedIn(true);
+    // }else{
+    //     setIsLoggedIn(false);
+    // }
+
+		const getTotalProductPrice = ()=>{
+			return cartItems.reduce((price , item)=> item.price * item.qtyCounter + price , 0)
+		}
+
+		function User() { 
+			const user = useSelector((state) => state.getUser.user); // Rule 1: call hooks in top-level
+			return <>{user}</>
+		}
+
     const handleConfirm = () => {
-     console.log(cartItems);
+      console.log(cartItems);
+			let date = Date();
+			// const pt = user;
+			// console.log('cun pt: ' + pt);
+			// console.log(users);
+      if(1){
+        console.log(user);
+				console.log(users);
+				dispatch(createOrders(date,users.userId, 100));
+				{cartItems.map((cart) => {
+					console.log('chekh out' + cart.product + cart.qtyCounter);
+					dispatch(createOrderDetails(date, cart.product, cart.qtyCounter));
+				})}
+      }else{
+        console.log('login in first');
+      }
     }
 
   return (
@@ -59,8 +101,6 @@ export default function Checkout() {
                     </div>                   
                 </div>
                 </div>
-
-
 
                 <div className='stepTwo'>
                     <input className='collapsibleCheckbox' type="checkbox" id='stepTwo_collapsible-head' />

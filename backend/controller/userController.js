@@ -23,6 +23,7 @@ const getUser = async(req,res) => {
   const hashPass = encrypt(password);
   console.log(hashPass);
   const [user, metaData] = await UserModel.fetchAll(email, password)  
+  console.log('before user');
   console.log(user);
   res.send(user);
 }

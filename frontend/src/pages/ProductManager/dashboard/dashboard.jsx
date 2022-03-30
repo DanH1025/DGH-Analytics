@@ -22,11 +22,6 @@ const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
 
-
-
-
-
-
 export default function PM_Dashboard() {
 
 // handle the state of the sidebar slider
@@ -36,8 +31,6 @@ export default function PM_Dashboard() {
     const handlerSidebarCollapse = () =>{
           setSidebarCollapsed(!sidebarCollapsed);
       }
-  
-
   const getComponent = () =>{
       if(compCounter === ""){
         return <h3>Working profile default</h3>
