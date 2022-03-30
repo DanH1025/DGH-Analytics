@@ -18,8 +18,6 @@ import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined'
 export default function ProductList() {
 
 
-    
-    
     const dispatch = useDispatch();
 
     useEffect(() => {
