@@ -2,12 +2,17 @@ import React, {useState} from 'react';
 // import { render } from 'react-dom';
 // import { slideDown, slideUp } from 'anim';
 // // import {slideDown, slideUp} from 'react-slidedown'
-import { render } from 'react-dom';
-import { slideDown, slideUp } from 'anim';
+// import { render } from 'react-dom';
+// import { slideDown, slideUp } from 'anim';
 // import {slideDown, slideUp} from 'react-slidedown'
-import { Box, Collapse, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Paper} from '@mui/material';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { Box, Collapse, IconButton, 
+  Table, TableBody, TableCell, 
+  TableContainer, TableHead,
+   TableRow, Typography,
+    Paper} from '@material-ui/core';
+
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrderDetails } from '../../../redux/actions/orderDetailAction';
