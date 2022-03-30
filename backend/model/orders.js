@@ -25,7 +25,7 @@ module.exports = class Request {
 
   static fetchAll() {
     try{
-       const result =db.execute('SELECT * FROM orders');
+       const result =db.execute('SELECT orders.orderId, users.userFirstName, users.userLastName, users.userEmail, orders.total FROM orders INNER JOIN users ON orders.userId = users.userId');
        return result;
     }catch(err){
       console.log(err);
