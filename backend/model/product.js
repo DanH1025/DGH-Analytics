@@ -20,9 +20,18 @@ module.exports = class Request {
     }
   }
 
-  static fetchAll() {
+  static fetchActive() {
     try{
        const result =db.execute('SELECT * FROM product WHERE status = ?', [1]);
+       return result;
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+  static fetchAll() {
+    try{
+       const result =db.execute('SELECT * FROM product');
        return result;
     }catch(err){
       console.log(err);
@@ -54,8 +63,8 @@ module.exports = class Request {
   static deleteProductById(id){
     return db.execute('UPDATE `product` SET `status`= 0 WHERE product.id=?' , [id])
   }
-  static updateProduct(id,name,price,brand,category,detail,image,count_in_stock){
-    return db.execute("UPDATE `product` SET `productName`= ? ,`productDetail`= ?,`productPrice`=?,`productCategory`=?,`productBrand`=?,`countInStock`=? WHERE id=?" , [name,detail,price,category,brand,count_in_stock,id])
+  static updateProduct(id,name,price,brand,category,detail,image,count_in_stock,status){
+    return db.execute("UPDATE `product` SET `productName`= ? ,`productDetail`= ?,`productPrice`=?,`productCategory`=?,`productBrand`=?,`countInStock`=?  WHERE id=?" , [name,detail,price,category,brand,count_in_stock,id])
   }
 
   static findByName(name) {

@@ -6,7 +6,7 @@ import { Table , Switch , message,Button} from 'antd';
 
 import {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { getProducts ,deleteProductById ,editProduct } from '../../../redux/actions/productActions';
+import { getAllProducts ,deleteProductById ,editProduct } from '../../../redux/actions/productActions';
 
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 
@@ -30,7 +30,7 @@ export default function ProductList() {
     const dispatch = useDispatch();
 
         useEffect(() => {
-          dispatch(getProducts());
+          dispatch(getAllProducts());
         }, [dispatch]);
       
       
@@ -76,13 +76,20 @@ export default function ProductList() {
    const DeleteProduct = (record) =>{
     console.log(record.id)    
 
-    if(window.confirm("Are you sure you want to delete?")){
+    if(record.statusValue === 0){
+      message.error("Product Already Deleted")
+    }
+    else{
+      if(window.confirm("Are you sure you want to delete?")){
         dispatch(deleteProductById(record.id));
         setVisible(false);
         message.success("Deleted Successfully");
-        dispatch(getProducts());
+        dispatch(getAllProducts());
        
     }
+      
+    }
+  
 
   }
 
@@ -107,6 +114,7 @@ export default function ProductList() {
     name: '',
     brand: '',
     price: '',
+    status:'',
     count_in_stock: '',
   })
   const EditProduct = (record) =>{
@@ -119,7 +127,8 @@ export default function ProductList() {
       name: record.name,
       brand: record.brand,
       price: record.price,
-      count_in_stock: record.count_in_stock
+      count_in_stock: record.count_in_stock,
+      status: record.statusValue 
     })
 
   }
@@ -127,8 +136,13 @@ export default function ProductList() {
     console.log("handling edit changes");
       dispatch(editProduct(editValues))
       setVisible(false);
+
+      if(editValues.status === 0){
+         message.warning("Product is still inactive");
+      }
+      
       message.success("Product Updated");
-      dispatch(getProducts());
+      dispatch(getAllProducts());
   }      
 
 
@@ -236,8 +250,9 @@ console.log(data)
                 name: val.productName,
                 brand: val.productBrand,
                 price: val.productPrice,
-                count_in_stock: val.countInStock === 0 ? <h4 style={{color:"#ff0000" , fontWeight:"bolder"}} >{val.countInStock}</h4> : <h4 style={{color:"#19ff05", fontWeight:"bolder"}} >{val.countInStock}</h4>  ,
-                status:  val.countInStock === 0 ? <FiberManualRecordIcon style={{color:"#ff0000"}} /> : <FiberManualRecordIcon style={{color:"#19ff05"}} /> 
+                statusValue: val.status,
+                count_in_stock: val.countInStock,
+                status:  val.status === 0 ? <FiberManualRecordIcon style={{color:"#ff0000"}} /> : <FiberManualRecordIcon style={{color:"#19ff05"}} /> 
             })
           })
           
@@ -284,10 +299,14 @@ console.log(data)
           <Button type="primary" onClick={()=> handleEditChanges()}  >
             Submit
           </Button>
+          
+   
         </Space>
       }
     >
       <Form layout="vertical" hideRequiredMark>
+      <Row gutter={16}>
+        </Row>
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item
@@ -365,7 +384,7 @@ console.log(data)
               label="Amount In Stock"
               rules={[{ required: true, message: 'Please enter count in stock' }]}
             >
-              <Input prefix='#' min={0} type='number' placeholder={editValues.count_in_stock}  value={editValues.count_in_stock} onChange={(e)=> setEditValues({...editValues, count_in_stock: e.target.value})}   />
+              <Input prefix='#' min={0} type='number' placeholder={editValues.count_in_stock}   value={editValues.count_in_stock} onChange={(e)=> setEditValues({...editValues, count_in_stock: e.target.value})}   />
             </Form.Item>
           </Col>
         </Row>

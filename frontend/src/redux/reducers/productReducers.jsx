@@ -19,6 +19,22 @@ export const getProductsReducer = (state = {products: [] }, action)=>{
                 error: action.payload,
                 // products: []
             }
+        case actionTypes.GET_ALL_PRODUCTS_REQUEST:
+            return{
+                loading: true,
+                products: []
+            }
+        case actionTypes.GET_ALL_PRODUCTS_SUCCESS:
+             return{
+                loading:false,
+                products: action.payload
+            }  
+        case actionTypes.GET_ALL_PRODUCTS_FAIL:
+            return{
+                loading:false,
+                error: action.payload,
+                // products: []
+                }
         case actionTypes.GET_PRODUCTS_BY_CATEGORY_REQUEST:
             return{
                 loading: true,
