@@ -1,6 +1,7 @@
 import * as actionType from '../constants/productConstant';
 import * as api from '../api/index';
 import axios from 'axios';
+import { Axios } from 'axios';
 
 
 export const getProducts = () => async (dispatch)=>{
@@ -70,6 +71,33 @@ export const getProductsById = (id) => async (dispatch)=>{
         });
     }
 };
+
+//delete products 
+
+export const deleteProductById = (id) => async (dispatch)=>{
+    console.log('in deleting: ' + id);
+    try {
+        dispatch({
+            type: actionType.PRODUCT_DELETE_REQUEST,
+            
+        });
+        const {data} = await api.deleteProductById(id);
+         
+    } catch (error) {
+        dispatch({
+            type:actionType.PRODUCT_DELETE_FAIL,
+            payload: 
+                error.response && error.response.data.message 
+                ?error.response.data.message:error.message,
+        });
+        dispatch({
+            type:actionType.GET_PRODUCT_DETAILS_RESET,
+        });
+    }
+};
+
+
+
 export const getProductsBySearch = (name, category) => async (dispatch)=>{
     // console.log('in actioning: ' + id);
     try {

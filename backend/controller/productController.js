@@ -37,6 +37,14 @@ const getProductsById = async(req,res) => {
     res.send(product);
 }
 
+const deleteProduct = async(req,res)=>{
+  console.log("im deleting a product with id: " + req.body.id);
+  const id= req.body.id;
+  const [ product, metaData] = await ProductModel.deleteProductById(id)
+    
+}
+
+
 const getProductsBySearch = async(req,res) => {
   console.log('in get product by search');
   const name= req.body.name;
@@ -65,4 +73,7 @@ module.exports = {
   getProductsByCatagory,
   getProductsById,
   getProductsBySearch,
+
+
+  deleteProduct
 };

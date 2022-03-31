@@ -104,7 +104,7 @@ export default function AddProduct() {
     
             <div className="upload_img">
                     <Upload
-                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                    action=""
                     listType="picture-card"
                     fileList={fileList}
                     onChange={onChange}
@@ -123,6 +123,8 @@ export default function AddProduct() {
                     <Select
                             className='product_brand_select'
                             placeholder="Product Brand"
+                            value="Somhtin"
+                            onChange={(w)=> console.log(w.target.value)}
                             dropdownRender={menu => (
                                 <>
                                 {menu}

@@ -22,7 +22,7 @@ module.exports = class Request {
 
   static fetchAll() {
     try{
-       const result =db.execute('SELECT * FROM product');
+       const result =db.execute('SELECT * FROM product WHERE status = ?', [1]);
        return result;
     }catch(err){
       console.log(err);
@@ -49,6 +49,10 @@ module.exports = class Request {
   
   static findById(id) {
     return db.execute('SELECT * FROM product WHERE product.id = ?', [id]);
+  }
+
+  static deleteProductById(id){
+    return db.execute('UPDATE `product` SET `status`= 0 WHERE product.id=?' , [id])
   }
 
   static findByName(name) {
