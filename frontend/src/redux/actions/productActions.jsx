@@ -25,6 +25,30 @@ export const getProducts = () => async (dispatch)=>{
     }
 };
 
+//get all the products for the admin to see
+export const getAllProducts = () => async (dispatch)=>{
+    try {
+        dispatch({
+            type: actionType.GET_ALL_PRODUCTS_REQUEST,
+        });
+        const {data} = await api.fetchAllProducts();
+        
+        dispatch({
+            type: actionType.GET_ALL_PRODUCTS_SUCCESS,
+            payload: data,
+        }); 
+    } catch (error) {
+        dispatch({
+            type:actionType.GET_ALL_PRODUCTS_FAIL,
+            payload: 
+                error.response && error.response.data.message 
+                ?error.response.data.message:error.message,
+        });
+    }
+};
+
+
+
 export const getProductsByCategory = (catagory) => async (dispatch)=>{
     console.log('in actioning: ' + catagory);
     try {
