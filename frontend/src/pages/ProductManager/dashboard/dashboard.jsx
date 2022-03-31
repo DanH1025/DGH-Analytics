@@ -94,15 +94,7 @@ const [sidebarCollapsed , setSidebarCollapsed] = useState(false);
                   onClick={()=>setCompCounter("3")}  
                   icon={<AddCircleOutlineOutlinedIcon/>} >
                     Add Products
-                </Menu.Item>
-                <Menu.Item key="menu_edit_products" 
-                  icon={<EditOutlinedIcon/>} >
-                    Edit Products
-                </Menu.Item>
-                <Menu.Item key="menu_delete_products" 
-                  icon={<DeleteOutlineOutlinedIcon/>} >
-                    Delete Products
-                </Menu.Item>
+                </Menu.Item>               
             </SubMenu>  
           </SubMenu>
 

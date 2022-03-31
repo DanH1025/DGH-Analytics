@@ -44,6 +44,16 @@ const deleteProduct = async(req,res)=>{
     
 }
 
+const editProductValues = async(req,res)=>{
+  console.log("im editing products right now");
+  const {id,name,price,brand,category,detail,image,count_in_stock} = req.body;
+
+  await ProductModel.updateProduct(id,name,price,brand,category,detail,image,count_in_stock);
+
+
+
+}
+
 
 const getProductsBySearch = async(req,res) => {
   console.log('in get product by search');
@@ -75,5 +85,6 @@ module.exports = {
   getProductsBySearch,
 
 
-  deleteProduct
+  deleteProduct,
+  editProductValues
 };
