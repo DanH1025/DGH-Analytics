@@ -96,6 +96,28 @@ export const deleteProductById = (id) => async (dispatch)=>{
     }
 };
 
+export const editProduct = (editValues) => async (dispatch)=>{
+    console.log("im edting action");
+    try {
+        dispatch({
+            type: actionType.PRODUCT_EDIT_REQUEST,
+        })
+        const {data} = await api.editProduct(editValues);
+        
+        dispatch({
+            type: actionType.PRODUCT_EDIT_SUCCESS,
+            loading:false
+        }); 
+
+    } catch (error) {
+        dispatch({
+            type:actionType.PRODUCT_DELETE_FAIL,
+            payload: 
+                error.response && error.response.data.message 
+                ?error.response.data.message:error.message,
+        });
+    }
+}
 
 
 export const getProductsBySearch = (name, category) => async (dispatch)=>{

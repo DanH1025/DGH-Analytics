@@ -33,6 +33,9 @@ const fetchOrderDetailsUrl =
 const deleteProductByIdUrl =
   'http://localhost:5000/api/deleteProductById'
 
+const editProductUrl =
+  'http://localhost:5000/api/editProduct'
+
 
 // orders
 export const fetchOrderDetails = (id) =>
@@ -94,3 +97,6 @@ export const fetchProductsBySearch = (name, category) =>
   );
 export const createProduct = (newProduct) => 
   axios.post(addProducturl, newProduct);
+
+export const editProduct = (editValues) =>
+    axios.post(editProductUrl, editValues)
