@@ -48,6 +48,7 @@ export const getProductsReducer = (state = {products: [] }, action)=>{
                 loading:false,
                 error: action.payload
             }
+        
         default:
             return state;
     }

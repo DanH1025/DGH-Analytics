@@ -80,9 +80,10 @@ export const fetchProductsById = (id) =>
     }
   );
 export const deleteProductById = (id) =>
-    axios.post(deleteProductByIdUrl, {
-      id: id
-    });
+  axios.post(deleteProductByIdUrl, {
+      id: id  
+    }
+  );
 
 
 export const fetchProductsBySearch = (name, category) =>

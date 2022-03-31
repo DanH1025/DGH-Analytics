@@ -15,54 +15,67 @@ import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 
+
 export default function ProductList() {
 
 
     const dispatch = useDispatch();
 
-    useEffect(() => {
-      dispatch(getProducts());
-    }, [dispatch]);
-  
-  
+        useEffect(() => {
+          dispatch(getProducts());
+        }, [dispatch]);
+      
+      
    const products = useSelector((state) => state.getProduct.products);
   
    console.log(products);
 
-
-    
+ 
 
     // rowSelection objects indicates the need for row selection
     const rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
         console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-      
+    
         },
         onSelect: (record, selected, selectedRows ) => {
         console.log(record, selected, selectedRows);
-        console.log("this is the record" + record);
-        console.log("this is selected" + selected);
-        console.log("this is selectedRow" + selectedRows)
+      
         console.log( selectedRows[0].id);
         
         },
         onSelectAll: (selected, selectedRows, changeRows) => {
       console.log(selected, selectedRows, changeRows);
         },
+        getCheckboxProps: (record)=>{
+          //console.log(record)  
+        }  ,
+        selections: true,
         hideSelectAll: true,
   };
 
-    //delete product handler
-    const deleteProduct = () =>{
-      alert("delting");
-    }
 
+
+
+      
+   
  
   const [fixedTop, setFixedTop] = React.useState(false);
 
 
-  
-   const data = [];
+   //handle delete
+   const DeleteProduct = (record) =>{
+    console.log(record.id)    
+
+    if(window.confirm("Are you sure you want to delete?")){
+        dispatch(deleteProductById(record.id));
+       dispatch(getProducts());
+       
+    }
+
+  }
+
+
  
 
     const columns = [
@@ -123,11 +136,31 @@ export default function ProductList() {
             width:60,
             fixed: 'right'
         },
+        {
+          title: "Action",
+          key: "deleteAndEdit",
+          width: 70,
+          fixed: 'right',
+          render: (record) => {
+            return(
+              <>
+              <EditOutlinedIcon/>
+              <DeleteOutlineOutlinedIcon onClick={() =>{
+                DeleteProduct(record)
+              }}  style={{color: "red" , fontWeight: "bolder", cursor: "pointer" , marginLeft:10}}  />
+
+              </>
+            );
+          },
+        },
         
 
       ];
     
-    
+    const data = [];
+ 
+  
+console.log(data)
 
       if(!products.length){
           return <div></div>
@@ -147,21 +180,15 @@ export default function ProductList() {
                 status:  val.countInStock === 0 ? <FiberManualRecordIcon style={{color:"#ff0000"}} /> : <FiberManualRecordIcon style={{color:"#19ff05"}} /> 
             })
           })
+          
       };
 
 
+     
 
-
-      
 
   return (
     <>
-    <div className='deleteEditButtonHolder'>
-      <Button type="primary" danger onClick={()=> deleteProduct}  >
-        Delete
-      </Button>
-    </div>
-
     <Table
     rowSelection={{ ...rowSelection }}
     columns={columns}

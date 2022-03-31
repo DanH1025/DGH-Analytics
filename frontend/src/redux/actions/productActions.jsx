@@ -1,6 +1,7 @@
 import * as actionType from '../constants/productConstant';
 import * as api from '../api/index';
 import axios from 'axios';
+import { Axios } from 'axios';
 
 
 export const getProducts = () => async (dispatch)=>{
@@ -72,18 +73,16 @@ export const getProductsById = (id) => async (dispatch)=>{
 };
 
 //delete products 
+
 export const deleteProductById = (id) => async (dispatch)=>{
-    console.log("deleting product:"  + id);
+    console.log('in deleting: ' + id);
     try {
         dispatch({
-            type: actionType.PRODUCT_DELETE_REQUEST
-        })
+            type: actionType.PRODUCT_DELETE_REQUEST,
+            
+        });
         const {data} = await api.deleteProductById(id);
-        dispatch({
-            type: actionType.PRODUCT_DELETE_SUCCESS,
-            // payload: data,
-        }); 
-
+         
     } catch (error) {
         dispatch({
             type:actionType.PRODUCT_DELETE_FAIL,
@@ -91,8 +90,11 @@ export const deleteProductById = (id) => async (dispatch)=>{
                 error.response && error.response.data.message 
                 ?error.response.data.message:error.message,
         });
+        dispatch({
+            type:actionType.GET_PRODUCT_DETAILS_RESET,
+        });
     }
-}
+};
 
 
 
