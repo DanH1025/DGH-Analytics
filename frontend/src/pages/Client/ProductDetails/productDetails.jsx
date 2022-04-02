@@ -5,7 +5,7 @@ import Footer from '../../../components/Client/footer/footer'
 import RemoveOutlinedIcon from '@material-ui/icons/RemoveOutlined';
 import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
 import IconButton from '@material-ui/core/IconButton';
-import { Button } from '@material-ui/core';
+import { Button } from 'antd';
 import AddShoppingCartOutlinedIcon from '@material-ui/icons/AddShoppingCartOutlined';
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 import { useState,useEffect } from 'react';
@@ -132,7 +132,7 @@ export default function ProductDetails({ match, history }) {
                                 </div>
 
                                 <div className="addToCartBtnHolder">
-                                    <Button variant="outlined" className='add_to_cart_btn' onClick={addToCartHandler}>
+                                    <Button type="primary"  className='add_to_cart_btn' onClick={addToCartHandler}>
                                     <AddShoppingCartOutlinedIcon/> <p>Add To Cart </p>
                                     </Button>
                                     
