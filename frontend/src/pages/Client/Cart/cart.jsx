@@ -1,8 +1,9 @@
 import React from 'react'
 import './cart.css'
 
-import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
+
+import { Button } from 'antd';
 
 import Footer from '../../../components/Client/footer/footer'
 import Topbar from '../../../components/Client/topbar/topbar'
@@ -101,10 +102,12 @@ export default function Cart() {
             </div>
 
 
-            <div className="buttons">
-                <div className="buttonHolder">
-                    <Link to={'/'}><Button className='cartPageButton'  variant="contained" size='small' color="primary"> <p>Continue Shopping</p></Button></Link>
-                    <Link to={'/checking'}><Button className='cartPageButton'  size='small' variant="contained" color='primary' > <p>Checkout </p> </Button></Link>
+            <div className="cartPageButtons">
+                <div className="cartPageButtonHolder">
+                
+                <Link to={'/'}> <Button type="primary" ghost> Continue Shopping </Button></Link>
+                 <Link to={'/checking'} >  <Button type="primary" ghost> Checkout   </Button> </Link>
+                
                 </div>                
             </div>        
         </div>

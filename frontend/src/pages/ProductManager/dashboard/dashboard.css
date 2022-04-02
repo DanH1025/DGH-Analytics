@@ -9,6 +9,8 @@ body{
     margin: 0;
     align-items: center;
     justify-content: center;
+    background-color: lightblue;
+   
 }
 .pm_dash_logo h1{
     font-size: 25px;
@@ -23,3 +25,15 @@ body{
     padding: 0;
 
 }
+
+.ant-menu-title-content{
+    font-size: 12px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+}
+.ant-menu-item-icon svg{
+    font-size: 13px;
+    color: white;
+}
+.ant-layout-sider-children{}
+

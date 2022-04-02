@@ -22,11 +22,15 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
+
+
+
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts, getProductsByCategory } from '../../../redux/actions/productActions';
 import { getProductsBySearch } from '../../../redux/actions/productActions';
 import { getUser } from '../../../redux/actions/userActions'
 import { createUser } from '../../../redux/actions/userActions'
+
 
 import SettingsIcon from '@material-ui/icons/Settings';
 
@@ -195,8 +199,8 @@ export default function Topbar() {
 										<FormControl variant="outlined" className='searchCategoryForm'>
 										
                     {/* <InputLabel className='searchCategoryInputLable'><h5 className='searchCategoryLabelContent'>Category</h5></InputLabel> */}
-										
-                    <Select className='searchCategory'
+								
+                     <Select className='searchCategorySelect'
 										labelId='searchCategory-items-lable'
 										id='searchCategory-items'
                     displayEmpty="true"
@@ -221,7 +225,7 @@ export default function Topbar() {
 												 <DesktopMacIcon className='menuItemIcons' /> <p>Moniter </p></MenuItem>
                         <MenuItem  className='allCategoryMenuItem' value={"play station"}>
 												 <SportsEsportsIcon className='menuItemIcons' /> <p>PS </p></MenuItem>
-                	  	</Select>
+                	  	</Select> 
                      
                 	  </FormControl>
                 	</div>
