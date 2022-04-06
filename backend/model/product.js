@@ -75,6 +75,15 @@ module.exports = class Request {
     return db.execute('SELECT * FROM product WHERE productCategory = ? AND product.productName LIKE ?', [category, "%"+name+"%"]);
   }
 
+  //record search 
+  static recordSearch(name, catagory){
+   const date = new Date()
+    return db.execute('INSERT INTO search_history (search_key, search_category , search_date) VALUES (?,?,?)', [name,catagory ,date]);
+  }
+
+
+
+
   // static fetchNew() {
   //   try{
   //      const result =db.execute('SELECT * FROM product WHERE requests.status = "pending"');

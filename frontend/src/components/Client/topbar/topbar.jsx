@@ -26,7 +26,7 @@ import Select from '@material-ui/core/Select';
 
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getProducts, getProductsByCategory } from '../../../redux/actions/productActions';
+import { getProducts, getProductsByCategory ,recordProductSearch } from '../../../redux/actions/productActions';
 import { getProductsBySearch } from '../../../redux/actions/productActions';
 import { getUser } from '../../../redux/actions/userActions'
 import { createUser } from '../../../redux/actions/userActions'
@@ -67,9 +67,9 @@ export default function Topbar() {
     const handleSearchCategoryChange = (event)=>{
         setSearchCategory(event.target.value);
     }
+
+
     //to handle when the search category option closes
-
-
     const handleCloseSearchCategory = () =>{
         setOpen_category(false);
     }
@@ -102,7 +102,7 @@ export default function Topbar() {
       // console.log(searchValue.searchValue);
       // console.log('category' + searchCategory);
       dispatch(getProductsBySearch(searchValue.searchValue, searchCategory));
-
+      dispatch(recordProductSearch(searchValue.searchValue, searchCategory))
     }
  
 

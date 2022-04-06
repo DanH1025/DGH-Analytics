@@ -84,6 +84,19 @@ const getProductsBySearch = async(req,res) => {
 }
 
 
+const recordSearchHistory = async(req,res)=>{
+  console.log("recording search history");
+  const {name , category} = req.body;
+  if(category === ''){
+    const [product, metaData] = await ProductModel.recordSearch(name,"All");
+  }else{
+    const [product, metaData] = await ProductModel.recordSearch(name,category);
+
+  }
+
+}
+
+
 module.exports = {
 	getProducts,
   getAllProducts,
@@ -96,5 +109,9 @@ module.exports = {
 
 
   deleteProduct,
-  editProductValues
+  editProductValues,
+
+
+  recordSearchHistory
+
 };
