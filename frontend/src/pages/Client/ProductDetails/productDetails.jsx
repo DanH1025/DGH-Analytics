@@ -13,6 +13,7 @@ import { useState,useEffect } from 'react';
 import { getProductsDetails } from '../../../redux/actions/productActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../../redux/actions/cartActions';
+import {addToWishlist} from '../../../redux/actions/wishlistAction'
 
 import { getProductsById } from '../../../redux/actions/productActions';
 
@@ -43,6 +44,7 @@ export default function ProductDetails({ match, history }) {
     
     //handler state change in qty 
     const [qtyCounter , setQtyCounter] = useState(1);
+    const [wishlistQty , setWishlistQty] = useState(1);
     
     //decrease the value of qty
     const handleMinQty = () =>{
@@ -76,6 +78,11 @@ export default function ProductDetails({ match, history }) {
             history.push('/cart');
         }
 
+    }
+    // adding to wishlist
+    const addToWishlistHandler = ()=>{
+        dispatch(addToWishlist(product.id))
+        history.push('/wishlist')
     }
 
 
@@ -136,7 +143,7 @@ export default function ProductDetails({ match, history }) {
                                     <AddShoppingCartOutlinedIcon/> <p>Add To Cart </p>
                                     </Button>
                                     
-                                    <IconButton aria-label="add to wish list">
+                                    <IconButton aria-label="add to wish list" onClick={addToWishlistHandler}>
                                         <FavoriteBorderOutlinedIcon />
                                     </IconButton>
 

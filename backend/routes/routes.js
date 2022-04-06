@@ -16,7 +16,7 @@ router.get('/' , (req,res)=>{
   res.send("this is the home url /");
 })
 
-router.post('/addToStock' , addProduct);
+router.post('/addToStock' , addProduct); 
 router.get('/getProducts', getProducts);
 router.get('/getAllProducts' ,getAllProducts)
 

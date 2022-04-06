@@ -165,10 +165,16 @@ export default function Topbar() {
     //track cart and wishlist span numbers 
     const cart = useSelector(state => state.cart);
     const {cartItems} = cart;
+    const wishlist = useSelector(state => state.wishlist);
+    const {wishlistItems} = wishlist;
 
     //get the cart counter value for the cart icon
     const getCartCount = ()=>{
       return cartItems.reduce((qtyCounter, item)=> qtyCounter + Number(item.qtyCounter) ,0)
+    }
+    //get the wishlist counter valuie for the wishlist icon
+    const getWishlistCount = ()=>{
+      return wishlistItems.length
     }
    
   return (
@@ -255,7 +261,9 @@ export default function Topbar() {
             </div> 
             <div className="infos">
               <div className='wishlist'>
-								<FavoriteBorderOutlined className='infosIcons' /> <span>0</span>
+                <Link to='/wishlist'>
+								  <FavoriteBorderOutlined className='infosIcons' label="Wishlist"/> <span>{getWishlistCount()}</span>
+                </Link>
               </div>
               <div className="cartIconHolder">
 								<Link to='/cart'>

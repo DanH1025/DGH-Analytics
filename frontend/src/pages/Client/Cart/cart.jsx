@@ -68,7 +68,7 @@ export default function Cart() {
                 
                 <div className="table">
                     {cartItems.length === 0?(
-                       <p>  Your Cart Is Empty:  <span> <SentimentVeryDissatisfiedIcon /></span>  </p>
+                       <p className='cartEmpty'>  Your Cart Is Empty:  <span> <SentimentVeryDissatisfiedIcon /></span>  </p>
                     ): cartItems.map((item)=>
                          <CartItem item={item} 
                                     qtyChangeHandler={qtyChangeHandler} 
@@ -112,7 +112,7 @@ export default function Cart() {
             </div>        
         </div>
         {/* <ContactUs />
-        <Footer /> */}
+      */}
 
     </div>
     </>
