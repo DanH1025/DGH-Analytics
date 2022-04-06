@@ -24,7 +24,7 @@ export default function ProductDetails({ match, history }) {
     let product = [];
     
     useEffect(() => {
-        console.log('in use effect');
+        console.log('in use effect detail');
         dispatch(getProductsById(id));
     }, [dispatch]);
     

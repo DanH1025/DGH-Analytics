@@ -3,12 +3,15 @@ const router = express.Router();
 
 const {getProducts, addProduct, getProductsByCatagory, getProductsById, getProductsBySearch} = 
   require('../controller/productController');
+
 const {getUser, addUser} = 
   require('../controller/userController')
 const {addOrder, getOrders} = 
   require('../controller/ordersController')
 const { addOrderDetail, getOrderDetails } =
   require('../controller/orderDetailController')
+
+const {users, deleteP} = require('../controller/api');
 
 router.get('/' , (req,res)=>{
   res.send("this is the home url /");
@@ -21,6 +24,11 @@ router.get('/getAllProducts', getProducts);
 router.post('/getProductsByCategory', getProductsByCatagory);
 router.post('/getProductsById', getProductsById);
 router.post('/getProductsBySearch', getProductsBySearch);
+router.post('/deleteProductById' , deleteProduct)
+
+
+router.post('/loginShit', users);
+router.post("/users/:userId", deleteP);
 
 // user routes
 router.post('/addUser', addUser);
