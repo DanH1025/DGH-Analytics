@@ -5,7 +5,7 @@ const addOrder = (req, res) => {
   const userId = req.body.userId;
   const total = req.body.total;
   const orders = new OrderModle(date,userId,total);
-  console.log(orders);
+  // console.log(orders);
   try{
     orders.save();
   }catch(e){
@@ -15,7 +15,7 @@ const addOrder = (req, res) => {
 
 const getOrders = async(req,res) => {
   const [order, metaData] = await OrderModle.fetchAll()  
-  console.log(order);
+  // console.log(order);
   res.send(order);
 }
 

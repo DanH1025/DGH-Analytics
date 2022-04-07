@@ -14,7 +14,7 @@ module.exports = class Request {
   save() {
     console.log('date save: ' + this.date);
     try{
-      db.execute('INSERT INTO product (productName,productPrice,productBrand,productCategory,productDetail,productImg) VALUES (?,?,?,?,?,?)', [this.productName, this.productPrice, this.productBrand, this.productCategory, this.productDetail, this.productImg]);
+      db.execute('INSERT INTO product (productName,productPrice,productBrand,productCategory,productDetail,productImg, countInStock, status, visits) VALUES (?,?,?,?,?,?,?,?,?)', [this.productName, this.productPrice, this.productBrand, this.productCategory, this.productDetail, this.productImg, 10, 1, 0]);
     }catch(err){
       console.log('asdfasdf' + err);
     }
@@ -63,6 +63,7 @@ module.exports = class Request {
   static deleteProductById(id){
     return db.execute('UPDATE `product` SET `status`= 0 WHERE product.id=?' , [id])
   }
+
   static updateProduct(id,name,price,brand,category,detail,image,count_in_stock,status){
     return db.execute("UPDATE `product` SET `productName`= ? ,`productDetail`= ?,`productPrice`=?,`productCategory`=?,`productBrand`=?,`countInStock`=?  WHERE id=?" , [name,detail,price,category,brand,count_in_stock,id])
   }
@@ -81,8 +82,9 @@ module.exports = class Request {
     return db.execute('INSERT INTO search_history (search_key, search_category , search_date) VALUES (?,?,?)', [name,catagory ,date]);
   }
 
-
-
+  static addVisits(id){
+    return db.execute('UPDATE product SET visits = visits + 1 WHERE product.id = ?', [id]);
+  }
 
   // static fetchNew() {
   //   try{

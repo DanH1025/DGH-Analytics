@@ -6,17 +6,17 @@ const addOrderDetail = (req, res) => {
   const productQuantity = req.body.productQuantity;
   const orderDetails = new OrderDetailModel(orderId, productId, productQuantity);
   try{
-    console.log(orderDetails);
+    // console.log(orderDetails);
+    orderDetails.save();
   }catch(e){
     console.log('order detail error: ' + e);
   }
-  orderDetails.save();
 }
 
 const getOrderDetails = async(req,res) => {
   const id = req.body.id;
   const [order, metaData] = await OrderDetailModel.fetchAll(id);
-  console.log(order);
+  // console.log(order);
   res.send(order);
 }
 

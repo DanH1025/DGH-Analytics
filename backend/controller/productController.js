@@ -1,3 +1,4 @@
+const async = require('hbs/lib/async');
 const ProductModel = require('../model/product');
 // const async = require('hbs/lib/async');
 
@@ -91,10 +92,14 @@ const recordSearchHistory = async(req,res)=>{
     const [product, metaData] = await ProductModel.recordSearch(name,"All");
   }else{
     const [product, metaData] = await ProductModel.recordSearch(name,category);
-
   }
-
 }
+
+const changeVisits = async(req, res) => {
+  const id = req.body.id;
+  await ProductModel.addVisits(id);
+ }
+
 
 
 module.exports = {
@@ -107,11 +112,10 @@ module.exports = {
   getProductsById,
   getProductsBySearch,
 
-
   deleteProduct,
   editProductValues,
 
-
-  recordSearchHistory
+  recordSearchHistory,
+  changeVisits  
 
 };

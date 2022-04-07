@@ -42,6 +42,10 @@ const editProductUrl =
 const productSearchRecordUrl =
   'http://localhost:5000/api/productSearchRecord'
 
+const productVistRecordUrl =
+  'http://localhost:5000/api/addVisits'
+
+
 
 
 // orders
@@ -118,4 +122,11 @@ export const productSearchRecord = (name,category)=>
       name: name,
       category: category
     })
+
+//recording visit
+export const productVisitRecord = (id)=>
+    axios.post(productVistRecordUrl , {
+      id: id
+    })
+
 

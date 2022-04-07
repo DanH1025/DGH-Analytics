@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
+
 const {getProducts, getAllProducts,addProduct, getProductsByCatagory, getProductsById,
-         getProductsBySearch ,deleteProduct ,editProductValues ,recordSearchHistory  } = 
-  require('../controller/productController');
+         getProductsBySearch ,deleteProduct ,editProductValues ,recordSearchHistory, changeVisits   } = require('../controller/productController');
+
 const {getUser, addUser} = 
   require('../controller/userController')
 const {addOrder, getOrders} = 
@@ -16,17 +17,24 @@ router.get('/' , (req,res)=>{
   res.send("this is the home url /");
 })
 
+
 router.post('/addToStock' , addProduct); 
 router.get('/getProducts', getProducts);
 router.get('/getAllProducts' ,getAllProducts)
+
 
 // product routes
 router.post('/getProductsByCategory', getProductsByCatagory);
 router.post('/getProductsById', getProductsById);
 router.post('/getProductsBySearch', getProductsBySearch);
 
+
 router.post('/deleteProductById' , deleteProduct)
 router.post('/editProduct' , editProductValues)
+
+// product visit add routes
+router.post('/addVisits', changeVisits)
+
 // user routes
 router.post('/addUser', addUser);
 router.post('/getUsers', getUser);
