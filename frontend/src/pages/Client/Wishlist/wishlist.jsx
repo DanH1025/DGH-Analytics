@@ -6,6 +6,7 @@ import WishlistItem from "../../../components/Client/wishlistItem/wishlistItem";
 
 import { useDispatch , useSelector } from "react-redux";
 import { removeFromWishlist } from "../../../redux/actions/wishlistAction";
+import { addToCart } from "../../../redux/actions/cartActions";
 
 export default function Wishlist() {
 
@@ -16,6 +17,9 @@ export default function Wishlist() {
 
     const removeFromWishlistHandler=(id) =>{
         dispatch(removeFromWishlist(id));
+    }
+    const addToCartHandler = (id) =>{
+        dispatch(addToCart(id,1));
     }
 
     return(
@@ -36,6 +40,7 @@ export default function Wishlist() {
                             ): wishlistItems.map((item)=>
                                 <WishlistItem item={item} 
                                     removeFromWishlistHandler={removeFromWishlistHandler}
+                                    addTocartHandler={addToCartHandler}
                                                 
                                 /> )}
                         

@@ -3,7 +3,7 @@ import './wishlistItem.css'
 
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-export default function WishlistItem({item , removeFromWishlistHandler}){
+export default function WishlistItem({item , removeFromWishlistHandler , addTocartHandler}){
 
     console.log(item.date.toString())
     return(
@@ -25,8 +25,8 @@ export default function WishlistItem({item , removeFromWishlistHandler}){
             <button className='wishlistItem_delete_btn'  onClick={()=> removeFromWishlistHandler(item.product)}  >
                <DeleteOutlineIcon  />
             </button>
-            <button className="wishlistItem_addToCart_btn">
-                <AddShoppingCartIcon/>
+            <button className="wishlistItem_addToCart_btn" onClick={()=> addTocartHandler(item.product)}>
+                <AddShoppingCartIcon/> 
             </button>
           </div>
       </div>
