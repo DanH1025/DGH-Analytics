@@ -30,6 +30,19 @@ const createOrderDetailsUrl =
 const fetchOrderDetailsUrl = 
   'http://localhost:5000/api/getOrdersDetail'
 
+const deleteProductByIdUrl =
+  'http://localhost:5000/api/deleteProductById'
+
+const editProductUrl =
+  'http://localhost:5000/api/editProduct'
+
+//recording user search
+const productSearchRecordUrl =
+  'http://localhost:5000/api/productSearchRecord'
+const productVistRecordUrl =
+  'http://localhost:5000/api/addVisits'
+
+
 
 // orders
 export const fetchOrderDetails = (id) =>
@@ -84,3 +97,20 @@ export const fetchProductsBySearch = (name, category) =>
   );
 export const createProduct = (newProduct) => 
   axios.post(addProducturl, newProduct);
+
+export const editProduct = (editValues) =>
+    axios.post(editProductUrl, editValues)
+
+
+//recording search
+export const productSearchRecord = (name,category)=>
+    axios.post(productSearchRecordUrl , {
+      name: name,
+      category: category
+    })
+//recording visit
+export const productVisitRecord = (id)=>
+    axios.post(productVistRecordUrl , {
+      id: id
+    })
+

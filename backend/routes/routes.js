@@ -1,34 +1,35 @@
 const express = require('express');
 const router = express.Router();
 
-const {getProducts, addProduct, getProductsByCatagory, getProductsById, getProductsBySearch} = 
+const {getProducts, getAllProducts,addProduct,    getProductsByCatagory, getProductsById,
+         getProductsBySearch ,deleteProduct ,editProductValues ,recordSearchHistory , changeVisits  } = 
   require('../controller/productController');
-
 const {getUser, addUser} = 
   require('../controller/userController')
 const {addOrder, getOrders} = 
   require('../controller/ordersController')
 const { addOrderDetail, getOrderDetails } =
-  require('../controller/orderDetailController')
-
-const {users, deleteP} = require('../controller/api');
+  require('../controller/orderDetailController');
+const { route } = require('express/lib/application');
 
 router.get('/' , (req,res)=>{
   res.send("this is the home url /");
 })
 
 router.post('/addToStock' , addProduct);
-router.get('/getAllProducts', getProducts);
+router.get('/getProducts', getProducts);
+// router.get('/getAllProducts' ,getAllProducts)
 
 // product routes
 router.post('/getProductsByCategory', getProductsByCatagory);
 router.post('/getProductsById', getProductsById);
 router.post('/getProductsBySearch', getProductsBySearch);
-router.post('/deleteProductById' , deleteProduct)
 
+// router.post('/deleteProductById' , deleteProduct)
+// router.post('/editProduct' , editProductValues)
 
-router.post('/loginShit', users);
-router.post("/users/:userId", deleteP);
+// product visit add routes
+router.post('/addVisits', changeVisits)
 
 // user routes
 router.post('/addUser', addUser);
@@ -41,6 +42,15 @@ router.post('/getOrders', getOrders);
 // orderDetail routes
 router.post('/addOrderDetail', addOrderDetail);
 router.post('/getOrdersDetail', getOrderDetails);
+
+
+
+
+//search record router
+router.post('/productSearchRecord' , recordSearchHistory);
+
+
+
 
 // router.get('getProductDetail/${id}' , getProductDetail)
 

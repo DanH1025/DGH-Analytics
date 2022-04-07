@@ -92,6 +92,53 @@ export const getProductsBySearch = (name, category) => async (dispatch)=>{
     }
 };
 
+
+export const recordProductSearch = (name, category) => async (dispatch)=>{
+    try {
+        dispatch({
+            type: actionType.RECORD_PRODUCT_SEARCH_REQUEST,
+        })
+        const {data} = await api.productSearchRecord(name,category);
+
+        dispatch({
+            type: actionType.RECORD_PRODUCT_SEARCH_SUCCESS,
+            payload: data,
+        })
+
+        
+    } catch (error) {
+        dispatch({
+            type:actionType.RECORD_PRODUCT_SEARCH_FAIL,
+            payload: 
+                error.response && error.response.data.message 
+                ?error.response.data.message:error.message,
+        });
+    }
+}
+export const recordProductVisit = (id) => async (dispatch)=>{
+    try {
+        dispatch({
+            type: actionType.RECORD_PRODUCT_VISIT_REQUEST,
+        })
+        const {data} = await api.productVisitRecord(id);
+
+        dispatch({
+            type: actionType.RECORD_PRODUCT_VISIT_SUCCESS,
+            payload: data,
+        })
+
+        
+    } catch (error) {
+        dispatch({
+            type:actionType.RECORD_PRODUCT_VISIT_FAIL,
+            payload: 
+                error.response && error.response.data.message 
+                ?error.response.data.message:error.message,
+        });
+    }
+}
+
+
 export const createProduct = (product) => async (dispatch) => {
 	try{
         dispatch({
