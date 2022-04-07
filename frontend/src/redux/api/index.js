@@ -1,6 +1,8 @@
 import axios from 'axios';
 
 const readProductUrl = 
+  'http://localhost:5000/api/getProducts';
+const readAllProductUrl =
   'http://localhost:5000/api/getAllProducts';
 const addProducturl = 
   'http://localhost:5000/api/addToStock';
@@ -39,8 +41,10 @@ const editProductUrl =
 //recording user search
 const productSearchRecordUrl =
   'http://localhost:5000/api/productSearchRecord'
+
 const productVistRecordUrl =
   'http://localhost:5000/api/addVisits'
+
 
 
 
@@ -79,6 +83,10 @@ export const createUser = (user) =>
 // products
 export const fetchProducts = () => 
   axios.get(readProductUrl);
+
+export const fetchAllProducts = ()=>
+    axios.get(readAllProductUrl);
+
 export const fetchProductsByCategory = (catagory) =>
   axios.post(readProductByCategoryUrl, {
       category: catagory  
@@ -89,12 +97,18 @@ export const fetchProductsById = (id) =>
       id: id  
     }
   );
+export const deleteProductById = (id) =>
+  axios.post(deleteProductByIdUrl, {
+      id: id  
+    }
+  );
+
+
 export const fetchProductsBySearch = (name, category) =>
   axios.post(readProductBySearchUrl, {
       name: name,
       category: category
-    }
-  );
+    });
 export const createProduct = (newProduct) => 
   axios.post(addProducturl, newProduct);
 
@@ -108,9 +122,11 @@ export const productSearchRecord = (name,category)=>
       name: name,
       category: category
     })
+
 //recording visit
 export const productVisitRecord = (id)=>
     axios.post(productVistRecordUrl , {
       id: id
     })
+
 

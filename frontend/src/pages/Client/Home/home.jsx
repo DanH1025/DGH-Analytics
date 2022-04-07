@@ -41,10 +41,10 @@ export default function Home() {
   return (
     <>
       <Topbar />
-      {/* <ImageSlider 
+      <ImageSlider 
         className="imageSliderComponent" 
         slides={sliderData} />
-      <FeaturedInfo /> */}
+      <FeaturedInfo />
       <div className='homeScreen_products'>
         
         <h3 productCardTitle>Our Products</h3>
@@ -74,8 +74,8 @@ export default function Home() {
             }
         </div>
       </div>
-      {/* <ContactUs />
-      <Footer /> */}
+      <ContactUs />
+      <Footer />
     </>
   )
 }

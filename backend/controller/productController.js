@@ -12,10 +12,19 @@ const addProduct = (req, res) => {
 
 const getProducts = async(req,res) => {
   console.log('in appi get product');
+  const [product, metaData] = await ProductModel.fetchActive();
+  // console.log(product);
+  res.send(product);
+}
+
+const getAllProducts = async(req,res) => {
+  console.log('in appi get product');
   const [product, metaData] = await ProductModel.fetchAll();
   // console.log(product);
   res.send(product);
 }
+
+
 
 const getProductsByCatagory = async(req,res) => {
   console.log('in get product by catagory');
@@ -37,6 +46,24 @@ const getProductsById = async(req,res) => {
   // console.log(product);
     res.send(product);
 }
+
+const deleteProduct = async(req,res)=>{
+  console.log("im deleting a product with id: " + req.body.id);
+  const id= req.body.id;
+  const [ product, metaData] = await ProductModel.deleteProductById(id)
+    
+}
+
+const editProductValues = async(req,res)=>{
+  console.log("im editing products right now");
+  const {id,name,price,brand,category,detail,image,count_in_stock,status} = req.body;
+
+  await ProductModel.updateProduct(id,name,price,brand,category,detail,image,count_in_stock,status);
+
+
+
+}
+
 
 const getProductsBySearch = async(req,res) => {
   console.log('in get product by search');
@@ -71,11 +98,13 @@ const recordSearchHistory = async(req,res)=>{
 const changeVisits = async(req, res) => {
   const id = req.body.id;
   await ProductModel.addVisits(id);
-}
+ }
+
 
 
 module.exports = {
 	getProducts,
+  getAllProducts,
 	addProduct,
   
   
@@ -83,11 +112,10 @@ module.exports = {
   getProductsById,
   getProductsBySearch,
 
-
-  // deleteProduct,
-  // editProductValues,
+  deleteProduct,
+  editProductValues,
 
   recordSearchHistory,
-
   changeVisits  
+
 };

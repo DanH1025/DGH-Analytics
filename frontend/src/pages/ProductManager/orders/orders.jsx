@@ -1,13 +1,16 @@
 import React, {useEffect} from 'react'
 import './orders.css'
-import { Box, Collapse, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Paper} from '@mui/material';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { Box, Collapse, IconButton,
+   Table, TableBody, TableCell,
+    TableContainer, TableHead,
+     TableRow, Typography, Paper} from '@material-ui/core';
+// import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+// import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 // import { Table } from "react-bootstrap";
 // Bootstrap CSS
-import "bootstrap/dist/css/bootstrap.min.css";
-// To make rows collapsible
-import "bootstrap/js/src/collapse.js";
+// import "bootstrap/dist/css/bootstrap.min.css";
+// // To make rows collapsible
+// import "bootstrap/js/src/collapse.js";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrders } from '../../../redux/actions/orderActions';

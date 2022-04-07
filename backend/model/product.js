@@ -20,6 +20,15 @@ module.exports = class Request {
     }
   }
 
+  static fetchActive() {
+    try{
+       const result =db.execute('SELECT * FROM product WHERE status = ?', [1]);
+       return result;
+    }catch(err){
+      console.log(err);
+    }
+  }
+
   static fetchAll() {
     try{
        const result =db.execute('SELECT * FROM product');
@@ -76,8 +85,6 @@ module.exports = class Request {
   static addVisits(id){
     return db.execute('UPDATE product SET visits = visits + 1 WHERE product.id = ?', [id]);
   }
-
-
 
   // static fetchNew() {
   //   try{

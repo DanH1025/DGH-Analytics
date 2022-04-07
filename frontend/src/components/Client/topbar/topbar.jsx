@@ -22,11 +22,15 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
+
+
+
 import { useDispatch, useSelector } from 'react-redux';
-import { getProducts, getProductsByCategory } from '../../../redux/actions/productActions';
+import { getProducts, getProductsByCategory ,recordProductSearch } from '../../../redux/actions/productActions';
 import { getProductsBySearch } from '../../../redux/actions/productActions';
 import { getUser } from '../../../redux/actions/userActions'
 import { createUser } from '../../../redux/actions/userActions'
+
 
 import SettingsIcon from '@material-ui/icons/Settings';
 
@@ -63,9 +67,9 @@ export default function Topbar() {
     const handleSearchCategoryChange = (event)=>{
         setSearchCategory(event.target.value);
     }
+
+
     //to handle when the search category option closes
-
-
     const handleCloseSearchCategory = () =>{
         setOpen_category(false);
     }
@@ -98,7 +102,7 @@ export default function Topbar() {
       // console.log(searchValue.searchValue);
       // console.log('category' + searchCategory);
       dispatch(getProductsBySearch(searchValue.searchValue, searchCategory));
-
+      dispatch(recordProductSearch(searchValue.searchValue, searchCategory))
     }
  
 
@@ -161,10 +165,16 @@ export default function Topbar() {
     //track cart and wishlist span numbers 
     const cart = useSelector(state => state.cart);
     const {cartItems} = cart;
+    const wishlist = useSelector(state => state.wishlist);
+    const {wishlistItems} = wishlist;
 
     //get the cart counter value for the cart icon
     const getCartCount = ()=>{
       return cartItems.reduce((qtyCounter, item)=> qtyCounter + Number(item.qtyCounter) ,0)
+    }
+    //get the wishlist counter valuie for the wishlist icon
+    const getWishlistCount = ()=>{
+      return wishlistItems.length
     }
    
   return (
@@ -195,8 +205,8 @@ export default function Topbar() {
 										<FormControl variant="outlined" className='searchCategoryForm'>
 										
                     {/* <InputLabel className='searchCategoryInputLable'><h5 className='searchCategoryLabelContent'>Category</h5></InputLabel> */}
-										
-                    <Select className='searchCategory'
+								
+                     <Select className='searchCategorySelect'
 										labelId='searchCategory-items-lable'
 										id='searchCategory-items'
                     displayEmpty="true"
@@ -221,7 +231,7 @@ export default function Topbar() {
 												 <DesktopMacIcon className='menuItemIcons' /> <p>Moniter </p></MenuItem>
                         <MenuItem  className='allCategoryMenuItem' value={"play station"}>
 												 <SportsEsportsIcon className='menuItemIcons' /> <p>PS </p></MenuItem>
-                	  	</Select>
+                	  	</Select> 
                      
                 	  </FormControl>
                 	</div>
@@ -251,7 +261,9 @@ export default function Topbar() {
             </div> 
             <div className="infos">
               <div className='wishlist'>
-								<FavoriteBorderOutlined className='infosIcons' /> <span>0</span>
+                <Link to='/wishlist'>
+								  <FavoriteBorderOutlined className='infosIcons' label="Wishlist"/> <span>{getWishlistCount()}</span>
+                </Link>
               </div>
               <div className="cartIconHolder">
 								<Link to='/cart'>
