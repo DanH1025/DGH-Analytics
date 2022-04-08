@@ -95,6 +95,12 @@ const recordSearchHistory = async(req,res)=>{
   }
 
 }
+const recordAddToCartHistory = async(req,res)=>{
+  console.log("recording whats added on the cart");
+  const {id, quantity} = req.body;
+  
+  await ProductModel.recordAddToCart(id, quantity);
+}
 
 
 module.exports = {
@@ -112,6 +118,6 @@ module.exports = {
   editProductValues,
 
 
-  recordSearchHistory
-
+  recordSearchHistory,
+  recordAddToCartHistory
 };

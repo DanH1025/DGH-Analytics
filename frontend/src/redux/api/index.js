@@ -41,6 +41,9 @@ const editProductUrl =
 //recording user search
 const productSearchRecordUrl =
   'http://localhost:5000/api/productSearchRecord'
+const addToCartRecordUrl =
+  'http://localhost:5000/api/addToCartRecord'
+
 
 
 
@@ -117,5 +120,11 @@ export const productSearchRecord = (name,category)=>
     axios.post(productSearchRecordUrl , {
       name: name,
       category: category
+    })
+export const addToCartRecord = (id, qtyCounter)=>
+    axios.post(addToCartRecordUrl , {
+      id: id,
+      quantity: qtyCounter
+
     })
 

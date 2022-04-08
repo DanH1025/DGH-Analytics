@@ -172,12 +172,8 @@ export const recordProductSearch = (name, category) => async (dispatch)=>{
         dispatch({
             type: actionType.RECORD_PRODUCT_SEARCH_REQUEST,
         })
-        const {data} = await api.productSearchRecord(name,category);
 
-        dispatch({
-            type: actionType.RECORD_PRODUCT_SEARCH_SUCCESS,
-            payload: data,
-        })
+        await api.productSearchRecord(name,category);
 
         
     } catch (error) {

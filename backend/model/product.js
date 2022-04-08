@@ -80,6 +80,12 @@ module.exports = class Request {
    const date = new Date()
     return db.execute('INSERT INTO search_history (search_key, search_category , search_date) VALUES (?,?,?)', [name,catagory ,date]);
   }
+  //record add_to_cart
+  static recordAddToCart(id, quantity ){
+    const date = new Date();
+    return db.execute('INSERT INTO cart_history (product_id, qty, date) VALUES (?,?,?)' , [id , quantity , date]);
+
+  }
 
 
 
