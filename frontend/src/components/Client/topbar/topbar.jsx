@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import './topbar.css'
 import {Link} from 'react-router-dom'
 import {Phone, EventNote,Search,ShoppingCartOutlined, FavoriteBorderOutlined } from '@material-ui/icons'
@@ -43,13 +43,25 @@ export default function Topbar() {
     const [open_category ,  setOpen_category] = React.useState(false);//open and close the select option for search 
     const [open_allCategories, setOpen_allCategories] = React.useState(false);//open and close the select option for all
 
-    const [emailError, setEmailError] = React.useState('');
+    const userRef = useRef();
+    const errRef = useRef();
 
+    // useEffect(() => {
+    //   userRef.current.focus();
+    // }, [])
+
+    
+    const [errMsg, setErrMsg] = useState('');
+    const [emailError, setEmailError] = React.useState('');
+    
     const [loginData , setloginData] = useState({
       email: "",
       password: ""
     });
-
+    
+    useEffect(() => {
+      setErrMsg('');
+    }, [loginData.email, loginData.password])
     const [signUpData , setSignUpData] = useState({
       first_name: "",
       last_name: "",
@@ -67,7 +79,6 @@ export default function Topbar() {
     const handleSearchCategoryChange = (event)=>{
         setSearchCategory(event.target.value);
     }
-
 
     //to handle when the search category option closes
     const handleCloseSearchCategory = () =>{
@@ -104,7 +115,6 @@ export default function Topbar() {
       dispatch(getProductsBySearch(searchValue.searchValue, searchCategory));
       dispatch(recordProductSearch(searchValue.searchValue, searchCategory))
     }
- 
 
     //for the dialog
     
@@ -123,7 +133,7 @@ export default function Topbar() {
     const handleDialogClose = () => {
       dispatch(getUser(loginData.email, loginData.password));
       console.log(user);
-      if(user.length){
+      if(user?.length){
         setOpenSignUp(false);
         setOpenLogin(false);
         console.log(loginData);
@@ -131,6 +141,7 @@ export default function Topbar() {
         loginData.password = "";
       }else{
         console.log('no data incorect');
+        setErrMsg('Incorrect login');
         setOpenSignUp(false);
         setOpenLogin(false);
       }
@@ -331,6 +342,7 @@ export default function Topbar() {
                 <DialogContent>
                 <DialogContentText>
                     Im A Returning Customer 
+                    <p ref={errRef} aria-live="assertive">{errMsg}</p>
                 </DialogContentText>
                 <TextField
                     autoFocus
@@ -338,6 +350,7 @@ export default function Topbar() {
                     id="loginEmail"
                     label="Email Address"
                     type="email"
+                    ref={userRef}
                     value={loginData.email}
                     onChange={(e)=>{
                       setloginData({...loginData, email: e.target.value})
@@ -345,7 +358,7 @@ export default function Topbar() {
                     fullWidth
                 />
                  <TextField
-                    autoFocus
+                    
                     margin="dense"
                     id="loginPasswor"
                     label="Password"

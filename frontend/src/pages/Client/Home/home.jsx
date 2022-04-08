@@ -29,10 +29,11 @@ export default function Home() {
 
  	useEffect(() => {
  	  dispatch(getProducts());
+    
  	}, [dispatch]);
 
 	const products = useSelector((state) => state.getProduct.products);
-	console.log(products);
+	// console.log(products);
 
 
   const [productList, setProduct] = useState([]);
@@ -50,13 +51,14 @@ export default function Home() {
 
         <div className="productHolder">
             {
-              !products.length ? <div></div> : (
+              !products?.length ? <div></div> : (
                 products.map((val, key) => {
-                  console.log(val);
+                  // console.log(val);
                   return (
                     <div className='productListItems' >
                     
                       <ProductCard 
+                        key = {val.id}
                         productId={val.id} // this id is not the product id should be the random generated number for the product id
                         name={val.productName}
                         price={val.productPrice}

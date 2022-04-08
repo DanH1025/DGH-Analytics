@@ -20,6 +20,10 @@ const readUserUrl =
 const createUserUrl = 
   'http://localhost:5000/api/addUser'
 
+// token api
+const readUserTUrl = 
+  'http://localhost:5000/api/app'
+
 // orders url
 const fetchOrdersUrl = 
   'http://localhost:5000/api/getOrders'
@@ -43,6 +47,10 @@ const productSearchRecordUrl =
   'http://localhost:5000/api/productSearchRecord'
 const addToCartRecordUrl =
   'http://localhost:5000/api/addToCartRecord'
+
+
+const productVistRecordUrl =
+  'http://localhost:5000/api/addVisits'
 
 
 
@@ -127,4 +135,11 @@ export const addToCartRecord = (id, qtyCounter)=>
       quantity: qtyCounter
 
     })
+
+//recording visit
+export const productVisitRecord = (id)=>
+    axios.post(productVistRecordUrl , {
+      id: id
+    })
+
 
