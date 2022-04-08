@@ -24,9 +24,10 @@ export const getUserReducer = (state = {user: [] }, action)=>{
                 loading: true,
             }
         case actionTypes.CREATE_USER_SUCCESS:
-            return [
-                ...state, action.payload
-            ];
+            return {
+                loading:false,
+                user: action.payload
+            }
         case actionTypes.CREATE_USER_FAIL:
             return{
                 loading:false,

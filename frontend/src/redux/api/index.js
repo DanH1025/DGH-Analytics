@@ -20,6 +20,10 @@ const readUserUrl =
 const createUserUrl = 
   'http://localhost:5000/api/addUser'
 
+// token api
+const readUserTUrl = 
+  'http://localhost:5000/api/app'
+
 // orders url
 const fetchOrdersUrl = 
   'http://localhost:5000/api/getOrders'

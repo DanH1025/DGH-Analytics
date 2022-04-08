@@ -25,7 +25,13 @@ const getUser = async(req,res) => {
   const [user, metaData] = await UserModel.fetchAll(email, password)  
   console.log('before user');
   console.log(user);
-  res.send(user);
+  if(user?.length){
+    console.log("found user");
+    res.send(user);
+  }else{
+    console.log('no luck');
+    res.sendStatus(401);
+  }
 }
 
 function encrypt(text) {
