@@ -7,13 +7,7 @@ const Product = require('../backend/model/product');
 const db = require('./database/dbConn');
 const routes = require('./routes/routes');
 
-    // const db = mysql.createConnection({
-    //     host:process.env.DATABASE_HOST,
-    //     user:process.env.DATABASE_USER ,
-    //     password:process.env.DATABASE_PASSWORD,
-    //     database:process.env.DATABASE
-    // });
-    // console.log("DATABASE connected successfully")
+   
 
 
 const app = express();

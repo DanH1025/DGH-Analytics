@@ -1,4 +1,4 @@
-const async = require('hbs/lib/async');
+// const async = require('hbs/lib/async');
 const ProductModel = require('../model/product');
 // const async = require('hbs/lib/async');
 
