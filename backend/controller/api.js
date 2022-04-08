@@ -1,4 +1,4 @@
-const async = require('hbs/lib/async');
+// const async = require('hbs/lib/async');
 const UserModel = require('../model/user');
 const jwt = require("jsonwebtoken");
 

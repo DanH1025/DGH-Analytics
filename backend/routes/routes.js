@@ -3,7 +3,9 @@ const router = express.Router();
 
 
 const {getProducts, getAllProducts,addProduct, getProductsByCatagory, getProductsById,
-getProductsBySearch ,deleteProduct ,editProductValues ,recordSearchHistory, changeVisits } = require('../controller/productController');
+         getProductsBySearch ,deleteProduct ,editProductValues ,recordSearchHistory ,recordAddToCartHistory,changeVisits } = 
+  require('../controller/productController');
+
 
 const {getUser, addUser} = 
   require('../controller/userController')
@@ -55,6 +57,10 @@ router.post('/getOrdersDetail', getOrderDetails);
 
 //search record router
 router.post('/productSearchRecord' , recordSearchHistory);
+//addToCart record router
+router.post('/addToCartRecord' , recordAddToCartHistory )
+
+
 
 // router.get('getProductDetail/${id}' , getProductDetail)
 
