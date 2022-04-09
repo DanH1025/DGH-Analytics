@@ -52,7 +52,7 @@ export default function Orders() {
               </TableHead>
               <TableBody>
               {
-                  !orders.length ? <div>empty</div> : (
+                  !orders?.length ? <div>empty</div> : (
                     orders.map((val, key) => {
                       // console.log(val);
                       return (

@@ -54,6 +54,7 @@ export default function Checkout() {
 			// console.log('cun pt: ' + pt);
 			// console.log(users);
       if(users?.userId){
+        setErrMsg('');
         console.log(user);
 				// console.log(users);
 				dispatch(createOrders(date,users.userId, 100));
