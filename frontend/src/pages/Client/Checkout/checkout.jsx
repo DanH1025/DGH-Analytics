@@ -4,7 +4,7 @@ import Topbar from '../../../components/Client/topbar/topbar'
 import './checkout.css'
 
 import ReactMapGL , {Marker} from 'react-map-gl';
-import { Card, Input, Tooltip } from 'antd';
+import {  Input, Button , message } from 'antd';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied'
 import { useSelector, useDispatch } from 'react-redux';
@@ -64,6 +64,7 @@ export default function Checkout() {
       if(users?.userId){
         setErrMsg('');
         console.log(user);
+        message.success("Order Placed")
 				// console.log(users);
 				dispatch(createOrders(date,users.userId, 100));
 				{cartItems?.map((cart) => {
@@ -247,6 +248,10 @@ export default function Checkout() {
                     </div>
                 </div>
             </div>
+           </div>
+
+           <div className="confirmOrder">
+               <Button onClick={handleConfirm} type="primary" contained> Order </Button>
            </div>
 
 
