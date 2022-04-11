@@ -42,7 +42,7 @@
     font-size: 25px;
     font-weight: lighter;
 }
-.checkoutSteps{
+.checkoutSteps {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -113,6 +113,14 @@
     border:none;
     border-redius: 4px;
 
+}
+.confirmOrder{
+    display: flex;
+    height: 35px;
+    padding: 5px;
+    margin: 5px 15px;
+    align-items: center;
+    justify-content: right;
 }
 
 
