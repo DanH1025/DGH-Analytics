@@ -29,7 +29,6 @@ export default function Home() {
 
  	useEffect(() => {
  	  dispatch(getProducts());
-    
  	}, [dispatch]);
 
 	const products = useSelector((state) => state.getProduct.products);

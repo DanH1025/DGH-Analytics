@@ -13,6 +13,7 @@ import {
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrders } from '../../../redux/actions/orderActions';
+import { getOrderReports } from "../../../redux/actions/orderReportAction";
 
 const data = [
   {
@@ -51,15 +52,20 @@ export default function Home() {
 
  	useEffect(() => {
  	  dispatch(getOrders());
+ 	  dispatch(getOrderReports());
  	}, [dispatch]);
 
   const prices = [];
+  const dates = [];
   const orders = useSelector((state) => state.getOrder.orders);
-  // console.log(orders);
+  const orderReports = useSelector((state) => state.getOrderReport.orderReports);
+
+  console.log(orderReports);
   {
-    orders?.map((order) => {
+    orderReports?.map((order) => {
       // console.log(order);
       // console.log(order.total);
+      dates.push(order.date);
       prices.push(order.total);
     })
   }
@@ -71,12 +77,12 @@ export default function Home() {
         id: "basic-bar"
       },
       xaxis: {
-        categories: ["Monday", "Tuesday", 1993, 1994, 1995, 1996, 1997, 1998]
+        categories: dates
       }
     },
     series: [
       {
-        name: "series-1",
+        name: "order",
         data: prices
       }
     ]

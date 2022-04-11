@@ -71,3 +71,26 @@ export const getOrderDetailsReducer = (state = {orderDetails: [] }, action)=>{
         return state;
   } 
 };
+
+export const getOrderReportsReducer = (state = {orderReports: [] }, action)=>{
+  switch(action.type){
+    case actionTypes.GET_ORDER_REPORTS_REQUEST:
+        return{
+            loading: true,
+            orderReports: []
+        }
+    case actionTypes.GET_ORDERS_REPORTS_SUCCESS:
+        return{
+            loading:false,
+            orderReports: action.payload
+        }  
+    case actionTypes.GET_ORDERS_REPORTS_FAIL:
+        return{
+            loading:false,
+            error: action.payload,
+            // products: []
+        }
+    default:
+        return state;
+  } 
+};
