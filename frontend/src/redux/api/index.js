@@ -21,8 +21,8 @@ const createUserUrl =
   'http://localhost:5000/api/addUser'
 
 // token api
-const readUserTUrl = 
-  'http://localhost:5000/api/app'
+const readOrderReportUrl = 
+  'http://localhost:5000/api/getLastWeekOrderReport'
 
 // orders url
 const fetchOrdersUrl = 
@@ -54,6 +54,10 @@ const productVistRecordUrl =
 
 
 
+
+// orders detail
+export const fetchOrderReports = () =>
+  axios.post(readOrderReportUrl);
 
 // orders
 export const fetchOrderDetails = (id) =>

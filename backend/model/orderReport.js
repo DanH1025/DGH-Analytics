@@ -35,7 +35,7 @@ module.exports = class Request {
 
   static fetchLastWeek() {
     try{
-       const result =db.execute('SELECT * FROM orderreport WHERE 1 LIMIT 7');
+       const result =db.execute('SELECT * FROM orderreport LIMIT 7');
        return result;
     }catch(err){
       console.log(err);
