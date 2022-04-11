@@ -9,14 +9,15 @@ module.exports = class Request {
 
   save() {
     console.log('in order modle');
-    const date = "11-23-5666";
+    const date = new Date().toISOString().slice(0, 10);
     try{
-      db.execute('INSERT INTO orders (orderId, userId, total, date) VALUES (?,?,?,?)', 
+      db.execute('INSERT INTO orders (orderId, userId, total, date, status) VALUES (?,?,?,?,?)', 
       [ 
         this.orderId,
         this.userId, 
         this.total,
-        date
+        date,
+        'complete'
       ])
     }catch(e){
       console.log("order save error: " + e);
@@ -31,4 +32,26 @@ module.exports = class Request {
       console.log(err);
     }
   }
+
+  static totalSum(date) {
+    try{
+       const result =db.execute("SELECT SUM(total) FROM orders WHERE status = 'complete' AND date=?", [date]);
+       return result;
+      //  console.log(result);
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+  static completeOrderComplete(date) {
+    try{
+       const result =db.execute("SELECT COUNT(status) FROM orders WHERE status = 'complete' AND date=?", [date]);
+      //  console.log(result);
+       return result;
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+
 }

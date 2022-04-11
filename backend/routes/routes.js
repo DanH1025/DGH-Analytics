@@ -13,6 +13,10 @@ const {addOrder, getOrders} =
   require('../controller/ordersController')
 const { addOrderDetail, getOrderDetails } =
   require('../controller/orderDetailController');
+const { getOrderReports, getLastWeekOrderReports } = 
+  require('../controller/orderReportController');
+
+
 const { route } = require('express/lib/application');
 
 const { users, deleteP, verify} = require('../controller/api')
@@ -25,12 +29,16 @@ router.get('/' , (req,res)=>{
 router.post('/app', users);
 router.post('/appDelete', verify,  deleteP);
 
+// report generator
 
+router.post('/getOrderReport', getOrderReports);
+router.post('/getLastWeekOrderReport', getLastWeekOrderReports);
+
+// product routes
 router.post('/addToStock' , addProduct); 
 router.get('/getProducts', getProducts);
 router.get('/getAllProducts' ,getAllProducts)
 
-// product routes
 router.post('/getProductsByCategory', getProductsByCatagory);
 router.post('/getProductsById', getProductsById);
 router.post('/getProductsBySearch', getProductsBySearch);
