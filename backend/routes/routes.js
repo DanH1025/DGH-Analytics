@@ -13,7 +13,7 @@ const {addOrder, getOrders} =
   require('../controller/ordersController')
 const { addOrderDetail, getOrderDetails } =
   require('../controller/orderDetailController');
-const { getOrderReports, getLastWeekOrderReports } = 
+const { getOrderReports, getLastWeekOrderReports, getTotalOrder } = 
   require('../controller/orderReportController');
 
 
@@ -33,6 +33,7 @@ router.post('/appDelete', verify,  deleteP);
 
 router.post('/getOrderReport', getOrderReports);
 router.post('/getLastWeekOrderReport', getLastWeekOrderReports);
+router.post('/getTotal', getTotalOrder)
 
 // product routes
 router.post('/addToStock' , addProduct); 

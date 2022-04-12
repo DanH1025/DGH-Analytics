@@ -72,7 +72,7 @@ export const getOrderDetailsReducer = (state = {orderDetails: [] }, action)=>{
   } 
 };
 
-export const getOrderReportsReducer = (state = {orderReports: [] }, action)=>{
+export const getOrderReportsReducer = (state = {orderReports: []}, action)=>{
   switch(action.type){
     case actionTypes.GET_ORDER_REPORTS_REQUEST:
         return{
@@ -87,8 +87,29 @@ export const getOrderReportsReducer = (state = {orderReports: [] }, action)=>{
     case actionTypes.GET_ORDERS_REPORTS_FAIL:
         return{
             loading:false,
-            error: action.payload,
-            // products: []
+            error: action.payload
+        }
+    default:
+        return state;
+  } 
+};
+
+export const getOrderTotalReducer = (state = {total: []}, action)=>{
+  switch(action.type){
+    case actionTypes.GET_ORDER_TOTALS_REQUEST:
+        return{
+            loading: true,
+            total: []
+        }
+    case actionTypes.GET_ORDERS_TOTALS_SUCCESS:
+        return{
+            loading:false,
+            total: action.payload
+        }  
+    case actionTypes.GET_ORDERS_TOTALS_FAIL:
+        return{
+            loading:false,
+            error: action.payload
         }
     default:
         return state;
