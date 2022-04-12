@@ -1,7 +1,5 @@
 import * as actionType from '../constants/productConstant';
 import * as api from '../api/index';
-import axios from 'axios';
-import { Axios } from 'axios';
 
 
 export const getProducts = () => async (dispatch)=>{

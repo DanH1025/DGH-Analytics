@@ -1,6 +1,7 @@
 import React, {useEffect} from "react";
 import Chart from "react-apexcharts";
 import './home.css'
+import OrderMap from "../OrderMap/orderMap";
 
 import Charts from '../../../components/Admin/charts';
 
@@ -54,7 +55,9 @@ export default function Home() {
  	useEffect(() => {
     dispatch(getOrderTotal());
  	  dispatch(getOrderReports());
+    dispatch(getOrders())
  	}, [dispatch]);
+   
 
   const prices = [];
   const priceAverage = [];
@@ -84,10 +87,26 @@ export default function Home() {
     })
   }
   // console.log(prices);
-
+  const stat = {
+    options: {
+      chart: {
+        id: "basic-bar"
+      },
+      xaxis: {
+        categories: dates
+      }
+    },
+    series: [
+      {
+        name: "order",
+        data: prices
+      }
+    ]
+  }
 
   return (
     <>
+
       <div className="charts">        
         <div className="chart">
           <Charts 
@@ -117,6 +136,22 @@ export default function Home() {
             />
         </div>
       </div>
+      <div className="lineGraphHolder">
+      
+      <div className="orders_container">
+        <Chart
+          options={stat.options}
+          series={stat.series}
+          type="bar"
+          width='180%'
+          height='100%'
+          
+          />
+      </div>
+     
+   </div>
+    
+    <OrderMap/>
     </>
   )
 }

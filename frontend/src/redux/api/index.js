@@ -71,21 +71,25 @@ export const fetchOrderDetails = (id) =>
   axios.post(fetchOrderDetailsUrl, {
     id: id
   });
-export const createOrderDetails = (orderId, productId, productQuantity) => 
+export const createOrderDetails = (orderId, productId, price, productQuantity) => 
   axios.post(createOrderDetailsUrl, {
     orderId: orderId,
     productId: productId,
+    price:price , 
     productQuantity: productQuantity
   });
 
 // orders
 export const fetchOrders = () =>
   axios.post(fetchOrdersUrl);
-export const createOrders = (date, userId, total) => 
+export const createOrders = (date, userId, total, lat,lng ,contact) => 
   axios.post(createOrdersUrl, {
     date: date,
     userId: userId,
-    total: total
+    total: total,
+    latitude: lat,
+    longitude: lng,
+    contact: contact
   });
 
 // users

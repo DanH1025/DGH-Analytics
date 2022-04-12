@@ -11,7 +11,7 @@ import WishList from '../../ProductManager/wishlist/wishlist';
 import Orders from '../../ProductManager/orders/orders';
 import ProductList from '../../../components/ProductManager/productList/productList';
 import AddProduct from '../../../components/ProductManager/addProduct/addProduct'
-import Home from '../../Admin/home/home';
+import Home from '../../../components/Admin/home/home';
 
 import { Layout, Menu, Breadcrumb } from 'antd';
 import {
@@ -36,28 +36,11 @@ export default function PM_Dashboard() {
 // handle the state of the sidebar slider
 const [sidebarCollapsed , setSidebarCollapsed] = useState(false);
 // handle the state of the body components
-  const [compCounter , setCompCounter] = useState("");
+  const [compCounter , setCompCounter] = useState("0");
     const handlerSidebarCollapse = () =>{
           setSidebarCollapsed(!sidebarCollapsed);
       }
-  const getComponent = () =>{
-      if(compCounter === "0"){
-        return <Home />
-      }
-      if(compCounter === "1"){
-        return <WishList/>
-      }
-      else if(compCounter === "2"){
-        return <ProductList />        
-      }
-      else if(compCounter === "3"){
-        return <AddProduct />
-      }
-      else if(compCounter === "4"){
-        return <Orders />
-      }
-
-  }
+ 
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
@@ -69,11 +52,11 @@ const [sidebarCollapsed , setSidebarCollapsed] = useState(false);
           <h1>LOGO</h1> 
         </div>
         <Menu theme="dark" 
-          defaultSelectedKeys={['1']}     
+          defaultSelectedKeys={['sub_dashboard']}     
           mode="inline">
          
-          <Menu.Item key="menu_profile" 
-              onClick={()=>setCompCounter("0")} 
+          <Menu.Item key="sub_dashboard" 
+              onClick={()=> setCompCounter("0")}                           
               icon={<UserOutlined />}>           
                 Dashboard           
           </Menu.Item>
@@ -129,17 +112,21 @@ const [sidebarCollapsed , setSidebarCollapsed] = useState(false);
         <Content style={{ margin: '0 16px' }}>
           <Breadcrumb style={{ margin: '16px 0' }}>
             <Breadcrumb.Item>
-              {compCounter === "" ? "Default" :
-               compCounter === "0" ? "Dashbord" :
+              {compCounter === "0" ? "Dashbord" :
                compCounter === "1" ? "Profile" : 
                compCounter === "2"? "Product List" : 
                compCounter === "3" ? "Add Product" : 
-               compCounter === "4"? "Others" : "Others again" }
+               compCounter === "4"? "Others" : "" }
             </Breadcrumb.Item>
           </Breadcrumb>
           <div className="site-layout-background" 
-            style={{ padding: 24, minHeight: 360 }}>
-              {getComponent()}               
+            style={{ padding: 0, minHeight: 360 }}>
+              {compCounter === "0" ? <Home /> : 
+               compCounter === "1" ? <WishList />:
+               compCounter === "2" ? <ProductList/>:
+               compCounter === "3" ? <AddProduct/>:
+               compCounter === "4" ? <Orders/> : "others"
+              }               
           </div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>
