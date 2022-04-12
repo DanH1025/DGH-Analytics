@@ -31,4 +31,22 @@ module.exports = class Request {
       console.log(err);
     }
   }
+
+  static topProductByQuantity() {
+    try{
+       const result =db.execute('SELECT id, productId, SUM(productQuantity) AS total FROM `orderdetails` GROUP BY productId ORDER BY SUM(productQuantity) DESC');
+       return result;
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+  static topProductByQuantityLIM5() {
+    try{
+       const result =db.execute('SELECT id, productId, SUM(productQuantity) AS total FROM `orderdetails` GROUP BY productId ORDER BY SUM(productQuantity) DESC LIMIT 5');
+       return result;
+    }catch(err){
+      console.log(err);
+    }
+  }
 }
