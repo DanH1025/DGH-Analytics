@@ -1,0 +1,29 @@
+body{
+    padding: 0;
+    margin: 0;
+}
+.order_map_container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 50vh;
+    padding: 0;
+    margin: 10px 0px;
+    margin-top: 0px;
+    
+}
+.mapOrderTitle{
+    display: flex;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    padding: 4px;
+    align-items: center;
+    
+}
+.mapOrderTitle h3{
+    font-size: 18px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: orange;
+}

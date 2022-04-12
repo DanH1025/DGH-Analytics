@@ -24,13 +24,13 @@ export const getOrders = () => async (dispatch)=>{
     }
 };
 
-export const createOrders = (date, userId, total) => async (dispatch) => {
+export const createOrders = (date, userId, total , lat, lng , contact) => async (dispatch) => {
   console.log('action : ' + total);
 	try{
     dispatch({
       type: actionType.CREATE_ORDERS_REQUEST,
     });
-		const { data } = await  api.createOrders(date, userId, total);
+		const { data } = await  api.createOrders(date, userId, total, lat, lng ,contact);
 		dispatch({ 
       type: actionType.CREATE_ORDERS_SUCCESS, 
       payload: data 

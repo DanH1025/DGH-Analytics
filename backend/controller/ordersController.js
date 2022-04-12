@@ -4,7 +4,10 @@ const addOrder = (req, res) => {
   const date = req.body.date;
   const userId = req.body.userId;
   const total = req.body.total;
-  const orders = new OrderModle(date,userId,total);
+  const latitude = req.body.latitude;
+  const longitude = req.body.longitude;
+  const contact = req.body.contact;
+  const orders = new OrderModle(date,userId,total, latitude,longitude, contact);
   // console.log(orders);
   try{
     orders.save();

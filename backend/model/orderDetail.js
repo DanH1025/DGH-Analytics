@@ -2,21 +2,24 @@ const db = require('../database/dbConn')
 
 module.exports = class Request {
   
-  constructor(orderId, productId, productQuantity){
+  constructor(orderId, productId, productQuantity, price){
     this.orderId = orderId;
     this.productId = productId;
     this.productQuantity = productQuantity;
+    this.price = price;
+ 
   }
 
   save() {
     console.log('in order detail modle');
-    const prid = 123;
+    
     try{
       db.execute('INSERT INTO orderdetails (orderId, productId, productPrice, productQuantity) VALUES (?,?,?,?)', 
       [ this.orderId, 
         this.productId,
-        prid,
-        this.productQuantity
+        this.price,
+        this.productQuantity      
+      
       ])
     }catch(e){
       console.log("order save error: " + e);

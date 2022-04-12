@@ -4,7 +4,10 @@ const addOrderDetail = (req, res) => {
   const orderId = req.body.orderId;
   const productId = req.body.productId;
   const productQuantity = req.body.productQuantity;
-  const orderDetails = new OrderDetailModel(orderId, productId, productQuantity);
+  const price  = req.body.price;
+  
+  //const [orderId , productId , productQuantity, latitude, longitude] = req.body;
+  const orderDetails = new OrderDetailModel(orderId, productId, productQuantity , price);
   try{
     // console.log(orderDetails);
     orderDetails.save();
@@ -12,7 +15,7 @@ const addOrderDetail = (req, res) => {
     console.log('order detail error: ' + e);
   }
 }
-
+ 
 const getOrderDetails = async(req,res) => {
   const id = req.body.id;
   const [order, metaData] = await OrderDetailModel.fetchAll(id);

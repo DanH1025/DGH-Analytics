@@ -32,7 +32,7 @@ export default function Checkout() {
 
 		const getUs = () => {
       console.log('in get us');
-      user?.map((pro) => {
+      user.map((pro) => {
 			  users = pro;
 			  console.log(users);
 		  }
@@ -53,30 +53,7 @@ export default function Checkout() {
 		// 	return <>{user}</>
 		// }
 
-    const handleConfirm = () => {
-      console.log(cartItems);
-			let date = Date();
-      getUs();
-      console.log(users);
-			// const pt = user;
-			// console.log('cun pt: ' + pt);
-			// console.log(users);
-      if(users?.userId){
-        setErrMsg('');
-        console.log(user);
-        message.success("Order Placed")
-				// console.log(users);
-				dispatch(createOrders(date,users.userId, 100));
-				{cartItems?.map((cart) => {
-					console.log('chekh out' + cart.product + cart.qtyCounter);
-					dispatch(createOrderDetails(date, cart.product, cart.qtyCounter));
-				})}
-      }else{
-        console.log('login in first');
-        setErrMsg('Login in first');
-      }
-    }
-
+      
 
     const [viewPort , setViewPort] = useState({
       latitude:9.022875,
@@ -89,11 +66,60 @@ export default function Checkout() {
       latitude: 9.022875,
       longitude: 38.752261
     })
+    const [phoneNumber , setPhoneNumber] = useState("")
+
+    const handleConfirm = () => {
+     // message.success("Order Placed");
+     
+      console.log()
+      console.log(cartItems[0])
+      const date = new Date();
+      getUs();
+     
+
+      if(users?.userId){
+        dispatch(createOrders(date, users.userId, getTotalProductPrice(), marker.latitude,marker.longitude, phoneNumber ))
+
+        cartItems.map((item)=>{
+          dispatch(createOrderDetails(date, item.product , item.qtyCounter, item.price))
+        });
+        message.success("Order Placed");
+        console.log(phoneNumber)
+      }
+      else{
+        message.error("Order Place Failed: Check if you are logged in");
+      }
 
 
-    const qtyChangeHandler = (id,qty) =>{
-      dispatch(addToCart(id,qty))
-  }
+   
+      // console.log(cartItems);
+			// let date = Date();
+      // getUs();
+      // console.log(users);
+			// // const pt = user;
+			// // console.log('cun pt: ' + pt);
+			// // console.log(users);
+      // if(users?.userId){
+      //   setErrMsg('');
+      //   console.log(user);
+      //   message.success("Order Placed")
+			// 	// console.log(users);
+			// 	dispatch(createOrders(date,users.userId, 100));
+			// 	{cartItems?.map((cart) => {
+			// 		console.log('chekh out' + cart.product + cart.qtyCounter);
+			// 		dispatch(createOrderDetails(date, cart.product, cart.qtyCounter));
+			// 	})}
+      // }else{
+      //   console.log('login in first');
+      //   setErrMsg('Login in first');
+      // }
+    }
+
+
+
+      const qtyChangeHandler = (id,qty) =>{
+        dispatch(addToCart(id,qty))
+    }
 
   const removeFromCartHandler=(id) =>{
       dispatch(removeFromCart(id));
@@ -161,7 +187,13 @@ export default function Checkout() {
                         <Input prefix={<LocationOnIcon />} placeholder='Location ' value={""} disabled  />
                       </div>
                       <div className="phoneNumber">
-                          <Input type="number"  prefix="(+251)" placeholder='Phone Number' className='phone_number_input' />
+                          <Input type="number" 
+                            prefix="(+251)" placeholder='Phone Number'
+                            value={phoneNumber}
+                            className='phone_number_input'
+                            onChange={(e)=> setPhoneNumber(e.target.value) } 
+                            
+                            />
                       </div>
                 </div>
               </div>

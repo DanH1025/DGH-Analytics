@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import Chart from "react-apexcharts";
 import './home.css'
-
+import OrderMap from "../OrderMap/orderMap";
 import {
   LineChart,
   Line,
@@ -92,33 +92,38 @@ export default function Home() {
 
   return (
     <>
-      <h2>Home Overview</h2>
-      <div className="chart">
-        Total sales
-       {/* <ResponsiveContainer width="100%" height="100%"> */}
-          <LineChart
-            width={500}
-            height={300}
-            data={data}
-            margin={{
-              top: 5,
-              right: 30,
-              left: 20,
-              bottom: 5,
-            }}
-          >
-            <XAxis dataKey="name" />
-            <Line type="monotone" dataKey="pv" stroke="#8884d8" /> 
-          </LineChart>
-        {/* </ResponsiveContainer>  */}
-      </div>
-      <div className="chart">
-        <Chart
-          options={stat.options}
-          series={stat.series}
-          type="line"
-          width="500"/>
-      </div>
+<div className="lineGraphHolder">
+      
+        <div className="orders_container">
+          <Chart
+            options={stat.options}
+            series={stat.series}
+            type="bar"
+            width='195%'
+            height='100%'
+            
+            />
+        </div>
+        <div className="total_sale_container">
+          Total sales
+        {/* <ResponsiveContainer width="100%" height="100%"> */}
+            {/* <LineChart              
+              height={500}
+              width={300}
+              data={data}
+             
+              
+            >
+              <XAxis dataKey="name" />
+              <Line type="monotone" dataKey="pv" stroke="#8884d8" /> 
+            </LineChart> */}
+          {/* </ResponsiveContainer>  */}
+        </div>
+     </div>
+      
+      <OrderMap/>
+
     </>
   )
 }
+
