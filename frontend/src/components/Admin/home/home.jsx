@@ -104,21 +104,7 @@ export default function Home() {
             
             />
         </div>
-        <div className="total_sale_container">
-          Total sales
-        {/* <ResponsiveContainer width="100%" height="100%"> */}
-            {/* <LineChart              
-              height={500}
-              width={300}
-              data={data}
-             
-              
-            >
-              <XAxis dataKey="name" />
-              <Line type="monotone" dataKey="pv" stroke="#8884d8" /> 
-            </LineChart> */}
-          {/* </ResponsiveContainer>  */}
-        </div>
+       
      </div>
       
       <OrderMap/>
