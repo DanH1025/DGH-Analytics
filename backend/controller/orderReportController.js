@@ -1,5 +1,6 @@
 const OrderModle = require('../model/orders');
-const OrderReportModel = require('../model/orderReport')
+const OrderReportModel = require('../model/orderReport');
+const OrderDetailModel = require('../model/orderDetail');
 
 const addOrderReport = async (req, res) => {
   const date = new Date().toISOString().slice(0, 10);
@@ -55,7 +56,11 @@ const getTotalOrder = async(req,res) => {
 
   const ave = total/orderNo;
 
-  const den = [{'totalPrice': total, 'orders': orderNo, 'average': ave}]
+  const topProd = await OrderDetailModel.topProductByQuantity();
+  console.log('top product');
+  console.log(topProd[0]);
+
+  const den = [{'totalPrice': total, 'orders': orderNo, 'average': ave, 'topProdByQun': topProd[0]}]
   res.send(den);
 }
 
