@@ -41,9 +41,28 @@ const getLastWeekOrderReports = async(req,res) => {
   res.send(order);
 }
 
+const getTotalOrder = async(req,res) => {
+  const date = new Date().toISOString().slice(0, 10);
+  const sum = await OrderModle.totalSum(date);
+  console.log('sum:');
+  console.log(sum[0][0]["SUM(total)"]);
+  let total = sum[0][0]["SUM(total)"];
+
+  const no_orders = await OrderModle.completeOrderComplete(date);
+  console.log('order count: ');
+  console.log(no_orders[0][0]["COUNT(status)"]);
+  const orderNo = no_orders[0][0]["COUNT(status)"];
+
+  const ave = total/orderNo;
+
+  const den = [{'totalPrice': total, 'orders': orderNo, 'average': ave}]
+  res.send(den);
+}
+
 
 module.exports = {
 	addOrderReport,
 	getOrderReports,
   getLastWeekOrderReports,
+  getTotalOrder,
 };

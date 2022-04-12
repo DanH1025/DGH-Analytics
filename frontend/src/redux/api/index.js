@@ -20,10 +20,13 @@ const readUserUrl =
 const createUserUrl = 
   'http://localhost:5000/api/addUser'
 
-// token api
+// order report of last week
 const readOrderReportUrl = 
   'http://localhost:5000/api/getLastWeekOrderReport'
-
+ // today total order
+const readOrderTotalUrl = 
+    'http://localhost:5000/api/getTotal'
+  
 // orders url
 const fetchOrdersUrl = 
   'http://localhost:5000/api/getOrders'
@@ -58,6 +61,10 @@ const productVistRecordUrl =
 // orders detail
 export const fetchOrderReports = () =>
   axios.post(readOrderReportUrl);
+
+// orders total
+export const fetchOrderTotal = () =>
+  axios.post(readOrderTotalUrl);
 
 // orders
 export const fetchOrderDetails = (id) =>

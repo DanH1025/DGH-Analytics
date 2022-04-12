@@ -23,3 +23,24 @@ export const getOrderReports = () => async (dispatch)=>{
         });
     }
 };
+
+export const getOrderTotal = () => async (dispatch)=>{
+    try {
+        dispatch({
+            type: actionType.GET_ORDER_TOTALS_REQUEST,
+        });
+        const {data} = await api.fetchOrderTotal();
+        
+        dispatch({
+            type: actionType.GET_ORDERS_TOTALS_SUCCESS,
+            payload: data,
+        });
+    } catch (error) {
+        dispatch({
+            type:actionType.GET_ORDERS_TOTALS_FAIL,
+            payload: 
+                error.response && error.response.data.message 
+                ?error.response.data.message:error.message,
+        });
+    }
+};
