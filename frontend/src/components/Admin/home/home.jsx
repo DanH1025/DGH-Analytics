@@ -55,6 +55,7 @@ export default function Home() {
  	useEffect(() => {
     dispatch(getOrderTotal());
  	  dispatch(getOrderReports());
+    dispatch(getOrders())
  	}, [dispatch]);
    
 
