@@ -142,8 +142,8 @@ export default function Topbar() {
       }else{
         console.log('no data incorect');
         setErrMsg('Incorrect login');
-        setOpenSignUp(false);
-        setOpenLogin(false);
+        // setOpenSignUp(false);
+        // setOpenLogin(false);
       }
     };
 

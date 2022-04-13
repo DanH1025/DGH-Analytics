@@ -34,7 +34,6 @@ function App() {
             <Route exact path='/productManagerDashboard' component={PM_Dashboard} />
             <Route exact path='/adminDash' component={Admin_Dashboard} />
 
-
           </Switch>
         </main>
       </BrowserRouter>
