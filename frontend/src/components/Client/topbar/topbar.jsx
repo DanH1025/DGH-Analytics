@@ -133,7 +133,7 @@ export default function Topbar() {
     const handleDialogClose = () => {
       dispatch(getUser(loginData.email, loginData.password));
       console.log(user);
-      if(user?.length){
+      if(user?.userId){
         setOpenSignUp(false);
         setOpenLogin(false);
         console.log(loginData);
@@ -142,8 +142,8 @@ export default function Topbar() {
       }else{
         console.log('no data incorect');
         setErrMsg('Incorrect login');
-        // setOpenSignUp(false);
-        // setOpenLogin(false);
+        setOpenSignUp(false);
+        setOpenLogin(false);
       }
     };
 

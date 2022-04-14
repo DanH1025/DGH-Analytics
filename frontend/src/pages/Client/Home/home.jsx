@@ -24,36 +24,30 @@ export default function Home() {
   window.onbeforeunload = function(){
     console.log('want to leave');
     setCook();
-    // return 'Are you sure you want to leave?';
+    return 'Are you sure you want to leave?';
   };
+
   const setCook = () => {
     const user = JSON.parse(sessionStorage.getItem('user'));
     const date = new Date().toISOString().slice(0, 10);
     console.log(date);
 
+    localStorage.setItem('user leave', JSON.stringify(user));
+
     var today = new Date();
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
-    let purchased = false;
-    let reachCheck = false;
+    let purchased = sessionStorage.getItem('purchased');
+    let reachCheck = sessionStorage.getItem ("reachedCheckout");
 
-    // localStorage.setItem("time leave", time);
-    if (!localStorage.getItem("purchased") === null) {
-      console.log('purchased found');
-      purchased = sessionStorage.getItem('purchased');
-    }else{
-      console.log('purchased not found');
+    if(purchased === null){
       purchased = false;
     }
-    if (!localStorage.getItem("reachedCheckout") === null) {
-      reachCheck = sessionStorage.getItem('reachedCheckout');
-      console.log('userr found');
-    }else{
-      console.log('user not found');
+    if(reachCheck === null){
       reachCheck = false;
     }
 
-    dispatch(createUserLog(user.href,user.referrer,1156,856,true,reachCheck,purchased,date,time));
+    dispatch(createUserLog(user.href,user.referrer,10,10,true,reachCheck,purchased,date,time));
 
     sessionStorage.removeItem('user');
     sessionStorage.removeItem('reachedCheckout');
@@ -82,7 +76,6 @@ export default function Home() {
 
 	const products = useSelector((state) => state.getProduct.products);
 	// console.log(products);
-
 
   const [productList, setProduct] = useState([]);
 

@@ -13,7 +13,7 @@ const {addOrder, getOrders} =
   require('../controller/ordersController')
 const { addOrderDetail, getOrderDetails } =
   require('../controller/orderDetailController');
-const { getOrderReports, getLastWeekOrderReports, getTotalOrder } = require('../controller/orderReportController');
+const { getOrderReports, getLastWeekOrderReports, getTotalOrder, addOrderReport } = require('../controller/orderReportController');
 const { getOrderLogs, addOrderLog } = require('../controller/orderLogController')
 
 
@@ -35,7 +35,7 @@ router.post('/app', users);
 router.post('/appDelete', verify,  deleteP);
 
 // report generator
-
+router.post('/addOrderReport', addOrderReport);
 router.post('/getOrderReport', getOrderReports);
 router.post('/getLastWeekOrderReport', getLastWeekOrderReports);
 router.post('/getTotal', getTotalOrder)

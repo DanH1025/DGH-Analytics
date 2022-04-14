@@ -35,7 +35,7 @@ module.exports = class Request {
 
   static fetchLastWeek() {
     try{
-       const result =db.execute('SELECT * FROM orderreport LIMIT 4');
+       const result =db.execute('SELECT * FROM orderreport ORDER BY date DESC LIMIT 7');
        return result;
     }catch(err){
       console.log(err);
@@ -44,7 +44,7 @@ module.exports = class Request {
 
   static fetchLastFour() {
     try{
-       const result =db.execute('SELECT * FROM orderreport LIMIT 4');
+       const result =db.execute('SELECT * FROM orderreport ORDER BY date DESC LIMIT 4');
        return result;
     }catch(err){
       console.log(err);
@@ -53,7 +53,7 @@ module.exports = class Request {
 
   static totalSum(date) {
     try{
-       const result =db.execute("SELECT SUM(total) AS totals FROM orders WHERE status = 'complete' AND date=?", [date]);
+       const result =db.execute("SELECT SUM(total) AS totals FROM orders WHERE status = 'complete' AND date=? ", [date]);
        return result;
     }catch(err){
       console.log(err);
