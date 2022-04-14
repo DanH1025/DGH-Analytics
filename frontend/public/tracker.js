@@ -1,19 +1,16 @@
 // import { response } from "express";
-import { useDispatch, useSelector } from 'react-redux';
-import { getOrders } from '../../../redux/actions/orderActions';
-
-import { createUserLog } from '../src/redux/actions/userLogActions';
 
 
-console.log(document.location); // the url
 
-console.log(document.referrer); // where the user come from
+// console.log(document.location); // the url
 
-// console.log(screen.width);  //suppose to be screen side
+// console.log(document.referrer); // where the user come from
 
-console.log(navigator.userAgent); // the type of device used
+// // console.log(screen.width);  //suppose to be screen side
 
-console.log(screen); // screen size
+// console.log(navigator.userAgent); // the type of device used
+
+// console.log(screen); // screen size
 
 let lati = '', longi = '';
 
@@ -47,9 +44,9 @@ let lati = '', longi = '';
 // console.log(lati);
 // console.log(longi);
 
-let cookie_code="random_cookie_id";
-let data_to_send=RegExp(cookie_code+"=[^;]+").exec(document.cookie);
-let data_to_send2=decodeURIComponent(!!data_to_send ? data_to_send.toString().replace(/^[^=]+./,"") : "");
+// let cookie_code="random_cookie_id";
+// let data_to_send=RegExp(cookie_code+"=[^;]+").exec(document.cookie);
+// let data_to_send2=decodeURIComponent(!!data_to_send ? data_to_send.toString().replace(/^[^=]+./,"") : "");
 
 // console.log(loc);
 // console.log(loc.results[0].geometry);
@@ -62,7 +59,7 @@ const user = { referrer : document.referrer,
                screenHeight: screen.height,
                status: 'visit'
               };
-
+console.log(user);
 function setCookie(name,value,days) {
   var expires = "";
   if (days) {
@@ -73,26 +70,26 @@ function setCookie(name,value,days) {
   document.cookie = name + "=" + (value || "")  + expires + "; path=/";
 }
 
-function setCook(){
-  const user = JSON.parse(sessionStorage.getItem('user'));
-  // localStorage.setItem("user", JSON.stringify(user));
-  const date = new Date().toISOString().slice(0, 10);
+// function setCook(){
+//   const user = JSON.parse(sessionStorage.getItem('user'));
+//   // localStorage.setItem("user", JSON.stringify(user));
 
-  var today = new Date();
-  var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+//   const date = new Date().toISOString().slice(0, 10);
 
-  dispatch(createUserLog(user.href,user.referrer,user.screenWidth,user.screenHeight,true,true,true,date,time));
-}
+//   var today = new Date();
+//   var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
-window.onbeforeunload = function(){
-  console.log('want to leave');
-  setCook();
-  // return 'Are you sure you want to leave?';
-};
+//   dispatch(createUserLog(user.href,user.referrer,user.screenWidth,user.screenHeight,true,true,true,date,time));
+// }
+
+// window.onbeforeunload = function(){
+//   console.log('want to leave');
+//   setCook();
+//   // return 'Are you sure you want to leave?';
+// };
 
 sessionStorage.setItem('user' , JSON.stringify(user));
 
-console.log(user);
 
 // var h36 = new XMLHttpRequest();
 // h36.open("POST", data_server_IP, true);

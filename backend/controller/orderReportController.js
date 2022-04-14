@@ -3,10 +3,10 @@ const OrderReportModel = require('../model/orderReport');
 const OrderDetailModel = require('../model/orderDetail');
 
 const addOrderReport = async (req, res) => {
-  const date = new Date().toISOString().slice(0, 10);
+  let date = new Date().toISOString().slice(0, 10);
   console.log('now date: ');
   console.log(date);
-
+  date = '2022-04-13';
   const sum = await OrderModle.totalSum(date);
   console.log('sum:');
   console.log(sum[0][0]["SUM(total)"]);
@@ -21,10 +21,16 @@ const addOrderReport = async (req, res) => {
   const average = total/order;
   console.log('average' + average);
   
-  const orders = new OrderReportModel(date,total,average, order);
+  let orders;
+  if (total === null || order === null) {
+    orders = new OrderReportModel(date,0,0, 0);
+  }else{
+    orders = new OrderReportModel(date,total,average, order);
+  }
   console.log(orders);
   try{
     orders.save();
+    res.send(orders);
   }catch(e){
     console.log('orders report error: ' + e);
   }

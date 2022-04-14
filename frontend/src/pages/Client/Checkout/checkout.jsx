@@ -83,6 +83,24 @@ export default function Checkout() {
         message.success("Order Placed");
         sessionStorage.setItem('purchased', true);
         console.log(phoneNumber)
+
+        let purchased = false;
+        let reachCheck = false;
+        if (sessionStorage.getItem('purchased') === null) {
+          console.log('purchased found');
+          purchased = sessionStorage.getItem('purchased');
+        }else{
+          console.log('purchased not found');
+          console.log(sessionStorage.getItem('purchased'));
+          purchased = false;
+        }
+        if (sessionStorage.getItem('user') === null) {
+          reachCheck = sessionStorage.getItem('reachedCheckout');
+          console.log('userr found');
+        }else{
+          console.log('user not found');
+          reachCheck = false;
+        }
       }
       else{
         message.error("Order Place Failed: Check if you are logged in");

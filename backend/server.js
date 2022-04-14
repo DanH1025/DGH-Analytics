@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
 
 app.use('/api', routes);
-schedule.scheduleJob('0 0 * * *', function(){
+schedule.scheduleJob('0 44 23 * * * ', function(){
   console.log('The answer to life, the universe, and everything!');
   addOrderReport();
 });
