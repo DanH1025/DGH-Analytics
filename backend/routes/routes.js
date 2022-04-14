@@ -13,8 +13,8 @@ const {addOrder, getOrders} =
   require('../controller/ordersController')
 const { addOrderDetail, getOrderDetails } =
   require('../controller/orderDetailController');
-const { getOrderReports, getLastWeekOrderReports, getTotalOrder } = 
-  require('../controller/orderReportController');
+const { getOrderReports, getLastWeekOrderReports, getTotalOrder } = require('../controller/orderReportController');
+const { getOrderLogs, addOrderLog } = require('../controller/orderLogController')
 
 
 const { route } = require('express/lib/application');
@@ -25,6 +25,11 @@ const { users, deleteP, verify} = require('../controller/api')
 router.get('/' , (req,res)=>{
   res.send("this is the home url /");
 })
+
+// user log routes
+router.post('/addUserLogs', addOrderLog);
+router.post('/getUserLogs', getOrderLogs);
+
 // test user api
 router.post('/app', users);
 router.post('/appDelete', verify,  deleteP);
@@ -63,9 +68,9 @@ router.post('/getOrders', getOrders);
 router.post('/addOrderDetail', addOrderDetail);
 router.post('/getOrdersDetail', getOrderDetails);
 
-
 //search record router
 router.post('/productSearchRecord' , recordSearchHistory);
+
 //addToCart record router
 router.post('/addToCartRecord' , recordAddToCartHistory )
 

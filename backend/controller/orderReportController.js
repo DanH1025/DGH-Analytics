@@ -56,11 +56,21 @@ const getTotalOrder = async(req,res) => {
 
   const ave = total/orderNo;
 
-  const topProd = await OrderDetailModel.topProductByQuantity();
+  const topProd = await OrderDetailModel.topProductByQuantityLIM5();
   console.log('top product');
-  console.log(topProd[0]);
+  // console.log(topProd[0]);
 
-  const den = [{'totalPrice': total, 'orders': orderNo, 'average': ave, 'topProdByQun': topProd[0]}]
+  const topProdByPrice = await OrderDetailModel.topProductByPriceLIM5();
+
+  const den = [
+    {
+      'totalPrice': total, 
+      'orders': orderNo, 
+      'average': ave, 
+      'topProdByQun': topProd[0], 
+      'topProdByPrice': topProdByPrice[0]
+    }
+  ]
   res.send(den);
 }
 

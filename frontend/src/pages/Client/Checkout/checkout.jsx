@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react'
+import React, {useRef, useState, useEffect} from 'react'
 import ContactUs from '../../../components/Client/contactUs/contactUs'
 import Topbar from '../../../components/Client/topbar/topbar'
 import './checkout.css'
@@ -38,12 +38,9 @@ export default function Checkout() {
 		  }
     )}
 
-		// if(user.length){
-    //     setIsLoggedIn(true);
-    // }else{
-    //     setIsLoggedIn(false);
-    // }
-
+    useEffect(() => {
+      sessionStorage.setItem('reachedCheckout', true);
+    })
 		// const getTotalProductPrice = ()=>{
 		// 	return cartItems.reduce((price , item)=> item.price * item.qtyCounter + price , 0)
 		// }
@@ -84,6 +81,7 @@ export default function Checkout() {
           dispatch(createOrderDetails(date, item.product , item.qtyCounter, item.price))
         });
         message.success("Order Placed");
+        sessionStorage.setItem('purchased', true);
         console.log(phoneNumber)
       }
       else{

@@ -37,7 +37,7 @@ module.exports = class Request {
 
   static topProductByQuantity() {
     try{
-       const result =db.execute('SELECT id, productId, SUM(productQuantity) AS total FROM `orderdetails` GROUP BY productId ORDER BY SUM(productQuantity) DESC');
+       const result =db.execute('SELECT orderdetails.id, orderdetails.productId, product.productName, SUM(orderdetails.productQuantity) AS total FROM orderdetails INNER JOIN product ON orderdetails.productId = product.id GROUP BY productId ORDER BY SUM(orderdetails.productQuantity) DESC');
        return result;
     }catch(err){
       console.log(err);
@@ -46,7 +46,25 @@ module.exports = class Request {
 
   static topProductByQuantityLIM5() {
     try{
-       const result =db.execute('SELECT id, productId, SUM(productQuantity) AS total FROM `orderdetails` GROUP BY productId ORDER BY SUM(productQuantity) DESC LIMIT 5');
+       const result =db.execute('SELECT orderdetails.id, orderdetails.productId, product.productName, SUM(orderdetails.productQuantity) AS total FROM orderdetails INNER JOIN product ON orderdetails.productId = product.id GROUP BY productId ORDER BY SUM(orderdetails.productQuantity) DESC LIMIT 5	');
+       return result;
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+  static topProductByPrice() {
+    try{
+       const result =db.execute('SELECT orderdetails.id, orderdetails.productId, product.productName, SUM(orderdetails.productQuantity*orderdetails.productPrice) AS total FROM orderdetails INNER JOIN product ON orderdetails.productId = product.id GROUP BY productId ORDER BY SUM(orderdetails.productQuantity*orderdetails.productPrice) DESC');
+       return result;
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+  static topProductByPriceLIM5() {
+    try{
+       const result =db.execute('SELECT orderdetails.id, orderdetails.productId, product.productName, SUM(orderdetails.productQuantity*orderdetails.productPrice) AS total FROM orderdetails INNER JOIN product ON orderdetails.productId = product.id GROUP BY productId ORDER BY SUM(orderdetails.productQuantity*orderdetails.productPrice) DESC LIMIT 5');
        return result;
     }catch(err){
       console.log(err);

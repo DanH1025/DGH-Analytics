@@ -15,6 +15,8 @@ import {
   YAxis,
 } from "recharts";
 
+import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from '@mui/material';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrders } from '../../../redux/actions/orderActions';
 import { getOrderReports, getOrderTotal } from "../../../redux/actions/orderReportAction";
@@ -65,17 +67,22 @@ export default function Home() {
   const orders = [];
   const orderTotals = useSelector((state) => state.getOrderTotal.total);
   const orderReports = useSelector((state) => state.getOrderReport.orderReports);
-
-   let totalPrice = 0;
-   let orderNo = 0;
-   let average = 0;
+  
+  let totalPrice = 0;
+  let orderNo = 0;
+  let average = 0;
+  let topProdByQun = [];
+  let topProdByPrice = [];
   {
     orderTotals?.map((repo) => {
       totalPrice = repo.totalPrice;
       orderNo = repo.orders;
       average = repo.average;
+      topProdByQun = repo.topProdByQun;
+      topProdByPrice = repo.topProdByPrice;
     })
   } 
+  console.log(topProdByQun);
   {
     orderReports?.map((order) => {
       // console.log(order);
@@ -86,6 +93,7 @@ export default function Home() {
       priceAverage.push(order.average);
     })
   }
+  console.log(orderReports);
   // console.log(prices);
   const stat = {
     options: {
@@ -106,7 +114,6 @@ export default function Home() {
 
   return (
     <>
-
       <div className="charts">        
         <div className="chart">
           <Charts 
@@ -136,19 +143,52 @@ export default function Home() {
             />
         </div>
       </div>
-      <div className="lineGraphHolder">
-      
+      <div className="lineGraphHolder">     
       <div className="orders_container">
         <Chart
           options={stat.options}
           series={stat.series}
           type="bar"
           width='180%'
-          height='100%'
-          
+          height='100%'         
           />
-      </div>
-     
+      </div> 
+      <div className="chart">
+        <h3>Top product by unit sold</h3>
+        <TableContainer component={Paper}>
+          <Table aria-label="simple table">
+            <TableBody>
+              {topProdByQun?.map((row) => (
+                <TableRow
+                  key={row.id}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                  <TableCell align="left">{row.productName}</TableCell>
+                  <TableCell align="right">{row.total}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div> 
+      <div className="chart">
+        <h3>Top product by price sold</h3>
+        <TableContainer component={Paper}>
+          <Table aria-label="simple table">
+            <TableBody>
+              {topProdByPrice?.map((row) => (
+                <TableRow
+                  key={row.id}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                  <TableCell align="left">{row.productName}</TableCell>
+                  <TableCell align="right">${row.total}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div> 
    </div>
     
     <OrderMap/>

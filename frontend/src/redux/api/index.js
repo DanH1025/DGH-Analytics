@@ -55,8 +55,22 @@ const addToCartRecordUrl =
 const productVistRecordUrl =
   'http://localhost:5000/api/addVisits'
 
+// user log url
+export const createUserLogs = (href, referrer, screenWidth, screenHeight, addToCart, reachedCheckout, purchased, date, time) => 
+  axios.post('http://localhost:5000/api/addUserLogs', {
+    href : href,
+    referrer : referrer, 
+    screenWidth : screenWidth, 
+    screenHeight : screenHeight, 
+    addToCart : addToCart, 
+    reachedCheckout : reachedCheckout, 
+    purchased : purchased,
+    date : date,
+    time : time
+  });
 
-
+export const fetchUserLogs = () =>
+  axios.post('http://localhost:5000/api/getUserLogs');  
 
 // orders detail
 export const fetchOrderReports = () =>
