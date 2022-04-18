@@ -1,18 +1,50 @@
 const UserModel = require('../model/user');
 
 
-const crypto = require('crypto');
-const algorithm = 'aes-256-cbc';
-const key = crypto.randomBytes(32);
-const iv = crypto.randomBytes(16);
+const bcrypt = require('bcryptjs');
+// const addUser = (req, res) => {
+//   const {first_name,last_name,email,password} = req.body;
+//   const hashPass = encrypt(password);
+//   console.log(hashPass.encryptedData);
+//   const user = new UserModel(first_name,last_name,email,password);
+//   console.log(user);
+//   user.save();
+// }
+const addUserByPhone = async (req,res)=>{
+  console.log("adding user by phone number");
+ const {fname,lname,phone, password} = req.body;
 
-const addUser = (req, res) => {
-  const {first_name,last_name,email,password} = req.body;
-  const hashPass = encrypt(password);
-  console.log(hashPass.encryptedData);
-  const user = new UserModel(first_name,last_name,email,password);
-  console.log(user);
-  user.save();
+  console.log(phone + " " + password)
+  console.log(fname + " " + lname)
+  const hashPassword = await bcrypt.hash(password , 8 );
+
+  console.log(hashPassword);
+
+  const date = new Date();  
+
+  const [user , metaData]= await UserModel.fetchPhone(phone);
+  console.log(user.length);
+
+  if(user.length === 0){    
+   const user = new UserModel(fname,lname,null,phone,hashPassword , date);
+    console.log(user);
+   user.save();
+  }
+  else{    
+    console.log("Phone already in use");
+    res.send("Error while signup");
+  }
+ 
+
+
+}
+
+const getAllUser = async(req,res)=>{
+  console.log('getting all the users now');
+
+  const [users, metaData]= await UserModel.fetchAllUsers()
+  res.send(users);
+
 }
 
 const getUser = async(req,res) => {
@@ -34,25 +66,11 @@ const getUser = async(req,res) => {
   }
 }
 
-function encrypt(text) {
-  let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(key), iv);
-  let encrypted = cipher.update(text);
-  encrypted = Buffer.concat([encrypted, cipher.final()]);
-  return { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
-  // return encrypted.toString('hex');
- }
-
- function decrypt(text) {
-  let iv = Buffer.from(text.iv, 'hex');
-  let encryptedText = Buffer.from(text.encryptedData, 'hex');
-  let decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(key), iv);
-  let decrypted = decipher.update(encryptedText);
-  decrypted = Buffer.concat([decrypted, decipher.final()]);
-  return decrypted.toString();
-}
 
 
 module.exports = {
 	getUser,
-	addUser,
+	// addUser,
+  addUserByPhone,
+  getAllUser
 };

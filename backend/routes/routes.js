@@ -7,15 +7,13 @@ const {getProducts, getAllProducts,addProduct, getProductsByCatagory, getProduct
   require('../controller/productController');
 
 
-const {getUser, addUser} = 
-  require('../controller/userController')
-const {addOrder, getOrders} = 
-  require('../controller/ordersController')
-const { addOrderDetail, getOrderDetails } =
-  require('../controller/orderDetailController');
-const { getOrderReports, getLastWeekOrderReports, getTotalOrder, addOrderReport } = require('../controller/orderReportController');
+const {getUser, getAllUser, addUserByPhone} =   require('../controller/userController')
+const {addOrder, getOrders} =   require('../controller/ordersController')
+const { addOrderDetail, getOrderDetails } =  require('../controller/orderDetailController');
+const { getOrderReports, getLastWeekOrderReports, getTotalOrder, addOrderReport } = 
+        require('../controller/orderReportController');
 const { getOrderLogs, addOrderLog } = require('../controller/orderLogController')
-
+const {loginWithPhone} = require('../controller/loginController')
 
 const { route } = require('express/lib/application');
 
@@ -57,8 +55,10 @@ router.post('/editProduct' , editProductValues)
 router.post('/addVisits', changeVisits)
 
 // user routes
-router.post('/addUser', addUser);
+// router.post('/addUser', addUser);
+router.post('/addUserByPhone', addUserByPhone)
 router.post('/getUsers', getUser);
+router.post('/getAllUsers' , getAllUser)
 
 // order routes
 router.post('/addOrder', addOrder);
@@ -74,7 +74,8 @@ router.post('/productSearchRecord' , recordSearchHistory);
 //addToCart record router
 router.post('/addToCartRecord' , recordAddToCartHistory )
 
-
+//login routes
+router.post('/loginWithPhone', loginWithPhone)
 
 // router.get('getProductDetail/${id}' , getProductDetail)
 
