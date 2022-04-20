@@ -42,12 +42,16 @@ export default function Home() {
 
     if(purchased === null){
       purchased = false;
+    }else{
+      purchased = true;
     }
     if(reachCheck === null){
       reachCheck = false;
+    }else{
+      reachCheck = true;
     }
 
-    dispatch(createUserLog(user.href,user.referrer,10,10,true,reachCheck,purchased,date,time));
+    dispatch(createUserLog(user.href,user.referrer,user.screenWidth,user.screenHeight,true,reachCheck,purchased,date,time));
 
     sessionStorage.removeItem('user');
     sessionStorage.removeItem('reachedCheckout');
@@ -62,16 +66,9 @@ export default function Home() {
 
  	useEffect(() => {
  	  dispatch(getProducts());
-
-    const user = { referrer : document.referrer,
-      href: document.location.href,
-      // screenWidth: screen.width,
-      // screenHeight: screen.height,
-      status: 'visit'
-     };
-
-    sessionStorage.setItem('user' , JSON.stringify(user));
     
+    console.log(sessionStorage.getItem('user'));
+
  	}, [dispatch]);
 
 	const products = useSelector((state) => state.getProduct.products);

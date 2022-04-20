@@ -13,8 +13,11 @@ const {addOrder, getOrders} =
   require('../controller/ordersController')
 const { addOrderDetail, getOrderDetails } =
   require('../controller/orderDetailController');
-const { getOrderReports, getLastWeekOrderReports, getTotalOrder, addOrderReport } = require('../controller/orderReportController');
-const { getOrderLogs, addOrderLog } = require('../controller/orderLogController')
+const { getOrderReports, getLastWeekOrderReports, getTotalOrder, addOrderReport } = 
+  require('../controller/orderReportController');
+const { getOrderLogs, addOrderLog, getUserLogs } = 
+  require('../controller/orderLogController');
+
 
 
 const { route } = require('express/lib/application');
@@ -29,6 +32,7 @@ router.get('/' , (req,res)=>{
 // user log routes
 router.post('/addUserLogs', addOrderLog);
 router.post('/getUserLogs', getOrderLogs);
+router.post('/getUserLogCount', getUserLogs);
 
 // test user api
 router.post('/app', users);

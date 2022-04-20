@@ -60,6 +60,9 @@ const user = { referrer : document.referrer,
                status: 'visit'
               };
 console.log(user);
+
+sessionStorage.setItem('user' , JSON.stringify(user));
+
 function setCookie(name,value,days) {
   var expires = "";
   if (days) {
@@ -70,29 +73,8 @@ function setCookie(name,value,days) {
   document.cookie = name + "=" + (value || "")  + expires + "; path=/";
 }
 
-// function setCook(){
-//   const user = JSON.parse(sessionStorage.getItem('user'));
-//   // localStorage.setItem("user", JSON.stringify(user));
-
-//   const date = new Date().toISOString().slice(0, 10);
-
-//   var today = new Date();
-//   var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-
-//   dispatch(createUserLog(user.href,user.referrer,user.screenWidth,user.screenHeight,true,true,true,date,time));
-// }
-
 // window.onbeforeunload = function(){
 //   console.log('want to leave');
 //   setCook();
 //   // return 'Are you sure you want to leave?';
 // };
-
-sessionStorage.setItem('user' , JSON.stringify(user));
-
-
-// var h36 = new XMLHttpRequest();
-// h36.open("POST", data_server_IP, true);
-// h36.setRequestHeader('User-Type', 'none');
-// h36.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-// h36.send(final_array_to_send);

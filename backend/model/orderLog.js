@@ -43,4 +43,30 @@ module.exports = class Request {
     }
   }
 
+  static fetchTotalUser() {
+    try{
+       const result =db.execute('SELECT COUNT(id) AS userNo FROM user_log');
+       return result;
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+  static fetchTotalUserByDate(date) {
+    try{
+       const result =db.execute('SELECT COUNT(id) AS userToday FROM user_log WHERE date=?', [date]);
+       return result;
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+  static fetchTotalUserByDateHour(date, hour) {
+    try{
+       const result =db.execute('SELECT COUNT(id) AS userHour FROM user_log WHERE date=? AND time LIKE ?', [date, hour + ':%']);
+       return result;
+    }catch(err){
+      console.log(err);
+    }
+  }
 }
