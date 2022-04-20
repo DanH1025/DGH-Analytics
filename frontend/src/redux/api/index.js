@@ -17,8 +17,14 @@ const readProductBySearchUrl =
 // users url
 const readUserUrl = 
   'http://localhost:5000/api/getUsers'
-const createUserUrl = 
-  'http://localhost:5000/api/addUser'
+const getAllUserUrl = 
+  'http://localhost:5000/api/getAllUsers'
+// const createUserUrl = 
+//   'http://localhost:5000/api/addUser'
+const createUserByPhoneNumberUrl = 
+      'http://localhost:5000/api/addUserByPhone'
+const loginWithPhoneUrl = 
+      'http://localhost:5000/api/loginWithPhone'
 
 // order report of last week
 const readOrderReportUrl = 
@@ -113,8 +119,24 @@ export const fetchUsers = (email, password) =>
       password: password
     }
   );
-export const createUser = (user) => 
-  axios.post(createUserUrl, user);
+export const getAllUser = ()=>
+    axios.post(getAllUserUrl)
+// export const createUser = (user) => 
+//   axios.post(createUserUrl, user);
+export const createUserByPhoneNumber =(FirstName,LastName,phone,password)=>{
+  axios.post(createUserByPhoneNumberUrl, {
+    fname:FirstName,
+    lname:LastName,
+    phone: phone,
+    password: password
+    })
+}
+export const loginWithPhoneNumber = (phone,password)=>{
+  axios.post(loginWithPhoneUrl , {
+    phone:phone,
+    password:password
+  })
+}
 
 // products
 export const fetchProducts = () => 
@@ -170,5 +192,3 @@ export const productVisitRecord = (id)=>
     axios.post(productVistRecordUrl , {
       id: id
     })
-
-

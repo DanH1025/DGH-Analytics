@@ -28,8 +28,8 @@ import Select from '@material-ui/core/Select';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts, getProductsByCategory ,recordProductSearch } from '../../../redux/actions/productActions';
 import { getProductsBySearch } from '../../../redux/actions/productActions';
-import { getUser } from '../../../redux/actions/userActions'
-import { createUser } from '../../../redux/actions/userActions'
+// import { getUser } from '../../../redux/actions/userActions'
+// import { createUser } from '../../../redux/actions/userActions'
 
 
 import SettingsIcon from '@material-ui/icons/Settings';
@@ -51,25 +51,25 @@ export default function Topbar() {
     // }, [])
 
     
-    const [errMsg, setErrMsg] = useState('');
-    const [emailError, setEmailError] = React.useState('');
+    // const [errMsg, setErrMsg] = useState('');
+    // const [emailError, setEmailError] = React.useState('');
     
-    const [loginData , setloginData] = useState({
-      email: "",
-      password: ""
-    });
+    // const [loginData , setloginData] = useState({
+    //   email: "",
+    //   password: ""
+    // });
     
-    useEffect(() => {
-      setErrMsg('');
-    }, [loginData.email, loginData.password])
-    const [signUpData , setSignUpData] = useState({
-      first_name: "",
-      last_name: "",
-      email: "",
-      confirm_email:"",
-      password: "",
-      confirm_password: "",
-    });
+    // useEffect(() => {
+    //   setErrMsg('');
+    // }, [loginData.email, loginData.password])
+    // const [signUpData , setSignUpData] = useState({
+    //   first_name: "",
+    //   last_name: "",
+    //   email: "",
+    //   confirm_email:"",
+    //   password: "",
+    //   confirm_password: "",
+    // });
 
 		const dispatch = useDispatch();
 
@@ -118,58 +118,58 @@ export default function Topbar() {
 
     //for the dialog
     
-    const [openLogin, setOpenLogin] = React.useState(false);
-    const [openSignUp, setOpenSignUp] = React.useState(false);
+    // const [openLogin, setOpenLogin] = React.useState(false);
+    // const [openSignUp, setOpenSignUp] = React.useState(false);
 
-    const handleClickOpenLogin = () => {
-        setOpenSignUp(false);
-        setOpenLogin(true);
-    };
-    const handleClickOpenSignUp = () =>{
-        setOpenLogin(false)
-        setOpenSignUp(true);
-    }
+    // const handleClickOpenLogin = () => {
+    //     setOpenSignUp(false);
+    //     setOpenLogin(true);
+    // };
+    // const handleClickOpenSignUp = () =>{
+    //     setOpenLogin(false)
+    //     setOpenSignUp(true);
+    // }
 
-    const handleDialogClose = () => {
-      dispatch(getUser(loginData.email, loginData.password));
-      console.log(user);
-      if(user?.userId){
-        setOpenSignUp(false);
-        setOpenLogin(false);
-        console.log(loginData);
-        loginData.email = "";
-        loginData.password = "";
-      }else{
-        console.log('no data incorect');
-        setErrMsg('Incorrect login');
-        setOpenSignUp(false);
-        setOpenLogin(false);
-      }
-    };
+    // const handleDialogClose = () => {
+    //   dispatch(getUser(loginData.email, loginData.password));
+    //   console.log(user);
+    //   if(user?.userId){
+    //     setOpenSignUp(false);
+    //     setOpenLogin(false);
+    //     console.log(loginData);
+    //     loginData.email = "";
+    //     loginData.password = "";
+    //   }else{
+    //     console.log('no data incorect');
+    //     setErrMsg('Incorrect login');
+    //     setOpenSignUp(false);
+    //     setOpenLogin(false);
+    //   }
+    // };
 
-    const handleRegisterDialogClose = () => {
-      if((signUpData.email === signUpData.confirm_email)&&(signUpData.password === signUpData.confirm_password)){
-        // validateEmail(signUpData.email);
-        // console.log(emailError);
-        fetch(`http://apilayer.net/api/check?access_key=e88cb97fc068e62599ee94d965979c19&email=${signUpData.email}&smtp=1&format=1`).
-        then(res => res.json()).
-        then(data => {
-          console.log(data.format_valid);
-          if (data.format_valid && data.smtp_check) {  
-            console.log(signUpData);
-            dispatch(createUser(signUpData));
-            setOpenSignUp(false);
-            setOpenLogin(false);
-            setEmailError('false');
-          }else{
-            console.log('incorrect email format');
-            setEmailError('true');
-          }
-        });
-      }else{
-        console.log('wrong input');
-      }
-    };
+    // const handleRegisterDialogClose = () => {
+    //   if((signUpData.email === signUpData.confirm_email)&&(signUpData.password === signUpData.confirm_password)){
+    //     // validateEmail(signUpData.email);
+    //     // console.log(emailError);
+    //     fetch(`http://apilayer.net/api/check?access_key=e88cb97fc068e62599ee94d965979c19&email=${signUpData.email}&smtp=1&format=1`).
+    //     then(res => res.json()).
+    //     then(data => {
+    //       console.log(data.format_valid);
+    //       if (data.format_valid && data.smtp_check) {  
+    //         console.log(signUpData);
+    //         dispatch(createUser(signUpData));
+    //         setOpenSignUp(false);
+    //         setOpenLogin(false);
+    //         setEmailError('false');
+    //       }else{
+    //         console.log('incorrect email format');
+    //         setEmailError('true');
+    //       }
+    //     });
+    //   }else{
+    //     console.log('wrong input');
+    //   }
+    // };
 
 
 
@@ -204,8 +204,8 @@ export default function Topbar() {
           	  <div className='trackOrder'>
 								<EventNote className='upperTopbarIconEvent' /> <a href='#'>Track Your Order</a> 
           	  </div>
-          	  <div className='signUp' onClick={handleClickOpenLogin}>
-								<SettingsIcon className='upperTopbarIconSetting' /> <p> Setting </p>
+          	  <div className='signUp'>
+								<SettingsIcon className='upperTopbarIconSetting' /> <Link to='/login'> <p> Setting </p></Link>
           	  </div>               
           	</div>
           </div>
@@ -333,7 +333,7 @@ export default function Topbar() {
             </div>
         </div>
 
-        <div className="signUpDialog">
+        {/* <div className="signUpDialog">
         <Dialog 
               open={openLogin} 
               onClose={handleDialogClose} aria-labelledby="form-dialog-title">
@@ -477,7 +477,7 @@ export default function Topbar() {
             </Dialog> 
         
         
-        </div>
+        </div> */}
 
 
 

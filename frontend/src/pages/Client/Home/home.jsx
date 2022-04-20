@@ -24,7 +24,7 @@ export default function Home() {
   window.onbeforeunload = function(){
     console.log('want to leave');
     setCook();
-    return 'Are you sure you want to leave?';
+    //return 'Are you sure you want to leave?';
   };
 
   const setCook = () => {
