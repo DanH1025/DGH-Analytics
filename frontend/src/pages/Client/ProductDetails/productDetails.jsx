@@ -1,25 +1,34 @@
+import { useState,useEffect } from 'react';
 import './productDetails.css'
+
 import Topbar from '../../../components/Client/topbar/topbar'
 import Footer from '../../../components/Client/footer/footer'
 
-import RemoveOutlinedIcon from '@material-ui/icons/RemoveOutlined';
-import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
+import RemoveOutlinedIcon from 
+    '@material-ui/icons/RemoveOutlined';
+import AddOutlinedIcon 
+    from '@material-ui/icons/AddOutlined';
 import IconButton from '@material-ui/core/IconButton';
 import { Button, message } from 'antd';
-import AddShoppingCartOutlinedIcon from '@material-ui/icons/AddShoppingCartOutlined';
-import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
-import { useState,useEffect } from 'react';
+import AddShoppingCartOutlinedIcon from 
+    '@material-ui/icons/AddShoppingCartOutlined';
+import FavoriteBorderOutlinedIcon from 
+    '@material-ui/icons/FavoriteBorderOutlined';
 
 import { getProductsDetails } from '../../../redux/actions/productActions';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart , addToCartRecord } from '../../../redux/actions/cartActions';
-import {addToWishlist} from '../../../redux/actions/wishlistAction'
+import { addToCart , addToCartRecord } 
+    from '../../../redux/actions/cartActions';
+import {addToWishlist} 
+    from '../../../redux/actions/wishlistAction'
+import { getProductsById } 
+    from '../../../redux/actions/productActions';
 
-import { getProductsById } from '../../../redux/actions/productActions';
+import { useParams } from 'react-router-dom';
 
-export default function ProductDetails({ match, history }) {
+export default function ProductDetails({ history }) {
 
-    const id = match.params.id;
+    const {id} = useParams();
     // console.log('id = ' + id);
     const dispatch = useDispatch();
     let product = [];

@@ -1,24 +1,20 @@
 const UserModel = require('../model/user');
 
-
 const bcrypt = require('bcryptjs');
 
-
 const loginWithPhone = async(req,res)=>{
-    console.log("in Loginwith phone number");
+    console.log("in Loginwith phone number"); 
     
     const {phone , password} = req.body;
-
-    
 
     const [data , metaData] = await UserModel.fetchPhone(phone);
     console.log(data)   
 
-    const hashPass = await bcrypt.hash(password, 8)
+    const hashPass = await bcrypt.hash(password, 8);
     console.log(hashPass);
 
    
-    const isCorrect = await bcrypt.compare(password , data[0].password )
+    const isCorrect = await bcrypt.compare(password , data[0].password );
     console.log(isCorrect)
 
     if(isCorrect){
@@ -29,11 +25,6 @@ const loginWithPhone = async(req,res)=>{
         console.log("Login failed")
         res.send("Error")
     }
-
-    
-
-
-    
 }
 
 
