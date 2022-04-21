@@ -19,7 +19,8 @@ const reducer = combineReducers({
   getOrder: getOrdersReducer,
   getOrderDetail: getOrderDetailsReducer,
   getOrderReport: getOrderReportsReducer,
-  getOrderTotal: getOrderTotalReducer
+  getOrderTotal: getOrderTotalReducer,
+  users: loginReducer
 })
 
 const middleware = [thunk];

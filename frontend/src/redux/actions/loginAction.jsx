@@ -1,8 +1,6 @@
 import * as actionType from '../constants/loginConstants';
 import * as api from '../api/index';
 
-
-
 export const loginWithPhone = (phone, password) => async(dispatch)=>{
     try {
         dispatch({

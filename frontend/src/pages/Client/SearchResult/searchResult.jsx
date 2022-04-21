@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './searchResult.css'
+
 import Topbar from '../../../components/Client/topbar/topbar'
 import ProductCard from '../../../components/Client/productCard/productCard'
 import ContactUs from '../../../components/Client/contactUs/contactUs'
@@ -12,9 +13,11 @@ import { getProductsBySearch } from '../../../redux/actions/productActions';
 //import redux actions to call all the functions
 // import { getProducts as listProducts } from '../../../redux/actions/productActions'
 
-export default function SearchResult({ match }) {
-  const name = match.params.name;
-  const category = match.params.category;
+import { useParams } from 'react-router-dom';
+
+export default function SearchResult() {
+  const {name} = useParams();
+  const {category} = useParams;
   console.log('id = ' + name);
   const dispatch = useDispatch();
 
