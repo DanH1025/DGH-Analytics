@@ -6,7 +6,7 @@ import { cartReducer } from './reducers/cartReducer';
 import { getUserReducer } from './reducers/userReducer';
 import { getOrdersReducer, getOrderDetailsReducer, getOrderReportsReducer, getOrderTotalReducer } from './reducers/orderReducer'
 import { wishlistReducer } from './reducers/wishlistReducer';
-
+import { loginReducer } from './reducers/loginReducer';
 
 const reducer = combineReducers({
   getProduct: getProductsReducer,
@@ -15,6 +15,7 @@ const reducer = combineReducers({
   wishlist: wishlistReducer,
   getProductsSearch: getProductsSearchReducer,
   getUser: getUserReducer,
+  LoggedUser:loginReducer,
   getOrder: getOrdersReducer,
   getOrderDetail: getOrderDetailsReducer,
   getOrderReport: getOrderReportsReducer,

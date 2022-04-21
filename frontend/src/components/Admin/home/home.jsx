@@ -130,7 +130,7 @@ export default function Home() {
         <div className="chart">
           <Charts 
             title='Total Sales'
-            middleTotal={'$' + totalPrice}
+            middleTotal={'$' +  totalPrice }
             dates={dates}
             chartData={prices}
             chartType="line"
