@@ -1,0 +1,88 @@
+body{
+    padding: 0;
+    margin: 0;
+}
+
+.wishlistItem{
+    display: flex;
+    width: 100%;
+    height:  60px;
+    padding: 0;
+    margin: 0;
+   
+}
+.wishlistItemHolder{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    margin: 0px 15px;
+    padding: 4px;
+    justify-content: space-between;
+    align-items: center;
+ 
+}
+
+.wishlistItem_img{
+    display: flex;
+    flex: 1;
+    padding: 4px;
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    content: fill;
+}
+.wishlistItem_brand,
+.wishlistItem_name
+{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.wishlistItem_date{
+    display: flex;
+    flex: 2;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+ 
+}
+.wishlistItem_delete_btn,
+.wishlistItem_addToCart_btn{
+    display: flex;
+    flex: 0.3;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    background: none;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    
+}
+
+.wishlistItem_delete_btn svg{
+    font-size: 18px;
+    color: red;
+    cursor: pointer;
+    transform: 0;
+}
+.wishlistItem_delete_btn svg:hover,
+.wishlistItem_addToCart_btn svg:hover{
+    transform: scale(1.2);
+    transition: all ease 0.4s;
+    font-weight: bold;
+}
+.wishlistItem_addToCart_btn svg{
+    font-size: 18px;
+    color: blue;
+    cursor: pointer;
+    transform: 0;
+}
+
+

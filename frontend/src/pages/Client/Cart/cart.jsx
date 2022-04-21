@@ -1,8 +1,9 @@
 import React from 'react'
 import './cart.css'
 
-import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
+
+import { Button } from 'antd';
 
 import Footer from '../../../components/Client/footer/footer'
 import Topbar from '../../../components/Client/topbar/topbar'
@@ -14,6 +15,15 @@ import ShopOutlinedIcon from '@material-ui/icons/ShopOutlined';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { addToCart, removeFromCart } from '../../../redux/actions/cartActions'
+
+// SELECT orderdetails.id, product.productName, product.productPrice, orderdetails.productQuantity FROM orderdetails INNER JOIN product ON orderdetails.productId=product.id
+// SELECT orders.id, orderdetails.id, product.productName, product.productPrice, orderdetails.productQuantity FROM orders INNER JOIN orderdetails ON orders.orderId=orderdetails.id INNER JOIN product ON orderdetails.productId=product.id
+// SELECT orderdetails.id, product.productName, product.productPrice, orderdetails.productQuantity FROM orderdetails INNER JOIN product ON orderdetails.productId=product.id
+
+
+// SELECT orders.orderId, users.userFirstName, users.userLastName, users.userEmail, orders.total FROM orders INNER JOIN users ON orders.userId = users.userId
+
+// SELECT orderdetails.id, product.productName, product.productPrice, product.productCategory, orderdetails.productQuantity FROM orderdetails INNER JOIN product ON orderdetails.productId = product.id WHERE orderdetails.orderId = 'Wed Mar 30 2022 10:27:32 GMT+0300 (East Africa Time)'
 
 export default function Cart() {
 
@@ -58,7 +68,7 @@ export default function Cart() {
                 
                 <div className="table">
                     {cartItems.length === 0?(
-                       <p>  Your Cart Is Empty:  <span> <SentimentVeryDissatisfiedIcon /></span>  </p>
+                       <p className='cartEmpty'>  Your Cart Is Empty:  <span> <SentimentVeryDissatisfiedIcon /></span>  </p>
                     ): cartItems.map((item)=>
                          <CartItem item={item} 
                                     qtyChangeHandler={qtyChangeHandler} 
@@ -92,15 +102,17 @@ export default function Cart() {
             </div>
 
 
-            <div className="buttons">
-                <div className="buttonHolder">
-                    <Link to={'/'}><Button className='cartPageButton'  variant="contained" size='small' color="primary"> <p>Continue Shopping</p></Button></Link>
-                    <Link to={'/checking'}><Button className='cartPageButton'  size='small' variant="contained" color='primary' > <p>Checkout </p> </Button></Link>
+            <div className="cartPageButtons">
+                <div className="cartPageButtonHolder">
+                
+                <Link to={'/'}> <Button type="primary" ghost> Continue Shopping </Button></Link>
+                 <Link to={'/checking'} >  <Button type="primary" ghost> Checkout   </Button> </Link>
+                
                 </div>                
             </div>        
         </div>
         {/* <ContactUs />
-        <Footer /> */}
+      */}
 
     </div>
     </>

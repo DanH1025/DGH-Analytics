@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import './topbar.css'
 import {Link} from 'react-router-dom'
 import {Phone, EventNote,Search,ShoppingCartOutlined, FavoriteBorderOutlined } from '@material-ui/icons'
@@ -22,11 +22,15 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
+
+
+
 import { useDispatch, useSelector } from 'react-redux';
-import { getProducts, getProductsByCategory } from '../../../redux/actions/productActions';
+import { getProducts, getProductsByCategory ,recordProductSearch } from '../../../redux/actions/productActions';
 import { getProductsBySearch } from '../../../redux/actions/productActions';
-import { getUser } from '../../../redux/actions/userActions'
-import { createUser } from '../../../redux/actions/userActions'
+// import { getUser } from '../../../redux/actions/userActions'
+// import { createUser } from '../../../redux/actions/userActions'
+
 
 import SettingsIcon from '@material-ui/icons/Settings';
 
@@ -39,21 +43,33 @@ export default function Topbar() {
     const [open_category ,  setOpen_category] = React.useState(false);//open and close the select option for search 
     const [open_allCategories, setOpen_allCategories] = React.useState(false);//open and close the select option for all
 
-    const [emailError, setEmailError] = React.useState('');
+    const userRef = useRef();
+    const errRef = useRef();
 
-    const [loginData , setloginData] = useState({
-      email: "",
-      password: ""
-    });
+    // useEffect(() => {
+    //   userRef.current.focus();
+    // }, [])
 
-    const [signUpData , setSignUpData] = useState({
-      first_name: "",
-      last_name: "",
-      email: "",
-      confirm_email:"",
-      password: "",
-      confirm_password: "",
-    });
+    
+    // const [errMsg, setErrMsg] = useState('');
+    // const [emailError, setEmailError] = React.useState('');
+    
+    // const [loginData , setloginData] = useState({
+    //   email: "",
+    //   password: ""
+    // });
+    
+    // useEffect(() => {
+    //   setErrMsg('');
+    // }, [loginData.email, loginData.password])
+    // const [signUpData , setSignUpData] = useState({
+    //   first_name: "",
+    //   last_name: "",
+    //   email: "",
+    //   confirm_email:"",
+    //   password: "",
+    //   confirm_password: "",
+    // });
 
 		const dispatch = useDispatch();
 
@@ -63,9 +79,8 @@ export default function Topbar() {
     const handleSearchCategoryChange = (event)=>{
         setSearchCategory(event.target.value);
     }
+
     //to handle when the search category option closes
-
-
     const handleCloseSearchCategory = () =>{
         setOpen_category(false);
     }
@@ -98,73 +113,79 @@ export default function Topbar() {
       // console.log(searchValue.searchValue);
       // console.log('category' + searchCategory);
       dispatch(getProductsBySearch(searchValue.searchValue, searchCategory));
-
+      dispatch(recordProductSearch(searchValue.searchValue, searchCategory))
     }
- 
 
     //for the dialog
     
-    const [openLogin, setOpenLogin] = React.useState(false);
-    const [openSignUp, setOpenSignUp] = React.useState(false);
+    // const [openLogin, setOpenLogin] = React.useState(false);
+    // const [openSignUp, setOpenSignUp] = React.useState(false);
 
-    const handleClickOpenLogin = () => {
-        setOpenSignUp(false);
-        setOpenLogin(true);
-    };
-    const handleClickOpenSignUp = () =>{
-        setOpenLogin(false)
-        setOpenSignUp(true);
-    }
+    // const handleClickOpenLogin = () => {
+    //     setOpenSignUp(false);
+    //     setOpenLogin(true);
+    // };
+    // const handleClickOpenSignUp = () =>{
+    //     setOpenLogin(false)
+    //     setOpenSignUp(true);
+    // }
 
-    const handleDialogClose = () => {
-      dispatch(getUser(loginData.email, loginData.password));
-      console.log(user.length);
-      if(user.length){
-        setOpenSignUp(false);
-        setOpenLogin(false);
-        console.log(loginData);
-        loginData.email = "";
-        loginData.password = "";
-      }else{
-        console.log('no data incorect');
-        setOpenSignUp(false);
-        setOpenLogin(false);
-      }
-    };
+    // const handleDialogClose = () => {
+    //   dispatch(getUser(loginData.email, loginData.password));
+    //   console.log(user);
+    //   if(user?.userId){
+    //     setOpenSignUp(false);
+    //     setOpenLogin(false);
+    //     console.log(loginData);
+    //     loginData.email = "";
+    //     loginData.password = "";
+    //   }else{
+    //     console.log('no data incorect');
+    //     setErrMsg('Incorrect login');
+    //     setOpenSignUp(false);
+    //     setOpenLogin(false);
+    //   }
+    // };
 
-    const handleRegisterDialogClose = () => {
-      if((signUpData.email === signUpData.confirm_email)&&(signUpData.password === signUpData.confirm_password)){
-        // validateEmail(signUpData.email);
-        // console.log(emailError);
-        fetch(`http://apilayer.net/api/check?access_key=e88cb97fc068e62599ee94d965979c19&email=${signUpData.email}&smtp=1&format=1`).
-        then(res => res.json()).
-        then(data => {
-          console.log(data.format_valid);
-          if (data.format_valid && data.smtp_check) {  
-            console.log(signUpData);
-            dispatch(createUser(signUpData));
-            setOpenSignUp(false);
-            setOpenLogin(false);
-            setEmailError('false');
-          }else{
-            console.log('incorrect email format');
-            setEmailError('true');
-          }
-        });
-      }else{
-        console.log('wrong input');
-      }
-    };
+    // const handleRegisterDialogClose = () => {
+    //   if((signUpData.email === signUpData.confirm_email)&&(signUpData.password === signUpData.confirm_password)){
+    //     // validateEmail(signUpData.email);
+    //     // console.log(emailError);
+    //     fetch(`http://apilayer.net/api/check?access_key=e88cb97fc068e62599ee94d965979c19&email=${signUpData.email}&smtp=1&format=1`).
+    //     then(res => res.json()).
+    //     then(data => {
+    //       console.log(data.format_valid);
+    //       if (data.format_valid && data.smtp_check) {  
+    //         console.log(signUpData);
+    //         dispatch(createUser(signUpData));
+    //         setOpenSignUp(false);
+    //         setOpenLogin(false);
+    //         setEmailError('false');
+    //       }else{
+    //         console.log('incorrect email format');
+    //         setEmailError('true');
+    //       }
+    //     });
+    //   }else{
+    //     console.log('wrong input');
+    //   }
+    // };
 
 
 
     //track cart and wishlist span numbers 
     const cart = useSelector(state => state.cart);
     const {cartItems} = cart;
+    const wishlist = useSelector(state => state.wishlist);
+    const {wishlistItems} = wishlist;
 
     //get the cart counter value for the cart icon
     const getCartCount = ()=>{
       return cartItems.reduce((qtyCounter, item)=> qtyCounter + Number(item.qtyCounter) ,0)
+    }
+    //get the wishlist counter valuie for the wishlist icon
+    const getWishlistCount = ()=>{
+      return wishlistItems.length
     }
    
   return (
@@ -183,8 +204,8 @@ export default function Topbar() {
           	  <div className='trackOrder'>
 								<EventNote className='upperTopbarIconEvent' /> <a href='#'>Track Your Order</a> 
           	  </div>
-          	  <div className='signUp' onClick={handleClickOpenLogin}>
-								<SettingsIcon className='upperTopbarIconSetting' /> <p> Setting </p>
+          	  <div className='signUp'>
+								<SettingsIcon className='upperTopbarIconSetting' /> <Link to='/login'> <p> Setting </p></Link>
           	  </div>               
           	</div>
           </div>
@@ -195,8 +216,8 @@ export default function Topbar() {
 										<FormControl variant="outlined" className='searchCategoryForm'>
 										
                     {/* <InputLabel className='searchCategoryInputLable'><h5 className='searchCategoryLabelContent'>Category</h5></InputLabel> */}
-										
-                    <Select className='searchCategory'
+								
+                     <Select className='searchCategorySelect'
 										labelId='searchCategory-items-lable'
 										id='searchCategory-items'
                     displayEmpty="true"
@@ -221,7 +242,7 @@ export default function Topbar() {
 												 <DesktopMacIcon className='menuItemIcons' /> <p>Moniter </p></MenuItem>
                         <MenuItem  className='allCategoryMenuItem' value={"play station"}>
 												 <SportsEsportsIcon className='menuItemIcons' /> <p>PS </p></MenuItem>
-                	  	</Select>
+                	  	</Select> 
                      
                 	  </FormControl>
                 	</div>
@@ -251,7 +272,9 @@ export default function Topbar() {
             </div> 
             <div className="infos">
               <div className='wishlist'>
-								<FavoriteBorderOutlined className='infosIcons' /> <span>0</span>
+                <Link to='/wishlist'>
+								  <FavoriteBorderOutlined className='infosIcons' label="Wishlist"/> <span>{getWishlistCount()}</span>
+                </Link>
               </div>
               <div className="cartIconHolder">
 								<Link to='/cart'>
@@ -310,7 +333,7 @@ export default function Topbar() {
             </div>
         </div>
 
-        <div className="signUpDialog">
+        {/* <div className="signUpDialog">
         <Dialog 
               open={openLogin} 
               onClose={handleDialogClose} aria-labelledby="form-dialog-title">
@@ -319,6 +342,7 @@ export default function Topbar() {
                 <DialogContent>
                 <DialogContentText>
                     Im A Returning Customer 
+                    <p ref={errRef} aria-live="assertive">{errMsg}</p>
                 </DialogContentText>
                 <TextField
                     autoFocus
@@ -326,6 +350,7 @@ export default function Topbar() {
                     id="loginEmail"
                     label="Email Address"
                     type="email"
+                    ref={userRef}
                     value={loginData.email}
                     onChange={(e)=>{
                       setloginData({...loginData, email: e.target.value})
@@ -333,7 +358,7 @@ export default function Topbar() {
                     fullWidth
                 />
                  <TextField
-                    autoFocus
+                    
                     margin="dense"
                     id="loginPasswor"
                     label="Password"
@@ -452,7 +477,7 @@ export default function Topbar() {
             </Dialog> 
         
         
-        </div>
+        </div> */}
 
 
 

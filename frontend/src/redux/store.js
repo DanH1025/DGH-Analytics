@@ -4,24 +4,35 @@ import thunk from 'redux-thunk';
 import { getProductsReducer, getProductsDetailsReducer, getProductsSearchReducer } from './reducers/productReducers'
 import { cartReducer } from './reducers/cartReducer';
 import { getUserReducer } from './reducers/userReducer';
+import { getOrdersReducer, getOrderDetailsReducer, getOrderReportsReducer, getOrderTotalReducer } from './reducers/orderReducer'
+import { wishlistReducer } from './reducers/wishlistReducer';
 
 
 const reducer = combineReducers({
   getProduct: getProductsReducer,
   getProductsDetail: getProductsDetailsReducer,
   cart: cartReducer,
+  wishlist: wishlistReducer,
   getProductsSearch: getProductsSearchReducer,
-  getUser: getUserReducer
+  getUser: getUserReducer,
+  getOrder: getOrdersReducer,
+  getOrderDetail: getOrderDetailsReducer,
+  getOrderReport: getOrderReportsReducer,
+  getOrderTotal: getOrderTotalReducer
 })
 
 const middleware = [thunk];
 
 
 const cartFromLocalStorage = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []
+const wishlistFromLocalStorage = localStorage.getItem("wishlist") ? JSON.parse(localStorage.getItem("wishlist")) : []
 
 const INITIAL_STATE={
   cart:{
     cartItems: cartFromLocalStorage
+  },
+  wishlist:{
+    wishlistItems: wishlistFromLocalStorage
   }
 }
 

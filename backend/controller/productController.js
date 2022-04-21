@@ -1,3 +1,4 @@
+// const async = require('hbs/lib/async');
 const ProductModel = require('../model/product');
 // const async = require('hbs/lib/async');
 
@@ -11,10 +12,19 @@ const addProduct = (req, res) => {
 
 const getProducts = async(req,res) => {
   console.log('in appi get product');
+  const [product, metaData] = await ProductModel.fetchActive();
+  // console.log(product);
+  res.send(product);
+}
+
+const getAllProducts = async(req,res) => {
+  console.log('in appi get product');
   const [product, metaData] = await ProductModel.fetchAll();
   // console.log(product);
   res.send(product);
 }
+
+
 
 const getProductsByCatagory = async(req,res) => {
   console.log('in get product by catagory');
@@ -37,6 +47,24 @@ const getProductsById = async(req,res) => {
     res.send(product);
 }
 
+const deleteProduct = async(req,res)=>{
+  console.log("im deleting a product with id: " + req.body.id);
+  const id= req.body.id;
+  const [ product, metaData] = await ProductModel.deleteProductById(id)
+    
+}
+
+const editProductValues = async(req,res)=>{
+  console.log("im editing products right now");
+  const {id,name,price,brand,category,detail,image,count_in_stock,status} = req.body;
+
+  await ProductModel.updateProduct(id,name,price,brand,category,detail,image,count_in_stock,status);
+
+
+
+}
+
+
 const getProductsBySearch = async(req,res) => {
   console.log('in get product by search');
   const name= req.body.name;
@@ -57,12 +85,45 @@ const getProductsBySearch = async(req,res) => {
 }
 
 
+const recordSearchHistory = async(req,res)=>{
+  console.log("recording search history");
+  const {name , category} = req.body;
+  if(category === ''){
+    const [product, metaData] = await ProductModel.recordSearch(name,"All");
+  }else{
+    const [product, metaData] = await ProductModel.recordSearch(name,category);
+  }
+}
+const recordAddToCartHistory = async(req,res)=>{
+  console.log("recording whats added on the cart");
+  const {id, quantity} = req.body;
+  
+  await ProductModel.recordAddToCart(id, quantity);
+}
+
+const changeVisits = async(req, res) => {
+  const id = req.body.id;
+  await ProductModel.addVisits(id);
+ }
+
+
+
 module.exports = {
 	getProducts,
+  getAllProducts,
 	addProduct,
   
   
   getProductsByCatagory,
   getProductsById,
   getProductsBySearch,
+
+  deleteProduct,
+  editProductValues,
+
+
+  recordSearchHistory,
+  recordAddToCartHistory,
+  changeVisits  
+
 };

@@ -1,6 +1,5 @@
 import * as actionType from '../constants/productConstant';
 import * as api from '../api/index';
-import axios from 'axios';
 
 
 export const getProducts = () => async (dispatch)=>{
@@ -23,6 +22,30 @@ export const getProducts = () => async (dispatch)=>{
         });
     }
 };
+
+//get all the products for the admin to see
+export const getAllProducts = () => async (dispatch)=>{
+    try {
+        dispatch({
+            type: actionType.GET_ALL_PRODUCTS_REQUEST,
+        });
+        const {data} = await api.fetchAllProducts();
+        
+        dispatch({
+            type: actionType.GET_ALL_PRODUCTS_SUCCESS,
+            payload: data,
+        }); 
+    } catch (error) {
+        dispatch({
+            type:actionType.GET_ALL_PRODUCTS_FAIL,
+            payload: 
+                error.response && error.response.data.message 
+                ?error.response.data.message:error.message,
+        });
+    }
+};
+
+
 
 export const getProductsByCategory = (catagory) => async (dispatch)=>{
     console.log('in actioning: ' + catagory);
@@ -70,6 +93,55 @@ export const getProductsById = (id) => async (dispatch)=>{
         });
     }
 };
+
+//delete products 
+
+export const deleteProductById = (id) => async (dispatch)=>{
+    console.log('in deleting: ' + id);
+    try {
+        dispatch({
+            type: actionType.PRODUCT_DELETE_REQUEST,
+            
+        });
+        const {data} = await api.deleteProductById(id);
+         
+    } catch (error) {
+        dispatch({
+            type:actionType.PRODUCT_DELETE_FAIL,
+            payload: 
+                error.response && error.response.data.message 
+                ?error.response.data.message:error.message,
+        });
+        dispatch({
+            type:actionType.GET_PRODUCT_DETAILS_RESET,
+        });
+    }
+};
+
+export const editProduct = (editValues) => async (dispatch)=>{
+    console.log("im edting action");
+    try {
+        dispatch({
+            type: actionType.PRODUCT_EDIT_REQUEST,
+        })
+        const {data} = await api.editProduct(editValues);
+        
+        dispatch({
+            type: actionType.PRODUCT_EDIT_SUCCESS,
+            loading:false
+        }); 
+
+    } catch (error) {
+        dispatch({
+            type:actionType.PRODUCT_DELETE_FAIL,
+            payload: 
+                error.response && error.response.data.message 
+                ?error.response.data.message:error.message,
+        });
+    }
+}
+
+
 export const getProductsBySearch = (name, category) => async (dispatch)=>{
     // console.log('in actioning: ' + id);
     try {
@@ -91,6 +163,52 @@ export const getProductsBySearch = (name, category) => async (dispatch)=>{
         });
     }
 };
+
+
+export const recordProductSearch = (name, category) => async (dispatch)=>{
+    try {
+        dispatch({
+            type: actionType.RECORD_PRODUCT_SEARCH_REQUEST,
+        })
+
+        await api.productSearchRecord(name,category);
+
+        
+    } catch (error) {
+        dispatch({
+            type:actionType.RECORD_PRODUCT_SEARCH_FAIL,
+            payload: 
+                error.response && error.response.data.message 
+                ?error.response.data.message:error.message,
+        });
+    }
+}
+
+
+export const recordProductVisit = (id) => async (dispatch)=>{
+    try {
+        dispatch({
+            type: actionType.RECORD_PRODUCT_VISIT_REQUEST,
+        })
+        const {data} = await api.productVisitRecord(id);
+
+        dispatch({
+            type: actionType.RECORD_PRODUCT_VISIT_SUCCESS,
+            payload: data,
+        })
+
+        
+    } catch (error) {
+        dispatch({
+            type:actionType.RECORD_PRODUCT_VISIT_FAIL,
+            payload: 
+                error.response && error.response.data.message 
+                ?error.response.data.message:error.message,
+        });
+    }
+}
+
+
 
 export const createProduct = (product) => async (dispatch) => {
 	try{

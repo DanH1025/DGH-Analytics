@@ -29,6 +29,26 @@ export const addToCart =  (id,qtyCounter) => async (dispatch,getState)=>{
     // localStorage.setItem('cart', JSON.stringify(getState().cart.cartItems));
 };
 
+export const addToCartRecord = (id, qtyCounter) => async (dispatch)=>{
+    try {
+        dispatch({
+            type: actionType.RECORD_ADD_TO_CART,
+        })
+
+        await api.addToCartRecord(id, qtyCounter);
+
+        
+    } catch (error) {
+        dispatch({
+            type:actionType.RECORD_ADD_TO_CART_FAIL,
+            payload: 
+                error.response && error.response.data.message 
+                ?error.response.data.message:error.message,
+        });
+    }
+
+}
+
 
 export const removeFromCart = (id) => (dispatch,getState) =>{
     dispatch({
@@ -38,3 +58,6 @@ export const removeFromCart = (id) => (dispatch,getState) =>{
 
     localStorage.setItem('cart' , JSON.stringify(getState().cart.cartItems));
 };
+
+
+

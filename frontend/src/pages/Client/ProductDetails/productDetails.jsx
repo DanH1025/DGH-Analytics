@@ -5,14 +5,15 @@ import Footer from '../../../components/Client/footer/footer'
 import RemoveOutlinedIcon from '@material-ui/icons/RemoveOutlined';
 import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
 import IconButton from '@material-ui/core/IconButton';
-import { Button } from '@material-ui/core';
+import { Button, message } from 'antd';
 import AddShoppingCartOutlinedIcon from '@material-ui/icons/AddShoppingCartOutlined';
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 import { useState,useEffect } from 'react';
 
 import { getProductsDetails } from '../../../redux/actions/productActions';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart } from '../../../redux/actions/cartActions';
+import { addToCart , addToCartRecord } from '../../../redux/actions/cartActions';
+import {addToWishlist} from '../../../redux/actions/wishlistAction'
 
 import { getProductsById } from '../../../redux/actions/productActions';
 
@@ -24,14 +25,14 @@ export default function ProductDetails({ match, history }) {
     let product = [];
     
     useEffect(() => {
-        console.log('in use effect');
+        console.log('in use effect detail');
         dispatch(getProductsById(id));
     }, [dispatch]);
     
 	const produc = useSelector((state) => state.getProductsDetail.product);
     console.log(produc);    
     // const product = produc[0];
-    // console.log(product);
+    console.log(product);
     // console.log(product[0]);
 
     // console.log({...produc[0], id});
@@ -43,6 +44,7 @@ export default function ProductDetails({ match, history }) {
     
     //handler state change in qty 
     const [qtyCounter , setQtyCounter] = useState(1);
+    const [wishlistQty , setWishlistQty] = useState(1);
     
     //decrease the value of qty
     const handleMinQty = () =>{
@@ -74,8 +76,17 @@ export default function ProductDetails({ match, history }) {
 
             dispatch(addToCart(product.id , qtyCounter));
             history.push('/cart');
+            dispatch(addToCartRecord(product.id, qtyCounter))
+            message.success("Added to Shopping Cart")
+
         }
 
+    }
+    // adding to wishlist
+    const addToWishlistHandler = ()=>{
+        dispatch(addToWishlist(product.id))
+        history.push('/wishlist')
+        message.success("Added to wishlist")
     }
 
 
@@ -132,11 +143,11 @@ export default function ProductDetails({ match, history }) {
                                 </div>
 
                                 <div className="addToCartBtnHolder">
-                                    <Button variant="outlined" className='add_to_cart_btn' onClick={addToCartHandler}>
+                                    <Button type="primary"  className='add_to_cart_btn' onClick={addToCartHandler}>
                                     <AddShoppingCartOutlinedIcon/> <p>Add To Cart </p>
                                     </Button>
                                     
-                                    <IconButton aria-label="add to wish list">
+                                    <IconButton aria-label="add to wish list" onClick={addToWishlistHandler}>
                                         <FavoriteBorderOutlinedIcon />
                                     </IconButton>
 
