@@ -17,7 +17,7 @@ import { useParams } from 'react-router-dom';
 
 export default function SearchResult() {
   const {name} = useParams();
-  const {category} = useParams;
+  const {category} = useParams();
   console.log('id = ' + name);
   const dispatch = useDispatch();
 

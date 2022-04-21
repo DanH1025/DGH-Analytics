@@ -15,7 +15,7 @@ const { addOrderDetail, getOrderDetails } =
   require('../controller/orderDetailController');
 const { getOrderReports, getLastWeekOrderReports, getTotalOrder, addOrderReport } = 
   require('../controller/orderReportController');
-const { getOrderLogs, addOrderLog } = 
+const { getOrderLogs, addOrderLog ,getUserLogs} = 
   require('../controller/orderLogController')
 const {loginWithPhone} = 
   require('../controller/loginController')
