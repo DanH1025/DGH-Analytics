@@ -6,22 +6,28 @@ export const loginWithPhone = (phone, password) => async(dispatch)=>{
         dispatch({
             type: actionType.LOGIN_WITH_PHONE_REQUEST,
         })
-        console.log('in action login');
-        const {data} = api.loginWithPhoneNumber(phone,password);
-        
-        console.log(data);
+
+        const { data } = await api.loginWithPhoneNumber(phone,password);
+        console.log("from redux action login")
+       console.log(data);
+
 
         dispatch({
             type: actionType.LOGIN_WITH_PHONE_SUCCESS,
-            payload: data,
+            payload: data
+            
         })
+
         
     } catch (error) {
+       
         dispatch({
             type: actionType.LOGIN_WITH_PHONE_FAIL,
             payload: 
                 error.response && error.response.data.message 
                 ?error.response.data.message:error.message,
             });
+          //  console.log(data);
+
     }
 }

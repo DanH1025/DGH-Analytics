@@ -8,7 +8,8 @@ const loginWithPhone = async(req,res)=>{
     const {phone , password} = req.body;
 
     const [data , metaData] = await UserModel.fetchPhone(phone);
-    console.log(data[0])   
+
+    console.log(data)   
 
     const hashPass = await bcrypt.hash(password, 8);
     console.log(hashPass);
@@ -19,10 +20,13 @@ const loginWithPhone = async(req,res)=>{
 
     if(isCorrect){
         console.log("Login Successfull")
-        res.send(data);
-    }else{
+
+        res.send(data[0])
+       
+    }else{ 
         console.log("Login failed")
-        res.send('fakil')
+        res.send("Error")
+
     }
 }
 

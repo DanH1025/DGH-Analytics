@@ -16,6 +16,7 @@ const reducer = combineReducers({
   wishlist: wishlistReducer,
   getProductsSearch: getProductsSearchReducer,
   getUser: getUserReducer,
+  LoggedUser:loginReducer,
   getOrder: getOrdersReducer,
   getOrderDetail: getOrderDetailsReducer,
   getOrderReport: getOrderReportsReducer,

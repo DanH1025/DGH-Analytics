@@ -7,13 +7,19 @@ const {getProducts, getAllProducts,addProduct, getProductsByCatagory, getProduct
   require('../controller/productController');
 
 
-const {getUser, getAllUser, addUserByPhone} =   require('../controller/userController')
-const {addOrder, getOrders} =   require('../controller/ordersController')
-const { addOrderDetail, getOrderDetails } =  require('../controller/orderDetailController');
+const {getUser, getAllUser, addUserByPhone} =   
+  require('../controller/userController')
+const {addOrder, getOrders} =   
+  require('../controller/ordersController')
+const { addOrderDetail, getOrderDetails } =  
+  require('../controller/orderDetailController');
 const { getOrderReports, getLastWeekOrderReports, getTotalOrder, addOrderReport } = 
-        require('../controller/orderReportController');
-const { getOrderLogs, addOrderLog } = require('../controller/orderLogController')
-const {loginWithPhone} = require('../controller/loginController')
+  require('../controller/orderReportController');
+const { getOrderLogs, addOrderLog } = 
+  require('../controller/orderLogController')
+const {loginWithPhone} = 
+  require('../controller/loginController')
+
 
 const { route } = require('express/lib/application');
 
@@ -27,6 +33,7 @@ router.get('/' , (req,res)=>{
 // user log routes
 router.post('/addUserLogs', addOrderLog);
 router.post('/getUserLogs', getOrderLogs);
+router.post('/getUserLogCount', getUserLogs);
 
 // test user api
 router.post('/app', users);

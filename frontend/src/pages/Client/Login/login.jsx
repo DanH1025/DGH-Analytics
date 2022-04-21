@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { Switch } from 'antd';
 import { Form, Input, Button, Checkbox } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { UserOutlined, LockOutlined,PhoneOutlined ,MailOutlined} from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { loginWithPhone } from '../../../redux/actions/loginAction';
 
@@ -24,8 +24,7 @@ export default function Login(){
 
         const onFinish = (values) => {
            console.log('Success:', values);
-            if(inputState.name === 'phone_number'){
-                
+            if(inputState.name === 'phone_number'){                
                 dispatch(loginWithPhone(values.phone_number, values.password))
             }
             
@@ -82,7 +81,7 @@ export default function Login(){
                                 , message: inputState.name==='email'? inputRule.Emessage:inputRule.Pmessage
                                 , pattern: /(\+\s*2\s*5\s*1\s*9\s*(([0-9]\s*){8}\s*))|(0\s*9\s*(([0-9]\s*){8}))/}]}
                         >
-                            <Input type={inputState.type} prefix={<UserOutlined className="site-form-item-icon" />} placeholder={inputState.placeholder} />
+                            <Input type={inputState.type} prefix={inputState.type === "email" ? <MailOutlined className="site-form-item-icon" />: <PhoneOutlined className="site-form-item-icon" /> } placeholder={inputState.placeholder} />
                         </Form.Item>
                         <Form.Item
                             name="password"
