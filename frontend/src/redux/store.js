@@ -6,6 +6,7 @@ import { cartReducer } from './reducers/cartReducer';
 import { getUserReducer } from './reducers/userReducer';
 import { getOrdersReducer, getOrderDetailsReducer, getOrderReportsReducer, getOrderTotalReducer } from './reducers/orderReducer'
 import { wishlistReducer } from './reducers/wishlistReducer';
+import { loginReducer } from './reducers/loginReducer';
 
 
 const reducer = combineReducers({
@@ -18,7 +19,8 @@ const reducer = combineReducers({
   getOrder: getOrdersReducer,
   getOrderDetail: getOrderDetailsReducer,
   getOrderReport: getOrderReportsReducer,
-  getOrderTotal: getOrderTotalReducer
+  getOrderTotal: getOrderTotalReducer,
+  users: loginReducer
 })
 
 const middleware = [thunk];

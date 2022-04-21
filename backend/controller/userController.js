@@ -34,9 +34,6 @@ const addUserByPhone = async (req,res)=>{
     console.log("Phone already in use");
     res.send("Error while signup");
   }
- 
-
-
 }
 
 const getAllUser = async(req,res)=>{
