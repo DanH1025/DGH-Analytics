@@ -52,6 +52,33 @@ module.exports = class Request {
     }
   }
 
+  static addToCartCount() {
+    try{
+       const result =db.execute('SELECT COUNT(addToCart) AS cartCount FROM `user_log` WHERE addToCart = true');
+       return result;
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+  static reachCheckCount() {
+    try{
+       const result =db.execute('SELECT COUNT(reachedCheckout) AS checkoutCount FROM `user_log` WHERE reachedCheckout = true');
+       return result;
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+  static purchaseCount() {
+    try{
+       const result =db.execute('SELECT COUNT(purchased) AS purchaseCount FROM `user_log` WHERE purchased = true;');
+       return result;
+    }catch(err){
+      console.log(err);
+    }
+  }
+
   static fetchTotalUserByDate(date) {
     try{
        const result =db.execute('SELECT COUNT(id) AS userToday FROM user_log WHERE date=?', [date]);
