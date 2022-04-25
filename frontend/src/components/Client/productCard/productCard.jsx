@@ -42,11 +42,12 @@ export default function ProductCard( props ) {
         <div className="cardView">
           <Card className='card' >
             <Link to={`/productDetails/${props.productId}`}>
-            <CardMedia 
-              className="cardImg"
-              image={props.imageUrl} alt={props.name}
-              title={props.name}
-            /></Link>
+              <CardMedia 
+                className="cardImg"
+                image={props.imageUrl} alt={props.name}
+                title={props.name}
+              />
+            </Link>
             <CardContent className='itemCardBodyHolder'>
               <Typography className='ItemsCardBodyProductName' >
                  <p>{props.name}</p>  
