@@ -52,6 +52,64 @@
     font-size: 15px !important  ;
 }
 
+
+.signUp{
+    display: flex;
+    width: 200px;
+    align-items: center;
+    justify-content: right;
+    margin: 0px 5px;
+    height: fit-content;
+}
+
+.account_info{
+    display: flex;
+    padding: 0;
+    margin: 0px 7px;
+}
+
+.logout_btn{
+    background-color: red;
+    border: none;
+    border-radius: 2px;
+    padding: 3px;
+    margin: 3px;
+    width: fit-content;
+    height: fit-content;
+    font-size: 11px;
+}
+.login_btn{
+    background-color: rgba(15, 165, 175, 0.695);
+    border: none;
+    border-radius: 2px;
+    padding: 3px;
+    margin: 3px;
+    width: fit-content;
+    height: fit-content;
+    font-size: 11px;
+    color: white;
+}
+
+
+.MuiButton-containedSecondary{
+    width: fit-content;
+    height: fit-content;
+    padding: 0px;
+    margin: 3px 0px;
+    background-color: red;
+}
+.MuiButton-containedSecondary span{
+    font-size: 10px;
+    font-variant-ligatures: discretionary-ligatures;
+    
+}
+
+.profile{
+    background-color: white;
+    
+    
+}
+
 .currency p
 ,.orderNowInfo p 
 ,.signUp p

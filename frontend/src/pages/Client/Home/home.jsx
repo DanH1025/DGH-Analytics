@@ -78,7 +78,7 @@ export default function Home() {
 
   return (
     <>
-      <Topbar />
+      {/* <Topbar /> */}
       <ImageSlider 
         className="imageSliderComponent" 
         slides={sliderData} />

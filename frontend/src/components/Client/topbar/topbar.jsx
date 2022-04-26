@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import './topbar.css'
 import {Link} from 'react-router-dom'
 import {Phone, EventNote,Search,ShoppingCartOutlined, FavoriteBorderOutlined } from '@material-ui/icons'
-
+import FaceIcon from '@material-ui/icons/Face';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -188,25 +188,34 @@ export default function Topbar() {
       return wishlistItems.length
     }
    
+    const [isAuth , setIsAuth] = useState(false)
+
   return (
     <div className='topbar'>
         <div className="topbarWrapper">
           <div className="upperTopbar">
             <div className="upperTopbar_left">
-              <div className="currency">
+              <div className='orderNowInfo'>
+                  <Phone className='upperTopbarIconPhone' /> <p>Order Now , Shipped Today - Support:(+251)935123440</p> 
+                </div>
+                <div className='trackOrder'>
+                  <EventNote className='upperTopbarIconEvent' /> <a href='#'>Track Your Order</a> 
+                </div>
+              {/* <div className="currency">
 							   <p>Currency: ETB</p>  
-            	</div>
+            	</div> */}
           	</div>
           	<div className="upperTopbar_right">
-          	  <div className='orderNowInfo'>
-								<Phone className='upperTopbarIconPhone' /> <p>Order Now , Shipped Today - Support:(+251)935123440</p> 
-          	  </div>
-          	  <div className='trackOrder'>
-								<EventNote className='upperTopbarIconEvent' /> <a href='#'>Track Your Order</a> 
-          	  </div>
+
+              {isAuth ?           
           	  <div className='signUp'>
-								<SettingsIcon className='upperTopbarIconSetting' /> <Link to='/login'> <p> Setting </p></Link>
-          	  </div>               
+                  <div className="account_info">
+                    <FaceIcon/><p>Dano Hailu</p>
+                  </div>
+                      <button  className='logout_btn' variant="contained">Logout </button>
+          	  </div>  : <Link to='/login'> <button className='login_btn' variant='contained'>Login</button> </Link>            
+            }
+          	 
           	</div>
           </div>
            
@@ -280,6 +289,9 @@ export default function Topbar() {
 								<Link to='/cart'>
 									<ShoppingCartOutlined className='infosIcons' /> <span>{getCartCount()}</span>
 								</Link>  
+              </div>
+              <div className="profile">
+                
               </div>
             </div>
           </div>

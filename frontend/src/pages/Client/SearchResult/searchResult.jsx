@@ -32,7 +32,7 @@ export default function SearchResult() {
 
   return (
     <>
-      <Topbar />
+      {/* <Topbar /> */}
       <div className='homeScreen_products'>
         {/* {console.log('in home'+ productList)}
         {console.log(products)} */}
