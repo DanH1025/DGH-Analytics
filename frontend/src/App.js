@@ -61,7 +61,7 @@ function App() {
 
     
     <Provider store={store}>
-       <Topbar />
+       {/* <Topbar /> */}
         <main>
           <Routes>
             {/* <Route exact path='/login' component={Login} /> */}
