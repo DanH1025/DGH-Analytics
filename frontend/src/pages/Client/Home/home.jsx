@@ -79,9 +79,9 @@ export default function Home() {
   return (
     <>
       <Topbar />
-      <ImageSlider 
+      {/* <ImageSlider 
         className="imageSliderComponent" 
-        slides={sliderData} />
+        slides={sliderData} /> */}
       <FeaturedInfo />
       <div className='homeScreen_products'>
         

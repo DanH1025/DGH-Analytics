@@ -133,7 +133,10 @@ export const createUserByPhoneNumber =(FirstName,LastName,phone,password)=>{
 }
 
 export const loginWithPhoneNumber = (phone,password)=>{
-  axios.post(loginWithPhoneUrl , {phone,password })
+  axios.post(loginWithPhoneUrl , {
+      phone: phone,
+      password: password
+     })
 }
 
 // products

@@ -92,3 +92,29 @@ body{
     margin: 0;
 
 }
+.signUpWithGoogle{
+    display: flex;
+    background-color: rgb(235, 46, 46);
+    width: 30%;
+    height: fit-content;
+    padding: 4px;
+    margin: 4px auto;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 2px;
+
+}
+.signUpWithGoogle svg{
+    font-size: 30px;
+    color: white;
+    display: flex;
+    margin: 0px 4px;
+}
+.signUpWithGoogle span{
+    color: white;
+}
+.signUpWithGoogle:hover{
+    background-color: red;
+    cursor: pointer;
+}

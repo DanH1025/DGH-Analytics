@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { Switch } from 'antd';
 import { Form, Input, Button, Checkbox } from 'antd';
-import { UserOutlined, LockOutlined,PhoneOutlined ,MailOutlined} from '@ant-design/icons';
+import { UserOutlined, LockOutlined,PhoneOutlined ,MailOutlined ,GooglePlusOutlined  } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { loginWithPhone } from '../../../redux/actions/loginAction';
 
@@ -23,10 +23,10 @@ export default function Login(){
 
 
         const onFinish = (values) => {
-           console.log('Success:', values);
-            if(inputState.name === 'phone_number'){                
-                dispatch(loginWithPhone(values.phone_number, values.password))
-            }
+        //    console.log('Success:', values);
+        //     if(inputState.name === 'phone_number'){                
+        //         dispatch(loginWithPhone(values.phone_number, values.password))
+        //     }
             
         };
       
@@ -55,6 +55,9 @@ export default function Login(){
                 })
             }
           
+        }
+        const google = ()=>{
+            window.open("http://localhost:5000/auth/google", "_self")
         }
 
     return(
@@ -108,6 +111,11 @@ export default function Login(){
                                     <p>Login </p>
                             </Button>
                             <br />
+
+                            <div className="signUpWithGoogle" onClick={google} >
+                                 <GooglePlusOutlined className="googleIcon" /> <span>Google</span>
+                            </div>
+
                             Or <Link to='/signUp'>register now!</Link>
                         </Form.Item>
                     </Form>

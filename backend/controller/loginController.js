@@ -3,7 +3,7 @@ const UserModel = require('../model/user');
 const bcrypt = require('bcryptjs');
 
 const loginWithPhone = async(req,res)=>{
-    console.log("in Loginwith phone number"); 
+    console.log("in Loginwith phone number");  
     
     const {phone , password} = req.body;
 
@@ -19,7 +19,10 @@ const loginWithPhone = async(req,res)=>{
 
     if(isCorrect){
         console.log("Login Successfull")
-        res.send(data[0])
+        console.log(phone);
+        res.send(data[0]);
+
+       // res.send("this is what the data should be")
        
     }else{ 
         console.log("Login failed")

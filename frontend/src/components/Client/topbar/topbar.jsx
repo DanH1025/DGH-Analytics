@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react'
 import './topbar.css'
 import {Link} from 'react-router-dom'
-import {Phone, EventNote,Search,ShoppingCartOutlined, FavoriteBorderOutlined } from '@material-ui/icons'
+import {Phone, EventNote,Search,ShoppingCartSharp, FavoriteSharp } from '@material-ui/icons'
 
+import FaceIcon from '@material-ui/icons/Face';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -25,6 +26,16 @@ import Select from '@material-ui/core/Select';
 
 
 
+//new topbar icone imports
+import InstagramIcon from '@material-ui/icons/Instagram';
+import TwitterIcon from '@material-ui/icons/Twitter';
+import FacebookIcon from '@material-ui/icons/Facebook';
+
+
+
+
+
+
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts, getProductsByCategory ,recordProductSearch } from '../../../redux/actions/productActions';
 import { getProductsBySearch } from '../../../redux/actions/productActions';
@@ -33,6 +44,7 @@ import { getProductsBySearch } from '../../../redux/actions/productActions';
 
 
 import SettingsIcon from '@material-ui/icons/Settings';
+import { Avatar } from 'antd';
 
 export default function Topbar() {
 
@@ -188,152 +200,314 @@ export default function Topbar() {
       return wishlistItems.length
     }
    
-  return (
-    <div className='topbar'>
-        <div className="topbarWrapper">
-          <div className="upperTopbar">
-            <div className="upperTopbar_left">
-              <div className="currency">
-							   <p>Currency: ETB</p>  
-            	</div>
-          	</div>
-          	<div className="upperTopbar_right">
-          	  <div className='orderNowInfo'>
-								<Phone className='upperTopbarIconPhone' /> <p>Order Now , Shipped Today - Support:(+251)935123440</p> 
-          	  </div>
-          	  <div className='trackOrder'>
-								<EventNote className='upperTopbarIconEvent' /> <a href='#'>Track Your Order</a> 
-          	  </div>
-          	  <div className='signUp'>
-								<SettingsIcon className='upperTopbarIconSetting' /> <Link to='/login'> <p> Setting </p></Link>
-          	  </div>               
-          	</div>
-          </div>
-           
-            <div className="middleTopbar">
-               <div className="search">
-                	<div className="category">
-										<FormControl variant="outlined" className='searchCategoryForm'>
-										
-                    {/* <InputLabel className='searchCategoryInputLable'><h5 className='searchCategoryLabelContent'>Category</h5></InputLabel> */}
-								
-                     <Select className='searchCategorySelect'
-										labelId='searchCategory-items-lable'
-										id='searchCategory-items'
-                    displayEmpty="true"
-                	  open={open_category}
-                	  onClose={handleCloseSearchCategory}
-                	  onOpen={handleOpenSearchCategory}
-                	  value={searchCategory}
-                	  onChange={handleSearchCategoryChange}
-                	    >
-                	       <MenuItem  className='allCategoryMenuItem' value="">
-                            <p>Category </p>
-                        </MenuItem>
-                        <MenuItem className='allCategoryMenuItem' value={"television"}>
-												  <TvIcon className='menuItemIcons' /> <p>TV</p> </MenuItem>
-                        <MenuItem  className='allCategoryMenuItem' value={"smart phone"}>
-												 <PhoneAndroidIcon className='menuItemIcons' /> <p>	Smart Phone </p></MenuItem>
-                        <MenuItem  className='allCategoryMenuItem' value={"smart watch"}>
-													<WatchIcon className='menuItemIcons' /> <p>Smart Watch </p></MenuItem>
-                        <MenuItem  className='allCategoryMenuItem' value={"PC"}>
-												 <ComputerIcon className='menuItemIcons' /> <p>Computer </p></MenuItem>
-                        <MenuItem  className='allCategoryMenuItem' value={"Moniter"}>
-												 <DesktopMacIcon className='menuItemIcons' /> <p>Moniter </p></MenuItem>
-                        <MenuItem  className='allCategoryMenuItem' value={"play station"}>
-												 <SportsEsportsIcon className='menuItemIcons' /> <p>PS </p></MenuItem>
-                	  	</Select> 
-                     
-                	  </FormControl>
-                	</div>
-								<div className="searchInput">
-									<input  
-                    placeholder='Search...' 
-                    name='search'
-                    value={searchValue.task}
-                    onChange={(e) => {
-                      let value = {task: e.target.value}
-                      let search = value.task;
-                      console.log(search);
-                      setSearchValue({
-                        searchValue: search 
-                      })
-                    }   
-                    }
-                    type="text" />
-								</div>
-							
-                <div className="searchbtn">
-                  <Link to='/search'>
-                    <Search className='middleTopbarSearchIcon' fontSize='large'
-                    onClick={handleSearch}/>
-                  </Link> 
-                </div>
-            </div> 
-            <div className="infos">
-              <div className='wishlist'>
-                <Link to='/wishlist'>
-								  <FavoriteBorderOutlined className='infosIcons' label="Wishlist"/> <span>{getWishlistCount()}</span>
-                </Link>
-              </div>
-              <div className="cartIconHolder">
-								<Link to='/cart'>
-									<ShoppingCartOutlined className='infosIcons' /> <span>{getCartCount()}</span>
-								</Link>  
-              </div>
-            </div>
-          </div>
-         
-            <div className="bottomTopbar">
-							<div className="bottomTobbarWrapper">
-								<div className="bottomTopbar-left">
-									<FormControl variant='outlined'  className='allCategorySelection'>
-										<Select className='allcategory'
-											labelId="allCategorySelection-items-lable"
-                      id="allCategorySelection-items"
-                      open={open_allCategories}
-                      displayEmpty="true"
-                      onClose={handleClose}
-                      onOpen={handleOpen}
-                      value={Allcategory}
-                      onChange={handleChange}>
-                        <MenuItem  className='allCategoryMenuItem' value="">
-                            <p>All Categories </p>
-                        </MenuItem>
-                        <MenuItem className='allCategoryMenuItem' value={"television"}>
-												  <TvIcon className='menuItemIcons' /> <p>TV</p> </MenuItem>
-                        <MenuItem  className='allCategoryMenuItem' value={"smart phone"}>
-												 <PhoneAndroidIcon className='menuItemIcons' /> <p>	Smart Phone </p></MenuItem>
-                        <MenuItem  className='allCategoryMenuItem' value={"smart watch"}>
-													<WatchIcon className='menuItemIcons' /> <p>Smart Watch </p></MenuItem>
-                        <MenuItem  className='allCategoryMenuItem' value={"PC"}>
-												 <ComputerIcon className='menuItemIcons' /> <p>Computer </p></MenuItem>
-                        <MenuItem  className='allCategoryMenuItem' value={"Moniter"}>
-												 <DesktopMacIcon className='menuItemIcons' /> <p>Moniter </p></MenuItem>
-                        <MenuItem  className='allCategoryMenuItem' value={"play station"}>
-												 <SportsEsportsIcon className='menuItemIcons' /> <p>PS </p></MenuItem>
-                    </Select>
-                  </FormControl>
-                    </div>
-                    <div className="bottomTopbar-right">
-                      <ul className='lowerSelection'>
-                          <Link to='/'>
-                              <li className='lowerSelectionItem'>Home</li>
-                          </Link>
-                          <Link to='/about'>
-                              <li className='lowerSelectionItem'>About</li>
-                          </Link>
-                          <Link to='/contactUs'>
-                              <li className='lowerSelectionItem'>Contact Us</li>
-                          </Link>                        
-                      </ul>
-                    </div>
-                  
-                </div>
-            </div>
-        </div>
+    const [isAuth , setIsAuth] = useState(true)
 
-        {/* <div className="signUpDialog">
+  return (
+    <>
+
+        <div className="topbar">
+          <div className="Header">
+              <div className="topSide">
+                <div className="topSideWrapper">
+                  <div className="leftSide">
+                    <p>Follow Us  </p>
+                      <InstagramIcon style={{color:"red"}} />
+                      <FacebookIcon  style={{color:"#3b3b8f"}} />
+                      <TwitterIcon   style={{color:"#00a9ff"}} />
+                  </div>
+                  <div className="rightSide">
+                      {isAuth?                       
+                        <div className='isLoggedIn'>
+                            <div className="profilePic"> 
+                                 <FaceIcon/>
+                             </div>
+                            <div className='profile_info'>
+                                <span> <b> Dano Hailu </b></span>
+                                <span> danohailu24@gmail.com</span>
+                               
+                            </div>
+                            <Button className="logout_btn" size='small' variant="outlined" color="secondary">
+                              Logout
+                          </Button>
+                        </div>                         
+                            : 
+                        <div className="login_btn_container" >                
+                          <Button className='login_btn' size='small' variant="outlined" color="primary">
+                            Login
+                          </Button>
+                        </div>
+                        }
+                    </div>
+                </div>
+              </div>
+              <div className="bottomSide">
+                <div className="logoSide">                
+                  <img
+                   src="https://cdn-icons-png.flaticon.com/512/732/732204.png" />
+                   <p>
+                     <prev>
+                       DGH 
+                     </prev>
+                   </p>                  
+                   <p>Analytics</p>
+                   <span>
+                     <prev>
+                       shop
+                     </prev>
+                   </span> 
+                </div>
+                <div className="searchBarSide">
+                  <div className="searchBarWrapper">                 
+                    <div className="category">
+                      <FormControl variant="outlined" className='searchCategoryForm'>                    
+                        <Select className='searchCategorySelect'
+                            labelId='searchCategory-items-lable'
+                            id='searchCategory-items'
+                            displayEmpty="true"
+                            open={open_category}
+                            onClose={handleCloseSearchCategory}
+                            onOpen={handleOpenSearchCategory}
+                            value={searchCategory}
+                            onChange={handleSearchCategoryChange}
+                        >
+                          <MenuItem  className='allCategoryMenuItem' value="">
+                              Category 
+                          </MenuItem>
+                          <MenuItem className='allCategoryMenuItem' value={"television"}>
+                            <TvIcon className='menuItemIcons' /> TV </MenuItem>
+                            <MenuItem  className='allCategoryMenuItem' value={"smart phone"}>
+                          <PhoneAndroidIcon className='menuItemIcons' /> 	Smart Phone </MenuItem>
+                          <MenuItem  className='allCategoryMenuItem' value={"smart watch"}>
+                            <WatchIcon className='menuItemIcons' /> Smart Watch </MenuItem>
+                          <MenuItem  className='allCategoryMenuItem' value={"PC"}>
+                          <ComputerIcon className='menuItemIcons' /> Computer </MenuItem>
+                          <MenuItem  className='allCategoryMenuItem' value={"Moniter"}>
+                          <DesktopMacIcon className='menuItemIcons' /> Moniter</MenuItem>
+                          <MenuItem  className='allCategoryMenuItem' value={"play station"}>
+                          <SportsEsportsIcon className='menuItemIcons'/>PS</MenuItem>
+                        </Select> 
+                      
+                      </FormControl>
+                    </div>
+                    <div className="searchInput">
+                      <input  
+                      placeholder='Search...' 
+                      name='search'
+                      value={searchValue.task}
+                      onChange={(e) => {
+                        let value = {task: e.target.value}
+                        let search = value.task;
+                        console.log(search);
+                        setSearchValue({
+                          searchValue: search 
+                        })
+                      }   
+                    }
+                      type="text" />
+                    </div>
+                    <div className="searchbtn">
+                        <Link to='/search'>
+                           <Search className='middleTopbarSearchIcon' style={{fontSize: '40'}}
+                           onClick={handleSearch}/>
+                      </Link> 
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>        
+        </div>
+        <div className="stickyHeader">
+          <div className="stickyContent">
+                  <div className="stickyLeft">
+                    <ul className='lowerSelection'>
+                            <Link to='/'>
+                                 <li className='lowerSelectionItem'>Home</li>
+                             </Link>
+                             <Link to='/about'>
+                                 <li className='lowerSelectionItem'>About</li>
+                             </Link>
+                             <Link to='/contactUs'>
+                                 <li className='lowerSelectionItem'>Contact Us</li>
+                             </Link>                        
+                         </ul>
+                  </div>
+                  <div className="stickyRight">
+                      <div className='wishlist'>
+                     <Link to='/wishlist'>
+         						  <FavoriteSharp className='infosIcons' label="Wishlist"/> <span>{getWishlistCount()}</span>
+                     </Link>
+                   </div>
+                   <div className="cartIconHolder">
+         						<Link to='/cart'>
+         							<ShoppingCartSharp className='infosIcons' /> <span>{getCartCount()}</span>
+         						</Link>  
+                   </div>
+                  </div>
+              
+          </div>
+      </div>
+    </>
+
+
+
+
+
+
+    // <div className='topbar'>
+    //     <div className="topbarWrapper">
+    //       <div className="upperTopbar">
+    //         <div className="upperTopbar_left">
+    //           <div className='orderNowInfo'>
+    //               <Phone className='upperTopbarIconPhone' /> <p>Order Now , Shipped Today - Support:(+251)935123440</p> 
+    //             </div>
+    //             <div className='trackOrder'>
+    //               <EventNote className='upperTopbarIconEvent' /> <a href='#'>Track Your Order</a> 
+    //             </div>
+    //           {/* <div className="currency">
+		// 					   <p>Currency: ETB</p>  
+    //         	</div> */}
+    //       	</div>
+    //       	<div className="upperTopbar_right">
+
+    //           {isAuth ?           
+    //       	  <div className='signUp'>
+    //               <div className="account_info">
+    //                 <FaceIcon/><p>Dano Hailu</p>
+    //               </div>
+    //                   <button  className='logout_btn' variant="contained">Logout </button>
+    //       	  </div>  : <Link to='/login'> <button className='login_btn' variant='contained'>Login</button> </Link>            
+    //         }
+          	 
+    //       	</div>
+    //       </div>
+           
+    //         <div className="middleTopbar">
+    //            <div className="search">
+    //             	<div className="category">
+		// 								<FormControl variant="outlined" className='searchCategoryForm'>
+										
+    //                 {/* <InputLabel className='searchCategoryInputLable'><h5 className='searchCategoryLabelContent'>Category</h5></InputLabel> */}
+								
+    //                  <Select className='searchCategorySelect'
+		// 								labelId='searchCategory-items-lable'
+		// 								id='searchCategory-items'
+    //                 displayEmpty="true"
+    //             	  open={open_category}
+    //             	  onClose={handleCloseSearchCategory}
+    //             	  onOpen={handleOpenSearchCategory}
+    //             	  value={searchCategory}
+    //             	  onChange={handleSearchCategoryChange}
+    //             	    >
+    //             	       <MenuItem  className='allCategoryMenuItem' value="">
+    //                         <p>Category </p>
+    //                     </MenuItem>
+    //                     <MenuItem className='allCategoryMenuItem' value={"television"}>
+		// 										  <TvIcon className='menuItemIcons' /> <p>TV</p> </MenuItem>
+    //                     <MenuItem  className='allCategoryMenuItem' value={"smart phone"}>
+		// 										 <PhoneAndroidIcon className='menuItemIcons' /> <p>	Smart Phone </p></MenuItem>
+    //                     <MenuItem  className='allCategoryMenuItem' value={"smart watch"}>
+		// 											<WatchIcon className='menuItemIcons' /> <p>Smart Watch </p></MenuItem>
+    //                     <MenuItem  className='allCategoryMenuItem' value={"PC"}>
+		// 										 <ComputerIcon className='menuItemIcons' /> <p>Computer </p></MenuItem>
+    //                     <MenuItem  className='allCategoryMenuItem' value={"Moniter"}>
+		// 										 <DesktopMacIcon className='menuItemIcons' /> <p>Moniter </p></MenuItem>
+    //                     <MenuItem  className='allCategoryMenuItem' value={"play station"}>
+		// 										 <SportsEsportsIcon className='menuItemIcons' /> <p>PS </p></MenuItem>
+    //             	  	</Select> 
+                     
+    //             	  </FormControl>
+    //             	</div>
+		// 						<div className="searchInput">
+		// 							<input  
+    //                 placeholder='Search...' 
+    //                 name='search'
+    //                 value={searchValue.task}
+    //                 onChange={(e) => {
+    //                   let value = {task: e.target.value}
+    //                   let search = value.task;
+    //                   console.log(search);
+    //                   setSearchValue({
+    //                     searchValue: search 
+    //                   })
+    //                 }   
+    //                 }
+    //                 type="text" />
+		// 						</div>
+							
+    //             <div className="searchbtn">
+    //               <Link to='/search'>
+    //                 <Search className='middleTopbarSearchIcon' fontSize='large'
+    //                 onClick={handleSearch}/>
+    //               </Link> 
+    //             </div>
+    //         </div> 
+    //         <div className="infos">
+    //           <div className='wishlist'>
+    //             <Link to='/wishlist'>
+		// 						  <FavoriteBorderOutlined className='infosIcons' label="Wishlist"/> <span>{getWishlistCount()}</span>
+    //             </Link>
+    //           </div>
+    //           <div className="cartIconHolder">
+		// 						<Link to='/cart'>
+		// 							<ShoppingCartOutlined className='infosIcons' /> <span>{getCartCount()}</span>
+		// 						</Link>  
+    //           </div>
+    //           <div className="profile">
+                
+    //           </div>
+    //         </div>
+    //       </div>
+         
+    //         <div className="bottomTopbar">
+		// 					<div className="bottomTobbarWrapper">
+		// 						<div className="bottomTopbar-left">
+		// 							<FormControl variant='outlined'  className='allCategorySelection'>
+		// 								<Select className='allcategory'
+		// 									labelId="allCategorySelection-items-lable"
+    //                   id="allCategorySelection-items"
+    //                   open={open_allCategories}
+    //                   displayEmpty="true"
+    //                   onClose={handleClose}
+    //                   onOpen={handleOpen}
+    //                   value={Allcategory}
+    //                   onChange={handleChange}>
+    //                     <MenuItem  className='allCategoryMenuItem' value="">
+    //                         <p>All Categories </p>
+    //                     </MenuItem>
+    //                     <MenuItem className='allCategoryMenuItem' value={"television"}>
+		// 										  <TvIcon className='menuItemIcons' /> <p>TV</p> </MenuItem>
+    //                     <MenuItem  className='allCategoryMenuItem' value={"smart phone"}>
+		// 										 <PhoneAndroidIcon className='menuItemIcons' /> <p>	Smart Phone </p></MenuItem>
+    //                     <MenuItem  className='allCategoryMenuItem' value={"smart watch"}>
+		// 											<WatchIcon className='menuItemIcons' /> <p>Smart Watch </p></MenuItem>
+    //                     <MenuItem  className='allCategoryMenuItem' value={"PC"}>
+		// 										 <ComputerIcon className='menuItemIcons' /> <p>Computer </p></MenuItem>
+    //                     <MenuItem  className='allCategoryMenuItem' value={"Moniter"}>
+		// 										 <DesktopMacIcon className='menuItemIcons' /> <p>Moniter </p></MenuItem>
+    //                     <MenuItem  className='allCategoryMenuItem' value={"play station"}>
+		// 										 <SportsEsportsIcon className='menuItemIcons' /> <p>PS </p></MenuItem>
+    //                 </Select>
+    //               </FormControl>
+    //                 </div>
+    //                 <div className="bottomTopbar-right">
+    //                   <ul className='lowerSelection'>
+    //                       <Link to='/'>
+    //                           <li className='lowerSelectionItem'>Home</li>
+    //                       </Link>
+    //                       <Link to='/about'>
+    //                           <li className='lowerSelectionItem'>About</li>
+    //                       </Link>
+    //                       <Link to='/contactUs'>
+    //                           <li className='lowerSelectionItem'>Contact Us</li>
+    //                       </Link>                        
+    //                   </ul>
+    //                 </div>
+                  
+    //             </div>
+    //         </div>
+    //     </div>
+
+        /* <div className="signUpDialog">
         <Dialog 
               open={openLogin} 
               onClose={handleDialogClose} aria-labelledby="form-dialog-title">
@@ -477,11 +651,11 @@ export default function Topbar() {
             </Dialog> 
         
         
-        </div> */}
+        </div> */
 
 
 
 
-    </div>
+    // </div>
   )
 }

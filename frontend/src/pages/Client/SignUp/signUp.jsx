@@ -3,7 +3,7 @@ import './signUp.css'
 
 
 
-import { Link } from 'react-router-dom';
+import { Link ,useNavigate} from 'react-router-dom';
 
 import { message, Switch } from 'antd';
 import { Form, Input, Button, Checkbox } from 'antd';
@@ -14,8 +14,10 @@ import { useEffect } from 'react';
 
 
 
-export default function SignUp({history}) {
 
+
+export default function SignUp() {
+    const history = useNavigate();
 
     const dispatch = useDispatch()
 
@@ -25,41 +27,33 @@ export default function SignUp({history}) {
 
 
     const getUser = useSelector(state => state.getUser)
-    const {user} = getUser;     
+    const {user} = getUser;   
+    console.log(user)  
+    
+    
 
    
    
     
     const onFinish = (values) => {
-           console.log('Success:', values);
            console.log(values.FirstName)
-        if(inputState.name === "phone_number"){      
-            if(values.password === values.confirm_password){        
-                if(values.password.length < 6) {
-                    message.error("Password must be more than 6 digits")
-                }   else{
-
-                    const existNumber = user.find((x)=> x.phone_number === values.phone_number)
-                    if(existNumber){
-                        message.error("Phone number Already in use")
-                    }else{
-                        if(values.FirstName.length < 3 && values.LastName < 3 ){
-                            message.error("Firs and Last Name must be more than 3 characters")
-
-                        }else{
-                            dispatch(createUserByPhone(values.FirstName, values.LastName, values.phone_number, values.password));
-                            history.push('/login');
-                            message.success("SignUp successfull");  
-                        }
-
-                    }
-
-                }  
-               
-            } 
-            else{
+        if(inputState.name === "phone_number"){
+            const existNumber = user.find(x=> x.phone_number === values.phone_number)
+            if(values.password !== values.confirm_password){
                 message.error("Passwords dont match")
             }
+            if(values.password.length < 6){
+                message.error("Password must be more than 6 characters")
+            }
+            if(existNumber){
+                message.error("Phone number already in use")
+            }
+            else{
+                dispatch(createUserByPhone(values.FirstName, values.LastName, values.phone_number, values.password));
+                    history('/login');
+                            message.success("SignUp successfull"); 
+            }
+
         }  else{
             message.error("email signup")
         } 

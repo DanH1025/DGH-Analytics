@@ -29,6 +29,7 @@ const addUserByPhone = async (req,res)=>{
    const user = new UserModel(fname,lname,null,phone,hashPassword , date);
     console.log(user);
    user.save();
+   res.send(user);
   }
   else{    
     console.log("Phone already in use");

@@ -19,20 +19,20 @@ export const getUserReducer = (state = {user: [] }, action)=>{
                 error: action.payload,
                 // products: []
             }
-        case actionTypes.CREATE_USER_BY_PHONE_REQUEST:
-            return{
-                loading: true,
-            }
-        case actionTypes.CREATE_USER_BY_PHONE_SUCCESS:
-            return {
-                loading:false,
-                user: action.payload
-            }
-        case actionTypes.CREATE_USER_BY_PHONE_FAIL:
-            return{
-                loading:false,
-                error: action.payload
-            }
+        // case actionTypes.CREATE_USER_BY_PHONE_REQUEST:
+        //     return{
+        //         loading: true,
+        //     }
+        // case actionTypes.CREATE_USER_BY_PHONE_SUCCESS:
+        //     return {
+        //         loading:false,
+        //         user: action.payload
+        //     }
+        // case actionTypes.CREATE_USER_BY_PHONE_FAIL:
+        //     return{
+        //         loading:false,
+        //         error: action.payload
+        //     }
             case actionTypes.LOGIN_WITH_PHONE_REQUEST:
                 return{
                     loading: true,
