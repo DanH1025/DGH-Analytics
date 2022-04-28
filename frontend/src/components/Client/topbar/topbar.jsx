@@ -222,7 +222,7 @@ export default function Topbar() {
                                  <FaceIcon/>
                              </div>
                             <div className='profile_info'>
-                                <span> <b> Dano Hailu </b></span>
+                                <span>  Dano Hailu </span>
                                 <span> danohailu24@gmail.com</span>
                                
                             </div>
@@ -271,7 +271,7 @@ export default function Topbar() {
                             onChange={handleSearchCategoryChange}
                         >
                           <MenuItem  className='allCategoryMenuItem' value="">
-                              Category 
+                               Category
                           </MenuItem>
                           <MenuItem className='allCategoryMenuItem' value={"television"}>
                             <TvIcon className='menuItemIcons' /> TV </MenuItem>
@@ -306,8 +306,8 @@ export default function Topbar() {
                       type="text" />
                     </div>
                     <div className="searchbtn">
-                        <Link to='/search'>
-                           <Search className='middleTopbarSearchIcon' style={{fontSize: '40'}}
+                        <Link to='/search' className='searchbtnLink'>
+                           <Search 
                            onClick={handleSearch}/>
                       </Link> 
                     </div>
@@ -332,14 +332,18 @@ export default function Topbar() {
                          </ul>
                   </div>
                   <div className="stickyRight">
-                      <div className='wishlist'>
+                        <div className='wishlist'>
                      <Link to='/wishlist'>
-         						  <FavoriteSharp className='infosIcons' label="Wishlist"/> <span>{getWishlistCount()}</span>
+                          <FavoriteSharp className='infosIcons' label="Wishlist"/>
+                                  <span>
+                                        {getWishlistCount()}
+                                  </span>
                      </Link>
-                   </div>
+                        </div>
                    <div className="cartIconHolder">
          						<Link to='/cart'>
-         							<ShoppingCartSharp className='infosIcons' /> <span>{getCartCount()}</span>
+                       
+         							<ShoppingCartSharp className='infosIcons' />   <span>{getCartCount()}</span>
          						</Link>  
                    </div>
                   </div>
@@ -353,309 +357,5 @@ export default function Topbar() {
 
 
 
-    // <div className='topbar'>
-    //     <div className="topbarWrapper">
-    //       <div className="upperTopbar">
-    //         <div className="upperTopbar_left">
-    //           <div className='orderNowInfo'>
-    //               <Phone className='upperTopbarIconPhone' /> <p>Order Now , Shipped Today - Support:(+251)935123440</p> 
-    //             </div>
-    //             <div className='trackOrder'>
-    //               <EventNote className='upperTopbarIconEvent' /> <a href='#'>Track Your Order</a> 
-    //             </div>
-    //           {/* <div className="currency">
-		// 					   <p>Currency: ETB</p>  
-    //         	</div> */}
-    //       	</div>
-    //       	<div className="upperTopbar_right">
-
-    //           {isAuth ?           
-    //       	  <div className='signUp'>
-    //               <div className="account_info">
-    //                 <FaceIcon/><p>Dano Hailu</p>
-    //               </div>
-    //                   <button  className='logout_btn' variant="contained">Logout </button>
-    //       	  </div>  : <Link to='/login'> <button className='login_btn' variant='contained'>Login</button> </Link>            
-    //         }
-          	 
-    //       	</div>
-    //       </div>
-           
-    //         <div className="middleTopbar">
-    //            <div className="search">
-    //             	<div className="category">
-		// 								<FormControl variant="outlined" className='searchCategoryForm'>
-										
-    //                 {/* <InputLabel className='searchCategoryInputLable'><h5 className='searchCategoryLabelContent'>Category</h5></InputLabel> */}
-								
-    //                  <Select className='searchCategorySelect'
-		// 								labelId='searchCategory-items-lable'
-		// 								id='searchCategory-items'
-    //                 displayEmpty="true"
-    //             	  open={open_category}
-    //             	  onClose={handleCloseSearchCategory}
-    //             	  onOpen={handleOpenSearchCategory}
-    //             	  value={searchCategory}
-    //             	  onChange={handleSearchCategoryChange}
-    //             	    >
-    //             	       <MenuItem  className='allCategoryMenuItem' value="">
-    //                         <p>Category </p>
-    //                     </MenuItem>
-    //                     <MenuItem className='allCategoryMenuItem' value={"television"}>
-		// 										  <TvIcon className='menuItemIcons' /> <p>TV</p> </MenuItem>
-    //                     <MenuItem  className='allCategoryMenuItem' value={"smart phone"}>
-		// 										 <PhoneAndroidIcon className='menuItemIcons' /> <p>	Smart Phone </p></MenuItem>
-    //                     <MenuItem  className='allCategoryMenuItem' value={"smart watch"}>
-		// 											<WatchIcon className='menuItemIcons' /> <p>Smart Watch </p></MenuItem>
-    //                     <MenuItem  className='allCategoryMenuItem' value={"PC"}>
-		// 										 <ComputerIcon className='menuItemIcons' /> <p>Computer </p></MenuItem>
-    //                     <MenuItem  className='allCategoryMenuItem' value={"Moniter"}>
-		// 										 <DesktopMacIcon className='menuItemIcons' /> <p>Moniter </p></MenuItem>
-    //                     <MenuItem  className='allCategoryMenuItem' value={"play station"}>
-		// 										 <SportsEsportsIcon className='menuItemIcons' /> <p>PS </p></MenuItem>
-    //             	  	</Select> 
-                     
-    //             	  </FormControl>
-    //             	</div>
-		// 						<div className="searchInput">
-		// 							<input  
-    //                 placeholder='Search...' 
-    //                 name='search'
-    //                 value={searchValue.task}
-    //                 onChange={(e) => {
-    //                   let value = {task: e.target.value}
-    //                   let search = value.task;
-    //                   console.log(search);
-    //                   setSearchValue({
-    //                     searchValue: search 
-    //                   })
-    //                 }   
-    //                 }
-    //                 type="text" />
-		// 						</div>
-							
-    //             <div className="searchbtn">
-    //               <Link to='/search'>
-    //                 <Search className='middleTopbarSearchIcon' fontSize='large'
-    //                 onClick={handleSearch}/>
-    //               </Link> 
-    //             </div>
-    //         </div> 
-    //         <div className="infos">
-    //           <div className='wishlist'>
-    //             <Link to='/wishlist'>
-		// 						  <FavoriteBorderOutlined className='infosIcons' label="Wishlist"/> <span>{getWishlistCount()}</span>
-    //             </Link>
-    //           </div>
-    //           <div className="cartIconHolder">
-		// 						<Link to='/cart'>
-		// 							<ShoppingCartOutlined className='infosIcons' /> <span>{getCartCount()}</span>
-		// 						</Link>  
-    //           </div>
-    //           <div className="profile">
-                
-    //           </div>
-    //         </div>
-    //       </div>
-         
-    //         <div className="bottomTopbar">
-		// 					<div className="bottomTobbarWrapper">
-		// 						<div className="bottomTopbar-left">
-		// 							<FormControl variant='outlined'  className='allCategorySelection'>
-		// 								<Select className='allcategory'
-		// 									labelId="allCategorySelection-items-lable"
-    //                   id="allCategorySelection-items"
-    //                   open={open_allCategories}
-    //                   displayEmpty="true"
-    //                   onClose={handleClose}
-    //                   onOpen={handleOpen}
-    //                   value={Allcategory}
-    //                   onChange={handleChange}>
-    //                     <MenuItem  className='allCategoryMenuItem' value="">
-    //                         <p>All Categories </p>
-    //                     </MenuItem>
-    //                     <MenuItem className='allCategoryMenuItem' value={"television"}>
-		// 										  <TvIcon className='menuItemIcons' /> <p>TV</p> </MenuItem>
-    //                     <MenuItem  className='allCategoryMenuItem' value={"smart phone"}>
-		// 										 <PhoneAndroidIcon className='menuItemIcons' /> <p>	Smart Phone </p></MenuItem>
-    //                     <MenuItem  className='allCategoryMenuItem' value={"smart watch"}>
-		// 											<WatchIcon className='menuItemIcons' /> <p>Smart Watch </p></MenuItem>
-    //                     <MenuItem  className='allCategoryMenuItem' value={"PC"}>
-		// 										 <ComputerIcon className='menuItemIcons' /> <p>Computer </p></MenuItem>
-    //                     <MenuItem  className='allCategoryMenuItem' value={"Moniter"}>
-		// 										 <DesktopMacIcon className='menuItemIcons' /> <p>Moniter </p></MenuItem>
-    //                     <MenuItem  className='allCategoryMenuItem' value={"play station"}>
-		// 										 <SportsEsportsIcon className='menuItemIcons' /> <p>PS </p></MenuItem>
-    //                 </Select>
-    //               </FormControl>
-    //                 </div>
-    //                 <div className="bottomTopbar-right">
-    //                   <ul className='lowerSelection'>
-    //                       <Link to='/'>
-    //                           <li className='lowerSelectionItem'>Home</li>
-    //                       </Link>
-    //                       <Link to='/about'>
-    //                           <li className='lowerSelectionItem'>About</li>
-    //                       </Link>
-    //                       <Link to='/contactUs'>
-    //                           <li className='lowerSelectionItem'>Contact Us</li>
-    //                       </Link>                        
-    //                   </ul>
-    //                 </div>
-                  
-    //             </div>
-    //         </div>
-    //     </div>
-
-        /* <div className="signUpDialog">
-        <Dialog 
-              open={openLogin} 
-              onClose={handleDialogClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">
-                  Login</DialogTitle>
-                <DialogContent>
-                <DialogContentText>
-                    Im A Returning Customer 
-                    <p ref={errRef} aria-live="assertive">{errMsg}</p>
-                </DialogContentText>
-                <TextField
-                    autoFocus
-                    margin="dense"
-                    id="loginEmail"
-                    label="Email Address"
-                    type="email"
-                    ref={userRef}
-                    value={loginData.email}
-                    onChange={(e)=>{
-                      setloginData({...loginData, email: e.target.value})
-                    }}
-                    fullWidth
-                />
-                 <TextField
-                    
-                    margin="dense"
-                    id="loginPasswor"
-                    label="Password"
-                    type="password"
-                    value={loginData.password}
-                    onChange={(e)=>{
-                      setloginData(
-                        {...loginData, 
-                        password: e.target.value})
-                    }}
-                    fullWidth
-                />
-                </DialogContent>
-                <DialogActions>
-                <Button 
-                onClick={handleDialogClose} variant='outlined'  
-                color="primary">
-                    Login
-                </Button>
-                <Button onClick={handleClickOpenSignUp} variant='outlined' color="primary">
-                    Create an Account
-                </Button>
-                </DialogActions>
-            </Dialog> 
-
-            <Dialog open={openSignUp} onClose={handleDialogClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">SignUp</DialogTitle>
-                <DialogContent>
-                <DialogContentText>
-                    Im A New Customer
-                </DialogContentText>
-                <DialogContentText>
-                {emailError === 'true' ? <span style={{color: "red"}}>Please Enter correct email</span> : ''} 
-                </DialogContentText>
-                <TextField
-                    autoFocus
-                    margin="dense"
-                    id="first_name"
-                    label="First Name"
-                    type="text"
-                    value={signUpData.first_name}
-                    onChange={(e)=>{
-                      setSignUpData({...signUpData, first_name: e.target.value})
-                    }}
-                    fullWidth
-                />
-                 <TextField
-                    autoFocus
-                    margin="dense"
-                    id="last_name"
-                    label="Last Name"
-                    type="text"
-                    value={signUpData.last_name}
-                    onChange={(e)=>{
-                      setSignUpData({...signUpData, last_name: e.target.value})
-                    }}
-                    fullWidth
-                />
-                 <TextField
-                    autoFocus
-                    margin="dense"
-                    id="Email"
-                    label="Email"
-                    type="email"
-                    value={signUpData.email}
-                    onChange={(e)=>{
-                      setSignUpData({...signUpData, email: e.target.value})
-                    }}
-                    fullWidth
-                />
-                 <TextField
-                    autoFocus
-                    margin="dense"
-                    id="confirm_email"
-                    label="Confirm Email"
-                    type="email"
-                    value={signUpData.confirm_email}
-                    onChange={(e)=>{
-                      setSignUpData({...signUpData, confirm_email: e.target.value})
-                    }}
-                    fullWidth
-                />
-                 <TextField
-                    autoFocus
-                    margin="dense"
-                    id="password"
-                    label="Password"
-                    type="password"
-                    value={signUpData.password}
-                    onChange={(e)=>{
-                      setSignUpData({...signUpData, password: e.target.value})
-                    }}
-                    fullWidth
-                />
-                 <TextField
-                    autoFocus
-                    margin="dense"
-                    id="confirm_password"
-                    label="Confirm Password"
-                    type="password"
-                    value={signUpData.confirm_password}
-                    onChange={(e)=>{
-                      setSignUpData({...signUpData, confirm_password: e.target.value})
-                    }}
-                    fullWidth
-                />
-                </DialogContent>
-                <DialogActions>
-                <Button onClick={handleRegisterDialogClose} variant='outlined'  color="primary">
-                    Register
-                </Button>
-                <Button onClick={handleClickOpenLogin} variant='outlined' color="primary">
-                    Login
-                </Button>
-                </DialogActions>
-            </Dialog> 
-        
-        
-        </div> */
-
-
-
-
-    // </div>
   )
 }

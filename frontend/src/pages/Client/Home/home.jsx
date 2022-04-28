@@ -7,7 +7,7 @@ import FeaturedInfo from '../../../components/Client/featuredInfo/featuredInfo'
 import ProductCard from '../../../components/Client/productCard/productCard'
 import ContactUs from '../../../components/Client/contactUs/contactUs'
 import Footer from '../../../components/Client/footer/footer'
-
+import CategoryCard from '../../../components/Client/categoryCard/categoryCard'
 import { sliderData } from '../../../components/Client/imageSlider/sliderData'
 
 //import redux to use redux action and constants
@@ -18,6 +18,8 @@ import { createUserLog } from '../../../redux/actions/userLogActions';
 //import redux actions to call all the functions
 // import { getProducts as listProducts } from '../../redux/actions/productActions'
 
+
+import StarsSharpIcon from '@material-ui/icons/StarsSharp';
 
 export default function Home() {
   
@@ -79,11 +81,61 @@ export default function Home() {
   return (
     <>
       <Topbar />
-      {/* <ImageSlider 
-        className="imageSliderComponent" 
-        slides={sliderData} /> */}
+      
       <FeaturedInfo />
-      <div className='homeScreen_products'>
+          <div className="categoryListTitle">
+              <h2>All Categories</h2>
+          </div>
+          <div className="categoryCardList">
+              <div className="categoryCardListHolder">
+                <div className="categoryCardListContent">                  
+                    <div className="categoryCardContentWrapper">
+                        <CategoryCard/>
+                        <CategoryCard/> 
+                        <CategoryCard/>
+                        <CategoryCard/>
+                        <CategoryCard/>
+                        
+                                         
+                    </div>
+                </div>
+                
+              </div>
+          </div>
+
+          <div className="addsAndShow">
+            <div className="addsAndShowContainer">
+              <div className="imageSliderSide">
+              <ImageSlider 
+                className="imageSliderComponent" 
+                slides={sliderData} />
+              </div>
+              <div className="newItemSide">
+                <div className="newItemSideHolder">
+                    <div className="newItemsTitle">
+                        <h3>New Products     <StarsSharpIcon/></h3> 
+                        <span>Top 5 newest Products for you</span>
+                    </div>
+                    <div className="newItemsContainer">
+                          <CategoryCard/>
+                            <CategoryCard/>
+                            <CategoryCard/>
+                            <CategoryCard/>
+                            <CategoryCard/>
+                      </div>
+                      
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+       
+         
+       <div className='homeScreen_products'>
         
         <h3 productCardTitle>Our Products</h3>
 
@@ -111,9 +163,9 @@ export default function Home() {
               )
             }
         </div>
-      </div>
-      <ContactUs />
-      <Footer />
+      </div> 
+      {/* <ContactUs />
+      <Footer />  */}
     </>
   )
 }
