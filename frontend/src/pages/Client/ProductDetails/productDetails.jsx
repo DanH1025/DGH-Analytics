@@ -101,7 +101,7 @@ export default function ProductDetails({ history }) {
 
   return (
      <> 
-     {/* <Topbar/> */}
+     <Topbar/>
         <div className='productDetials'>
             <div className="productDetailsWrapper">
                 <div className="pathTitle">

@@ -7,14 +7,21 @@ body{
 .categoryCard{
     display: flex;
     width: 200px;
-    height: 210px;
+    height: 220px;
     padding: 2px;
     margin: 5px;
-    border: none;
+    border-left: 1px solid rgba(140, 140, 228, 0.36);
+    border-right: 1px solid rgba(140, 140, 228, 0.36);
     border-radius: 4px;
-    -webkit-box-shadow: 6px 4px 13px 2px rgba(65,65,65,0.21); 
-    box-shadow: 6px 4px 13px 2px rgba(65,65,65,0.21);  
+    transform: 0;
+
+ }
+.categoryCard:hover{
+    transform: scale(1.1);
+    transition: all ease-out 0.3s;
+    border: none;
 }
+
 
 .categoryCardWrapper{
     display: flex;
@@ -44,52 +51,47 @@ body{
     display: flex;
     width: 100%;
     height: 100%;
-    padding: 5%;
+    padding: 0;
     margin: 0;
     object-fit: contain; 
     transform: 0;  
     overflow: hidden;
 }
-.imageHolderSide img:hover{
+/* .imageHolderSide img:hover{
     cursor: pointer;
     transform: scale(1.1);
     transition: all ease-in-out 0.4s;
     overflow: hidden;
 
-}
+} */
 
 .cardBodySide{
     width: 100%;
-    height: 20%;
+    height: 25%;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
+    margin-top: 3px;
     
 }
 .cardBodySide p{
     display: flex;
     padding: 0;
-    margin: 0;
+    margin:0;
+    margin-top: 5px;
     width: 100%;
     height: 100%;
     align-items: center;
     justify-content: center;
     font-size: 13px;
-    font-weight: bold;
+    font-weight: normal;
     color: rgb(13, 13, 127);
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     transform: 0;
 }
 .cardBodySide p:hover{
-    transform: scale3d(1.1);
-    transition: all 0.5ms ease-out;
     cursor: pointer;
-    font-size: 13.4px;
-    font-weight: bold;
-    color: rgb(28, 20, 180);
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-
+   
 }
 .cardBodySide p a{
     margin-bottom: 17px;

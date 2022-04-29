@@ -1,5 +1,9 @@
 import axios from 'axios';
 
+
+const getAllCategoriesUrl =
+'http://localhost:5000/api/getAllCategories'
+
 const readProductUrl = 
   'http://localhost:5000/api/getProducts';
 const readAllProductUrl =
@@ -139,9 +143,18 @@ export const loginWithPhoneNumber = (phone,password)=>{
      })
 }
 
+//fetch all categories 
+export const fetchCategory = ()=> 
+  axios.get(getAllCategoriesUrl)
+
+
+
 // products
 export const fetchProducts = () => 
   axios.get(readProductUrl);
+
+
+
 
 export const fetchAllProducts = ()=>
     axios.get(readAllProductUrl);

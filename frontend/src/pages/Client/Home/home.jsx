@@ -14,6 +14,7 @@ import { sliderData } from '../../../components/Client/imageSlider/sliderData'
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../../../redux/actions/productActions';
+import { getCagegory } from '../../../redux/actions/categoryActions'
 import { createUserLog } from '../../../redux/actions/userLogActions';
 //import redux actions to call all the functions
 // import { getProducts as listProducts } from '../../redux/actions/productActions'
@@ -68,6 +69,8 @@ export default function Home() {
 
  	useEffect(() => {
  	  dispatch(getProducts());
+    dispatch(getCagegory())
+
     
     console.log(sessionStorage.getItem('user'));
 
@@ -75,6 +78,9 @@ export default function Home() {
 
 	const products = useSelector((state) => state.getProduct.products);
 	// console.log(products);
+  const categories = useSelector((state)=> state.getCategory.categories)
+  console.log(categories)
+
 
   const [productList, setProduct] = useState([]);
 
@@ -90,11 +96,28 @@ export default function Home() {
               <div className="categoryCardListHolder">
                 <div className="categoryCardListContent">                  
                     <div className="categoryCardContentWrapper">
-                        <CategoryCard/>
+                      { !categories?.length ? <div></div> :
+                        (
+                          categories.map((val,key)=>{
+                            return(
+                              <CategoryCard
+                                key={val.id}
+                                title={val.ctgr_title}
+                                rating={val.ctgr_rating}
+                                image={val.ctgr_img}
+                              
+                              />
+                            )
+                          })
+                        )
+
+                      }
+
+                        {/* <CategoryCard/>
                         <CategoryCard/> 
                         <CategoryCard/>
                         <CategoryCard/>
-                        <CategoryCard/>
+                        <CategoryCard/> */}
                         
                                          
                     </div>
@@ -106,9 +129,9 @@ export default function Home() {
           <div className="addsAndShow">
             <div className="addsAndShowContainer">
               <div className="imageSliderSide">
-              <ImageSlider 
-                className="imageSliderComponent" 
-                slides={sliderData} />
+                <ImageSlider 
+                  className="imageSliderComponent" 
+                  slides={sliderData} />
               </div>
               <div className="newItemSide">
                 <div className="newItemSideHolder">
@@ -117,11 +140,11 @@ export default function Home() {
                         <span>Top 5 newest Products for you</span>
                     </div>
                     <div className="newItemsContainer">
-                          <CategoryCard/>
-                            <CategoryCard/>
-                            <CategoryCard/>
-                            <CategoryCard/>
-                            <CategoryCard/>
+                          <ProductCard/>
+                            <ProductCard/>
+                            <ProductCard/>
+                            <ProductCard/>
+                            <ProductCard/>
                       </div>
                       
 
@@ -154,6 +177,7 @@ export default function Home() {
                         price={val.productPrice}
                         imageUrl={val.productImg}
                         brand={val.productBrand} 
+                        rating={val.rating}
                         />
 
                     </div>
@@ -164,8 +188,8 @@ export default function Home() {
             }
         </div>
       </div> 
-      {/* <ContactUs />
-      <Footer />  */}
+       {/* <ContactUs /> */}
+      <Footer />  
     </>
   )
 }
