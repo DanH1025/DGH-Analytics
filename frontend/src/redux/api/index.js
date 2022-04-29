@@ -1,5 +1,9 @@
 import axios from 'axios';
 
+
+const getAllCategoriesUrl =
+'http://localhost:5000/api/getAllCategories'
+
 const readProductUrl = 
   'http://localhost:5000/api/getProducts';
 const readAllProductUrl =
@@ -136,12 +140,24 @@ export const createUserByPhoneNumber =(FirstName,LastName,phone,password)=>{
 }
 
 export const loginWithPhoneNumber = (phone,password)=>{
-  axios.post(loginWithPhoneUrl , {phone,password })
+  axios.post(loginWithPhoneUrl , {
+      phone: phone,
+      password: password
+     })
 }
+
+//fetch all categories 
+export const fetchCategory = ()=> 
+  axios.get(getAllCategoriesUrl)
+
+
 
 // products
 export const fetchProducts = () => 
   axios.get(readProductUrl);
+
+
+
 
 export const fetchAllProducts = ()=>
     axios.get(readAllProductUrl);

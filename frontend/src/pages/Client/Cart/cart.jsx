@@ -55,6 +55,7 @@ export default function Cart() {
 
   return (
      <><Topbar />
+    
     <div className='cart'>
          
         <div className="cartWrapper">

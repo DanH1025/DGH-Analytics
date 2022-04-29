@@ -20,6 +20,8 @@ const { getOrderLogs, addOrderLog ,getUserLogs} =
 const {loginWithPhone} = 
   require('../controller/loginController')
 
+const {getAllCategories} = require('../controller/categoryController')
+
 
 const { route } = require('express/lib/application');
 
@@ -29,6 +31,9 @@ const { users, deleteP, verify} = require('../controller/api')
 router.get('/' , (req,res)=>{
   res.send("this is the home url /");
 })
+
+
+
 
 // user log routes
 router.post('/addUserLogs', addOrderLog);
@@ -44,6 +49,9 @@ router.post('/addOrderReport', addOrderReport);
 router.post('/getOrderReport', getOrderReports);
 router.post('/getLastWeekOrderReport', getLastWeekOrderReports);
 router.post('/getTotal', getTotalOrder)
+
+//get all the categories from db
+router.get('/getAllCategories', getAllCategories)
 
 // product routes
 router.post('/addToStock' , addProduct); 

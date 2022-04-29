@@ -18,7 +18,8 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-
+import StarBorderIcon from '@material-ui/icons/StarBorder';
+import { useState } from 'react';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -34,10 +35,34 @@ const useStyles = makeStyles((theme) => ({
 export default function ProductCard( props ) {
 
   const classes = useStyles(); 
+  const [rating, setRating] = useState(0)
   // console.log(props);
   return (
     <>
-    <div className='productCard'>
+    <Link to={`/productDetails/${props.productId}`}>
+      <div className="productCard">
+          <div className="productCardWrapper">
+              <div className="productCardHeader">
+                  <p>{props.name}</p> 
+              </div>
+              <div className="productImageHolder">
+                  <img src={props.imageUrl} alt={props.name} />
+              </div>
+              <div className="productCardBody"> 
+                  <span>                   
+                    <StarBorderIcon style={props.rating >=1? {color:'orange',fontWeight:'bolder'}: {color:'#80808066'}} />
+                    <StarBorderIcon style={props.rating >=2? {color:'orange',fontWeight:'bolder'}: {color:'#80808066'}}/>
+                    <StarBorderIcon style={props.rating >=3? {color:'orange',fontWeight:'bolder'}: {color:'#80808066'}}/>
+                    <StarBorderIcon style={props.rating >=4? {color:'orange',fontWeight:'bolder'}: {color:'#80808066'}}/>
+                    <StarBorderIcon style={props.rating >=5? {color:'orange',fontWeight:'bolder'}: {color:'#80808066'}}/>
+                  </span>                 
+                  <p>{props.price} ETB</p>
+
+              </div>
+          </div>
+      </div>
+    </Link>
+    {/* <div className='productCard'>
       <div className="productCardWrapper">
         <div className="cardView">
           <Card className='card' >
@@ -71,7 +96,7 @@ export default function ProductCard( props ) {
           </Card>
         </div>
       </div>  
-    </div>
+    </div> */}
 
     </>
   );

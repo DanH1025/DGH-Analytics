@@ -1,4 +1,4 @@
-import React, {useState , useEffect} from 'react'
+import React, {useState , useEffect , useRef} from 'react'
 import './imageSlider.css'
 import {ArrowBackIos,ArrowForwardIos} from '@material-ui/icons'
 import { sliderData } from './sliderData';
@@ -8,6 +8,7 @@ import { sliderData } from './sliderData';
 export default function ImageSlider({slides}) {
     const [current , setCurrent] = React.useState(0);
     const length = slides.length;
+
 
     //to slide to next image
     const nextImg = ()=>{
@@ -28,8 +29,13 @@ export default function ImageSlider({slides}) {
   return (
     <div className='imageSlider'>
       
+      <h1>High Quality Products</h1>
+
             <ArrowBackIos className='to-prev'  onClick={prevImg}  />
-            <ArrowForwardIos className="to-next" onClick={nextImg} />
+            <ArrowForwardIos className="to-next" onClick={nextImg} /> 
+
+            
+
         {sliderData.map((slide,index)=>{
             return (
              

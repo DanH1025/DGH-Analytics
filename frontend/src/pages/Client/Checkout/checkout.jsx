@@ -154,7 +154,7 @@ export default function Checkout() {
 
   return (
     <>
-    <Topbar/>
+    {/* <Topbar/> */}
 
        <div className='checkout'>
          <div className='checkoutPath'>

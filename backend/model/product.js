@@ -30,6 +30,16 @@ module.exports = class Request {
     }
   }
 
+  //fetch all categories function
+  static fetchAllCategory(){
+    try {
+      const result = db.execute('SELECT * FROM category');
+      return result;
+    } catch (error) {
+        console.log(err)
+    }
+  }
+
   static fetchAll() {
     try{
        const result =db.execute('SELECT * FROM product');

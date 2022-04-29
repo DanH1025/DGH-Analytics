@@ -4,282 +4,140 @@
 }
 
 .productCard{
-    width: 90%;
-    height: fit-content;
     display: flex;
-    padding: 0;
-    margin: 0;
-   
+    width: 220px;
+    height: 260px;
+    padding: 2px;
+    margin: 5px;
+    border: 1px solid #172bec21;
+    border-radius: 2px;
+    transform: 0;
 }
+
+.productCard:hover{
+    border: 1px solid #0f22cb5c;
+    transform: scale(1.1);
+    transition: all ease-out 0.3s;
+    cursor: pointer;
+}
+
+
 .productCardWrapper{
     display: flex;
     flex-direction: column;
     width: 100%;
     height: 100%;
-    display: flex;
-    margin: 0;
     padding: 0;
+    margin: 0;
+   
 
 }
-.productCardTitle{
+.productCardHeader{
+    display: flex;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+
+}
+
+.productCardHeader p{
+    display: flex;
+    width: 100%;
+    padding: 4px;
+    margin: 0px 10px;
+    font-size: 12px;
+    font-weight: normal;
+    font-family: Verdana, Geneva, Tahoma, sans-serif !important;
+    color: darkblue;
+
+}
+/* .productCardTitle{
     justify-content: center;
     display: flex;
     align-items: right;
     font-size: 20px;
     font-weight: bolder;
 }
+ */
 
-.card{
+
+
+.productImageHolder{
+    display: flex;
+    width: 100%;
+    height: 75%;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    overflow: hidden;
+}
+
+.productImageHolder img{
+    top: 0;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding: 5%;
+    margin: 0;
+    object-fit: contain; 
+    transform: 0;  
+    overflow: hidden;
+}
+/* .productImageHolder img:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: all ease-in-out 0.4s;
+    overflow: hidden;
+
+} */
+.productCardBody{
+    width: 100%;
+    height: 25%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+}
+
+.productCardBody p{
+    display: flex;
     width: 100%;
-    height: fit-content;
-    padding: 0;
-    margin: 0;
-}
-.cardImg{
-    padding: 50%;
-    margin: 0;
-    overflow: hidden;
-    cursor: pointer;
-    transform: 0;
-}
-.cardImg:hover{
-    overflow: hidden;
-    transform: scale(1.2);
-    transition: all ease-in-out 0.6s;
-}
-.itemCardBodyHolder{
-    padding: 0;
-    margin: 0;
-}
-
-.ItemsCardBodyProductName p{
-    font-size: 14px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-weight: 300;
-    font-style: oblique;
-}
-.ItemsCardBodyProductBrand p{
-    font-size: 12px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-weight: lighter;
-    color: rgba(26, 19, 19, 0.37);
-    font-style: normal;
-}
-.ItemsCardBodyProductPrice p{
-    font-size: 13px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-weight: lighter;
-    color: rgb(13, 199, 38);
-    font-style: normal;
-}
-
-.itemCardBodyHolder.MuiCardContent-root {
     padding: 5px;
-    margin: 0px 10px;
+    margin: 4px 10px;
+    font-size: 13px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif !important;
+    color: green;
+    font-weight: lighter;
 }
 
-.itemCardActionButtonHolder.MuiCardActions-root{
-    padding: 0;
-    margin: 0;
-}
-.itemCardActionButtonHolder svg{
-    font-size: 17px;
-}
+
+
+
 
 
 /* media query for responsiveness */
 
-@media(max-width:900px ){
-    .card{
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        height: fit-content;
-    }
-    .ItemsCardBodyProductName p{
-        font-size: 12px;
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        font-weight: 300;
-        font-style: oblique;
-    }
-    .ItemsCardBodyProductBrand p{
-        font-size: 11px;
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        font-weight: lighter;
-        color: rgba(26, 19, 19, 0.37);
-        font-style: normal;
-    }
-    .ItemsCardBodyProductPrice p{
-        font-size: 12px;
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        font-weight: lighter;
-        color: rgb(13, 199, 38);
-        font-style: normal;
-    }
-    .cardImg{
-        width: 100%;
-        height: 100%;
-        padding: 40%;
-        margin: 0;
-        overflow: hidden;
-        cursor: pointer;
-        transform: 0;
-    }
-    .itemCardActionButtonHolder svg{
-        font-size: 16px;
-    }
+@media(max-width:910px ){
+   .productCard{    
+    width: 240px;
+    height: 260px;
     
-    .itemCardBodyHolder.MuiCardContent-root {
-        padding: 5px;
-        margin: 0px 10px;
-    }
-
-    .itemCardActionButtonHolder.MuiCardActions-root{
-        padding: 0;
-        margin: 0;
-    }
-    
+   }
     
 }
 @media(max-width:710px){
-    .ItemsCardBodyProductName p{
-        font-size: 11px;
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        font-weight: 300;
-        font-style: oblique;
-    }
-    .ItemsCardBodyProductBrand p{
-        font-size: 10px;
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        font-weight: lighter;
-        color: rgba(26, 19, 19, 0.37);
-        font-style: normal;
-    }
-    .ItemsCardBodyProductPrice p{
-        font-size: 11px;
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        font-weight: lighter;
-        color: rgb(13, 199, 38);
-        font-style: normal;
-    }
-    .itemCardActionButtonHolder svg{
-        font-size: 14px;
-    }
     
-    .itemCardBodyHolder.MuiCardContent-root {
-        padding: 5px;
-        margin: 0px 10px;
-    }
-
-    .itemCardActionButtonHolder.MuiCardActions-root{
-        padding: 0;
-        margin: 0;
-    }
     
 }
 
 
 
 @media(max-width:480px){
-    .card{
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        height: fit-content;
-    }
-    .ItemsCardBodyProductName p{
-        font-size: 11px;
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        font-weight: 300;
-        font-style: oblique;
-    }
-    .ItemsCardBodyProductBrand p{
-        font-size: 10px;
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        font-weight: lighter;
-        color: rgba(26, 19, 19, 0.37);
-        font-style: normal;
-    }
-    .ItemsCardBodyProductPrice p{
-        font-size: 11px;
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        font-weight: lighter;
-        color: rgb(13, 199, 38);
-        font-style: normal;
-    }
-    .cardImg{
-        width: 100%;
-        height: 100%;
-        padding: 40%;
-        margin: 0;
-        overflow: hidden;
-        cursor: pointer;
-        transform: 0;
-    }
-    .itemCardActionButtonHolder svg{
-        font-size: 13px;
-    }
     
-    .itemCardBodyHolder.MuiCardContent-root {
-        padding: 4px;
-        margin: 0px 6px;
-    }
-
-    .itemCardActionButtonHolder.MuiCardActions-root{
-        padding: 0;
-        margin: 0;
-    }
         
 }
 @media(max-width:375px){
-    .card{
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        height: fit-content;
-    }
-    .ItemsCardBodyProductName p{
-        font-size: 9px;
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        font-weight: 300;
-        font-style: oblique;
-    }
-    .ItemsCardBodyProductBrand p{
-        font-size: 8px;
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        font-weight: lighter;
-        color: rgba(26, 19, 19, 0.37);
-        font-style: normal;
-    }
-    .ItemsCardBodyProductPrice p{
-        font-size: 10px;
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        font-weight: lighter;
-        color: rgb(13, 199, 38);
-        font-style: normal;
-    }
-    .cardImg{
-        width: 100%;
-        height: 100%;
-        padding: 40%;
-        margin: 0;
-        overflow: hidden;
-        cursor: pointer;
-        transform: 0;
-    }
-    .itemCardActionButtonHolder svg{
-        font-size: 10px;
-    }
     
-    .itemCardBodyHolder.MuiCardContent-root {
-        padding: 3px;
-        margin: 0px 4px;
-    }
-
-    .itemCardActionButtonHolder.MuiCardActions-root{
-        padding: 0;
-        margin: 0;
-    }
 }

@@ -72,11 +72,11 @@ export const createUserByPhone = (FirstName,LastName,phone,password) => async (d
         dispatch({
             type: actionType.CREATE_USER_BY_PHONE_REQUEST,
         });
-        const { data } =  await api.createUserByPhoneNumber(FirstName,LastName,phone,password);
+         api.createUserByPhoneNumber(FirstName,LastName,phone,password);
 
         dispatch({
             type: actionType.CREATE_USER_BY_PHONE_SUCCESS,    
-            payload: data        
+            // payload: data        
         });
 
         
