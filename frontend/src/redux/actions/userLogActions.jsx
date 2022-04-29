@@ -24,6 +24,27 @@ export const getUserLog = () => async (dispatch)=>{
     }
 };
 
+export const getUserLogDetail = () => async (dispatch)=>{
+    try {
+        dispatch({
+            type: actionType.GET_USER_LOGS_COUNT_REQUEST,
+        });
+        const {data} = await api.fetchUserLogCounts();
+        console.log(data);
+        dispatch({
+            type: actionType.GET_USER_LOGS_COUNT_SUCCESS,
+            payload: data,
+        }); 
+    } catch (error) {
+        dispatch({
+            type:actionType.GET_USER_LOGS_COUNT_FAIL,
+            payload: 
+                error.response && error.response.data.message 
+                ?error.response.data.message:error.message,
+        });
+    }
+};
+
 export const createUserLog = (href, referrer, screenWidth, screenHeight, addToCart, reachedCheckout, purchased, date, time) => async (dispatch) => {
 	try{
     dispatch({
@@ -31,7 +52,7 @@ export const createUserLog = (href, referrer, screenWidth, screenHeight, addToCa
     });
 		const { data } = await  api.createUserLogs(href, referrer, screenWidth, screenHeight, addToCart, reachedCheckout, purchased, date, time);
 		
-		dispatch({ 
+	dispatch({ 
       type: actionType.CREATE_USER_LOGS_SUCCESS, 
       payload: data 
     });

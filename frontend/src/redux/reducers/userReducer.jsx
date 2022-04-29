@@ -51,5 +51,26 @@ export const getUserReducer = (state = {user: [] }, action)=>{
         default:
             return state;
     }
-    
+};
+
+export const getUserLogCount = (state = {userLog: [] }, action)=>{
+    switch(action.type){
+        case actionTypes.GET_USER_LOGS_COUNT_REQUEST:
+            return{
+                loading: true,
+                userLog: []
+            }
+        case actionTypes.GET_USER_LOGS_COUNT_SUCCESS:
+            return{
+                loading:false,
+                userLog: action.payload
+            }  
+        case actionTypes.GET_USER_LOGS_COUNT_FAIL:
+            return{
+                loading:false,
+                error: action.payload,
+            }
+        default:
+            return state;
+    }
 };

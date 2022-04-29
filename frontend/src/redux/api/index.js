@@ -82,6 +82,9 @@ export const createUserLogs = (href, referrer, screenWidth, screenHeight, addToC
 export const fetchUserLogs = () =>
   axios.post('http://localhost:5000/api/getUserLogs');  
 
+export const fetchUserLogCounts = () =>
+  axios.post('http://localhost:5000/api/getUserLogCount');  
+
 // orders detail
 export const fetchOrderReports = () =>
   axios.post(readOrderReportUrl);

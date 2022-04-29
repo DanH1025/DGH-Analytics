@@ -49,6 +49,16 @@ module.exports = class Request {
     }
   }
 
+  static completeOrderCompleteAll() {
+    try{
+       const result =db.execute("SELECT COUNT(status) AS orderNo FROM orders WHERE status = 'complete'");
+      //  console.log(result);
+       return result;
+    }catch(err){
+      console.log(err);
+    }
+  }
+
   static completeOrderComplete(date) {
     try{
        const result =db.execute("SELECT COUNT(status) FROM orders WHERE status = 'complete' AND date=?", [date]);

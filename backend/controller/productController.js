@@ -3,11 +3,15 @@ const ProductModel = require('../model/product');
 // const async = require('hbs/lib/async');
 
 const addProduct = (req, res) => {
-  const {productName,productPrice,productBrand,productCategory,productDetail,productImg} = req.body;
+  const {productName,productPrice,productBrand,productCategory,productDetail,productImg, amount} = req.body;
 
-  const prod = new ProductModel(productName,productPrice,productBrand,productCategory,productDetail,productImg);
+  const prod = new ProductModel(productName,productPrice,productBrand,productCategory,productDetail,productImg, amount);
 
-  prod.save();
+  try{
+    prod.save();
+  } catch(e) {
+    console.log(e);
+  }
 }
 
 const getProducts = async(req,res) => {

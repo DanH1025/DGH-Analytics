@@ -14,7 +14,7 @@ export default function Charts({title,middleTotal ,dates, chartData,chartType}) 
         show: false,
       },
       xaxis: {
-        categories: ['Mon','Tue','Wen','Thu','Fri','Sat','Sun',]
+        categories: dates
       },
       yaxis: {
         show: false,

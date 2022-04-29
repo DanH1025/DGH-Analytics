@@ -2,19 +2,20 @@
 const db = require('../database/dbConn')
 
 module.exports = class Request { 
-  constructor(productName,productPrice,productBrand,productCategory,productDetail,productImg){
+  constructor(productName,productPrice,productBrand,productCategory,productDetail,productImg, amount){
     this.productName = productName;
     this.productPrice = productPrice;
     this.productBrand = productBrand;
     this.productCategory = productCategory;
     this.productDetail = productDetail;
     this.productImg = productImg;
+    this.amount = amount;
   }
 
   save() {
     console.log('date save: ' + this.date);
     try{
-      db.execute('INSERT INTO product (productName,productPrice,productBrand,productCategory,productDetail,productImg, countInStock, status, visits) VALUES (?,?,?,?,?,?,?,?,?)', [this.productName, this.productPrice, this.productBrand, this.productCategory, this.productDetail, this.productImg, 10, 1, 0]);
+      db.execute('INSERT INTO product (productName,productPrice,productBrand,productCategory,productDetail,productImg, countInStock, status, visits) VALUES (?,?,?,?,?,?,?,?,?)', [this.productName, this.productPrice, this.productBrand, this.productCategory, this.productDetail, this.productImg, this.amount, 1, 0]);
     }catch(err){
       console.log('asdfasdf' + err);
     }

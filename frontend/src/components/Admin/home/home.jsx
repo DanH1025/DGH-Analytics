@@ -5,21 +5,13 @@ import OrderMap from "../OrderMap/orderMap";
 
 import Charts from '../../../components/Admin/charts';
 
-import {
-  LineChart,
-  Line,
-  XAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  YAxis,
-} from "recharts";
-
-import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from '@mui/material';
+import {Table, TableBody, TableCell, TableContainer, TableRow, Paper} from '@mui/material';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrders } from '../../../redux/actions/orderActions';
 import { getOrderReports, getOrderTotal } from "../../../redux/actions/orderReportAction";
+import { getUserLogDetail } from "../../../redux/actions/userLogActions";
+
 
 // const data = [
 //   {
@@ -57,17 +49,46 @@ export default function Home() {
  	useEffect(() => {
     dispatch(getOrderTotal());
  	  dispatch(getOrderReports());
-    dispatch(getOrders())
+    dispatch(getOrders());
+    dispatch(getUserLogDetail());
  	}, [dispatch]);
    
-
-  const prices = [];
-  const priceAverage = [];
-  const dates = [];
-  const orders = [];
   const orderTotals = useSelector((state) => state.getOrderTotal.total);
   const orderReports = useSelector((state) => state.getOrderReport.orderReports);
+  const userLog = useSelector((state) => state.userCount.userLog);
+
+  const days = ['Mon','Tue','Wen','Thu','Fri','Sat','Sun'];
+
+  let totalUserNo = 0;
+  let totalOrderNo = 0;
+  let totalUserNoToday = 0;
+  let addCartCount = 0;
+  let reachedCheckout = 0;
+  let purchaseCount = 0;
+  let userByHour = [];
+  {
+    userLog?.map((userlog) => {
+      console.log(userlog.noOFTotalUser);
+      //if(!userlog.noOFTotalUser === null){
+        totalUserNo = userlog.noOFTotalUser;
+        totalOrderNo = userlog.noOFTotalOrder;
+      
+      //if(!userlog.noOfTotalUserByDate === null){
+        totalUserNoToday = userlog.noOfTotalUserByDate;
+      
+      addCartCount = (userlog.cartCount/totalUserNo*100).toFixed(2);
+      reachedCheckout = (userlog.checkCount/totalUserNo*100).toFixed(2);
+      purchaseCount = (userlog.purchaseCount/totalUserNo*100).toFixed(2);
+      userByHour = userlog.noOfTotalUserByDateHour;
+    })
+  }
   
+  console.log('user log');
+  console.log(totalUserNo);
+  console.log(totalUserNoToday);
+  console.log(Object.keys(userByHour));
+
+
   let totalPrice = 0;
   let orderNo = 0;
   let average = 0;
@@ -77,34 +98,32 @@ export default function Home() {
     orderTotals?.map((repo) => {
       if(!repo.totalPrice === null){
         totalPrice = repo.totalPrice;
-      }else{
-        console.log('total price 0');
       }
       if(!repo.totalPrice === null){
         orderNo = repo.orders;
-      }else{
-        console.log('total order 0');
       }
       if(!repo.totalPrice === null){
         average = repo.average;
-      }else{
-        console.log('total average 0');
       }
       topProdByQun = repo.topProdByQun;
       topProdByPrice = repo.topProdByPrice;
     })
   } 
   console.log(topProdByQun);
+  
+  const prices = [];
+  const priceAverage = [];
+  const dates = [];
+  const orders = [];
   {
     orderReports?.map((order) => {
-      // console.log(order);
-      // console.log(order.total);
       dates.push(order.date);
       prices.push(order.total);
       orders.push(order.orders);
       priceAverage.push(order.average);
     })
   }
+
   console.log(orderReports);
   // console.log(prices);
   const stat = {
@@ -131,7 +150,7 @@ export default function Home() {
           <Charts 
             title='Total Sales'
             middleTotal={'$' +  totalPrice }
-            dates={dates}
+            dates={days}
             chartData={prices}
             chartType="line"
             />
@@ -140,21 +159,60 @@ export default function Home() {
           <Charts 
             title='Total Orders'
             middleTotal={orderNo}
-            dates={dates}
+            dates={days}
             chartData={orders}
             chartType="line"
             />
-        </div>
+        </div>        
         <div className="chart">
           <Charts 
             title='Averages'
             middleTotal={average}
-            dates={dates}
+            dates={days}
             chartData={priceAverage}
             chartType="line"
             />
         </div>
       </div>
+
+      <div className="charts">
+        <div className="chart">
+          <Charts 
+            title='Total online store visitor'
+            middleTotal={totalUserNoToday}
+            dates={Object.keys(userByHour)}
+            chartData={Object.values(userByHour)}
+            chartType="bar"
+            />
+        </div>
+        <div className="chart">
+          <div className="info">
+            <p>Online store conversion rate      .</p>
+            <a href="#">view report</a>
+          </div>
+          <div className="info">
+            <p className="price">{(totalOrderNo/totalUserNo*100).toFixed(2)} %</p>
+            <p>2+</p>
+          </div>
+          <div className="info">
+            <p className="price"></p>
+            <p></p>
+          </div>
+          <div className="info">
+            <p>Add to cart rate</p>
+            <p>{addCartCount} %</p>
+          </div>
+          <div className="info">
+            <p>Reaching checkout rate</p>
+            <p>{reachedCheckout} %</p>
+          </div>
+          <div className="info">
+            <p>Add to cart rate</p>
+            <p>{purchaseCount} %</p>
+          </div>
+        </div> 
+      </div>
+
       <div className="lineGraphHolder">     
       <div className="orders_container">
         <Chart
