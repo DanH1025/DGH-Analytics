@@ -29,33 +29,39 @@
 .topSide{
     display: flex;
     width: 100%;
-    height: 35px;
+    height: 30px;
     top: 0;
     background-color: rgba(255, 255, 255, 0.936);
-    margin: 0;
-    padding: 0;
-    align-items: center;
+    margin: 0px;
+    padding: 0px;
+    
     justify-content: space-between;
 }
 .topSideWrapper{
     display: flex;
     width: 90%;
     padding: 5px;
-    margin: 4px auto;
+    margin: 0px auto;
     height: 90%;
+    align-items: center;
+    top: 0;
 
 }
 .leftSide{
     display: flex;
     flex: 2;
+    width: 100%;
+    height: 100%;
 }
 .leftSide svg{
     margin: 0px 3px;
+
 
 }
 .rightSide{
     display: flex;
     flex-direction: 1;
+
 }
 
 .isLoggedIn{
@@ -92,13 +98,27 @@
     padding: 0;
     margin-right: 9px;
     margin-left: 4px;
+    height: fit-content;
          
 }
 .profile_info span{
-    font-size: 11px;
+    font-size: 10px;
     font-weight: lighter;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
+.logout_btn.MuiButton-outlinedSecondary.MuiButton-outlinedSizeSmall.MuiButton-sizeSmall{
+    width: fit-content;
+    height: fit-content;
+    padding: 0;
+    margin: 0;
+    background: red !important;
+    color: white;
+    font-variant: all-small-caps;
+    border: none;
+    border-radius: 2px;
+}
+
+
 .login_btn_container{
     display: flex;
     align-items: center;
@@ -129,13 +149,12 @@
     height: 60px;
     padding: 0;
     margin: 0px 5px;
-
     display: flex;
     align-items: center;
     justify-content: center;
 }
 .logoSide p,.logoSide span{
-    font-size: 23px;
+    font-size: 23px !important;
     font-weight: bolder;
     color: orange;
     display: flex;
@@ -183,6 +202,9 @@
 }
 .searchbtn{
     flex: 1;
+}
+.searchbtnLink svg{
+    font-size: 40px;
 }
 .searchCategorySelect{
     display: flex;
@@ -269,6 +291,7 @@
     align-items: center;
     justify-content: center;
     bottom: 0;
+    z-index: 10;
 }
 .stickyContent{
     width: 95%;
@@ -301,6 +324,9 @@
     padding: 4px;
     margin: 0px 20px;
     transform: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .cartIconHolder a{
     text-decoration: none;
@@ -308,12 +334,29 @@
 .infosIcons{
     color: white;
 }
-.cartIconHolder span , .wishlist span{
+.cartIconHolder span, .wishlist span {
     top: 0;
     color: white;
     bottom: 100%;
     padding: 0;
     margin-left: -5px;
+}
+
+.wishlist span,
+.cartIconHolder span{
+    padding: 3px;
+    top: 0;
+    color: rgb(255, 204, 0);
+    object-fit: contain;
+    font-size: 13px;
+    font-weight: bold;
+} 
+
+.wishlist svg,
+.cartIconHolder svg{
+    font-size: 25px;
+    font-weight: bolder !important;
+    color: rgb(255, 204, 0);
 }
 
 .wishlist:hover , .cartIconHolder:hover{
@@ -327,189 +370,6 @@
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* .topbarWrapper{
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-    margin: 0;
-
-} */
-/* .upperTopbar{
-    display: flex;
-    color: white;
-    padding: 0;
-    margin: 0;
-    justify-content: space-between;
-    border-bottom: 0.3px solid rgb(201, 198, 198);
-}
-.upperTopbar_left,.upperTopbar_right{
-    display: flex;
-}    */
-
-
-/* .orderNowInfo,.trackOrder,.signUp{
-    display: flex;
-    text-decoration: none;
-    color: white;
-    cursor: pointer;
-    align-items: center;
-    margin: 0px 20px;   
-}
-
-.upperTopbarIconPhone,
-.upperTopbarIconEvent,
-.upperTopbarIconSetting{
-    margin-right: 5px;
-    font-size: 15px !important  ;
-} */
-
-/* 
-.signUp{
-    display: flex;
-    width: 200px;
-    align-items: center;
-    justify-content: right;
-    margin: 0px 5px;
-    height: fit-content;
-}
-
-.account_info{
-    display: flex;
-    padding: 0;
-    margin: 0px 7px;
-}
-
-.logout_btn{
-    background-color: red;
-    border: none;
-    border-radius: 2px;
-    padding: 3px;
-    margin: 3px;
-    width: fit-content;
-    height: fit-content;
-    font-size: 11px;
-} */
-/* .login_btn{
-    background-color: rgba(15, 165, 175, 0.695);
-    border: none;
-    border-radius: 2px;
-    padding: 3px;
-    margin: 3px;
-    width: fit-content;
-    height: fit-content;
-    font-size: 11px;
-    color: white;
-} */
-
-
-/* .MuiButton-containedSecondary{
-    width: fit-content;
-    height: fit-content;
-    padding: 0px;
-    margin: 3px 0px;
-    background-color: red;
-}
-.MuiButton-containedSecondary span{
-    font-size: 10px;
-    font-variant-ligatures: discretionary-ligatures;
-    
-} */
-
-/* .profile{
-    background-color: white;
-    
-    
-}
-
-.currency p
-,.orderNowInfo p 
-,.signUp p
-,.trackOrder a{
-    display: flex;
-    font-size: 11px;
-    font-weight: lighter;
-    padding-left: 3px;
-    margin: 2px 4px;
-    color: white;
-} */
-
-
-
-
-/* 
-.middleTopbar{
-    display: flex;
-    color: white;
-    padding: 0;
-    margin: 10px 10px;
-    justify-content: space-around;
-    
-} */
-
-
-
-/* .search{
-    display: flex;
-    flex: 2.5;
-    padding: 0;
-    margin: 0;
-    height: 40px;
-    background-color: white;
-    color: black;
-    border: none;
-    border-radius: 50px;
-    align-items: center;
-
-} */
-
-
-
-
-
-
-
-/* .category .MuiSelect-outlined{
-    outline: none;
-    border: none;
-} */
-
-/* 
-.searchCategory .MuiSelect-selectMenu p{
-    color: rgb(0, 0, 0);
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.searchCategory:focus{
-    border: 0;
-    outline: none;
-}
-.searchCategory:active{
-    border: 0;
-    outline: none;
-} */
 
 
 .searchInput{
@@ -568,118 +428,6 @@
 }
 
 
-/* .infos{
-    display: flex;
-    flex:1;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-    margin: 0;
-} */
-
-
-
-
-
-
-/* .bottomTopbar{
-    display: flex;
-    padding: 0px;
-    margin: 0px;
-
-} */
-
-/* .bottomTobbarWrapper{
-    display: flex;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    flex-direction: row;
-    justify-content: space-between;
-    
-}
-.bottomTopbar-left{
-    display: flex;
-    flex: 2;
-    justify-content: left;
-    width: 100%;
-    margin:0;
-    padding: 0;
-    
-}
-
-.allCategorySelection {
-    width: 50%;
-    margin: 5px 20px;
-    outline: white ;
-    height: 90%;
-}
-
-.allcategory.MuiInputBase-formControl{
-    display: flex;
-    background-color: #2a274e;
-    color:white;
-    height: 60%;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    margin: 10px auto;
-    margin-left: 10px;
-    
-} */
-/* .MuiInputBase-input.MuiOutlinedInput-input{
-    display: flex;
-  
-    align-items: center;
-} */
-/* 
-
-.allcategory{
-    display: flex;
-    text-decoration: none;
-    text-underline-offset: none;
-    align-items: center;
-
-}
-
-.allcategory .MuiSelect-selectMenu p{
-    color: rgb(255, 255, 255);
-    font-size: 12px;
-   
-} */
-
-
-/* .allCategoryMenuItem p{
-    font-size: 12px;
- 
-}
-
-.menuItemIcons{
-    padding: 0;
-    display: flex;
-    font-size: 12px;
-    align-items: center;
-    margin: 0px 11px; 
-    
-}
-
-.allcategory svg{
-    color: rgb(12, 233, 196);
-}
- */
-
-
-
-
-/* 
-.bottomTopbar-right{
-    display: flex;
-    flex: 6;
-    flex-direction: row;
-    align-items: center;
-    margin: 0;
-    padding: 0;  
-} */
 .lowerSelection{
     list-style: none;
     display: flex;
@@ -698,7 +446,7 @@
 }
 .lowerSelectionItem:hover{
     transform: scale(1.2);
-    color: rgb(31, 221, 228);
+    font-weight: bolder;
     transition: all ease 0.4s;
 }
 
@@ -706,24 +454,8 @@
 /* media for responsiveness */
 
 @media(max-width: 910px){
-    .currency p
-    ,.orderNowInfo p 
-    ,.signUp p
-    ,.trackOrder a{
-        font-size: 9px;
-      
-    }
-    .upperTopbarIconPhone,
-    .upperTopbarIconEvent,
-    .upperTopbarIconSetting{
-        font-size: 13px !important  ;
-    }
-    
-    .search{
-        flex: 3;
-    }
-    .searchCategory .MuiSelect-selectMenu p{
-        font-size: 9px;      
+    .leftSide p{
+        font-size: 11px;
     }
     
     .searchInput input{
@@ -755,7 +487,10 @@
         font-size: 10px !important;              
     }
    
-    
+    .MuiSelect-outlined.MuiInputBase-input.MuiOutlinedInput-input{
+        font-size: 12px ;
+    }
+  
     
     
     
@@ -765,29 +500,18 @@
 
 
 @media(max-width: 700px){
-    .currency p
-    ,.orderNowInfo p 
-    ,.signUp p
-    ,.trackOrder a{
-        font-size: 7px;
-      
-    } 
-    .upperTopbarIconPhone,
-    .upperTopbarIconEvent,
-    .upperTopbarIconSetting{
-        font-size: 11px !important  ;
+    .profilePic {
+        height: 25px;
+        width: 25px;
     }
-    
-    .search{
-        flex: 2.5;       
-        height: 30px;               
+    .profile_info span{
+        font-size: 10px;
     }
-    .searchCategory .MuiSelect-selectMenu p{
-        color: rgb(0, 0, 0);
-        font-size: 8px;
-    }
-
-    
+    .logout_btn.MuiButton-outlinedSecondary.MuiButton-outlinedSizeSmall.MuiButton-sizeSmall{
+        width: fit-content;
+        height: fit-content;
+        font-size: 10px;
+    }     
     .searchInput input{
         width: 100%;
         height: 60%;
@@ -799,70 +523,42 @@
         border-left: 1px solid black;
     
     }
-    .infos svg{
-        font-size: 15px;
+    
+    .wishlist svg,.cartIconHolder svg{
+        font-size: 20px;
     }
    
     .cartIconHolder span , .wishlist span{
       font-size: 10px;
     }
-    .allCategoryMenuItem p{
-        font-size: 9px;
+
+    .logoSide img{
+        width: 50px;
+        height: 50px;  
     }
-    .allcategory .MuiSelect-selectMenu p{
-        color: rgb(255, 255, 255);
-        font-size: 9px;
+    .logoSide p,.logoSide span{
+        font-size: 20px !important;
+        font-weight: bolder;
+        color: orange;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
-    .lowerSelectionItem{
-        font-size: 9px !important;              
+
+    .MuiSelect-outlined.MuiInputBase-input.MuiOutlinedInput-input{
+        font-size: 11px ;
     }
-    
+    .searchbtnLink svg{
+        font-size: 35px;
+    }
+  
     
     
 
 }
 
 @media(max-width:560px){
-    .currency p
-    ,.orderNowInfo p,
-    .signUp p 
-    ,.trackOrder a ,
-    .trackOrder svg,
-    .orderNowInfo svg,
-    .upperTopbarIconPhone,
-    .upperTopbarIconEven{
-        display: none;
-      
-    } 
-    .upperTopbar{
-     border: none;
-    }
-  
-    
-    .upperTopbarIconSetting{
-        font-size: 14px !important  ;
-        margin: 4px -8px;
-    }
-
-    .middleTopbar{
-        display: flex;
-        flex-direction: column;
-        color: white;
-        padding: 0;
-        margin: 0px 10px;
-        justify-content: space-around;
-        height: 40%;
-        
-    }
-    .search{
-        height: 10%;               
-    }
-    .searchCategory .MuiSelect-selectMenu p{
-        color: rgb(0, 0, 0);
-        font-size: 7px;
-    }
-
-    
+       
     .searchInput input{
         width: 100%;
         height: 60%;
@@ -874,197 +570,104 @@
         border-left: 1px solid black;
     
     }
-    .infos svg{
-        margin-top: 5px;
+  
+    .cartIconHolder span , .wishlist span{
+      font-size: 10px;
+    }
+    
+    .lowerSelection{
+        list-style: none;
+        display: flex;
+        width: 100%;
+        align-items: center;
+        margin: 0px 0px;
+        justify-content: space-between;
+      
+    }
+    .wishlist svg,.cartIconHolder svg{
+        font-size: 18px;
+    }
+   
+    .cartIconHolder span , .wishlist span{
+      font-size: 9.5px;
+    }
+
+    .logoSide img{
+        width: 40px;
+        height: 40px;  
+    }
+    .logoSide p,.logoSide span{
+        font-size: 16px !important;
+    }
+    .logoSide{      
+        flex:1;   
+    
+    }
+    .searchBarSide{
+        flex: 2.4;
+    }
+    .searchbtnLink svg{
+        font-size: 30px;
+    }
+    
+    
+    
+}
+
+
+
+
+@media(max-Width: 400px){
+    .profilePic {
+        height: 20px;
+        width: 20px;
+    }
+    .profile_info span{
+        font-size: 8px;
+    }
+    .leftSide p{
+        display: none;
+    }
+    .leftSide svg{
+        font-size: 15px;
+    }
+    .logout_btn.MuiButton-outlinedSecondary.MuiButton-outlinedSizeSmall.MuiButton-sizeSmall{
+        width: fit-content;
+        height: fit-content;
+        font-size: 8px;
+        padding: 0;
+        margin: 0;
+    }
+    
+    
+    .wishlist svg,.cartIconHolder svg{
         font-size: 15px;
     }
    
     .cartIconHolder span , .wishlist span{
-      font-size: 10px;
+      font-size: 9.5px;
     }
-    .allCategoryMenuItem p{
-        font-size: 7px;
-    }
-    .allcategory .MuiSelect-selectMenu p{
-        color: rgb(255, 255, 255);
-        font-size: 7px;
-    }
-    .lowerSelectionItem{
-        font-size: 8px !important;              
-    }
-    
-    
-    
-}
-
-@media(max-Width: 350px){
-    .infos svg{
-        margin-top: 5px;
-        font-size: 13px;
-    }
-    .lowerSelectionItem{
-        font-size: 6.5px !important;              
-    }
-
-    .allcategory .MuiSelect-selectMenu p{
-        color: rgb(255, 255, 255);
-        font-size: 6px;
-    }
-    
-}
-
-
-/* media for responsiveness */
-
-
-/* @media(max-width: 1040px){
-    *{
-        font-size: 11px;
-    }
-    .bottomTopbar-left{
-        display: flex;
-        flex: 2;
-        justify-content: left;
-        width: 100%;
-        margin-left: 10px;
-        
-    }
-    .allCategorySelection{
-        width: 35%;
-    }
-    .allCategoryLable,.searchCategoryLable{
-        font-size: 13px;
-    }
-
-} */
-/* 
-@media(max-width: 830px){
-    .allCategorySelection{
-        width: 34%;
-    }
-    .bottomTopbar-left{
-        flex:3;
-    }
-    .allCategoryLable,.searchCategoryLable{
-        font-size: 12px;
-    }
-}
-@media(max-width: 760px){
-    .lowerSelectionItem{
-        font-size: 14px;
-    }
-    .searchbtn{
-        flex: 0.1;
-        padding: 0;
-        margin: 0   ;
-    }
-    .bottomTopbar-left{
-        flex: 3;
-    }
-    .bottomTopbar-right{
-        flex: 2;
-    }
-    .allCategorySelection{
-        width: 20%;
-    }
-    .searchWrapper{
-        width: 80%;
-        margin: 0px 5px;
-    }
-    .allCategoryLable,.searchCategoryLable{
-        font-size: 11px;
-    }
-
-
-}
-@media(max-width: 682px){
-    .currency,.orderNowInfo,.trackOrder,.signUp{
-        font-size: 9px;
-
-    }
-    .searchWrapper{
-        width: 100%;
-        margin: 0px 10px;
-    }
-
-    .lowerSelectionItem{
-        font-size: 12px;
-    }
-    .bottomTopbar-left{
-        flex:2;
-        width: 100%;
-    }
-    .bottomTopbar-right{
-        flex:4;
-    }
-    .allCategorySelection{
-        width: 50%;
-    }
-    .middleTopbar{
+    .bottomSide{
         display: flex;
         flex-direction: column;
-        width: 100%;
-        align-items: center;
-        
-    }
-    .search{
-        width: 90%;
-        margin: 4px 9px;
-        justify-content: center;
-        align-items: center;
-    }
-    .currency,.orderNowInfo,.trackOrder,.signUp{
-        font-size: 9px;
-
-    }
-    .allCategoryLable,.searchCategoryLable{
-        font-size: 10px;
     }
 
-
+    .logoSide img{
+        width: 35px;
+        height: 35px;  
+    }
+    .logoSide p,.logoSide span{
+        font-size: 14px !important;
+    }
+  
+    .searchbtnLink svg{
+        font-size: 30px;
+    }
+    .lowerSelectionItem{
+        font-size: 7px !important;
+    }
+    
+    
 }
-
-
-@media(max-width:500px){
-    .middleTopbar{
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        align-items: center;
-        
-    }
-    .search{
-        width: 95%;
-        margin: 4px 9px;
-        justify-content: center;
-        align-items: center;
-    }
-    .currency,.orderNowInfo,.trackOrder,.signUp{
-        font-size: 6px;
-
-    }
-    .allCategoryLable,.searchCategoryLable{
-        font-size: 9px;
-    }
-}
-
-@media(max-width: 453px){
-    .bottomTopbar-left{
-        width: 100%;
-    }
-    .allCategorySelection{
-        width: 70%;
-    }
-    .lowerSelectionItem,.bottomTopbar-left{
-        font-size: 10px;
-        margin-top: 0;
-        margin-bottom: 20px;
-    }
-    .allCategoryLable,.searchCategoryLable{
-        font-size: 8px;
-    }
-}
-
- */
 
 

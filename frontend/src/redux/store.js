@@ -7,6 +7,7 @@ import { getUserReducer } from './reducers/userReducer';
 import { getOrdersReducer, getOrderDetailsReducer, getOrderReportsReducer, getOrderTotalReducer } from './reducers/orderReducer'
 import { wishlistReducer } from './reducers/wishlistReducer';
 import { loginReducer } from './reducers/loginReducer';
+import { getCagegoryReducer } from './reducers/categoryReducers';
 
 const reducer = combineReducers({
   getProduct: getProductsReducer,
@@ -20,6 +21,7 @@ const reducer = combineReducers({
   getOrderDetail: getOrderDetailsReducer,
   getOrderReport: getOrderReportsReducer,
   getOrderTotal: getOrderTotalReducer,
+  getCategory: getCagegoryReducer,
   // users: loginReducer
 })
 
