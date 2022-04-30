@@ -62,7 +62,8 @@ export default function ProductCard( props ) {
           </div>
       </div>
     </Link>
-    {/* <div className='productCard'>
+    {
+    /* <div className='productCard'>
       <div className="productCardWrapper">
         <div className="cardView">
           <Card className='card' >
