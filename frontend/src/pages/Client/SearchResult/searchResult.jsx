@@ -75,9 +75,10 @@ export default function SearchResult() {
             <ul>
               <li><DisplayStart rating={5}/></li>
               <li><DisplayStart rating={4}/></li>
-              <li><Button onClick={handleButton}><DisplayStart rating={3}/></Button></li>
-              <li><Button onClick={handleButton}><DisplayStart rating={2}/></Button></li>
-              <li><Button onClick={handleButton}><DisplayStart rating={1}/></Button></li>  
+              <li><DisplayStart rating={3}/></li>
+              <li><DisplayStart rating={2}/></li>
+              <li><DisplayStart rating={1}/></li>  
+              {/* <li><Button onClick={handleButton}><DisplayStart rating={1}/></Button></li>   */}
             </ul>
           </div>
 
