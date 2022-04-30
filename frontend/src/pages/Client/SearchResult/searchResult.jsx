@@ -31,11 +31,11 @@ export default function SearchResult() {
   const dispatch = useDispatch();
 
   const [price, setPrice] = useState({
-    min: "0",
-    max: "0"
+    min: "",
+    max: ""
   });
 
-  const [amount, setAmount] = useState("0");
+  const [amount, setAmount] = useState("");
 
  	// useEffect(() => {
  	//   dispatch(getProductsBySearch(name, category));
