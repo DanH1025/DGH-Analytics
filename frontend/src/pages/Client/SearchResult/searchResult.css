@@ -2,6 +2,30 @@
   padding: 0;
   margin: 0;
 }
+
+.searchPage{
+  display: flex;
+  flex-direction: row;
+}
+
+.searchPage .searchBar{
+  width: 250px;
+  padding: 10px;
+  margin: 20px;
+}
+
+.searchPage .searchBar .onAmount{
+  margin-bottom: 15px;
+}
+
+.searchPage .searchBar .row{
+  display: flex;
+}
+
+.searchPage .searchBar span{
+  padding: 0 4px;
+}
+
 /*
 body {
   margin: 0;
