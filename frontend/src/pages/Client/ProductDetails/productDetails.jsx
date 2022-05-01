@@ -1,32 +1,100 @@
 import { useState,useEffect } from 'react';
 import './productDetails.css'
-
 import Topbar from '../../../components/Client/topbar/topbar'
 import Footer from '../../../components/Client/footer/footer'
-
-import RemoveOutlinedIcon from 
-    '@material-ui/icons/RemoveOutlined';
-import AddOutlinedIcon 
-    from '@material-ui/icons/AddOutlined';
-import IconButton from '@material-ui/core/IconButton';
-import { Button, message } from 'antd';
-import AddShoppingCartOutlinedIcon from 
-    '@material-ui/icons/AddShoppingCartOutlined';
-import FavoriteBorderOutlinedIcon from 
-    '@material-ui/icons/FavoriteBorderOutlined';
-
-import { getProductsDetails } from '../../../redux/actions/productActions';
+import RemoveOutlinedIcon from   '@material-ui/icons/RemoveOutlined';
+import AddOutlinedIcon   from '@material-ui/icons/AddOutlined';
+import {  message } from 'antd';
+import Button from '@material-ui/core/Button';
+import AddShoppingCartOutlinedIcon from  '@material-ui/icons/AddShoppingCartOutlined';
+import FavoriteBorderOutlinedIcon from  '@material-ui/icons/FavoriteBorderOutlined';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart , addToCartRecord } 
-    from '../../../redux/actions/cartActions';
-import {addToWishlist} 
-    from '../../../redux/actions/wishlistAction'
-import { getProductsById } 
-    from '../../../redux/actions/productActions';
-
+import { addToCart , addToCartRecord }  from '../../../redux/actions/cartActions';
+import {addToWishlist} from '../../../redux/actions/wishlistAction'
+import { getProductsById }  from '../../../redux/actions/productActions';
 import { useParams } from 'react-router-dom';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
+import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import PhoneIcon from '@material-ui/icons/Phone';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import PersonPinIcon from '@material-ui/icons/PersonPin';
+import HelpIcon from '@material-ui/icons/Help';
+import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
+import ThumbDown from '@material-ui/icons/ThumbDown';
+import ThumbUp from '@material-ui/icons/ThumbUp';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 
-export default function ProductDetails({ history }) {
+
+
+
+
+
+
+//functions for tabs 
+
+function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+  
+    return (
+      <div
+        role="tabpanel"
+        hidden={value !== index}
+        id={`scrollable-force-tabpanel-${index}`}
+        aria-labelledby={`scrollable-force-tab-${index}`}
+        {...other}
+      >
+        {value === index && (
+          <Box p={3}>
+            <Typography>{children}</Typography>
+          </Box>
+        )}
+      </div>
+    );
+  }
+  
+  TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.any.isRequired,
+    value: PropTypes.any.isRequired,
+  };
+  
+  function a11yProps(index) {
+    return {
+      id: `scrollable-force-tab-${index}`,
+      'aria-controls': `scrollable-force-tabpanel-${index}`,
+    };
+  }
+  
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      flexGrow: 1,
+      width: '90%',
+      backgroundColor: theme.palette.background.paper,
+    },
+  }));
+  
+
+
+
+
+  
+
+
+export default function ProductDetails() {
+
+    const classes = useStyles();
+    const [value, setValue] = useState(0);
+  
+    const handleChange = (event, newValue) => {
+      setValue(newValue);
+    };
+  
 
     const {id} = useParams();
     // console.log('id = ' + id);
@@ -84,7 +152,7 @@ export default function ProductDetails({ history }) {
         }else{
 
             dispatch(addToCart(product.id , qtyCounter));
-            history.push('/cart');
+
             dispatch(addToCartRecord(product.id, qtyCounter))
             message.success("Added to Shopping Cart")
 
@@ -94,84 +162,141 @@ export default function ProductDetails({ history }) {
     // adding to wishlist
     const addToWishlistHandler = ()=>{
         dispatch(addToWishlist(product.id))
-        history.push('/wishlist')
         message.success("Added to wishlist")
     }
+    const commentHandler = () =>{
+        message.success("Comment Submited");
+    }
+
 
 
   return (
      <> 
      <Topbar/>
-        <div className='productDetials'>
+        <div className="productDetailView">
             <div className="productDetailsWrapper">
-                <div className="pathTitle">
-                    <p>    Home / {product.productName} </p>
+                <div className="productPathTitle">
+                     <p>    Home / {product.productName} </p>
                 </div>
-                <div className="productDetailContainer">
-                    <div className="productImgHolder">
-                            <img src={product.productImg} />
-                    </div>
-                    <div className="productInfoHolder">
-
-                        <div className='productInfo'>
-                            <div className="productNameHolder">
-                                <p>{product.productName}</p>
+                <div className="productDetailsInfo">
+                    <div className="productDetailsInfoWrapper">
+                        <div className="productImageSide">
+                            <div className="productDetailImageHolder">
+                                <img src={product.productImg} />
                             </div>
-                            <div className="productRatingHolder">
-                                <span>Ratting starts</span>
-                            </div>
-                            <div className="productPriceHolder">
-                                
-                                 <p> ${product.productPrice}</p>    
-                            </div>
-                            <div className="productDescription">
-                                <span>Description</span>
-                                <p>{product.productDetail}</p>
-                            </div>
-                            <div className="productBrand">
-                            <span>{product.productBrand}</span> <br />
-                            
-                            </div>
-                            <div className="productStatus">
-                                <span>Status:  <p> {product.countInStock > 0? "In Stock" : "Out of Stock"}</p></span>
-                            </div>
-
-                        
-                            <div className="addingToCart">
-
-                                <div className="addQtyHolder">
-                                <p> Qty: <span> <RemoveOutlinedIcon onClick={handleMinQty} />
-                                    <input type="text"
-                                            min={0}
-                                            value={qtyCounter}
+                        </div>
+                        <div className="productDetailsSide">
+                            <div className="productDetailsContainer">
+                                <div className="productNameDetail">
+                                    <p>{product.productName}</p>
+                                </div>
+                                <div className="productRatingDetail">
+                                    <span>                   
+                                        <StarBorderIcon style={product.rating >=1? {color:'orange',fontWeight:'bolder'}: {color:'#80808066'}} />
+                                        <StarBorderIcon style={product.rating >=2? {color:'orange',fontWeight:'bolder'}: {color:'#80808066'}}/>
+                                        <StarBorderIcon style={product.rating >=3? {color:'orange',fontWeight:'bolder'}: {color:'#80808066'}}/>
+                                        <StarBorderIcon style={product.rating >=4? {color:'orange',fontWeight:'bolder'}: {color:'#80808066'}}/>
+                                        <StarBorderIcon style={product.rating >=5? {color:'orange',fontWeight:'bolder'}: {color:'#80808066'}}/>
+                                    </span>       
+                                </div>
+                                <div className="productPriceDetail">
+                                    <p>{product.productPrice} ETB</p>  
+                                </div>
+                                <div className="productInfoDetail">                                    
+                                    <p>Brand : {product.productBrand}</p>
+                                    <p>Availability : {product.countInStock > 0? "In Stock" : "Out of Stock"} </p>
+                                </div>
+                                <div className="productDescriptionShortDetail">
+                                        <p>{product.productDetail}</p>
+                                </div>
+                                <div className="productAddToStock">
+                                    <p> Qty: <span> <RemoveOutlinedIcon onClick={handleMinQty} />
+                                                <input type="text"
+                                                        min={0}
+                                                        value={qtyCounter}
+                                                            
+                                                /> <AddOutlinedIcon  onClick={handlePlusQty} /> 
                                                 
-                                    /> <AddOutlinedIcon  onClick={handlePlusQty} /> 
-                                    
                                             </span>
                                     </p>
+                                    <div className="productAddToStockButtonHolder">
+                                        <Button variant='contained' type='primary'                                        
+                                            onClick={addToCartHandler}
+                                            startIcon={<AddShoppingCartOutlinedIcon/> }
+                                            >                                        
+                                            Add To Cart 
+                                        </Button>
+                                        <Button variant='outlined'    
+                                            className='wishlist_btn'                                     
+                                            onClick={addToWishlistHandler}
+                                            startIcon={<FavoriteBorderOutlinedIcon /> }
+                                            >                                        
+                                            Add To WishList 
+                                        </Button>
+                                    </div>
+
+                                   
+                                   
                                 </div>
-
-                                <div className="addToCartBtnHolder">
-                                    <Button type="primary"  className='add_to_cart_btn' onClick={addToCartHandler}>
-                                    <AddShoppingCartOutlinedIcon/> <p>Add To Cart </p>
-                                    </Button>
-                                    
-                                    <IconButton aria-label="add to wish list" onClick={addToWishlistHandler}>
-                                        <FavoriteBorderOutlinedIcon />
-                                    </IconButton>
-
-
-                                </div>
-
-
+                                {/* <div className="productAddToWishList">
+                                    <FavoriteBorderOutlinedIcon />  <p>Add to Wish List </p>
+                                </div> */}
                             </div>
                         </div>
                     </div>
+                </div>
+                <div className="productDetailDescriptions">
 
                 </div>
             </div>
         </div>
-    
+        
+
+        <div className="bottomTabContainer">       
+
+                <div className={classes.root}>
+            <AppBar position="static" color="default">
+                <Tabs
+                value={value}
+                onChange={handleChange}
+                variant="scrollable"
+                scrollButtons="on"
+                indicatorColor="primary"
+                textColor="primary"
+                aria-label="scrollable force tabs"
+                >
+                <Tab label="Description"  {...a11yProps(0)} />
+                <Tab label="Reviews" {...a11yProps(1)} />
+                {/* <Tab label="" icon={<PersonPinIcon />} {...a11yProps(2)} /> */}
+                
+                </Tabs>
+            </AppBar>
+                    <TabPanel value={value} index={0}>
+                        {product.productDetail}
+                    </TabPanel>
+                    <TabPanel value={value} index={1}>
+                      <TextareaAutosize 
+                            className='commentTextArea'
+                            aria-label="review product" 
+                            minRows={4} 
+                            placeholder="Comment here ..." />
+
+                                        <Button variant='outlined'    
+                                        className='comment_btn'                                     
+                                        onClick={commentHandler}                                        
+                                        >                                        
+                                        Submit
+                                    </Button>
+                    </TabPanel>
+                    {/* <TabPanel value={value} index={2}>
+                        Item Three
+                    </TabPanel> */}
+                
+            </div>
+    </div>
+
+
+      
         <Footer/>
     </>
   )

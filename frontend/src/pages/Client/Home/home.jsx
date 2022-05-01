@@ -139,12 +139,15 @@ export default function Home() {
                         <h3>New Products     <StarsSharpIcon/></h3> 
                         <span>Top 5 newest Products for you</span>
                     </div>
-                    <div className="newItemsContainer">
-                          <ProductCard/>
-                            <ProductCard/>
-                            <ProductCard/>
-                            <ProductCard/>
-                            <ProductCard/>
+                    <div className="newItemContainerContent"> 
+                        <div className="newItemsContainer">
+                             <ProductCard/>
+                              <ProductCard/>
+                              <ProductCard/>
+                              <ProductCard/>
+                              <ProductCard/>
+                        </div>
+                         
                       </div>
                       
 

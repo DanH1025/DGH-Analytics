@@ -8,7 +8,20 @@ body{
     margin: 0;
 
 }
-.productDetials{
+
+.productDetailView{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding:0;
+    margin: 0;
+    background-color: aliceblue;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* .productDetials{
     display: flex;
     flex-direction: column;
     padding: 0;
@@ -17,18 +30,19 @@ body{
     height: 100%;
 
 
-}
+} */
 .productDetailsWrapper{
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 98%;
     height: 100%;
-    padding: 0;
+    padding: 4px;
     margin: 0;
-  
+    background-color: white; 
 
 }
-.pathTitle{
+
+.patproductPathTitlehTitle{
     display: flex;
     width: 100%;
     margin: 0;
@@ -36,360 +50,715 @@ body{
  
 }
 
-.pathTitle p{
+.productPathTitle p{
     padding: 5px;
     color: rgb(163, 159, 159);
-    font-style: normal;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
     margin: 10px 15px;
     font-size: 12px;
     font-weight: lighter;
 }
 
-.productDetailContainer{
+
+.productDetailsInfo{
     display: flex;
     width: 100%;
-    height: 100%;
+    height: 550px;
     padding: 0;
-    margin: 0;
-
-
-}
-.productImgHolder{
-    display: flex;
-    flex: 1;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    height: fit-content;
-   
-}
-
-.productImgHolder img{
-    display: flex;
-    width: 100%;
-    height: fill;
-    padding: 5px;
-    margin: 2px 15px;
-    cursor: pointer;
-    border: none;
-    border-radius: 3px;
-}
-
-
-.productInfoHolder{
-    display: flex;
-    flex-direction: column;
-    flex: 1.3;
-    padding: 0;
-    width: 100%;
-    height: 100%;
     margin: 0;
     align-items: center;
     justify-content: center;
 }
-.productInfo{
-    padding: 15px;
-    margin: 10px auto;
-    width: 70%;
-    background-color:rgb(219 218 219 / 51%);
-    border: none;
-    border-radius: 4px;
-    
+.productDetailsInfoWrapper{
+    display: flex;
+    width: 99%;
+    height: 99%;
+    padding: 0;
+    margin: 0;
 }
 
-.productNameHolder , 
-.productPriceHolder,
-.productRatingHolder,
-.productBrand,
-.productStatus{
-    width: 100%;
-   display: flex; 
-   height: 40px;
+
+.productImageSide{
+    display: flex;
+    flex: 1;      
     padding: 0;
     margin: 0;
     align-items: center;
+    justify-content: center;
 }
-.productNameHolder p{
+.productDetailImageHolder{
     display: flex;
-    font-size: 20px;
-    font-weight: lighter;
-    color: rgb(56, 48, 48);
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    padding: 5px;
-    margin: 8px 15px;
-}
-.productStatus span{
-    display: flex;
-    font-size: 16px;
-    font-weight: lighter;
-    color: rgba(56, 48, 48, 0.671);
-    padding: 5px;
-    margin: 8px 15px;
-    align-items: center;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-.productStatus p{
-    display: flex;
-    font-size: 17px;
-    font-weight: normal;
-    color: rgba(56, 48, 48, 0.671);
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
- 
-
-}
-.productBrand span{
-    display: flex;
-    font-size: 15px;
-    font-weight: lighter;
-    color: rgb(56, 48, 48);
-    padding: 5px;
-    margin: 8px 15px;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-.productPriceHolder p,
-.productRatingHolder span{
-    display: flex;
-    font-size: 16px;
-    font-weight: 400;
-    color: rgb(10, 212, 54);
-    padding: 5px;
-    margin: 8px 15px;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.productDescription{
-    padding: 0;
-    margin: 0;
-    height: fit-content;
-}
-.productDescription span{
-    padding: 2px;
-    margin: 0px 10px;
-    font: 13px;
-    color: rgb(173, 173, 173);
-    height: fit-content;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-
-.productDescription p{
     width: 100%;
     height: 100%;
-    padding: 3px;
-    margin: 2px 15px;
-    font-size: 12px !important;
-    color: black;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    
+    align-items: center;
+    justify-content: center;
+    object-fit: contain;
+    padding: 0;
+    margin: 0;
+
+
+
+}
+.productDetailImageHolder img{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 
+.productDetailsSide{
+    display: flex;
+    flex: 1;    
+    border: 1px solid rgb(10 10 131 / 13%);
+    border-radius: 2px;
+    justify-content: center;
+}
 
-.addingToCart{
+.productDetailsContainer{
+    display: flex;
+    flex-direction: column;
+    width: 97%;
+    height: 100%;
+    padding: 3%;
+    margin: 0;
+
+}
+
+.productNameDetail{
+    display: flex;
+    width: 100%;
+    height: 60px;
+    padding: 0; 
+    margin: 0;
+    align-items: center;
+}
+.productNameDetail p{
+    font-size: 16px;
+    font-weight: lighter;
+    font-family:  Verdana, Geneva, Tahoma, sans-serif !important;
+
+
+}
+
+.productPriceDetail{
+    display: flex;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    height: 90px;
+    align-items: center;
+}
+
+.productPriceDetail p{
+    font-size: 25px;
+    font-weight: lighter;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: rgb(17, 183, 17);
+}
+
+
+.productInfoDetail{
     display: flex;
     flex-direction: column;
     width: 100%;
+    height: fit-content;
     padding: 0;
     margin: 0;
 }
-.addQtyHolder {
+.productInfoDetail p{
     width: 100%;
-    display: flex;
-    height: 40px;
     padding: 0;
     margin: 0;
-    align-items: center;
-}
-.addQtyHolder p{
-    width: 100%;
-    display: flex;
-    padding: 5px;
-    margin: 8px 15px;
-}
-
-.addQtyHolder span{
-    display: flex;
-    align-items: center;
-    border: 0.3px solid rgba(236, 230, 230, 0.493);
-    border-radius: 3px;
-    margin-left: 20px;
-}
-.addQtyHolder input{
-    width: 20px;
-    border: none;
-    background: transparent;
-    margin: 0px 3px;
-}
-.addQtyHolder svg{
+    font-size: 12px;
     font-weight: lighter;
-    font-size: 20px;
-    cursor: pointer;
-    color: rgba(31, 36, 31, 0.486);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-.addToCartBtnHolder{
+
+.productDescriptionShortDetail{
+    display: flex;
     width: 100%;
+    height: fit-content;
+    padding: 4px;
+    margin: 8px 0px;
+    border: none;
+    border-top: 1px solid black;
+}
+
+.productDescriptionShortDetail p{
     display: flex;
+    width: 100%;
     padding: 0;
-    margin: 10px 0px;
-    
-
+    margin: 5px 0px;
+    line-height: 1.7;
+    font-size: 13px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-.addToCartBtnHolder .add_to_cart_btn{
+.productAddToStock{
     display: flex;
-    padding: 5px;
-    margin: 8px 15px;
-    background-color: rgb(26, 26, 61);
-    color: white;
-    font: 12px;
-    
-}
-
-.addToCartBtnHolder .add_to_cart_btn:hover{
-    background-color: rgb(62, 62, 105);
-    color: rgb(255, 247, 247);
-    font-weight: bolder;
-    cursor: pointer;
-    
-}
-
-.addToCartBtnHolder svg{
+    width: 100%;
+    height: 80px;
     align-items: center;
+}
+
+.productAddToStock p{
+    width: fit-content;
+    height: 100%;
     display: flex;
-    margin-right: 5px;
+    padding: 4px;
+    margin: 0;
+    align-items: center;
+    font-size: 12px;
+}
+.productAddToStock  p span {
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    border: none;
+    padding: 0;
+    margin: 0px 5px;
+}
+.productAddToStock p span input{
+    width: 35px;
+    height: 35px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    border: 1px solid lightgray;
+    border-radius: 2px;
+    align-content: center;
+    padding: 5px;
+    margin: 0px 5px;
+    font-size: 14px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.MuiButtonBase-root.MuiButton-root.MuiButton-contained{
+    width: fit-content;
+    height: fit-content;
+    background-color: #00008fbd;
+    border-radius: 2px;
+    margin-left: 5px;
+    color: white;
+    font-size: 12px;
+    font-weight: lighter;
+    font-variant-caps: all-small-caps;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.MuiButtonBase-root.MuiButton-root.MuiButton-contained svg{
+    color: orange;
+    font-size: 20px;
+    font-weight: lighter;
+}
+
+.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.wishlist_btn {
+    width: fit-content;
+    height: fit-content;
+    border-radius: 2px;
+    color: rgba(166, 131, 17, 0.871);
+    font-size: 12px;
+    font-weight: lighter;
+    font-variant-caps: all-small-caps;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin-left: 7px;
+}
+
+
+
+.productAddToWishList{
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+    justify-content: center;
+    
 
 }
 
-.add_to_cart_btn p{
-    font-size: 11px;
+.productAddToWishList svg{
+    font-size: 18px;
+    font-weight: lighter;
+    color: orange;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
 }
 
-@media(max-width:1100px){
-    .productInfo{
-        width: 80%;     
-        
-    }
-    .pathTitle p{   
-        font-size: 11px;
-      
-    }
-    .add_to_cart_btn p{
-        font-size: 10px;
-    }
+.productAddToWishList p{
+    display: flex;
+    width: fit-content;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin-left: 5px;
+    font-size: 12px;
+    font-weight: lighter;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+
+.bottomTabContainer{
+    display: flex;
+    width: 100%;
+    height: fit-content;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+    justify-content: center;
+}
+.MuiTab-wrapper{
+    display: flex;
+    font-size: 12px;
+}
+
+.MuiTab-wrapper svg{
+    font-size: 18px;
+    color: blue;
+    margin: 0px 5px;
+}
+
+.MuiTabs-root{
+    box-shadow: none;
+
+}
+
+.MuiTabs-scroller.MuiTabs-scrollable{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.commentTextArea{
+    height: 116px;
+    width: 80%;
+    border: 1px solid #e4dbdb;
+    padding: 11px;
+    margin: 0px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.commentTextArea:active{
+    border: 1px blue solid;
     
 }
 
-@media(max-width:820px){
-    .productInfo{
-        width: 90%;     
-        
-    }
-    .pathTitle p{   
-        font-size: 10px;
-      
-    }
-        
-    .productNameHolder , 
-    .productPriceHolder,
-    .productRatingHolder,
-    .productBrand,
-    .productStatus{
-  
-        height: 35px;
-     
-    }
-    .productNameHolder p{
-      
-        font-size: 16px;
-    
-    }
-    .productStatus span{
-      
-        font-size: 14px;
-    
-    
-    }
-    .productStatus p{
-     
-        font-size: 15px;
+.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.comment_btn{
+    width: fit-content;
+    height: fit-content;
+    border-radius: 2px;
+    color: white;
+    background-color: rgba(18, 91, 158, 0.871);;
+    font-size: 12px;
+    font-weight: lighter;
+    font-variant-caps: all-small-caps;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin-left: 7px;
+}
 
+
+
+.MuiTypography-root.MuiTypography-body1{
+    font-size: 12px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: lighter;
+}
+
+
+
+
+@media(max-width:1000px){
+    .productPathTitle p{
+        font-size: 11px;       
     }
-    .productBrand span{
-     
-        font-size: 13px;
-        
-    }
-    .productPriceHolder p,
-    .productRatingHolder span{
-      
-        font-size: 14px;
+    
+    .productNameDetail{     
+        height: 50px;
        
     }
-
-    .productDescription{
-        padding: 0;
-        margin: 0;
-        height: fit-content;
+    .productNameDetail p{
+        font-size: 15px;     
     }
-    .productDescription span{
-  
-        font: 12px;
-  }
+    .productRatingDetail span svg{
+        font-size: 16px;
+    }
 
-
-    .productDescription p{
-        font-size: 11px !important;
+    .productPriceDetail{       
+        height: 80px;
       
     }
-    .addQtyHolder p{
-        font-size: 13px;
-        
+
+    .productPriceDetail p{
+        font-size: 23px;
+       
     }
-    .add_to_cart_btn p{
-        font-size: 9xpx;
-    }
-
-    
-}
-
-
-@media(max-width:500px){
-    .productDetailContainer{
+    .productInfoDetail{
         display: flex;
         flex-direction: column;
         width: 100%;
-        height: 100%;
-        padding: 0;
-        margin: 0;
-    
-    }
-    .pathTitle p{   
-        font-size: 9px;
-      
-    }
-    .productImgHolder{
-        display: flex;
-        flex: 1;
-        width: 100%;
-        margin: 0;
-        padding: 0;
         height: fit-content;
+        padding: 0;
+        margin: 0;
+    }
+    .productInfoDetail p{
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        font-size: 11px;
+        font-weight: lighter;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }  
+
+    .productDescriptionShortDetail p{       
+        line-height: 1.6;
+        font-size: 13px;
+    }
+
+    .productAddToStock{        
+        height: 75px;
+        
+    }
+
+    .productAddToStock p{
+      
+        font-size: 11px;
+    }  
+    
+    .MuiButton-label{
+        font-size: 11px;
+    }
+    .MuiButtonBase-root.MuiButton-root.MuiButton-contained svg{
+        font-size: 18px;
        
     }
-    
-    .productImgHolder img{
+    .MuiTab-wrapper{
         display: flex;
-        width: 100%;
-        height: fill;
-        padding: 0;
-        margin: 0;
-        cursor: pointer;
-        border: none;
-        border-radius: 3px;
+        font-size: 11px;
+    }
+    .MuiTypography-root.MuiTypography-body1{
+        font-size: 11px;
+    }
+    .commentTextArea{      
+        font-size: 12px;
+      
+    }
+    .MuiButtonBase-root.MuiButton-root.MuiButton-outlined.comment_btn{
+        font-size: 11px;
+     
     }
     
+    
+    
 
+   
+}
+
+@media(max-width:870px){
+    .productPathTitle p{
+        font-size: 10px;       
+    }
+    
+    .productNameDetail{     
+        height: 45px;
+       
+    }
+    .productNameDetail p{
+        font-size: 13px;     
+    }
+    .productRatingDetail span svg{
+        font-size: 15px;
+    }
+
+    .productPriceDetail{       
+        height: 75px;      
+    }
+
+    .productPriceDetail p{
+        font-size: 21px;
+       
+    }  
+    .productInfoDetail p{        
+        font-size: 10px;
+    }  
+
+    .productDescriptionShortDetail p{       
+        line-height: 1.5;
+        font-size: 12px;
+    }
+
+    .productAddToStock{        
+        height: fit-content;
+        
+    }
+
+    .productAddToStock p{      
+        font-size: 10px;
+    }  
+    .productAddToStock p span svg{
+        font-size: 12px;
+    }
+    .productAddToStock p span input{
+        width: 30px;
+        height: 30px;
+        font-size: 11px;
+    }
+    .MuiButtonBase-root.MuiButton-root.MuiButton-contained,
+    .MuiButtonBase-root.MuiButton-root.MuiButton-outlined.wishlist_btn{
+        padding: 6px;
+        font-size: 0px;
+    }
+    
+    .MuiButton-label{
+        font-size: 10px;
+    }
+    .MuiButtonBase-root.MuiButton-root.MuiButton-contained svg,
+    .MuiButtonBase-root.MuiButton-root.MuiButton-outlined.wishlist_btn svg{
+        font-size: 15px;
+        margin: 0px 2px;
+       
+    }
+    .MuiTab-wrapper{
+        display: flex;
+        font-size: 11px;
+    }
+    .MuiTypography-root.MuiTypography-body1{
+        font-size: 11px;
+    }
+    .commentTextArea{      
+        font-size: 12px;
+      
+    }
+    .MuiButtonBase-root.MuiButton-root.MuiButton-outlined.comment_btn{
+        font-size: 11px;
+     
+    }
+
+    .productDetailImageHolder img{
+        display: flex;
+        width: 90%;
+        height: 90%;
+        object-fit: contain;
+    }
+    
+    
+    
+
+    
+}
+
+
+@media(max-width:690px){
+    .productPathTitle p{
+        font-size: 9px;       
+    }
+    
+    .productNameDetail{     
+        height: 40px;
+       
+    }
+    .productNameDetail p{
+        font-size: 12px;     
+    }
+    .productRatingDetail span svg{
+        font-size: 14px;
+    }
+
+    .productPriceDetail{       
+        height: 70px;      
+    }
+
+    .productPriceDetail p{
+        font-size: 20px;
+       
+    }  
+    .productInfoDetail p{        
+        font-size: 9.3px;
+    }  
+
+    .productDescriptionShortDetail p{       
+        line-height: 1.3;
+        font-size: 11px;
+    }
+
+    .productAddToStock{        
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        justify-content: left;
+        
+    }
+    .productAddToStockButtonHolder{
+        width: 100%;
+        display: flex;
+    }
+
+    .productAddToStock p{      
+        font-size: 9px;
+        width: 100%;
+    }  
+    .productAddToStock p span svg{
+        font-size: 11px;
+    }
+    .productAddToStock p span input{
+        width: 30px;
+        height: 30px;
+        font-size: 11px;
+    }
+    .MuiButtonBase-root.MuiButton-root.MuiButton-contained,
+    .MuiButtonBase-root.MuiButton-root.MuiButton-outlined.wishlist_btn{
+        padding: 6px;
+        font-size: 0px;
+    }
+    
+    .MuiButton-label{
+        font-size: 9px;
+    }
+    .MuiButtonBase-root.MuiButton-root.MuiButton-contained svg,
+    .MuiButtonBase-root.MuiButton-root.MuiButton-outlined.wishlist_btn svg{
+        font-size: 13px;
+        margin: 0px 2px;
+       
+    }
+    .MuiTab-wrapper{
+        display: flex;
+        font-size: 10px;
+    }
+    .MuiTypography-root.MuiTypography-body1{
+        font-size: 10px;
+    }
+    .commentTextArea{      
+        font-size: 11px;
+      
+    }
+    .MuiButtonBase-root.MuiButton-root.MuiButton-outlined.comment_btn{
+        font-size: 10px;
+     
+    }
+
+    .productDetailImageHolder img{
+        display: flex;
+        width: 80%;
+        height: 80%;
+        object-fit: contain;
+    }
+    
+}
+
+@media(max-width: 500px){
+    .productDetailsInfoWrapper{
+        display: flex;
+        flex-direction: column;
+    }
+    .productImageSide{
+        display: flex;
+        height: 200px;
+    }
+    .productPathTitle p{
+        font-size: 8px;       
+    }
+    
+    .productNameDetail{     
+        height: 40px;
+       
+    }
+    .productNameDetail p{
+        font-size: 11   px;     
+    }
+    .productRatingDetail span svg{
+        font-size: 12px;
+    }
+
+    .productPriceDetail{       
+        height: 65px;      
+    }
+
+    .productPriceDetail p{
+        font-size: 18px;
+       
+    }  
+    .productInfoDetail p{        
+        font-size: 9px;
+    }  
+
+    .productDescriptionShortDetail p{       
+        line-height: 1.3;
+        font-size: 10px;
+    }
+
+    .productAddToStock{        
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        justify-content: left;
+        
+    }
+    .productAddToStockButtonHolder{
+        width: 100%;
+        display: flex;
+    }
+
+    .productAddToStock p{      
+        font-size: 9px;
+        width: 100%;
+    }  
+    .productAddToStock p span svg{
+        font-size: 11px;
+    }
+    .productAddToStock p span input{
+        width: 30px;
+        height: 30px;
+        font-size: 11px;
+    }
+    .MuiButtonBase-root.MuiButton-root.MuiButton-contained,
+    .MuiButtonBase-root.MuiButton-root.MuiButton-outlined.wishlist_btn{
+        padding: 6px;
+        font-size: 0px;
+    }
+    
+    .MuiButton-label{
+        font-size: 9px;
+    }
+    .MuiButtonBase-root.MuiButton-root.MuiButton-contained svg,
+    .MuiButtonBase-root.MuiButton-root.MuiButton-outlined.wishlist_btn svg{
+        font-size: 13px;
+        margin: 0px 2px;
+       
+    }
+    .MuiTab-wrapper{
+        display: flex;
+        font-size: 9px;
+    }
+    .MuiTypography-root.MuiTypography-body1{
+        font-size: 9px;
+    }
+    .commentTextArea{      
+        font-size: 10px;
+      
+    }
+    .MuiButtonBase-root.MuiButton-root.MuiButton-outlined.comment_btn{
+        font-size: 10px;
+     
+    }
+
+    .productDetailImageHolder img{
+        display: flex;
+        width: 80%;
+        height: 80%;
+        object-fit: contain;
+    }
+    
 }
 

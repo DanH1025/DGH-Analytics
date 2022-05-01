@@ -1,7 +1,8 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/storage';
 import 'firebase/compat/firestore';
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-app.js";
+
+//import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-app.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCzmWbKhEgeUEgw-S9W2opRSg8lM8V0cRg",
@@ -14,7 +15,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-
 const projectStorage = firebase.storage();
 const projectFirestore = firebase.firestore();
 const timestamp = firebase.firestore.FieldValue.serverTimestamp;
