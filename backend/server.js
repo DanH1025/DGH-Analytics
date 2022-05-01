@@ -42,7 +42,7 @@ app.use('/auth' , authRoutes);
 
 schedule.scheduleJob('0 44 23 * * * ', function(){
   console.log('The answer to life, the universe, and everything!');
-  addOrderReport();
+  addOrderReport(); 
 });
 
 app.use('/analysis', addOrderReport);
