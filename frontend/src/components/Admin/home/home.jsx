@@ -12,7 +12,6 @@ import { getOrders } from '../../../redux/actions/orderActions';
 import { getOrderReports, getOrderTotal } from "../../../redux/actions/orderReportAction";
 import { getUserLogDetail } from "../../../redux/actions/userLogActions";
 
-
 // const data = [
 //   {
 //     name: 'Monday',
@@ -41,7 +40,6 @@ import { getUserLogDetail } from "../../../redux/actions/userLogActions";
 //   },
 // ];
 
-
 export default function Home() {
 
   const dispatch = useDispatch();
@@ -51,7 +49,7 @@ export default function Home() {
  	  dispatch(getOrderReports());
     dispatch(getOrders());
     dispatch(getUserLogDetail());
- 	}, [dispatch]);
+ 	}, []);
    
   const orderTotals = useSelector((state) => state.getOrderTotal.total);
   const orderReports = useSelector((state) => state.getOrderReport.orderReports);
