@@ -129,7 +129,8 @@ export default function Home() {
   const stat = {
     options: {
       chart: {
-        id: "basic-bar"
+        id: "basic-bar",
+        title: "Order"
       },
       xaxis: {
         categories: dates
@@ -145,121 +146,133 @@ export default function Home() {
 
   return (
     <>
-      <div className="charts">        
-        <div className="chart">
-          <Charts 
-            title='Total Sales'
-            middleTotal={'$' +  totalPrice }
-            dates={days}
-            chartData={prices}
-            chartType="line"
-            />
-        </div>
-        <div className="chart">
-          <Charts 
-            title='Total Orders'
-            middleTotal={orderNo}
-            dates={days}
-            chartData={orders}
-            chartType="line"
-            />
-        </div>        
-        <div className="chart">
-          <Charts 
-            title='Averages'
-            middleTotal={average}
-            dates={days}
-            chartData={priceAverage}
-            chartType="line"
-            />
+      <div className="dashboardChartHolder">
+        <div className="chartWrapper">
+              <div className="chart">
+                <Charts 
+                  title='Total Sales'
+                  middleTotal={ totalPrice + ' ETB'   }
+                  dates={days}
+                  chartData={prices}
+                  chartType="line"
+                  />
+              </div>
+              <div className="chart">
+                <Charts 
+                  title='Total Orders'
+                  middleTotal={orderNo}
+                  dates={days}
+                  chartData={orders}
+                  chartType="line"
+                  />
+              </div>        
+              <div className="chart">
+                <Charts 
+                  title='Averages'
+                  middleTotal={average}
+                  dates={days}
+                  chartData={priceAverage}
+                  chartType="line"
+                  />
+              </div>  
+
+              <div className="chart">
+                <Charts 
+                  title='Total online store visitor'
+                  middleTotal={totalUserNoToday}
+                  dates={Object.keys(userByHour)}
+                  chartData={Object.values(userByHour)}
+                  chartType="bar"
+                  />
+              </div>
+
+              <div className="chart">
+                  <div className="conversion_rate_holder">
+                      <div className="cr_title">
+                        <p className="cr_title_content" >Store Conversion Rate</p>
+                        <span className="cr_title_more">More</span>
+                      </div>
+                      <div className="price_conversion_rate">
+                        <p>{(totalOrderNo/totalUserNo*100).toFixed(2)} %</p>
+                      </div>
+                      <div className="cart_cr">
+                        <p className="cart_cr_title">Add To Cart Rate</p>
+                        <p className="cart_cr_content">{addCartCount} %</p>
+                      </div>
+                      <div className="checkout_cr">
+                        <p className="checkout_cr_title">Reaching Checkout Rate</p>
+                        <p className="checkout_cr_content">{reachedCheckout} %</p>
+                      </div>
+                      <div className="purchase_cr">
+                        <p className="purchase_cr_title">Purchase</p>
+                        <p className="purchase_cr_content">{purchaseCount} %</p>
+                      </div>
+
+
+                  </div>                
+                
+              </div> 
+
+              <div className="chart">
+                <h3 className="unit_sell_title">Top product by unit sold</h3>
+                <TableContainer component={Paper}>
+                  <Table className="unit_sell_table" aria-label="simple table">
+                    <TableBody>
+                      {topProdByQun?.map((row) => (
+                        <TableRow
+                          key={row.id}
+                          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                        >
+                          <TableCell className="product_name" align="left">  {row.productName}</TableCell>
+                          <TableCell className="total_sold" align="right">{row.total}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+            </div> 
+            
+              <div className="chart">
+                <h3 className="product_price_sold_title">Top product by price sold</h3>
+                <TableContainer component={Paper}>
+                  <Table aria-label="simple table">
+                    <TableBody>
+                      {topProdByPrice?.map((row) => (
+                        <TableRow
+                          key={row.id}
+                          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                        >
+                          <TableCell align="left">{row.productName}</TableCell>
+                          <TableCell align="right">{row.total} ETB</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </div>
+
+            </div>
+          
+            <div className="lineGraphHolder">  
+                        <p>Orders</p>
+              <div className="orders_container">
+                <Chart
+                  className="order_barChart"
+                  title='Orders'
+                  options={stat.options}
+                  series={stat.series}
+                  type="bar"
+                  height="200%"
+                  width="320%"                                    
+                                            
+                  />
+              </div> 
+              
+            
+
         </div>
       </div>
 
-      <div className="charts">
-        <div className="chart">
-          <Charts 
-            title='Total online store visitor'
-            middleTotal={totalUserNoToday}
-            dates={Object.keys(userByHour)}
-            chartData={Object.values(userByHour)}
-            chartType="bar"
-            />
-        </div>
-        <div className="chart">
-          <div className="info">
-            <p>Online store conversion rate      .</p>
-            <a href="#">view report</a>
-          </div>
-          <div className="info">
-            <p className="price">{(totalOrderNo/totalUserNo*100).toFixed(2)} %</p>
-            <p>2+</p>
-          </div>
-          <div className="info">
-            <p className="price"></p>
-            <p></p>
-          </div>
-          <div className="info">
-            <p>Add to cart rate</p>
-            <p>{addCartCount} %</p>
-          </div>
-          <div className="info">
-            <p>Reaching checkout rate</p>
-            <p>{reachedCheckout} %</p>
-          </div>
-          <div className="info">
-            <p>Add to cart rate</p>
-            <p>{purchaseCount} %</p>
-          </div>
-        </div> 
-      </div>
-
-      <div className="lineGraphHolder">     
-      <div className="orders_container">
-        <Chart
-          options={stat.options}
-          series={stat.series}
-          type="bar"
-          width='180%'
-          height='100%'         
-          />
-      </div> 
-      <div className="chart">
-        <h3>Top product by unit sold</h3>
-        <TableContainer component={Paper}>
-          <Table aria-label="simple table">
-            <TableBody>
-              {topProdByQun?.map((row) => (
-                <TableRow
-                  key={row.id}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
-                  <TableCell align="left">{row.productName}</TableCell>
-                  <TableCell align="right">{row.total}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </div> 
-      <div className="chart">
-        <h3>Top product by price sold</h3>
-        <TableContainer component={Paper}>
-          <Table aria-label="simple table">
-            <TableBody>
-              {topProdByPrice?.map((row) => (
-                <TableRow
-                  key={row.id}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
-                  <TableCell align="left">{row.productName}</TableCell>
-                  <TableCell align="right">${row.total}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </div> 
-   </div>
     
     <OrderMap/>
     </>

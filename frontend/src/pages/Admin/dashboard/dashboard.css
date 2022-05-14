@@ -3,37 +3,48 @@ body{
   margin: 0;
 }
 
-.pm_dash_logo{
-  display: flex;
+
+.MuiPaper-root.MuiAppBar-root.MuiAppBar-positionFixed.MuiAppBar-colorPrimary{
+  color: white;
+  background-color: #ffc209;
+}
+
+.MuiTypography-root.MuiTypography-h6.MuiTypography-noWrap{
+  width: 100%;
   padding: 0;
   margin: 0;
-  align-items: center;
-  justify-content: center;
-  background-color: lightblue;
- 
-}
-.pm_dash_logo h1{
-  font-size: 25px;
-  color: white;
-  font-weight: bolder;
-  width: 100%;
   display: flex;
-  height: fill;
+  align-items: right;
+  color: white;
+  justify-content: right;
+  font-size: 24px;
+  font-weight: bold;
+  font-family: cursive;
+}
+
+.imgHolder{
+  width: 100%;
+  height: 100%;
+  display: flex;
   align-items: center;
   justify-content: center;
-  margin: 10px auto;
+  object-fit: fill;
+}
+.imgHolder span{
+  font-size: 16px;
   padding: 0;
-
+  margin: 0px 6px;
+  color: orange;
+  font-weight: bold;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  
 }
 
-.ant-menu-title-content{
-  font-size: 12px;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: white;
+.admin_logo_img{
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.ant-menu-item-icon svg{
-  font-size: 13px;
-  color: white;
-}
-.ant-layout-sider-children{}
-
