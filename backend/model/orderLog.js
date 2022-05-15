@@ -10,7 +10,7 @@ module.exports = class Request {
     this.reachedCheckout = reachedCheckout; 
     this.purchased = purchased;
     this.date = date;
-    this.time = time;
+    this.time = time; 
   }
 
   save() {

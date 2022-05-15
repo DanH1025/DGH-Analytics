@@ -237,7 +237,8 @@ export default function PM_Dashboard() {
         <div className={classes.toolbar} />
 
             {compCounter === 0 ? <Home /> : 
-             compCounter === 1 ? <ProductList /> : "others"
+             compCounter === 1 ? <ProductList /> : 
+             compCounter === 2 ? <AddProduct/> :"others"
 
             }
 

@@ -22,6 +22,7 @@ import { projectStorage, projectFirestore, timestamp } from '../firebase/config'
 
 import { useDispatch, useSelector } from 'react-redux';
 import { createProduct } from '../../../redux/actions/productActions';
+import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 
 const { Option } = Select;
 
@@ -37,10 +38,13 @@ export default function AddProduct() {
 			productBrand: "",
 			productCategory: "",
 			productImg: "",
-			productPrice: 0,
-			amount: 0,
+			productPrice: '',
+			amount: '',
 			productDetail: ""
 	})
+	
+
+	const [imgPreview, setImgPreview] = useState('https://img.icons8.com/color/344/gallery.png');
 
 	const onChange = async(e) => {
 		// setFileList(newFileList);
@@ -78,6 +82,7 @@ export default function AddProduct() {
       console.log(err);
     }, async () => {
       url = await storageRef.getDownloadURL();
+	  setImgPreview(url);
       const createdAt = timestamp();
       await collectionRef.add({ url, createdAt });
       console.log(url);
@@ -89,22 +94,24 @@ export default function AddProduct() {
     });
 
 		console.log('url: ' + url);
+		
+
 	};
   
-	const onPreview = async file => {
-		let src = file.url;
-		if (!src) {
-			src = await new Promise(resolve => {
-				const reader = new FileReader();
-				reader.readAsDataURL(file.originFileObj);
-				reader.onload = () => resolve(reader.result);
-			});
-		}
-		const image = new Image();
-		image.src = src;
-		const imgWindow = window.open(src);
-		imgWindow.document.write(image.outerHTML);
-	};
+	// const onPreview = async file => {
+	// 	let src = file.url;
+	// 	if (!src) {
+	// 		src = await new Promise(resolve => {
+	// 			const reader = new FileReader();
+	// 			reader.readAsDataURL(file.originFileObj);
+	// 			reader.onload = () => resolve(reader.result);
+	// 		});
+	// 	}
+	// 	const image = new Image();
+	// 	image.src = src;
+	// 	const imgWindow = window.open(src);
+	// 	imgWindow.document.write(image.outerHTML);
+	// };
 
 	//for selecting brand
 	const [brands, setBrands] = useState([
@@ -167,130 +174,48 @@ export default function AddProduct() {
 
   return (
     <div className='add_product'>
-			<div className="add_product_wrapper">
-				<div className="upload_img">
-					<input type="file" onChange={onChange} />
-					{/* <Upload
-						action=""
-						listType="picture-card"
-						fileList={fileList}
-						onChange={onChange}
-						onPreview={onPreview}>
-						{fileList.length < 5 && '+ Upload'}
-					</Upload> */}
-				</div>
-				<div className="upload_info">
-					<div className='pName'>
-						<Input 
+		<div className="add_product_wrapper">
+			<div className="information">
+				<div className="form_side">
+					<div className="form_wrapper">
+						<input 
 							className='product_name_input' 
 							type='text' 
 							placeholder="Product Name"
-							value={productData.name}
+							value={productData.productName}
 							onChange = {(e) => {
-									setProductData({
-											...productData, 
-											productName: e.target.value
-										}
-									)
-							}} />
-					</div>   
-
-					<Select
-						className='product_brand_select'
-						placeholder="Product Brand"
-						value={productData.productBrand}
-						onChange = {(e) => {
-							setProductData({
-								...productData, 
-								productBrand: e
-								}
-							)
-						}}
-						dropdownRender={menu => (
-							<>
-								{menu}
-									<Divider style={{ margin: '8px 0' }} />
-									<Space align="center" style={{ padding: '0 8px 4px' }}>
-											<Input placeholder="Insert New Brand" value={newBrand} onChange={onBrandChange} />
-											<Typography.Link onClick={addBrandItem} style={{ whiteSpace: 'nowrap' }}>
-											<PlusOutlined /> Add Brand
-											</Typography.Link>
-									</Space>
-              </>
-            )}>
-						{brands.map(item => (
-								<Option key={item}>{item}</Option>
-						))}
-					</Select>
-             
-					<Select
-						className='product_category_select'
-						placeholder="Product Category"
-						value={productData.productCategory}
-						onChange = {(e) => {
 								setProductData({
-										...productData, 
-										productCategory: e
-								}
-							)
-						}}
-						dropdownRender={menu => (
-							<>
-								{menu}
-								<Divider style={{ margin: '8px 0' }} />
-								<Space align="center" style={{ padding: '0 8px 4px' }}>
-										<Input placeholder="Insert New Product Category" value={newCategory} onChange={onCategoryChange} />
-										<Typography.Link onClick={addCategoryItem} style={{ whiteSpace: 'nowrap' }}>
-										<PlusOutlined /> Add Category
-										</Typography.Link>
-								</Space>
-							</>
-						)}>
-						{
-							category.map(item => (
-								<Option key={item}>{item}</Option>
-							))
-						}
-					</Select>
-              
-					<div className='pPrice'>
-							<Input 
-								className='product_price_input' 
-								prefix="$"  
-								type='number' 
-								placeholder="Price" 
+									...productData, 
+										productName: e.target.value
+									}
+								)
+						}} />
+
+						<input type="text" 
+							   className='product_brand'
+							   placeholder='Brand'
+							   value={productData.productBrand}
+
+						/>
+						<input type="number"
+								min={0}
+								className='product_price'
+								placeholder='Price'
 								value={productData.productPrice}
-								onChange = {(e) => {
-									setProductData({
-											...productData, 
-											productPrice: e.target.value
-										}
-									)
-							}}/>
-					</div>
+						/>
+						<input type="text" 
+								className='product_chategory'
+								placeholder='Chategory'
+								value={productData.productCategory}
 
-					<div className='pAmount'>
-							<Input 
-								className='product_amount_input' 
-								prefix="#"  
-								type='number' 
-								placeholder="Amount in Stock"
-								value={productData.amount}
-								onChange = {(e) => {
-										setProductData({
-												...productData, 
-												amount: e.target.value
-											}
-										)
-								}} 
-							/>
-					</div>
 
-					<div className='pDetail'>
-						<TextArea 
+								/>
+						<textarea 
 							className='product_detail_input' 
-							placeholder='Product Description'  
+							placeholder='Product Description' 
+							type='text' 
 							rows={8}
+							
 							value={productData.productDetail}
 							onChange = {(e) => {
 									setProductData({
@@ -299,24 +224,187 @@ export default function AddProduct() {
 										}
 									)
 							}} />
-					</div>  
-
-        </div>
-      </div>
+						<input type="file" onChange={onChange} />
+					</div>
+				</div>
+				<div className="image_side">
+					<div className="image_side_wrapper">
+						<img src={imgPreview}  />
+					</div>
+				</div>
+			</div>
 
 			<div className="buttonHolder">
-					<Button
-							className='add_product_btn'   
-							icon={<AddCircleOutlineOutlinedIcon />}
-							onClick={handleSubmit}>
-							Add to Stock
-					</Button>
-					<Button
-							className='add_product_cancel_btn'
-							type='primary'  >
-							Cancel
-					</Button>
+				<button className='add_product_btn' >Add Product</button>
+				<button className='add_product_cancel_btn'>Cancel</button>
 			</div>
+			
+		</div>
     </div>
   )
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// <div className="add_product_wrapper">
+// 				<div className="upload_img">
+// 					<input type="file" onChange={onChange} />
+// 					{/* <Upload
+// 						action=""
+// 						listType="picture-card"
+// 						fileList={fileList}
+// 						onChange={onChange}
+// 						onPreview={onPreview}>
+// 						{fileList.length < 5 && '+ Upload'}
+// 					</Upload> */}
+// 				</div>
+// 				<div className="upload_info">
+// 					<div className='pName'>
+// 						<Input 
+// 							className='product_name_input' 
+// 							type='text' 
+// 							placeholder="Product Name"
+// 							value={productData.name}
+// 							onChange = {(e) => {
+// 									setProductData({
+// 											...productData, 
+// 											productName: e.target.value
+// 										}
+// 									)
+// 							}} />
+// 					</div>   
+
+// 					<Select
+// 						className='product_brand_select'
+// 						placeholder="Product Brand"
+// 						value={productData.productBrand}
+// 						onChange = {(e) => {
+// 							setProductData({
+// 								...productData, 
+// 								productBrand: e
+// 								}
+// 							)
+// 						}}
+// 						dropdownRender={menu => (
+// 							<>
+// 								{menu}
+// 									<Divider style={{ margin: '8px 0' }} />
+// 									<Space align="center" style={{ padding: '0 8px 4px' }}>
+// 											<Input placeholder="Insert New Brand" value={newBrand} onChange={onBrandChange} />
+// 											<Typography.Link onClick={addBrandItem} style={{ whiteSpace: 'nowrap' }}>
+// 											<PlusOutlined /> Add Brand
+// 											</Typography.Link>
+// 									</Space>
+//               </>
+//             )}>
+// 						{brands.map(item => (
+// 								<Option key={item}>{item}</Option>
+// 						))}
+// 					</Select>
+             
+// 					<Select
+// 						className='product_category_select'
+// 						placeholder="Product Category"
+// 						value={productData.productCategory}
+// 						onChange = {(e) => {
+// 								setProductData({
+// 										...productData, 
+// 										productCategory: e
+// 								}
+// 							)
+// 						}}
+// 						dropdownRender={menu => (
+// 							<>
+// 								{menu}
+// 								<Divider style={{ margin: '8px 0' }} />
+// 								<Space align="center" style={{ padding: '0 8px 4px' }}>
+// 										<Input placeholder="Insert New Product Category" value={newCategory} onChange={onCategoryChange} />
+// 										<Typography.Link onClick={addCategoryItem} style={{ whiteSpace: 'nowrap' }}>
+// 										<PlusOutlined /> Add Category
+// 										</Typography.Link>
+// 								</Space>
+// 							</>
+// 						)}>
+// 						{
+// 							category.map(item => (
+// 								<Option key={item}>{item}</Option>
+// 							))
+// 						}
+// 					</Select>
+              
+// 					<div className='pPrice'>
+// 							<Input 
+// 								className='product_price_input' 
+// 								prefix="$"  
+// 								type='number' 
+// 								placeholder="Price" 
+// 								value={productData.productPrice}
+// 								onChange = {(e) => {
+// 									setProductData({
+// 											...productData, 
+// 											productPrice: e.target.value
+// 										}
+// 									)
+// 							}}/>
+// 					</div>
+
+// 					<div className='pAmount'>
+// 							<Input 
+// 								className='product_amount_input' 
+// 								prefix="#"  
+// 								type='number' 
+// 								placeholder="Amount in Stock"
+// 								value={productData.amount}
+// 								onChange = {(e) => {
+// 										setProductData({
+// 												...productData, 
+// 												amount: e.target.value
+// 											}
+// 										)
+// 								}} 
+// 							/>
+// 					</div>
+
+// 					<div className='pDetail'>
+// 						<TextArea 
+// 							className='product_detail_input' 
+// 							placeholder='Product Description'  
+// 							rows={8}
+// 							value={productData.productDetail}
+// 							onChange = {(e) => {
+// 									setProductData({
+// 											...productData, 
+// 											productDetail: e.target.value
+// 										}
+// 									)
+// 							}} />
+// 					</div>  
+
+//         </div>
+//       </div>
+
+// 			<div className="buttonHolder">
+// 					<Button
+// 							className='add_product_btn'   
+// 							icon={<AddCircleOutlineOutlinedIcon />}
+// 							onClick={handleSubmit}>
+// 							Add to Stock
+// 					</Button>
+// 					<Button
+// 							className='add_product_cancel_btn'
+// 							type='primary'  >
+// 							Cancel
+// 					</Button>
+// 			</div>

@@ -8,7 +8,7 @@ module.exports = class Request {
     this.productQuantity = productQuantity;
     this.price = price;
  
-  }
+  }  
 
   save() {
     console.log('in order detail modle');

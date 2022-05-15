@@ -46,6 +46,18 @@ schedule.scheduleJob('0 44 23 * * * ', function(){
 });
 
 app.use('/analysis', addOrderReport);
+ 
+//to deploy the project on heroku
+if(process.env.NODE_ENV === "production"){
+  app.use(express.static('frontend/build'));
+
+  app.get('*' , (req,res)=>{
+    res.sendFile(path.resolve(__dirname, 'frontend' ,'build' , 'index.html'))
+  })
+
+}
+
+
 
 
 //to deploy the project on heroku
