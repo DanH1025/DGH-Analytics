@@ -21,12 +21,11 @@ export default function Login(){
     })
 
 
-
         const onFinish = (values) => {
-        //    console.log('Success:', values);
-        //     if(inputState.name === 'phone_number'){                
-        //         dispatch(loginWithPhone(values.phone_number, values.password))
-        //     }
+           console.log('Success:', values);
+            if(inputState.name === 'phone_number'){                
+                dispatch(loginWithPhone(values.phone_number, values.password))
+            }
             
         };
       
@@ -64,7 +63,7 @@ export default function Login(){
         <div className='login'>
             <div className="loginContainer">
                 <div className="header">
-                    <h1>Welcom </h1> 
+                    <h1>Welcome </h1> 
                     <h2>Login</h2>
                 </div>
                 <div className="loginTypeSwitch">

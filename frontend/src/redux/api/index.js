@@ -28,7 +28,7 @@ const getAllUserUrl =
 const createUserByPhoneNumberUrl = 
       'http://localhost:5000/api/addUserByPhone'
 const loginWithPhoneUrl = 
-      'http://localhost:5000/api/loginWithPhone'
+      'http://localhost:5000/api/app'
 
 // order report of last week
 const readOrderReportUrl = 
@@ -64,6 +64,17 @@ const addToCartRecordUrl =
 
 const productVistRecordUrl =
   'http://localhost:5000/api/addVisits'
+
+
+
+export const loginWithPhoneNumber = (phone,password)=>{
+  return axios.post(loginWithPhoneUrl, {
+    phone: phone,
+    password: password
+  })
+}
+
+
 
 // user log url
 export const createUserLogs = (href, referrer, screenWidth, screenHeight, addToCart, reachedCheckout, purchased, date, time) => 
@@ -139,12 +150,6 @@ export const createUserByPhoneNumber =(FirstName,LastName,phone,password)=>{
     })
 }
 
-export const loginWithPhoneNumber = (phone,password)=>{
-  axios.post(loginWithPhoneUrl , {
-      phone: phone,
-      password: password
-     })
-}
 
 //fetch all categories 
 export const fetchCategory = ()=> 
