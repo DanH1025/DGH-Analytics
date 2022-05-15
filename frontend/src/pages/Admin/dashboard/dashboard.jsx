@@ -126,7 +126,7 @@ const [sidebarCollapsed , setSidebarCollapsed] = useState(false);
                compCounter === "2" ? <ProductList/>:
                compCounter === "3" ? <AddProduct/>:
                compCounter === "4" ? <Orders/> : "others"
-              }               
+              }
           </div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>
