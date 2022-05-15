@@ -4,20 +4,100 @@ body{
 }
 
 .add_product{
-    width: 100%;
-    height: 100%;
+    width: 100%;   
+    height: 80vh; 
     display: flex;
     margin: 0;
     padding: 0;
-    flex-direction: column;
 }
 .add_product_wrapper{
     width: 100%;
     height: 100%;
     display: flex;
+    flex-direction: column;
     padding: 0;
     margin: 0;
+   
 }
+.information{
+    display: flex;
+    width: 100%;
+    height: 90%;
+    padding: 0;
+    margin: 0;
+ 
+}
+.form_side{
+    display: flex;
+    flex: 1.4;
+    width: 100%;
+    height: 100%;
+    justify-content: left;
+    
+}
+.image_side{
+    display: flex;
+    flex: 1;
+    border: none;
+}
+
+
+.form_wrapper{
+    display:flex;
+    flex-direction:column;  
+    width: 70%;
+    height: fit-content;
+    padding: 5px;
+    margin: auto;
+}
+
+.form_wrapper input{
+    display: flex;
+    width: 100%;
+    height: 40px;
+    border: 1px solid rgba(0, 0, 0, 0.111);
+    border-radius: 2px;
+    padding: 6px;
+    margin-top: 5px;
+    font-size: 12px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: lighter;
+
+
+}
+
+.product_detail_input{
+    display: flex;
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.111);
+    border-radius: 2px;
+    margin-top: 5px;
+    font-size: 12px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: lighter;
+    padding: 6px;
+
+
+}
+
+.image_side_wrapper{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    
+}
+
+.image_side_wrapper img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+
+}
+
+
 .upload_img{
     display: flex;
     flex: 1;
@@ -77,21 +157,39 @@ body{
   
 }
 
-.add_product_btn.ant-btn{
+.add_product_btn{
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 4px;
     margin: 15px 6px;
     font-size: 12px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     background-color: rgb(20, 187, 20);
     color: white;
+    border: none;
+    border-radius: 2px;
+    border: 1px solid rgba(0, 0, 0, 0.111);
+    font-weight: lighter;
+    cursor: pointer;
+    
 
 }
-.add_product_btn.ant-btn svg{
-    padding: 0;
-    margin: 0px 3px;
-}
+
 .add_product_cancel_btn{
-
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    padding: 4px;
+    margin: 15px 6px;
+    font-size: 12px;
+    font-weight: lighter;
+    background-color: rgba(152, 152, 152, 0.23);
+    color: black;
+    border: none;
+    border-radius: 2px;
+    border: 1px solid rgba(0, 0, 0, 0.111);
+    cursor: pointer;
+    
 }

@@ -24,6 +24,17 @@ const { Option } = Select;
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 export default function ProductList() {
 
 
@@ -36,9 +47,14 @@ export default function ProductList() {
       
    const products = useSelector((state) => state.getProduct.products);
   
+   
    console.log(products);
 
- 
+   
+
+
+
+
 
     // rowSelection objects indicates the need for row selection
     const rowSelection = {
@@ -154,25 +170,17 @@ export default function ProductList() {
           dataIndex: 'id',
           key: 'id',
           fixed: 'left',
-          width: 50
+          width: 30
         },
         {
           title: 'Name',
           dataIndex: 'name',
           key: 'name',
-          width:150,
-          fixed:'left'
+          width:110,       
        
          
         },
-        {
-          title: 'Brand',
-          dataIndex: 'brand',
-          key: 'brand',
-          width:150
-
-    
-        },
+  
         {
             title: 'Price',
             dataIndex: 'price',
@@ -184,7 +192,7 @@ export default function ProductList() {
             title: 'Count In Stock',
             dataIndex: 'count_in_stock',
             key: 'count_in_stock',
-            width:100
+            width:70
 
         },
         {
@@ -192,25 +200,19 @@ export default function ProductList() {
           dataIndex:'category',
           key: 'category',
           width:100
-        },
-        {
-          title: 'Details',
-          dataIndex:'detail',
-          key:'detail',
-          width:250
-        },
+        },   
         {
             title:'Status',
             dataIndex: 'status',
             key: "status",
             width:60,
-            fixed: 'right'
+            
         },
         {
           title: "Action",
           key: "deleteAndEdit",
           width: 70,
-          fixed: 'right',
+          
           render: (record) => {
             return(
               <>
@@ -264,150 +266,151 @@ console.log(data)
 
   return (
     <>
+   
 
-    <Table
+    <Table 
     rowSelection={{ ...rowSelection }}
     columns={columns}
     dataSource={data}
-    scroll={{ x: 1300 }}
+    scroll={{ x: 1000 }}
     summary={pageData => (
-      <Table.Summary fixed={fixedTop ? 'top' : 'bottom'}>
-        <Table.Summary.Row>
-       
-          <Table.Summary.Cell index={2} colSpan={8}>
-            Scroll Context
-          </Table.Summary.Cell>
-          <Table.Summary.Cell index={10}></Table.Summary.Cell>
-        </Table.Summary.Row>
-      </Table.Summary>
+          <Table.Summary fixed={fixedTop ? 'top' : 'bottom'}>
+            <Table.Summary.Row >
+          
+              <Table.Summary.Cell   index={2} colSpan={8}>
+                
+              </Table.Summary.Cell>
+              <Table.Summary.Cell index={10}></Table.Summary.Cell>
+            </Table.Summary.Row>
+          </Table.Summary>
     )}
     sticky
-  />
+    />
 
 
 
 
 <Drawer
-      title="Edit Product"
-      width={720}
-      onClose={onClose}
-      visible={visible}
-      bodyStyle={{ paddingBottom: 80 }}
-      extra={
-        <Space>
-          <Button onClick={onClose}>Cancel</Button>
-          <Button type="primary" onClick={()=> handleEditChanges()}  >
-            Submit
-          </Button>
-          
-   
-        </Space>
-      }
-    >
-      <Form layout="vertical" hideRequiredMark>
-      <Row gutter={16}>
-        </Row>
-        <Row gutter={16}>
-          <Col span={12}>
-            <Form.Item
-              name="name"
-              label="Product Name"
-              rules={[{ required: true, message: 'Please enter user name' }]}
-            >
-              <Input value={editValues.name} onChange={(e)=> setEditValues({...editValues, name: e.target.value})}  placeholder={editValues.name} />
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item
-              name="image"
-              label="Product Image"
-              rules={[{ required: true, message: 'Please enter image url' }]}
-            >
-              <Input
-                style={{ width: '100%' }}
-                addonBefore="http://"                
-                placeholder={editValues.image}
-                value={editValues.image} onChange={(e)=> setEditValues({...editValues, image: e.target.value})}
-              />
-            </Form.Item>
-          </Col>
-        </Row>
-        <Row gutter={16}>
-          <Col span={12}>
-            <Form.Item
-              name="category"
-              label="Category"
-              rules={[{ required: true, message: 'Please select a category' }]}
-            >
-              <Select placeholder={editValues.category} value={editValues.category} onChange={(e)=> setEditValues({...editValues, category: e.target.value})}  >
-                <Option value="xiao">Television</Option>
-                <Option value="mao">Smart-Phone</Option>
-              </Select>
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item
-              name="brand"
-              label="Brand"
-              rules={[{ required: true, message: 'Please choose the brand' }]}
-            >
-              <Select placeholder={editValues.brand}   value={editValues.brand} onChange={(e)=> setEditValues({...editValues, brand: e.target.value})}     >
-                <Option value="private">Samsung</Option>
-                <Option value="public">Apple</Option>
-              </Select>
-            </Form.Item>
-          </Col>
-        </Row>
-        <Row gutter={16}>
-          <Col span={12}>
-          <Form.Item
-              name="price"
-              label="Price"
-              rules={[{ required: true, message: 'Please enter product price' }]}
-            >
-              <Input min={0} prefix="$" type='number' placeholder={editValues.price} value={editValues.price} onChange={(e)=> setEditValues({...editValues, price: e.target.value})}   />
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            {/* <Form.Item
-              name="dateTime"
-              label="DateTime"
-              rules={[{ required: true, message: 'Please choose the dateTime' }]}
-            >
-              <DatePicker.RangePicker
-                style={{ width: '100%' }}
-                getPopupContainer={trigger => trigger.parentElement}
-              />
-            </Form.Item> */}
-              <Form.Item
-              name="count_in_stock"
-              label="Amount In Stock"
-              rules={[{ required: true, message: 'Please enter count in stock' }]}
-            >
-              <Input prefix='#' min={0} type='number' placeholder={editValues.count_in_stock}   value={editValues.count_in_stock} onChange={(e)=> setEditValues({...editValues, count_in_stock: e.target.value})}   />
-            </Form.Item>
-          </Col>
-        </Row>
-        <Row gutter={16}>
-          <Col span={24}>
-            <Form.Item
-              name="description"
-              label="Description"
-              rules={[
-                {
-                  required: true,
-                  message: 'please enter description',
-                },
-              ]}
-            >
-              <Input.TextArea rows={4} placeholder={editValues.detail}  value={editValues.detail} onChange={(e)=> setEditValues({...editValues, detail: e.target.value})}   />
-            </Form.Item>
-          </Col>
-        </Row>
-      </Form>
-    </Drawer>
+  title="Edit Product"
+  width={720}
+  onClose={onClose}
+  visible={visible}
+  bodyStyle={{ paddingBottom: 80 , zIndex: '100'}}
+  extra={
+    <Space>
+      <Button onClick={onClose}>Cancel</Button>
+      <Button type="primary" onClick={()=> handleEditChanges()}  >
+        Submit
+      </Button>
+      
 
-</>
+    </Space>
+  }
+>
+  <Form layout="vertical" hideRequiredMark>
+  <Row gutter={16}>
+    </Row>
+    <Row gutter={16}>
+      <Col span={12}>
+        <Form.Item
+          name="name"
+          label="Product Name"
+          rules={[{ required: true, message: 'Please enter user name' }]}
+        >
+          <Input value={editValues.name} onChange={(e)=> setEditValues({...editValues, name: e.target.value})}  placeholder={editValues.name} />
+        </Form.Item>
+      </Col>
+      <Col span={12}>
+        <Form.Item
+          name="image"
+          label="Product Image"
+          rules={[{ required: true, message: 'Please enter image url' }]}
+        >
+          <Input
+            style={{ width: '100%' }}
+            addonBefore="http://"                
+            placeholder={editValues.image}
+            value={editValues.image} onChange={(e)=> setEditValues({...editValues, image: e.target.value})}
+          />
+        </Form.Item>
+      </Col>
+    </Row>
+    <Row gutter={16}>
+      <Col span={12}>
+        <Form.Item
+          name="category"
+          label="Category"
+          rules={[{ required: true, message: 'Please select a category' }]}
+        >
+          <Select placeholder={editValues.category} value={editValues.category} onChange={(e)=> setEditValues({...editValues, category: e.target.value})}  >
+            <Option value="xiao">Television</Option>
+            <Option value="mao">Smart-Phone</Option>
+          </Select>
+        </Form.Item>
+      </Col>
+      <Col span={12}>
+        <Form.Item
+          name="brand"
+          label="Brand"
+          rules={[{ required: true, message: 'Please choose the brand' }]}
+        >
+          <Select placeholder={editValues.brand}   value={editValues.brand} onChange={(e)=> setEditValues({...editValues, brand: e.target.value})}     >
+            <Option value="private">Samsung</Option>
+            <Option value="public">Apple</Option>
+          </Select>
+        </Form.Item>
+      </Col>
+    </Row>
+    <Row gutter={16}>
+      <Col span={12}>
+      <Form.Item
+          name="price"
+          label="Price"
+          rules={[{ required: true, message: 'Please enter product price' }]}
+        >
+          <Input min={0} prefix="$" type='number' placeholder={editValues.price} value={editValues.price} onChange={(e)=> setEditValues({...editValues, price: e.target.value})}   />
+        </Form.Item>
+      </Col>
+      <Col span={12}>
+        {/* <Form.Item
+          name="dateTime"
+          label="DateTime"
+          rules={[{ required: true, message: 'Please choose the dateTime' }]}
+        >
+          <DatePicker.RangePicker
+            style={{ width: '100%' }}
+            getPopupContainer={trigger => trigger.parentElement}
+          />
+        </Form.Item> */}
+          <Form.Item
+          name="count_in_stock"
+          label="Amount In Stock"
+          rules={[{ required: true, message: 'Please enter count in stock' }]}
+        >
+          <Input prefix='#' min={0} type='number' placeholder={editValues.count_in_stock}   value={editValues.count_in_stock} onChange={(e)=> setEditValues({...editValues, count_in_stock: e.target.value})}   />
+        </Form.Item>
+      </Col>
+    </Row>
+    <Row gutter={16}>
+      <Col span={24}>
+        <Form.Item
+          name="description"
+          label="Description"
+          rules={[
+            {
+              required: true,
+              message: 'please enter description',
+            },
+          ]}
+        >
+          <Input.TextArea rows={4} placeholder={editValues.detail}  value={editValues.detail} onChange={(e)=> setEditValues({...editValues, detail: e.target.value})}   />
+        </Form.Item>
+      </Col>
+    </Row>
+  </Form>
+</Drawer>
+
+    </>
 
 
 
@@ -418,3 +421,26 @@ console.log(data)
        
   )
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
