@@ -48,7 +48,7 @@ module.exports = class Request {
   }
   static fetchAll(email, password) {
     try{
-       const result =db.execute('SELECT * FROM users WHERE userEmail=? AND password=?', [email, password]);
+       const result =db.execute('SELECT * FROM user WHERE userEmail=? AND password=?', [email, password]);
        return result;
     }catch(err){
       console.log(err);

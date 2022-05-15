@@ -20,8 +20,8 @@ export default function Charts({title,middleTotal ,dates, chartData,chartType}) 
         show: false,
       },
       stroke: {
-        curve: 'straight',
-        width: 2
+        curve: 'smooth',
+        width: 1.2
       }
     },
     series: [
@@ -34,21 +34,28 @@ export default function Charts({title,middleTotal ,dates, chartData,chartType}) 
 
   return (
     <>
-      <div className="info">
-        <p>{title}</p>
-        <a href="#">view report</a>
-      </div>
-        <div className="left">
-        </div>
-      <div className="info">
-        <p className="price">{middleTotal}</p>
-        <p>2%</p>
-      </div>
-      <Chart
-        options={stat.options}
-        series={stat.series}
+      <div className="chartContainer">
 
-        type={chartType}/>
+        <div className="headerTitle">
+          <p>{title}</p>
+          <span>More</span>
+        </div>
+        
+        <div className="numeric_Information">
+          <p className="price">{middleTotal}</p>
+          <p className='rate'>2%</p>
+        </div>
+        <Chart
+          options={stat.options}
+          series={stat.series}
+          type={chartType}
+          
+          />
+      </div>
+
+
+
+     
     </>
   )
 }

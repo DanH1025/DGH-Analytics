@@ -42,11 +42,23 @@ app.use('/auth' , authRoutes);
 
 schedule.scheduleJob('0 44 23 * * * ', function(){
   console.log('The answer to life, the universe, and everything!');
-  addOrderReport();
+  addOrderReport(); 
 });
 
 app.use('/analysis', addOrderReport);
 
+
+//to deploy the project on heroku
+if(process.env.NODE_ENV === "developer"){
+  app.use(express.static('frontend/build'));
+
+  app.get('*' , (req,res)=>{
+    res.sendFile(path.resolve(__dirname, 'frontend' ,'build' , 'index.html'))
+  })
+
+}
+
+ 
 const PORT = process.env.PORT || 5000
 
 app.listen(PORT , ()=>console.log(`server running on port ${PORT}`))

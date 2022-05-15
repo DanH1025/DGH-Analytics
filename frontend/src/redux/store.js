@@ -18,6 +18,7 @@ const reducer = combineReducers({
   getUser: getUserReducer,
   // LoggedUser:loginReducer,
   getOrder: getOrdersReducer,
+  userCount: getUserLogCount,
   getOrderDetail: getOrderDetailsReducer,
   getOrderReport: getOrderReportsReducer,
   getOrderTotal: getOrderTotalReducer,
