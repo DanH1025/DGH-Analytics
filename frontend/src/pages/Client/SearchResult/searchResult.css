@@ -9,13 +9,15 @@
 }
 
 .searchPage .searchBar{
-  width: 250px;
-  padding: 10px;
+  width: 300px;
+  padding: 10px 15px;
   margin: 20px;
+  border: 2px solid rgb(129, 129, 129);
+  border-radius: 8px;
 }
 
-.searchPage .searchBar .onAmount{
-  margin-bottom: 15px;
+.spacing{
+  margin-bottom: 20px;
 }
 
 .searchPage .searchBar .row{

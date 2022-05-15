@@ -56,10 +56,7 @@ function App() {
 
     console.log(user);
 
-  return (
-
-
-    
+  return (    
     <Provider store={store}>
        {/* <Topbar /> */}
         <main>
