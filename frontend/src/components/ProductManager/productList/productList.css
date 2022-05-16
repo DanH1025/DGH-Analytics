@@ -41,10 +41,14 @@ body{
     color: rgb(36, 24, 3);
     font-weight: normal;
 }
-
-.ant-drawer-header.ant-drawer-title {
+.ant-table-column-title{
     font-size: 12px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: rgb(36, 24, 3);
+    font-weight: normal;
 }
+
+
 .ant-btn.ant-btn-default span{
     font-size: 12px;
 }
@@ -111,4 +115,73 @@ body{
     font-weight: normal;
     transform: scale(1.1);
     transition: all ease 0.4s;
+}
+
+
+.editProduct_imageHolder{
+    width: 80%;
+    height: 250px;
+    object-fit: contain;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.editProduct_imageHolder img{
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+
+.ant-form-item-required{
+    font-size: 12px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: lighter;
+    padding: 0;
+    margin: 0;
+}
+.ant-input{
+    font-size: 12px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    border: 1px solid rgba(0, 0, 0, 0.149);
+    padding: 2px;
+    margin: 0;
+}
+
+.ant-drawer-title {
+    margin: 0;
+    color: rgba(81, 56, 5, 0.85);
+    font-weight: lighter;
+    font-size: 12px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.anticon.anticon-close{
+    font-size: 10px;
+
+}
+.ant-btn.ant-btn-default{
+    display: flex;
+    padding: 7px;
+    
+    align-items: center;
+    justify-content: center;
+}
+.ant-btn.ant-btn-default span,
+.ant-btn.ant-btn-primary span{
+    font-size: 12px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: normal;
+}
+
+.ant-btn.ant-btn-primary{
+    display: flex;
+    padding: 7px;
+    align-items: center;
+    justify-content: center;
+    background-color: orange;
+    border:  transparent;
 }
