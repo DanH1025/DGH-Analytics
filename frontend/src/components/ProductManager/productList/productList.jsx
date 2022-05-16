@@ -12,10 +12,11 @@ import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
-
+import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 
 
 import { Drawer, Form, Col, Row, Input, Select, DatePicker, Space } from 'antd';
+import axios from 'axios';
 
 
 
@@ -40,15 +41,30 @@ export default function ProductList() {
 
     const dispatch = useDispatch();
 
-        useEffect(() => {
-          dispatch(getAllProducts());
-        }, [dispatch]);
+    const [products ,setProducts] = useState([]);
+    const [searchInput , setSearchInput] = useState('');
+
+    useEffect(()=>{
+      const fetchProducts = async ()=>{
+        const res = await axios.get(`http://localhost:5000/api/getAllProducts?sq=${searchInput}`);
+        setProducts(res.data);
+      }
+      fetchProducts()
+    }, [searchInput])
+
+  //       useEffect(() => {
+  //         dispatch(getAllProducts(searchInput));
+  //       }, [dispatch]);
       
       
-   const products = useSelector((state) => state.getProduct.products);
+  //  const products = useSelector((state) => state.getProduct.products);
   
    
-   console.log(products);
+
+
+
+
+  //  console.log(products);
 
    
 
@@ -133,6 +149,10 @@ export default function ProductList() {
     status:'',
     count_in_stock: '',
   })
+  // state for product list search bar
+
+ 
+
   const EditProduct = (record) =>{
    
     setEditValues({ ...editValues,
@@ -234,15 +254,22 @@ export default function ProductList() {
       ];
     
     const data = [];
- 
-  
-console.log(data)
 
+
+
+  //  const keys =["productName", "productBrand", "productCategory","productPrice"];
+      
+
+   
       if(!products.length){
-          return <div></div>
+          
       }
-      else{
-          products.map((val,key)=>{
+      else{      
+
+          products.filter(
+            (product)=>product.productName.toLowerCase().includes(searchInput)                              
+            
+          ).map((val,key)=>{
             data.push({
                 key: val.id,
                 id: val.id,
@@ -263,10 +290,22 @@ console.log(data)
 
      
 
-
+      console.log(searchInput);
   return (
     <>
-   
+   <div className="productListPageHolder">
+    <div className="searchBarContainer">
+       <div className="productList_searchBarWrapper">
+            <input type="text" 
+                   className='productList_searchBar' 
+                   placeholder='Search Product'
+                   onChange={e=>setSearchInput(e.target.value)}
+                   />
+            {/* <div className="searchIconContainer">
+              <SearchOutlinedIcon />
+            </div> */}
+       </div>
+    </div>
 
     <Table 
     rowSelection={{ ...rowSelection }}
@@ -287,7 +326,7 @@ console.log(data)
     sticky
     />
 
-
+</div>
 
 
 <Drawer
