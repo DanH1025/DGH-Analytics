@@ -49,6 +49,7 @@ export default function ProductList() {
         const res = await axios.get(`http://localhost:5000/api/getAllProducts?sq=${searchInput}`);
         setProducts(res.data);
       }
+
       fetchProducts()
     }, [searchInput])
 
@@ -182,7 +183,13 @@ export default function ProductList() {
   }      
 
 
+  const [sortedInfo ,setSortedInfo] = useState()
  
+  const handleChange = (pagination, filters, sorter) =>{
+    console.log('Various parameters', pagination, filters, sorter);
+    setSortedInfo(sorter)
+  }
+
 
     const columns = [
         {
@@ -205,14 +212,18 @@ export default function ProductList() {
             title: 'Price',
             dataIndex: 'price',
             key: 'price',
-            width:70
+            width:70,
+            ellipsis: true,
+            sorter: (a, b) => a.price - b.price
+            
            
         },
         {
             title: 'Count In Stock',
             dataIndex: 'count_in_stock',
             key: 'count_in_stock',
-            width:70
+            width:80,
+            sorter: (a, b) => a.count_in_stock - b.count_in_stock
 
         },
         {
@@ -312,6 +323,7 @@ export default function ProductList() {
     columns={columns}
     dataSource={data}
     scroll={{ x: 1000 }}
+    onChange={handleChange}
     summary={pageData => (
           <Table.Summary fixed={fixedTop ? 'top' : 'bottom'}>
             <Table.Summary.Row >
@@ -347,35 +359,25 @@ export default function ProductList() {
   }
 >
   <Form layout="vertical" hideRequiredMark>
-  <Row gutter={16}>
+  <Row gutter={20}>
     </Row>
     <Row gutter={16}>
+
+      <Col span={12}>
+         <div className='editProduct_imageHolder'>
+            <img src={editValues.image} onClick={()=> message.warning("Want To Change the image")} />
+         </div>
+      </Col>
+
       <Col span={12}>
         <Form.Item
-          name="name"
+          name="product_name"
           label="Product Name"
-          rules={[{ required: true, message: 'Please enter user name' }]}
+          rules={[{ required: true, message: 'Please enter product Name' }]}
         >
           <Input value={editValues.name} onChange={(e)=> setEditValues({...editValues, name: e.target.value})}  placeholder={editValues.name} />
         </Form.Item>
-      </Col>
-      <Col span={12}>
-        <Form.Item
-          name="image"
-          label="Product Image"
-          rules={[{ required: true, message: 'Please enter image url' }]}
-        >
-          <Input
-            style={{ width: '100%' }}
-            addonBefore="http://"                
-            placeholder={editValues.image}
-            value={editValues.image} onChange={(e)=> setEditValues({...editValues, image: e.target.value})}
-          />
-        </Form.Item>
-      </Col>
-    </Row>
-    <Row gutter={16}>
-      <Col span={12}>
+
         <Form.Item
           name="category"
           label="Category"
@@ -386,8 +388,8 @@ export default function ProductList() {
             <Option value="mao">Smart-Phone</Option>
           </Select>
         </Form.Item>
-      </Col>
-      <Col span={12}>
+
+
         <Form.Item
           name="brand"
           label="Brand"
@@ -398,6 +400,26 @@ export default function ProductList() {
             <Option value="public">Apple</Option>
           </Select>
         </Form.Item>
+
+
+        <Form.Item
+          name="count_in_stock"
+          label="Amount In Stock"
+          rules={[{ required: true, message: 'Please enter count in stock' }]}
+        >
+          <Input prefix='#' min={0} type='number' placeholder={editValues.count_in_stock}   value={editValues.count_in_stock} onChange={(e)=> setEditValues({...editValues, count_in_stock: e.target.value})}   />
+        </Form.Item>
+        
+
+      </Col>
+
+    </Row>
+    <Row gutter={16}>
+      <Col span={12}>
+       
+      </Col>
+      <Col span={12}>
+      
       </Col>
     </Row>
     <Row gutter={16}>
@@ -421,13 +443,7 @@ export default function ProductList() {
             getPopupContainer={trigger => trigger.parentElement}
           />
         </Form.Item> */}
-          <Form.Item
-          name="count_in_stock"
-          label="Amount In Stock"
-          rules={[{ required: true, message: 'Please enter count in stock' }]}
-        >
-          <Input prefix='#' min={0} type='number' placeholder={editValues.count_in_stock}   value={editValues.count_in_stock} onChange={(e)=> setEditValues({...editValues, count_in_stock: e.target.value})}   />
-        </Form.Item>
+       
       </Col>
     </Row>
     <Row gutter={16}>
