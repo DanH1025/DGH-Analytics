@@ -3,6 +3,14 @@ body{
     margin: 0;
 }
 
+.productListPageHolder{
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    height: fit-content;
+    
+}
+
 .MuiSvgIcon-root.editProductIcon{
     font-size: 20px;
     color: silver;
@@ -42,4 +50,65 @@ body{
 }
 .ant-col.ant-form-item-label label{
     font-size: 12px;
+}
+.searchBarContainer{
+    display: flex;
+    width: 100%;
+    height: 60px;
+    padding: 0;
+    margin: 0;
+}
+.productList_searchBarWrapper{
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+
+}
+
+.productList_searchBar{
+    display: flex;
+    padding: 5px;
+    font-size: 12px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: lighter;
+    border: 1px solid rgba(0, 0, 0, 0.182);
+    border-radius: 2px;
+    width: 25%;
+    height: 60%;
+  
+    
+}
+
+.searchIconContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60%;
+    width: 60px;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    border:  1px solid rgba(0, 0, 0, 0.182);
+    border-left: none;
+
+}
+
+
+.searchIconContainer svg{
+    font-size: 25px;
+    font-weight: lighter;
+    color: rgb(255, 174, 0);
+    cursor: pointer;
+    transform: 0;
+
+}
+.searchIconContainer svg:hover{
+    font-weight: normal;
+    transform: scale(1.1);
+    transition: all ease 0.4s;
 }

@@ -24,8 +24,26 @@ const getProducts = async(req,res) => {
 const getAllProducts = async(req,res) => {
   console.log('in appi get product');
   const [product, metaData] = await ProductModel.fetchAll();
-  // console.log(product);
-  res.send(product);
+  console.log(product);
+
+
+  // const keys = ["productName", "productBrand", "productCategory","productPrice"];
+
+  // const search  = (data) =>{
+  //   return data.filter((product)=>{
+  //     //keys.some((key)=> product[key].toLowerCase().includes(sq));
+  //     keys.some((key)=>{
+  //       product[key].includes(sq)
+  //     })
+  //   })
+  // }
+
+
+  const {sq} = req.query;
+  console.log(sq);
+  res.json(product.filter(pro=> pro.productName.toLowerCase().includes(sq)).splice(0,9)) 
+
+ // res.send(product.filter(product=> product.productName.toLowerCase().includes(sq)).splice(0,10));
 }
 
 
