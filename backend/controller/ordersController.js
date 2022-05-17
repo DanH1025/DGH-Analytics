@@ -11,7 +11,7 @@ const addOrder = (req, res) => {
   // console.log(orders);
   try{
     orders.save();
-  }catch(e){
+  }catch(e){ 
     console.log('orders error: ' + e);
   }
 }

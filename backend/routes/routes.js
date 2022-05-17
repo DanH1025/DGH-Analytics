@@ -40,16 +40,10 @@ router.post('/addUserLogs', addOrderLog);
 router.post('/getUserLogs', getOrderLogs);
 router.post('/getUserLogCount', getUserLogs);
 
-<<<<<<< HEAD
-// // // test user api
-// router.post('/app', users);
-// router.post('/appDelete', verify,  deleteP);
-=======
 // test user api
 router.post('/app', users);
 router.post('/appver', verify);
 router.post('/appDelete', verify,  deleteP);
->>>>>>> master
 
 // report generator
 router.post('/addOrderReport', addOrderReport);
