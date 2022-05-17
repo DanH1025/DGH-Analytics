@@ -27,7 +27,7 @@ const bcrypt = require('bcryptjs');
 
 const loginWithPhone = async(req,res)=>{
     console.log("in Loginwith phone number");  
-    
+     
     const {phone , password} = req.body;
     try{   
         const [data , metaData] = await UserModel.fetchPhone(phone);
@@ -41,7 +41,7 @@ const loginWithPhone = async(req,res)=>{
         if(isCorrect){ 
             console.log("Login Successfull")
             console.log(phone);
-            const resp = [];
+            const resp = [];   
             resp.push(data[0]);
 
             let options = {
