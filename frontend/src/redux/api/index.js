@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+// axios.defaults.withCredentials = true;
+axios.create({ withCredentials: true, })
 
 const getAllCategoriesUrl =
 'http://localhost:5000/api/getAllCategories'
@@ -28,7 +30,7 @@ const getAllUserUrl =
 const createUserByPhoneNumberUrl = 
       'http://localhost:5000/api/addUserByPhone'
 const loginWithPhoneUrl = 
-      'http://localhost:5000/api/app'
+      'http://127.0.0.1:5000/api/app'
 
 // order report of last week
 const readOrderReportUrl = 

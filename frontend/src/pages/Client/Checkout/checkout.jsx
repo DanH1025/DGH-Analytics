@@ -14,10 +14,12 @@ import { createOrderDetails } from '../../../redux/actions/orderDetailAction'
 import { addToCart, removeFromCart } from '../../../redux/actions/cartActions'
 import {LocalShippingOutlined,LocalPhoneOutlined,MonetizationOnOutlined,RedeemOutlined} from '@material-ui/icons';
 
+import { useCookies } from 'react-cookie';
 
 export default function Checkout() {
 
     const errRef = useRef();
+    const [cookies, setCookie] = useCookies(['user']);
 
     const [errMsg, setErrMsg] = useState('');
 
@@ -74,8 +76,8 @@ export default function Checkout() {
       getUs();
      
 
-      if(users?.userId){
-        dispatch(createOrders(date, users.userId, getTotalProductPrice(), marker.latitude,marker.longitude, phoneNumber ))
+      if(cookies.uid){
+        dispatch(createOrders(date, cookies.uid, getTotalProductPrice(), marker.latitude,marker.longitude, phoneNumber ))
 
         cartItems.map((item)=>{
           dispatch(createOrderDetails(date, item.product , item.qtyCounter, item.price))
@@ -154,7 +156,7 @@ export default function Checkout() {
 
   return (
     <>
-    {/* <Topbar/> */}
+    <Topbar/>
 
        <div className='checkout'>
          <div className='checkoutPath'>

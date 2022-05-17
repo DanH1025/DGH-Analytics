@@ -12,6 +12,8 @@ module.exports = class Request {
 
   save() {
     console.log('in order modle');
+    console.log('userId');
+    console.log(this.userId);
     const date = new Date().toISOString().slice(0, 10);
     try{
       db.execute('INSERT INTO orders (orderId, userId, total, date,status, latitude,longitude, contact) VALUES (?,?,?,?,?,?,?,?)', 
@@ -32,7 +34,7 @@ module.exports = class Request {
 
   static fetchAll() {
     try{
-       const result =db.execute('SELECT orders.orderId, users.userFirstName, users.userLastName, users.userEmail, orders.total , orders.latitude,orders.longitude,orders.contact , orders.status FROM orders INNER JOIN users ON orders.userId = users.userId');
+       const result =db.execute('SELECT orders.orderId, user.fname, user.lname, user.email, orders.total , orders.latitude,orders.longitude,orders.contact , orders.status FROM orders INNER JOIN user ON orders.userId = user.id');
        return result;
     }catch(err){
       console.log(err);

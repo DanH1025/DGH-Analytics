@@ -20,6 +20,17 @@ const loginWithPhone = async(req,res)=>{
             console.log(phone);
             const resp = [];
             resp.push(data[0]);
+
+            let options = {
+                maxAge: 1000 * 60 * 15, // would expire after 15 minutes
+                httpOnly: true, // The cookie only accessible by the web server
+                signed: true // Indicates if the cookie should be signed
+            }
+        
+            // Set cookie
+            res.cookie('cookieName', 'cookieValue', options) // options is optional
+
+            res.cookie()
             res.send(resp);
 
            // res.send("this is what the data should be")

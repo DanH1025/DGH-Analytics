@@ -7,9 +7,11 @@ const Product = require('../backend/model/product');
 const db = require('./database/dbConn');  
 const routes = require('./routes/routes');
 const authRoutes = require('./routes/auth')
-const cookieSession = require("cookie-session"); 
+const cookieSession = require('cookie-session'); 
 const passport =require('passport');
 const passportSetup = require('./passport')
+
+const cookieParser = require('cookie-parser');
 
 var schedule = require('node-schedule');  
 const {addOrderReport} = require('./controller/orderReportController');
@@ -18,15 +20,21 @@ const {addOrderReport} = require('./controller/orderReportController');
 const app = express();
 app.use(express.json()); // allows to recieve data with json format from our request variables at the frontend
 app.use(bodyParser.urlencoded({extended: true})); 
-
-// app.use(cors({
-  
-//   origin: "https://localhost:3000/",
+app.use(cookieParser());
+// app.use(cors({  
+//   origin: "https://localhost:3000",
 //   methods: "GET,POST,PUT,DELETE",
 //   credentials: true
 // }));
 
 app.use(cors());
+
+// const corsOptions = {
+//   credentials: true,
+//   ///..other options
+// };
+
+// app.use(cors(corsOptions));
 
 app.use(cookieSession({
     name: "session",
