@@ -33,7 +33,7 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 
 
 
-
+import { useCookies } from 'react-cookie';
 
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -199,123 +199,158 @@ export default function Topbar() {
     const getWishlistCount = ()=>{
       return wishlistItems.length
     }
-   
-    const [isAuth , setIsAuth] = useState(false)
 
+    const logoutHandler = () => {
+      let expires = new Date();
+      expires.setTime(expires.getTime() + (2 * 10))
+      setCookie('uid', '', {path: '/', expires})
+      setCookie('fname', '', {path: '/', expires})
+      setCookie('lname', '', {path: '/', expires})
+      setCookie('phoneNo', '', {path: '/', expires})
+      setCookie('access_token', '', { path: '/',  expires})
+      setValues();
+    }
+   
+    const [isAuth , setIsAuth] = useState(false);
+
+    const [fname , setFname] = useState('');
+    const [lname , setLname] = useState('');
+    const [phoneNo , setPhoneNo] = useState('');
+
+    useEffect(() => {
+      setValues();
+      console.log(fname);
+      console.log(lname);
+      console.log(phoneNo);
+    }, [dispatch])
+
+    const setValues = () => {
+      setFname(cookies.fname);
+      setLname(cookies.lname);
+      setPhoneNo(cookies.phoneNo);
+    }
+
+    const [cookies, setCookie] = useCookies(['user']);
   return (
     <>
 
         <div className="topbar">
           <div className="Header">
-              <div className="topSide">
-                <div className="topSideWrapper">
-                  <div className="leftSide">
-                    <p>Follow Us  </p>
-                      <InstagramIcon style={{color:"red"}} />
-                      <FacebookIcon  style={{color:"#3b3b8f"}} />
-                      <TwitterIcon   style={{color:"#00a9ff"}} />
-                  </div>
-                  <div className="rightSide">
-                      {isAuth?                       
-                        <div className='isLoggedIn'>
-                            <div className="profilePic"> 
-                                 <FaceIcon/>
-                             </div>
-                            <div className='profile_info'>
-                                <span>  Dano Hailu </span>
-                                <span> danohailu24@gmail.com</span>
-                               
-                            </div>
-                            <Button className="logout_btn" size='small' variant="outlined" color="secondary">
-                              Logout
-                          </Button>
-                        </div>                         
-                            : 
-                        <div className="login_btn_container" > 
-                        <Link to='/login'>               
-                          <Button className='login_btn' size='small' variant="outlined" color="primary">
-                            Login
-                          </Button>
-                        </Link>
-                        </div>
-                        }
+            <div className="topSide">
+              <div className="topSideWrapper">
+                <div className="leftSide">
+                  <p>Follow Us  </p>
+                    <InstagramIcon style={{color:"red"}} />
+                    <FacebookIcon  style={{color:"#3b3b8f"}} />
+                    <TwitterIcon   style={{color:"#00a9ff"}} />
+                </div>
+                <div className="rightSide">
+                  {fname !== undefined ?                      
+                    <div className='isLoggedIn'>
+                      <div className="profilePic"> 
+                        <FaceIcon/>
+                      </div>
+                      <div className='profile_info'>
+                        <span>  
+                          {/* {cookies.fname} {cookies.lname}  */}
+                          {fname} {lname}
+                        </span>
+                        {/* <span> +251 {cookies.phoneNo} */}
+                        <span>{phoneNo}
+                        </span>
+                          
+                      </div>
+                      <Button className="logout_btn" size='small' variant="outlined" color="secondary"
+                      onClick={logoutHandler}>
+                        Logout
+                      </Button>
+                    </div>                         
+                        : 
+                    <div className="login_btn_container" >  
+                    <Link to={'/login'}>
+                      <Button className='login_btn' size='small' variant="outlined" color="primary">
+                        Login
+                      </Button>
+                    </Link>              
                     </div>
+                  }
                 </div>
               </div>
-              <div className="bottomSide">
-                <div className="logoSide">                
-                  <img
-                   src="https://cdn-icons-png.flaticon.com/512/732/732204.png" />
-                   <p>
-                     <prev>
-                       DGH 
-                     </prev>
-                   </p>                  
-                   <p>Analytics</p>
-                   <span>
-                     <prev>
-                       shop
-                     </prev>
-                   </span> 
-                </div>
-                <div className="searchBarSide">
-                  <div className="searchBarWrapper">                 
-                    <div className="category">
-                      <FormControl variant="outlined" className='searchCategoryForm'>                    
-                        <Select className='searchCategorySelect'
-                            labelId='searchCategory-items-lable'
-                            id='searchCategory-items'
-                            displayEmpty="true"
-                            open={open_category}
-                            onClose={handleCloseSearchCategory}
-                            onOpen={handleOpenSearchCategory}
-                            value={searchCategory}
-                            onChange={handleSearchCategoryChange}
-                        >
-                          <MenuItem  className='allCategoryMenuItem' value="">
-                               Category
-                          </MenuItem>
-                          <MenuItem className='allCategoryMenuItem' value={"television"}>
-                            <TvIcon className='menuItemIcons' /> TV </MenuItem>
-                            <MenuItem  className='allCategoryMenuItem' value={"smart phone"}>
-                          <PhoneAndroidIcon className='menuItemIcons' /> 	Smart Phone </MenuItem>
-                          <MenuItem  className='allCategoryMenuItem' value={"smart watch"}>
-                            <WatchIcon className='menuItemIcons' /> Smart Watch </MenuItem>
-                          <MenuItem  className='allCategoryMenuItem' value={"PC"}>
-                          <ComputerIcon className='menuItemIcons' /> Computer </MenuItem>
-                          <MenuItem  className='allCategoryMenuItem' value={"Moniter"}>
-                          <DesktopMacIcon className='menuItemIcons' /> Moniter</MenuItem>
-                          <MenuItem  className='allCategoryMenuItem' value={"play station"}>
-                          <SportsEsportsIcon className='menuItemIcons'/>PS</MenuItem>
-                        </Select> 
-                      
-                      </FormControl>
-                    </div>
-                    <div className="searchInput">
-                      <input  
-                      placeholder='Search...' 
-                      name='search'
-                      value={searchValue.task}
-                      onChange={(e) => {
-                        let value = {task: e.target.value}
-                        let search = value.task;
-                        console.log(search);
-                        setSearchValue({
-                          searchValue: search 
-                        })
-                      }   
-                    }
-                      type="text" />
-                    </div>
-                    <div className="searchbtn">
-                        <Link to='/search' className='searchbtnLink'>
-                           <Search 
-                           onClick={handleSearch}/>
-                      </Link> 
-                    </div>
+            </div>
+            <div className="bottomSide">
+              <div className="logoSide">                
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/732/732204.png" />
+                  <p>
+                    <prev>
+                      DGH 
+                    </prev>
+                  </p>                  
+                  <p>Analytics</p>
+                  <span>
+                    <prev>
+                      shop
+                    </prev>
+                  </span> 
+              </div>
+              <div className="searchBarSide">
+                <div className="searchBarWrapper">                 
+                  <div className="category">
+                    <FormControl variant="outlined" className='searchCategoryForm'>                    
+                      <Select className='searchCategorySelect'
+                          labelId='searchCategory-items-lable'
+                          id='searchCategory-items'
+                          displayEmpty="true"
+                          open={open_category}
+                          onClose={handleCloseSearchCategory}
+                          onOpen={handleOpenSearchCategory}
+                          value={searchCategory}
+                          onChange={handleSearchCategoryChange}
+                      >
+                        <MenuItem  className='allCategoryMenuItem' value="">
+                              Category
+                        </MenuItem>
+                        <MenuItem className='allCategoryMenuItem' value={"television"}>
+                          <TvIcon className='menuItemIcons' /> TV </MenuItem>
+                          <MenuItem  className='allCategoryMenuItem' value={"smart phone"}>
+                        <PhoneAndroidIcon className='menuItemIcons' /> 	Smart Phone </MenuItem>
+                        <MenuItem  className='allCategoryMenuItem' value={"smart watch"}>
+                          <WatchIcon className='menuItemIcons' /> Smart Watch </MenuItem>
+                        <MenuItem  className='allCategoryMenuItem' value={"PC"}>
+                        <ComputerIcon className='menuItemIcons' /> Computer </MenuItem>
+                        <MenuItem  className='allCategoryMenuItem' value={"Moniter"}>
+                        <DesktopMacIcon className='menuItemIcons' /> Moniter</MenuItem>
+                        <MenuItem  className='allCategoryMenuItem' value={"play station"}>
+                        <SportsEsportsIcon className='menuItemIcons'/>PS</MenuItem>
+                      </Select> 
+                    
+                    </FormControl>
+                  </div>
+                  <div className="searchInput">
+                    <input  
+                    placeholder='Search...' 
+                    name='search'
+                    value={searchValue.task}
+                    onChange={(e) => {
+                      let value = {task: e.target.value}
+                      let search = value.task;
+                      console.log(search);
+                      setSearchValue({
+                        searchValue: search 
+                      })
+                    }   
+                  }
+                    type="text" />
+                  </div>
+                  <div className="searchbtn">
+                      <Link to='/search' className='searchbtnLink'>
+                          <Search 
+                          onClick={handleSearch}/>
+                    </Link> 
                   </div>
                 </div>
               </div>
+            </div>
           </div>        
         </div>
         <div className="stickyHeader">

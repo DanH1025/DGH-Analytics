@@ -3,7 +3,7 @@ const OrderModle = require('../model/orders');
 const addOrder = (req, res) => {
   const date = req.body.date;
   const userId = req.body.userId;
-  const total = req.body.total;
+  const total = req.body.total;  
   const latitude = req.body.latitude;
   const longitude = req.body.longitude;
   const contact = req.body.contact;

@@ -152,7 +152,7 @@ export default function Home() {
                   middleTotal={ totalPrice + ' ETB'   }
                   dates={days}
                   chartData={prices}
-                  chartType="line"
+                  chartType="area"
                   />
               </div>
               <div className="chart">
@@ -161,7 +161,7 @@ export default function Home() {
                   middleTotal={orderNo}
                   dates={days}
                   chartData={orders}
-                  chartType="line"
+                  chartType="area"
                   />
               </div>        
               <div className="chart">
@@ -170,7 +170,7 @@ export default function Home() {
                   middleTotal={average}
                   dates={days}
                   chartData={priceAverage}
-                  chartType="line"
+                  chartType="area"
                   />
               </div>  
 
