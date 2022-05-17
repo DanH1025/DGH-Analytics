@@ -38,7 +38,7 @@ export default function Checkout() {
 			  users = pro;
 			  console.log(users);
 		  }
-    )}
+    )} 
 
     useEffect(() => {
       sessionStorage.setItem('reachedCheckout', true);
