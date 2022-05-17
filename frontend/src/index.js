@@ -4,10 +4,13 @@ import './index.css';
 import App from './App';
 import 'antd/dist/antd.css';
 import { BrowserRouter } from 'react-router-dom'
+import  {CookiesProvider} from 'react-cookie'
 
 ReactDOM.render(
   <BrowserRouter>
+  <CookiesProvider>
     <App />
+  </CookiesProvider>
   </BrowserRouter>,
   document.getElementById('root')
 );

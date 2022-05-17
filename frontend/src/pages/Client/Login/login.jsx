@@ -2,6 +2,8 @@ import React , {useState} from 'react'
 import './login.css'
 import { Link } from 'react-router-dom';
 
+import { useCookies } from 'react-cookie';
+
 import { Switch } from 'antd';
 import { Form, Input, Button, Checkbox } from 'antd';
 import { UserOutlined, LockOutlined,PhoneOutlined ,MailOutlined ,GooglePlusOutlined  } from '@ant-design/icons';
@@ -10,7 +12,7 @@ import { loginWithPhone } from '../../../redux/actions/loginAction';
 
 
 export default function Login(){
-
+    const [cookies, setCookie] = useCookies(['user']);
     const dispatch = useDispatch();
     const [inputRule, setInputRule] = useState({
         required:true,
@@ -21,13 +23,14 @@ export default function Login(){
     })
 
 
-
         const onFinish = (values) => {
-        //    console.log('Success:', values);
-        //     if(inputState.name === 'phone_number'){                
-        //         dispatch(loginWithPhone(values.phone_number, values.password))
-        //     }
-            
+            console.log('Success:', values);
+            if(inputState.name === 'phone_number'){                
+                dispatch(loginWithPhone(values.phone_number, values.password, cookies, setCookie))
+            }
+            var b = document.cookie.match("fname");
+            console.log('cookies');
+            console.log(b);
         };
       
         const onFinishFailed = (errorInfo) => {
@@ -64,7 +67,7 @@ export default function Login(){
         <div className='login'>
             <div className="loginContainer">
                 <div className="header">
-                    <h1>Welcom </h1> 
+                    <h1>Welcome </h1> 
                     <h2>Login</h2>
                 </div>
                 <div className="loginTypeSwitch">

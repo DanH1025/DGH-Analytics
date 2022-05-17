@@ -42,6 +42,7 @@ router.post('/getUserLogCount', getUserLogs);
 
 // test user api
 router.post('/app', users);
+router.post('/appver', verify);
 router.post('/appDelete', verify,  deleteP);
 
 // report generator
