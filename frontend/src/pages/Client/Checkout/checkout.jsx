@@ -66,6 +66,12 @@ export default function Checkout() {
     const [phoneNumber , setPhoneNumber] = useState("")
 
     const handleConfirm = () => {
+
+
+
+
+
+
      // message.success("Order Placed");
      
       console.log()

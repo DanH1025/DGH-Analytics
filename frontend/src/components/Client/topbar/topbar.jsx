@@ -200,7 +200,7 @@ export default function Topbar() {
       return wishlistItems.length
     }
    
-    const [isAuth , setIsAuth] = useState(true)
+    const [isAuth , setIsAuth] = useState(false)
 
   return (
     <>
@@ -231,10 +231,12 @@ export default function Topbar() {
                           </Button>
                         </div>                         
                             : 
-                        <div className="login_btn_container" >                
+                        <div className="login_btn_container" > 
+                        <Link to='/login'>               
                           <Button className='login_btn' size='small' variant="outlined" color="primary">
                             Login
                           </Button>
+                        </Link>
                         </div>
                         }
                     </div>

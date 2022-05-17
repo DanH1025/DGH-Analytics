@@ -1,8 +1,8 @@
 import React , {useState} from 'react'
 import './login.css'
 import { Link } from 'react-router-dom';
-
-import { Switch } from 'antd';
+import axios from 'axios';
+import { Switch , message } from 'antd';
 import { Form, Input, Button, Checkbox } from 'antd';
 import { UserOutlined, LockOutlined,PhoneOutlined ,MailOutlined ,GooglePlusOutlined  } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
@@ -21,12 +21,22 @@ export default function Login(){
     })
 
 
+        const [user, setUser]  = useState([]);
+        const onFinish = async(values) => {
+           console.log('Success:', values);
+           message.success("Logging in please wait....")
+           
 
-        const onFinish = (values) => {
-        //    console.log('Success:', values);
-        //     if(inputState.name === 'phone_number'){                
-        //         dispatch(loginWithPhone(values.phone_number, values.password))
-        //     }
+            // const res = await axios.post('http://localhost:5000/api/loginWithPhone', {phone: values.phone_number , password: values.password})
+            // setUser(res.data);
+            
+            // console.log(user);
+
+            if(inputState.name === 'phone_number'){                
+                dispatch(loginWithPhone(values.phone_number, values.password))
+            }else{
+                alert("logging in with email")
+            }
             
         };
       
@@ -61,10 +71,11 @@ export default function Login(){
         }
 
     return(
+        <>
         <div className='login'>
             <div className="loginContainer">
                 <div className="header">
-                    <h1>Welcom </h1> 
+                    {/* <h1>Welcom </h1>  */}
                     <h2>Login</h2>
                 </div>
                 <div className="loginTypeSwitch">
@@ -123,5 +134,6 @@ export default function Login(){
                 </div>
             </div>
         </div>
+    </>
     )
 }

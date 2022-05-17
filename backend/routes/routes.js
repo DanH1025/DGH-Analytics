@@ -17,7 +17,7 @@ const { getOrderReports, getLastWeekOrderReports, getTotalOrder, addOrderReport 
   require('../controller/orderReportController');
 const { getOrderLogs, addOrderLog ,getUserLogs} = 
   require('../controller/orderLogController')
-const {loginWithPhone} = 
+const {loginWithPhone } = 
   require('../controller/loginController')
 
 const {getAllCategories} = require('../controller/categoryController')
@@ -25,7 +25,7 @@ const {getAllCategories} = require('../controller/categoryController')
 
 const { route } = require('express/lib/application');
 
-const { users, deleteP, verify} = require('../controller/api')
+// /const { users, deleteP, verify} = require('../controller/api/')
 
 
 router.get('/' , (req,res)=>{
@@ -40,9 +40,9 @@ router.post('/addUserLogs', addOrderLog);
 router.post('/getUserLogs', getOrderLogs);
 router.post('/getUserLogCount', getUserLogs);
 
-// test user api
-router.post('/app', users);
-router.post('/appDelete', verify,  deleteP);
+// // // test user api
+// router.post('/app', users);
+// router.post('/appDelete', verify,  deleteP);
 
 // report generator
 router.post('/addOrderReport', addOrderReport);
@@ -76,7 +76,7 @@ router.post('/getUsers', getUser);
 router.post('/getAllUsers' , getAllUser)
 
 // order routes
-router.post('/addOrder', addOrder);
+router.post('/addOrder/userId', addOrder);
 router.post('/getOrders', getOrders);
 
 // orderDetail routes

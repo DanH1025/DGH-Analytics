@@ -1,7 +1,7 @@
 import React , {useState}from 'react'
 import './signUp.css'
 
-
+import axios from 'axios';
 
 import { Link ,useNavigate} from 'react-router-dom';
 
@@ -21,14 +21,25 @@ export default function SignUp() {
 
     const dispatch = useDispatch()
 
+    // useEffect(()=>{
+    //     dispatch(getAllUser());
+    // },[])
+
+
+    // const getUser = useSelector(state => state.getUser)
+    // const {user} = getUser;   
+    // console.log(user)
+    const [user ,setUser] = useState([]);
+    
     useEffect(()=>{
-        dispatch(getAllUser());
-    },[])
+        const fetchUsers = async ()=>{
+            const res = await axios.post('http://localhost:5000/api/getAllUsers')
+            setUser(res.data)
+        }   
+        fetchUsers()
+    } , []);
 
-
-    const getUser = useSelector(state => state.getUser)
-    const {user} = getUser;   
-    console.log(user)  
+    console.log(user)
     
     
 
@@ -96,7 +107,7 @@ export default function SignUp() {
     <div className='login'>
     <div className="loginContainer">
         <div className="header" style={{height: '60%', borderBottomRightRadius: '40%'}}>
-            <h1>Welcom </h1> 
+            {/* <h1>Welcom </h1>  */}
             <h2>Create an account</h2>
         </div>
         <div className="loginTypeSwitch">
@@ -131,7 +142,7 @@ export default function SignUp() {
                     name={inputState.name}
                     rules={[{required: inputRule.required 
                             , message: inputState.name==='email'? inputRule.Emessage:inputRule.Pmessage
-                            , pattern: /(\+\s*2\s*5\s*1\s*9\s*(([0-9]\s*){8}\s*))|(0\s*9\s*(([0-9]\s*){8}))/}]} 
+                            , pattern: inputState.name==='phone_number'? /(\+\s*2\s*5\s*1\s*9\s*(([0-9]\s*){8}\s*))|(0\s*9\s*(([0-9]\s*){8}))/ : /(^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$)/  }]} 
                 >
                     <Input type={inputState.type} prefix={inputState.type === "email" ? <MailOutlined className="site-form-item-icon" />: <PhoneOutlined className="site-form-item-icon" /> } placeholder={inputState.placeholder} />
                 </Form.Item>

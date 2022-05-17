@@ -33,21 +33,21 @@ export const getUserReducer = (state = {user: [] }, action)=>{
         //         loading:false,
         //         error: action.payload
         //     }
-            case actionTypes.LOGIN_WITH_PHONE_REQUEST:
-                return{
-                    loading: true,
-                    user: []
-                }
-            case actionTypes.LOGIN_WITH_PHONE_SUCCESS:
-                return{
-                    loading:false,
-                    user: action.payload
-                }  
-            case actionTypes.LOGIN_WITH_PHONE_FAIL:
-                return{
-                    loading:false,
-                    error: action.payload,
-                }
+        case actionTypes.LOGIN_WITH_PHONE_REQUEST:
+            return{
+                loading: true,
+                user: []
+            }
+        case actionTypes.LOGIN_WITH_PHONE_SUCCESS:
+            return{
+                loading:false,
+                user: action.payload
+            }  
+        case actionTypes.LOGIN_WITH_PHONE_FAIL:
+            return{
+                loading:false,
+                error: action.payload,
+            }
         default:
             return state;
     }

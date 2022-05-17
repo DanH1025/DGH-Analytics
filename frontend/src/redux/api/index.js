@@ -138,13 +138,13 @@ export const createUserByPhoneNumber =(FirstName,LastName,phone,password)=>{
     password: password
     })
 }
-
 export const loginWithPhoneNumber = (phone,password)=>{
-  axios.post(loginWithPhoneUrl , {
-      phone: phone,
-      password: password
-     })
+  return axios.post(loginWithPhoneUrl, {
+    phone: phone,
+    password: password
+  })
 }
+
 
 //fetch all categories 
 export const fetchCategory = ()=> 

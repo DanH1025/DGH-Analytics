@@ -1,0 +1,74 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    padding: 0;
+    margin: 0;
+
+}
+
+.adminLogin{
+    width: 100%;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(73, 70, 70);
+}
+
+.adminLoginWrapper{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.al_container{
+    display: flex;
+    width: 40%;
+    height: 50%;
+    background-color: rgba(255, 255, 255, 0.105) ;
+    
+}
+.al_container_wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    width: 100%
+    
+}
+
+.al_header{
+    display: flex;
+    width: 100%;
+    flex:1;
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+}
+.al_body{
+    display: flex;
+    width: 100%;
+    flex: 2;
+    background-color: orange;
+    align-items: center;
+    justify-content: center;
+}
+.al_footer{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    background-color: red;
+}
