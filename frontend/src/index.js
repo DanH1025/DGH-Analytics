@@ -6,10 +6,14 @@ import 'antd/dist/antd.css';
 import { BrowserRouter } from 'react-router-dom'
 import  {CookiesProvider} from 'react-cookie'
 
+import { AuthProvider } from './context/AuthProvider';
+
 ReactDOM.render(
   <BrowserRouter>
   <CookiesProvider>
-    <App />
+    <AuthProvider>
+      <App />
+    </AuthProvider>
   </CookiesProvider>
   </BrowserRouter>,
   document.getElementById('root')

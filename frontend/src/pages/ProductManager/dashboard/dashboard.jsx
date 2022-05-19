@@ -28,15 +28,24 @@ import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOut
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 
+import { Button } from '@material-ui/core'
+//material ui menu navigation drawer things
+import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom';
+
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
 
 export default function PM_Dashboard() {
 
-// handle the state of the sidebar slider
-const [sidebarCollapsed , setSidebarCollapsed] = useState(false);
-// handle the state of the body components
+  const [cookies, setCookie, removeCookie] = useCookies(['user']);
+
+  const navigate = useNavigate();
+
+  // handle the state of the sidebar slider
+  const [sidebarCollapsed , setSidebarCollapsed] = useState(false);
+  // handle the state of the body components
   const [compCounter , setCompCounter] = useState("");
     const handlerSidebarCollapse = () =>{
           setSidebarCollapsed(!sidebarCollapsed);
@@ -57,7 +66,14 @@ const [sidebarCollapsed , setSidebarCollapsed] = useState(false);
       else if(compCounter === "4"){
         return <Orders />
       }
+  }
 
+  const handleLogout = (e) => {
+    e.preventDefault();
+    removeCookie('ADemail', {path: '/'});
+    removeCookie('ADrole', {path: '/'});
+    removeCookie('ADaccess_token', {path: '/'});
+    navigate('/');
   }
 
   return (
@@ -121,8 +137,11 @@ const [sidebarCollapsed , setSidebarCollapsed] = useState(false);
               Order Details
             </Menu.Item>
           </SubMenu>
-       
+          <Menu.Item>
+            <Button onClick={handleLogout}>Logout</Button>
+          </Menu.Item>
       </Menu>
+      
     </Sider>
 
     <Layout className="site-layout">

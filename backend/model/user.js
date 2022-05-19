@@ -28,7 +28,6 @@ module.exports = class Request {
       console.log("user save error: " + e);
     }
   }
- 
 
   static fetchPhone(phone){
     try {
@@ -38,6 +37,7 @@ module.exports = class Request {
       console.log(error)
     }
   }
+
   static fetchAllUsers(){
     try {
       const result = db.execute('SELECT * FROM user');
@@ -46,6 +46,7 @@ module.exports = class Request {
       console.log(error)
     }
   }
+  
   static fetchAll(email, password) {
     try{
        const result =db.execute('SELECT * FROM user WHERE userEmail=? AND password=?', [email, password]);

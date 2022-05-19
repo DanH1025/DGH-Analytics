@@ -11,7 +11,7 @@ import { Form, Input, Button, Checkbox } from 'antd';
 import { UserOutlined, LockOutlined,PhoneOutlined ,MailOutlined ,GooglePlusOutlined  } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginWithPhone } from '../../../redux/actions/loginAction';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 
 export default function Login(){
@@ -29,6 +29,9 @@ export default function Login(){
     const user = useSelector((state) => state.getUser.user);
     const navigate = useNavigate();
 
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
+
     const onFinish = (values) => {
         console.log('Success:', values);
         if(inputState.name === 'phone_number'){                
@@ -38,7 +41,7 @@ export default function Login(){
             console.log('sucess');
             console.log(cookies.uid);
             // return ( <Navigate to='/' /> )
-            navigate('/');
+            navigate(from, { replace: true });
         }else{
             console.log('login faill');
             console.log(cookies.uid);

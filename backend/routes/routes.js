@@ -7,7 +7,7 @@ const {getProducts, getAllProducts,addProduct, getProductsByCatagory, getProduct
   require('../controller/productController');
 
 
-const {getUser, getAllUser, addUserByPhone , getAdminUser} =   
+const {getUser, getAllUser, addUserByPhone , getAdminUser, verifyAdmin, addUser} =   
   require('../controller/userController')
 const {addOrder, getOrders} =   
   require('../controller/ordersController')
@@ -33,6 +33,11 @@ router.get('/' , (req,res)=>{
 })
 
 
+// router.get('getProductDetail/${id}' , getProductDetail)
+router.post('/getAdminUser' , getAdminUser);
+router.post('/getAdminUserVer', verifyAdmin ,getOrderLogs);
+router.post('/addAdmin', addUser)
+router.post('/adminRegister' , adminRegister)
 
 
 // user log routes
@@ -93,9 +98,5 @@ router.post('/addToCartRecord' , recordAddToCartHistory )
 //login routes
 router.post('/loginWithPhone', loginWithPhone)
 
-// router.get('getProductDetail/${id}' , getProductDetail)
-router.post('/getAdminUser' , getAdminUser);
-
-router.post('/adminRegister' , adminRegister)
 
 module.exports = router;
