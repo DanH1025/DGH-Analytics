@@ -3,15 +3,19 @@ import './login.css'
 import { Link } from 'react-router-dom';
 
 import { useCookies } from 'react-cookie';
+import { Route, Navigate } from 'react-router-dom';
 
+import { useParams } from 'react-router-dom';
 import { Switch } from 'antd';
 import { Form, Input, Button, Checkbox } from 'antd';
 import { UserOutlined, LockOutlined,PhoneOutlined ,MailOutlined ,GooglePlusOutlined  } from '@ant-design/icons';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginWithPhone } from '../../../redux/actions/loginAction';
+import { useNavigate } from "react-router-dom";
 
 
 export default function Login(){
+
     const [cookies, setCookie] = useCookies(['user']);
     const dispatch = useDispatch();
     const [inputRule, setInputRule] = useState({
@@ -22,16 +26,24 @@ export default function Login(){
         CPmessage:"Confirm Password is required"
     })
 
+    const user = useSelector((state) => state.getUser.user);
+    const navigate = useNavigate();
 
-        const onFinish = (values) => {
-            console.log('Success:', values);
-            if(inputState.name === 'phone_number'){                
-                dispatch(loginWithPhone(values.phone_number, values.password, cookies, setCookie))
-            }
-            var b = document.cookie.match("fname");
-            console.log('cookies');
-            console.log(b);
-        };
+    const onFinish = (values) => {
+        console.log('Success:', values);
+        if(inputState.name === 'phone_number'){                
+            dispatch(loginWithPhone(values.phone_number, values.password, cookies, setCookie))
+        }
+        if(user){
+            console.log('sucess');
+            console.log(cookies.uid);
+            // return ( <Navigate to='/' /> )
+            navigate('/');
+        }else{
+            console.log('login faill');
+            console.log(cookies.uid);
+        }
+    };
       
         const onFinishFailed = (errorInfo) => {
           console.log('Failed:', errorInfo);
