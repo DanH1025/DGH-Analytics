@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import './cart.css'
 
 import { Link } from 'react-router-dom';
@@ -16,21 +16,23 @@ import ShopOutlinedIcon from '@material-ui/icons/ShopOutlined';
 import { useSelector, useDispatch } from 'react-redux';
 import { addToCart, removeFromCart } from '../../../redux/actions/cartActions'
 
-// SELECT orderdetails.id, product.productName, product.productPrice, orderdetails.productQuantity FROM orderdetails INNER JOIN product ON orderdetails.productId=product.id
-// SELECT orders.id, orderdetails.id, product.productName, product.productPrice, orderdetails.productQuantity FROM orders INNER JOIN orderdetails ON orders.orderId=orderdetails.id INNER JOIN product ON orderdetails.productId=product.id
-// SELECT orderdetails.id, product.productName, product.productPrice, orderdetails.productQuantity FROM orderdetails INNER JOIN product ON orderdetails.productId=product.id
-
-
-// SELECT orders.orderId, users.userFirstName, users.userLastName, users.userEmail, orders.total FROM orders INNER JOIN users ON orders.userId = users.userId
-
-// SELECT orderdetails.id, product.productName, product.productPrice, product.productCategory, orderdetails.productQuantity FROM orderdetails INNER JOIN product ON orderdetails.productId = product.id WHERE orderdetails.orderId = 'Wed Mar 30 2022 10:27:32 GMT+0300 (East Africa Time)'
+import { useCookies } from 'react-cookie';
+import { useState } from 'react';
 
 export default function Cart() {
 
     const dispatch = useDispatch();
     const cart = useSelector(state => state.cart);
+    const [location, setLocation] = useState('');
     const {cartItems} = cart;
 
+    useEffect(() => {
+        let path = document.location.pathname;
+        path = path.substring(1);
+        console.log(path);
+        setLocation(path);
+        console.log(location);
+    })
 
     const qtyChangeHandler = (id,qty) =>{
         dispatch(addToCart(id,qty))
@@ -50,11 +52,11 @@ export default function Cart() {
         return cartItems.reduce((price , item)=> item.price * item.qtyCounter + price , 0)
     }
 
-
-
+    const [cookies, setCookie] = useCookies(['user']);
 
   return (
-     <><Topbar />
+     <>
+     <Topbar />
     
     <div className='cart'>
          
@@ -72,8 +74,8 @@ export default function Cart() {
                        <p className='cartEmpty'>  Your Cart Is Empty:  <span> <SentimentVeryDissatisfiedIcon /></span>  </p>
                     ): cartItems.map((item)=>
                          <CartItem item={item} 
-                                    qtyChangeHandler={qtyChangeHandler} 
-                                    removeFromCartHandler={removeFromCartHandler}    
+                            qtyChangeHandler={qtyChangeHandler} 
+                            removeFromCartHandler={removeFromCartHandler}    
                         /> )}
                                     
                 </div>
@@ -106,8 +108,13 @@ export default function Cart() {
             <div className="cartPageButtons">
                 <div className="cartPageButtonHolder">
                 
-                <Link to={'/'}> <Button type="primary" ghost> Continue Shopping </Button></Link>
-                 <Link to={'/checking'} >  <Button type="primary" ghost> Checkout   </Button> </Link>
+                <Link to={'/'}>
+                    <Button type="primary" ghost> Continue Shopping </Button>
+                </Link>
+                <Link to={cookies.uid ? '/checking'  :'/login'} >
+                {console.log(document.location)}  
+                    <Button type="primary" ghost> Checkout   </Button> 
+                </Link>
                 
                 </div>                
             </div>        
