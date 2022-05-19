@@ -20,13 +20,14 @@ const getOrderLogs = async(req,res) => {
 }
 
 const getUserLogs = async(req,res) => {
+  const date = new Date().toISOString().slice(0, 10);
   const [userNo, metaData] = await OrderLogModel.fetchTotalUser();
   console.log(userNo[0]['userNo']);
 
   const [orderNo, etaData] = await OrderModel.completeOrderCompleteAll();
   console.log(orderNo[0]['orderNo']);
   
-  const [userByDate, metaDat] = await OrderLogModel.fetchTotalUserByDate('2022-04-14');
+  const [userByDate, metaDat] = await OrderLogModel.fetchTotalUserByDate(date);
   console.log(userByDate[0]['userToday']);
   let days;
 
@@ -49,7 +50,7 @@ const getUserLogs = async(req,res) => {
   let i = hour;
   for(i; i>j; i--){
     // console.log('hour: ' + i);
-    const [userByHour, metaDa] = await OrderLogModel.fetchTotalUserByDateHour('2022-04-14', i);
+    const [userByHour, metaDa] = await OrderLogModel.fetchTotalUserByDateHour(date, i);
     // console.log(userByHour[0]['userHour']);
     dayData[i+'PM'] = userByHour[0]['userHour'];
   }

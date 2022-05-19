@@ -94,13 +94,16 @@ export default function Home() {
   let topProdByPrice = [];
   {
     orderTotals?.map((repo) => {
-      if(!repo.totalPrice === null){
+      if(repo.totalPrice){
         totalPrice = repo.totalPrice;
+        console.log(repo.totalPrice);
+      }else{
+        console.log(repo.totalPrice);
       }
-      if(!repo.totalPrice === null){
+      if(repo.orders){
         orderNo = repo.orders;
       }
-      if(!repo.totalPrice === null){
+      if(repo.average){
         average = repo.average;
       }
       topProdByQun = repo.topProdByQun;
