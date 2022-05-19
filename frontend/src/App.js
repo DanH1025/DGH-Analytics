@@ -19,7 +19,7 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import PM_Dashboard from './pages/ProductManager/dashboard/dashboard';
 import Admin_Dashboard from './pages/Admin/dashboard/dashboard';
-
+import AdminLogin from './pages/Admin/AdminLogin/adminLogin'
 
 function App() {
     const [user, setUser] = useState(null)
@@ -72,6 +72,7 @@ function App() {
             <Route exact path='/productDetails/:id' element={<ProductDetails />} />
 
             {/* product Manager paths */}
+            <Route exact path='/adminstrationLogin' element={<AdminLogin />} />
             <Route exact path='/productManagerDashboard' element={<PM_Dashboard />} />
             <Route exact path='/adminDash' element={<Admin_Dashboard />} />
 

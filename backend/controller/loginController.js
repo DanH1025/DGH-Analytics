@@ -1,10 +1,50 @@
 const UserModel = require('../model/user');
-
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 const bcrypt = require('bcryptjs');
+
+
+
+// const verify = (req,res, next)=>{
+//     const authHeader = req.headers.authorization;
+
+//     if(authHeader){
+//         const token =authHeader.split(" ")[1];
+
+//         jwt.verify(token, process.env.TOKEN_KEY , (err, user)=>{
+//             if(err){
+//                 return res.status(403).json("Token not valid")
+//             }
+//             req.user = user;
+//             next()
+//         });
+//     }else{
+//         res.status(401).json("You are not authenticated")
+//     }
+// }
+
+
+const adminRegister = async(req,res)=>{
+    console.log("registering the admin now")
+
+    const { userName ,email, password, access_key} = req.body;
+
+    const date = new Date();
+    const hashPassword = await bcrypt.hash(password , 8)
+
+    try {
+        const [data , metaData] = await UserModel.createAdminUser(userName , email , date , hashPassword ,access_key)
+        res.send(data)
+    } catch (error) {
+        res.send("Registration Faild")
+    }
+
+    // res.send(email + " " + password + " " + hashPassword)
+}
 
 const loginWithPhone = async(req,res)=>{
     console.log("in Loginwith phone number");  
-    
+     
     const {phone , password} = req.body;
     try{   
         const [data , metaData] = await UserModel.fetchPhone(phone);
@@ -15,10 +55,10 @@ const loginWithPhone = async(req,res)=>{
         const isCorrect = await bcrypt.compare(password , data[0].password );
         console.log(isCorrect)
 
-        if(isCorrect){
+        if(isCorrect){ 
             console.log("Login Successfull")
             console.log(phone);
-            const resp = [];
+            const resp = [];   
             resp.push(data[0]);
 
             let options = {
@@ -48,4 +88,6 @@ const loginWithPhone = async(req,res)=>{
 
 module.exports = {
     loginWithPhone,
+    adminRegister
+    // verify
 };

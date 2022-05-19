@@ -76,10 +76,11 @@ export default function Login(){
         }
 
     return(
+        <>
         <div className='login'>
             <div className="loginContainer">
                 <div className="header">
-                    <h1>Welcome </h1> 
+                    
                     <h2>Login</h2>
                 </div>
                 <div className="loginTypeSwitch">
@@ -138,5 +139,6 @@ export default function Login(){
                 </div>
             </div>
         </div>
+    </>
     )
 }
