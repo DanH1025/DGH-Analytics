@@ -54,4 +54,24 @@ module.exports = class Request {
       console.log(err);
     }
   }
+
+  static createAdminUser (userName , email ,date, password,key ){
+    try{
+      const result =db.execute('INSERT INTO `administrator_user`(`user_name`, `email`, `user_role`, `sign_up_date`, `password` , `access_key`) VALUES (?,?,?,?,?,?)', [userName , email , "product_manager" , date, password,key])
+      return result;
+    }catch(error){
+   
+      console.log(error)
+    }
+  }
+  static fetchAdminUser (email){
+    try {
+      const result = db.execute("SELECT * FROM administrator_user WHERE email=? " , [email]);
+      return result;
+    } catch (error) {
+      return error
+    }
+  }
+
+
 }

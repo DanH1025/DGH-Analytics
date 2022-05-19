@@ -7,7 +7,7 @@ const {getProducts, getAllProducts,addProduct, getProductsByCatagory, getProduct
   require('../controller/productController');
 
 
-const {getUser, getAllUser, addUserByPhone} =   
+const {getUser, getAllUser, addUserByPhone , getAdminUser} =   
   require('../controller/userController')
 const {addOrder, getOrders} =   
   require('../controller/ordersController')
@@ -17,7 +17,7 @@ const { getOrderReports, getLastWeekOrderReports, getTotalOrder, addOrderReport 
   require('../controller/orderReportController');
 const { getOrderLogs, addOrderLog ,getUserLogs} = 
   require('../controller/orderLogController')
-const {loginWithPhone } = 
+const {loginWithPhone , adminRegister } = 
   require('../controller/loginController')
 
 const {getAllCategories} = require('../controller/categoryController')
@@ -25,7 +25,7 @@ const {getAllCategories} = require('../controller/categoryController')
 
 const { route } = require('express/lib/application');
 
-// /const { users, deleteP, verify} = require('../controller/api/')
+const { users, deleteP, verify} = require('../controller/api')
 
 
 router.get('/' , (req,res)=>{
@@ -94,6 +94,8 @@ router.post('/addToCartRecord' , recordAddToCartHistory )
 router.post('/loginWithPhone', loginWithPhone)
 
 // router.get('getProductDetail/${id}' , getProductDetail)
+router.post('/getAdminUser' , getAdminUser);
 
+router.post('/adminRegister' , adminRegister)
 
 module.exports = router;

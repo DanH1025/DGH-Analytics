@@ -24,6 +24,23 @@ const bcrypt = require('bcryptjs');
 // }
 
 
+const adminRegister = async(req,res)=>{
+    console.log("registering the admin now")
+
+    const { userName ,email, password, access_key} = req.body;
+
+    const date = new Date();
+    const hashPassword = await bcrypt.hash(password , 8)
+
+    try {
+        const [data , metaData] = await UserModel.createAdminUser(userName , email , date , hashPassword ,access_key)
+        res.send(data)
+    } catch (error) {
+        res.send("Registration Faild")
+    }
+
+    // res.send(email + " " + password + " " + hashPassword)
+}
 
 const loginWithPhone = async(req,res)=>{
     console.log("in Loginwith phone number");  
@@ -71,5 +88,6 @@ const loginWithPhone = async(req,res)=>{
 
 module.exports = {
     loginWithPhone,
+    adminRegister
     // verify
 };

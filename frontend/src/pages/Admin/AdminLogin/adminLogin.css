@@ -17,25 +17,36 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgb(73, 70, 70);
+
+    background-image: url(https://www.motillo.se/Media/2ltjvksq/ga4.jpg);
+    /* background-image: url(https://blog.cloudflare.com/content/images/2020/12/image1-19.png); */
 }
 
 .adminLoginWrapper{
     display: flex;
-    width: 100%;
+    width: 90%;
     height: 100%;
     padding: 0;
     margin: 0;
-    justify-content: center;
+    justify-content: right;
     align-items: center;
+    
+}
+.adminLoginWrapper p {
+    color: white;
+    cursor: pointer;
+    font-size: 12px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    
 }
 
 .al_container{
     display: flex;
-    width: 40%;
-    height: 50%;
-    background-color: rgba(255, 255, 255, 0.105) ;
-    
+    width: 35%;
+    height: fit-content;
+    /* border: 1px solid black; */
+    background: rgb(103, 111, 234);
+    border-radius: 4px;
 }
 .al_container_wrapper{
     display: flex;
@@ -51,24 +62,98 @@ body{
 .al_header{
     display: flex;
     width: 100%;
-    flex:1;
-    background-color: white;
+    flex:0.6;
     align-items: center;
     justify-content: center;
 }
+
+.al_header h4{
+    font-size: 24px;
+    padding: 0;
+    margin: 0;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bolder;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin-top: 8px;
+}
+
 .al_body{
     display: flex;
+    flex-direction: column;
     width: 100%;
     flex: 2;
-    background-color: orange;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    margin: 5px auto;
+}
+
+.al_email_container,
+.al_password_container,
+.al_username_container,
+.al_confirm_email_container,
+.al_confirm_password_container,
+.al_signup_key_token_container{
+    width: 100%;
+    height: 60px;
+    padding: 0;
+    margin: 0;
+    display: flex;
     align-items: center;
     justify-content: center;
 }
+
+.al_email_container input ,
+.al_password_container input,
+.al_username_container input,
+.al_confirm_password_container input,
+.al_confirm_email_container input,
+.al_signup_key_token_container input {
+    width: 70%;
+    height: 80%;
+    border: none;
+    border-radius: 3px;
+    font-size: 12px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    padding: 5px;
+    margin: 0;
+    cursor: pointer;
+    transform: 0;
+
+}
+.al_email_container input:hover ,
+.al_password_container input:hover,
+.al_username_container input:hover,
+.al_confirm_password_container input:hover,
+.al_confirm_email_container input:hover,
+.al_signup_key_token_container input:hover{
+   border-color: orange;
+   font-size: 12.4px;
+   transform: scale(1.008);
+   transition: all ease-out 0.2s;
+
+}
+.al_email_container input:active ,
+.al_password_container input:active{
+   border-color: orange;   
+
+}
+
+
 .al_footer{
     display: flex;
     width: 100%;
-    align-items: center;
+    align-items: top;
     justify-content: center;
     flex: 1;
-    background-color: red;
+    
+}
+.MuiButtonBase-root.MuiButton-root.MuiButton-text.al_login_btn{
+    background-color: rgb(243, 168, 6);
+    color: white;
+    font-size: 14px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
 }

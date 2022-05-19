@@ -49,8 +49,9 @@ const getUser = async(req,res) => {
   console.log('in appi get user');
   const email = req.body.email;
   const password = req.body.password;
-  console.log(password);
-  const hashPass = encrypt(password);
+  console.log(password); 
+  const hashPass = await bcrypt.hash(password ,8);
+
   console.log(hashPass);
   const [user, metaData] = await UserModel.fetchAll(email, password)  
   console.log('before user');
@@ -64,11 +65,51 @@ const getUser = async(req,res) => {
   }
 }
 
+const getAdminUser = async (req,res)=>{
+  // res.send("getting all the admin users")
+
+  const{email, password} = req.body;
+
+  console.log(email + password);
+  const hashPass = await bcrypt.hash(password,8);
+
+  const [user, metaData] =await UserModel.fetchAdminUser(email);
+
+  const isCorrect = await bcrypt.compare(password , user[0].password );
+
+  console.log(user[0].password)
+  if(user.length >= 1){
+    if(isCorrect){
+      res.send(user[0]);
+    }else{
+      res.send({
+        header: "Error",
+        message:"Password Invalid",
+        status: 1,
+        
+      })
+    }
+    
+  }else{
+    res.send({
+      header: "Error",
+      message: "User Not Found",
+      status: 1
+    })
+  }
+  
+  
+  
+
+
+}
+
 
 
 module.exports = {
 	getUser,
 	// addUser,
   addUserByPhone,
-  getAllUser
+  getAllUser,
+  getAdminUser
 };

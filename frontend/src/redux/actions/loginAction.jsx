@@ -42,3 +42,32 @@ export const loginWithPhone = (phone, password, cookies, setCookie) => async(dis
     }
 };
 
+export const adminLogin = (email , password) => async (dispatch) =>{
+  
+  // try{
+  //     dispatch({
+  //       type: actionType.ADMIN_LOGIN_REQUEST,
+  //     });
+
+  //     const { data } = await api.adminLogin(email, password);
+  //     console.log(data);
+
+  //     dispatch({ 
+  //         type: actionType.ADMIN_LOGIN_SUCCESS, 
+  //         payload: data 
+  //       });
+       
+
+  // }catch(error){
+  //     dispatch({
+  //         type:actionType.ADMIN_LOGIN_FAIL,
+  //         payload: 
+  //           error.response && error.response.data.message 
+  //           ?error.response.data.message:error.message,
+  //         });
+  //       console.log(error.response && error.response.data.message 
+  //         ?error.response.data.message:error.message);
+  // }
+}
+
+
