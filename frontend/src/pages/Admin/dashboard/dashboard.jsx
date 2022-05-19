@@ -42,9 +42,10 @@ import ProductList from '../../../components/ProductManager/productList/productL
 import AddProduct from '../../../components/ProductManager/addProduct/addProduct'
 import Home from '../../../components/Admin/home/home';
 
-
+import { Button } from '@material-ui/core'
 //material ui menu navigation drawer things
-
+import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -116,25 +117,24 @@ const useStyles = makeStyles((theme: Theme) =>
 
 
 
-
-
-
 export default function PM_Dashboard() {
-
-// // handle the state of the sidebar slider
-// const [sidebarCollapsed , setSidebarCollapsed] = useState(false);
-// // handle the state of the body components
-//   
-//     const handlerSidebarCollapse = () =>{
-//           setSidebarCollapsed(!sidebarCollapsed);
-//       }
- 
+  
+  // // handle the state of the sidebar slider
+  // const [sidebarCollapsed , setSidebarCollapsed] = useState(false);
+  // // handle the state of the body components
+  //   
+  //     const handlerSidebarCollapse = () =>{
+    //           setSidebarCollapsed(!sidebarCollapsed);
+    //       }
+    
+    const [cookies, setCookie, removeCookie] = useCookies(['user']);
 
     //material ui menu navigation
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(true);
-  
+    const navigate = useNavigate();
+
     const handleDrawerOpen = () => {
       setOpen(true);
     };
@@ -145,6 +145,13 @@ export default function PM_Dashboard() {
     //track index of the components clicked
     const [compCounter , setCompCounter] = useState(0);
 
+    const handleLogout = (e) => {
+      e.preventDefault();
+      removeCookie('ADemail', {path: '/'});
+      removeCookie('ADrole', {path: '/'});
+      removeCookie('ADaccess_token', {path: '/'});
+      navigate('/');
+    }
 
   return (  
     <>
@@ -232,6 +239,7 @@ export default function PM_Dashboard() {
             </ListItem>
           ))}
         </List>
+      <Button onClick={handleLogout}>Logout</Button>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
