@@ -65,11 +65,11 @@ function App() {
             <Route exact path='/login' element={ user? <Navigate to='/' /> : <Login />} />
             <Route exact path='/signUp' element={<SignUp />} />
             <Route exact path='/' element={<Home />} />
-             <Route exact path='/cart' element={<Cart />} />
-             <Route exact path='/wishlist' element={<Wishlist />} />
-             <Route exact path='/checking' element={<Checkout />}/>
-             <Route exact path='/search' element={<SearchResult />} />
-             <Route exact path='/productDetails/:id' element={<ProductDetails />} />
+            <Route exact path='/cart' element={<Cart />} />
+            <Route exact path='/wishlist' element={<Wishlist />} />
+            <Route exact path='/checking' element={<Checkout />}/>
+            <Route exact path='/search' element={<SearchResult />} />
+            <Route exact path='/productDetails/:id' element={<ProductDetails />} />
 
             {/* product Manager paths */}
             <Route exact path='/adminstrationLogin' element={<AdminLogin />} />

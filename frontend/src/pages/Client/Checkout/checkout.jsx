@@ -28,17 +28,18 @@ export default function Checkout() {
     const {cartItems} = cart;
     console.log(cartItems)
 
+
     const user = useSelector((state) => state.getUser.user);
     console.log(user);
 		let users = [];
 
-		const getUs = () => {
-      console.log('in get us');
-      user.map((pro) => {
-			  users = pro;
-			  console.log(users);
-		  }
-    )} 
+		// const getUs = () => {
+    //   console.log('in get us');
+    //   user.map((pro) => {
+		// 	  users = pro;
+		// 	  console.log(users);
+		//   }
+    // )}
 
     useEffect(() => {
       sessionStorage.setItem('reachedCheckout', true);
@@ -79,8 +80,10 @@ export default function Checkout() {
       console.log()
       console.log(cartItems[0])
       const date = new Date();
-      getUs();
+      // getUs();
      
+      // user ? ( message.success("Order Placed"))  : 
+      // ( message.error("Order Place Failed: Check if you are logged in") )
 
       if(cookies.uid){
         dispatch(createOrders(date, cookies.uid, getTotalProductPrice(), marker.latitude,marker.longitude, phoneNumber ))
@@ -117,7 +120,7 @@ export default function Checkout() {
 
    
       // console.log(cartItems);
-			// let date = Date();
+			// // let date = Date();
       // getUs();
       // console.log(users);
 			// // const pt = user;

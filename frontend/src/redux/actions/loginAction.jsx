@@ -19,7 +19,7 @@ export const loginWithPhone = (phone, password, cookies, setCookie) => async(dis
 
         dispatch({ 
             type: actionType.LOGIN_WITH_PHONE_SUCCESS, 
-            payload: data 
+            payload: true
           });
           console.log(data[0].fname);
           let expires = new Date();

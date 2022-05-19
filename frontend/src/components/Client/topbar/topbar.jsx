@@ -42,6 +42,7 @@ import { getProductsBySearch } from '../../../redux/actions/productActions';
 // import { getUser } from '../../../redux/actions/userActions'
 // import { createUser } from '../../../redux/actions/userActions'
 
+import { useNavigate } from "react-router-dom";
 
 import SettingsIcon from '@material-ui/icons/Settings';
 import { Avatar } from 'antd';
@@ -199,16 +200,28 @@ export default function Topbar() {
     const getWishlistCount = ()=>{
       return wishlistItems.length
     }
+    const navigate = useNavigate();
+
+    const [cookies, setCookie, removeCookie] = useCookies(['user']);
 
     const logoutHandler = () => {
       let expires = new Date();
-      expires.setTime(expires.getTime() + (2 * 10))
-      setCookie('uid', '', {path: '/', expires})
-      setCookie('fname', '', {path: '/', expires})
-      setCookie('lname', '', {path: '/', expires})
-      setCookie('phoneNo', '', {path: '/', expires})
-      setCookie('access_token', '', { path: '/',  expires})
-      setValues();
+      // expires.setTime(expires.getTime() + (2 * 10))
+      // setCookie('uid', '', {path: '/', expires})
+      // setCookie('fname', '', {path: '/', expires})
+      // setCookie('lname', '', {path: '/', expires})
+      // setCookie('phoneNo', '', {path: '/', expires})
+      // setCookie('access_token', '', { path: '/',  expires})
+      removeCookie('uid', { path: '/' });
+      removeCookie('fname', { path: '/' });
+      removeCookie('lname', { path: '/' });
+      removeCookie('phoneNo', { path: '/' });
+      removeCookie('access_token', { path: '/' });
+      removeCookie();
+      setFname('');
+      setLname('');
+      setPhoneNo('');
+      navigate('/')
     }
    
     const [isAuth , setIsAuth] = useState(false);
@@ -219,6 +232,9 @@ export default function Topbar() {
 
     useEffect(() => {
       setValues();
+      if(fname === undefined){
+        setFname('');
+      }
       console.log(fname);
       console.log(lname);
       console.log(phoneNo);
@@ -230,7 +246,7 @@ export default function Topbar() {
       setPhoneNo(cookies.phoneNo);
     }
 
-    const [cookies, setCookie] = useCookies(['user']);
+    
   return (
     <>
 
@@ -245,18 +261,18 @@ export default function Topbar() {
                     <TwitterIcon   style={{color:"#00a9ff"}} />
                 </div>
                 <div className="rightSide">
-                  {fname !== undefined ?                      
+                  {cookies.fname ?                      
                     <div className='isLoggedIn'>
                       <div className="profilePic"> 
                         <FaceIcon/>
                       </div>
                       <div className='profile_info'>
                         <span>  
-                          {/* {cookies.fname} {cookies.lname}  */}
-                          {fname} {lname}
+                          {cookies.fname} {cookies.lname} 
+                          {/* {fname} {lname} */}
                         </span>
-                        {/* <span> +251 {cookies.phoneNo} */}
-                        <span>{phoneNo}
+                        <span> +251 {cookies.phoneNo}
+                        {/* <span>{phoneNo} */}
                         </span>
                           
                       </div>
