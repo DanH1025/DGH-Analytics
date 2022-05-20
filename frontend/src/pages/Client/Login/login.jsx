@@ -18,6 +18,7 @@ export default function Login(){
 
     const [cookies, setCookie] = useCookies(['user']);
     const dispatch = useDispatch();
+
     const [inputRule, setInputRule] = useState({
         required:true,
         Emessage:"Email is required",
@@ -26,10 +27,11 @@ export default function Login(){
         CPmessage:"Confirm Password is required"
     })
 
-    const user = useSelector((state) => state.getUser.user);
     const navigate = useNavigate();
-
     const location = useLocation();
+    
+    const user = useSelector((state) => state.getUser.user);
+
     const from = location.state?.from?.pathname || "/";
 
     const onFinish = (values) => {
@@ -41,6 +43,7 @@ export default function Login(){
             console.log('sucess');
             console.log(cookies.uid);
             // return ( <Navigate to='/' /> )
+            console.log(from);
             navigate(from, { replace: true });
         }else{
             console.log('login faill');
@@ -83,7 +86,6 @@ export default function Login(){
         <div className='login'>
             <div className="loginContainer">
                 <div className="header">
-                    
                     <h2>Login</h2>
                 </div>
                 <div className="loginTypeSwitch">

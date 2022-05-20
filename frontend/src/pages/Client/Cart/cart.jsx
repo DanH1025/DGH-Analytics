@@ -115,7 +115,7 @@ export default function Cart() {
                     <Button type="primary" ghost> Continue Shopping </Button>
                 </Link>
                  
-                    <Button type="primary" ghost
+                    {/* <Button type="primary" ghost
                         onClick={() => {
                             console.log('insie array');
                             if(cookies.uid){
@@ -125,12 +125,12 @@ export default function Cart() {
                             }
                         }}>
                          Checkout   
-                    </Button> 
+                    </Button>  */}
                 
-                {/* <Link to={cookies.uid ? '/checking'  :'/login'} >
+                <Link to={'/checking'} >
                 {console.log(document.location)}  
                     <Button type="primary" ghost> Checkout   </Button> 
-                </Link> */}
+                </Link>
                 
                 </div>                
             </div>        

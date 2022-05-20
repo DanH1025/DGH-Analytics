@@ -2,6 +2,7 @@ import { useLocation, Navigate, Outlet } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
 import { useCookies } from 'react-cookie';
+import Unauthorized from "./Unauthorized";
 
 const RequireAuth = ({ allowedRoles }) => {
     const { auth } = useAuth();
@@ -13,7 +14,8 @@ const RequireAuth = ({ allowedRoles }) => {
         cookie?.ADrole === allowedRoles
         ? <Outlet />
         : cookie?.ADemail 
-            ? <Navigate to="/" state={{ from: location }} replace />
+            ? <Unauthorized />
+            // ? <Navigate to="/" state={{ from: location }} replace />
             :<Navigate to="/adminstrationLogin" state={{ from: location }} replace />
     );
 }
