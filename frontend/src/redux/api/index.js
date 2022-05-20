@@ -152,6 +152,14 @@ export const createUserByPhoneNumber =(FirstName,LastName,phone,password)=>{
     })
 }
 
+export const createUserByEmail =(FirstName,LastName,email,password)=>{
+  axios.post('http://localhost:5000/api/addUserByEmail', {
+    fname:FirstName,
+    lname:LastName,
+    email: email,
+    password: password
+    })
+}
 
 //fetch all categories 
 export const fetchCategory = ()=> 
