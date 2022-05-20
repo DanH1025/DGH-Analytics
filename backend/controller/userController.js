@@ -39,13 +39,24 @@ const verifyAdmin = (req, res, next) => {
   }
 };
 
-const addUser = (req, res) => {
-  const {first_name,last_name,email,password} = req.body;
-  const hashPass = encrypt(password);
-  console.log(hashPass.encryptedData);
-  const user = new UserModel(first_name,last_name,email,password);
-  console.log(user);
-  user.save();
+const addUserByEmail = async (req, res) => {
+  const {fname,lname,email,password} = req.body;
+  
+  const hashPass = await bcrypt.hash(password , 8 );
+  // console.log(hashPass.encryptedData);
+
+  const date = new Date();  
+  
+  try{    
+    const user = new UserModel(fname,lname,email,null,hashPass, date);
+    console.log(user);
+    user.save();
+    res.send(user);
+  }catch(e){    
+    console.log("Phone already in use");
+    res.send("Error while signup");
+  }
+  
 }
 
 const addUserByPhone = async (req,res)=>{
@@ -104,6 +115,36 @@ const getUser = async(req,res) => {
   }
 }
 
+const checkUser = async(req,res) => {
+  console.log('in appi get user');
+  const phone = req.body.phone;
+
+  const [user, metaData] = await UserModel.checkUser(phone)
+  console.log(user[0]['EXISTS(SELECT * from user WHERE phone_number=?)']);
+  if(user[0]['EXISTS(SELECT * from user WHERE phone_number=?)']){
+    console.log("found user");
+    res.send(true);
+  }else{
+    console.log('no luck');
+    res.send(false);
+  }
+}
+
+const checkEmail = async(req,res) => {
+  console.log('in appi get user');
+  const email = req.body.email;
+
+  const [user, metaData] = await UserModel.checkEmail(email)
+  console.log(user[0]['EXISTS(SELECT * from user WHERE email=?)']);
+  if(user[0]['EXISTS(SELECT * from user WHERE email=?)']){
+    console.log("found user");
+    res.send(true);
+  }else{
+    console.log('no luck');
+    res.send(false);
+  }
+}
+
 const getAdminUser = async (req,res)=>{
   // res.send("getting all the admin users")
 
@@ -135,19 +176,23 @@ const getAdminUser = async (req,res)=>{
       }
       
     }else{
-      res.send({
-        header: "Error",
-        message: "User Not Found",
-        status: 1
-      })
+      // res.send({
+      //   header: "Error",
+      //   message: "User Not Found",
+      //   status: 1
+      // })
+      console.log("Login failed")
+          res.status(401).send("password error")
     }
   }catch(error){
-    console.log(error);
-    res.send({
-      header: "Error",
-      message: "User Not Found",
-      status: 1
-    })
+    // console.log(error);
+    // res.send({
+    //   header: "Error",
+    //   message: "User Not Found",
+    //   status: 1
+    // })
+    console.log("Login failed")
+      res.status(400).send("Error")
   }
 
 }
@@ -156,9 +201,11 @@ const getAdminUser = async (req,res)=>{
 
 module.exports = {
 	getUser,
-	addUser,
+  addUserByEmail,
   addUserByPhone,
   getAllUser,
+  checkUser,
+  checkEmail,
   getAdminUser,
   verifyAdmin
 };

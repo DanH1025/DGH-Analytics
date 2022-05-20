@@ -7,7 +7,7 @@ const {getProducts, getAllProducts,addProduct, getProductsByCatagory, getProduct
   require('../controller/productController');
 
 
-const {getUser, getAllUser, addUserByPhone , getAdminUser, verifyAdmin, addUser} =   
+const {getUser, getAllUser, addUserByPhone , getAdminUser, verifyAdmin, addUserByEmail, checkUser, checkEmail} =   
   require('../controller/userController')
 const {addOrder, getOrders} =   
   require('../controller/ordersController')
@@ -25,7 +25,7 @@ const {getAllCategories} = require('../controller/categoryController')
 
 const { route } = require('express/lib/application');
 
-const { users, deleteP, verify} = require('../controller/api')
+const { users, userEmails, deleteP, verify} = require('../controller/api')
 
 
 router.get('/' , (req,res)=>{
@@ -36,7 +36,7 @@ router.get('/' , (req,res)=>{
 // router.get('getProductDetail/${id}' , getProductDetail)
 router.post('/getAdminUser' , getAdminUser);
 router.post('/getAdminUserVer', verifyAdmin ,getOrderLogs);
-router.post('/addAdmin', addUser)
+// router.post('/addAdmin', addUserByEmail)
 router.post('/adminRegister' , adminRegister)
 
 
@@ -47,6 +47,7 @@ router.post('/getUserLogCount', getUserLogs);
 
 // test user api
 router.post('/app', users);
+router.post('/appUser', userEmails);
 router.post('/appver', verify);
 router.post('/appDelete', verify,  deleteP);
 
@@ -77,12 +78,16 @@ router.post('/addVisits', changeVisits)
 
 // user routes
 // router.post('/addUser', addUser);
+
 router.post('/addUserByPhone', addUserByPhone)
+router.post('/addUserByEmail', addUserByEmail)
 router.post('/getUsers', getUser);
 router.post('/getAllUsers' , getAllUser)
+router.post('/checkUserPhone', checkUser)
+router.post('/checkEmail', checkEmail)
 
 // order routes
-router.post('/addOrder/userId', addOrder);
+router.post('/addOrder', addOrder);
 router.post('/getOrders', getOrders);
 
 // orderDetail routes

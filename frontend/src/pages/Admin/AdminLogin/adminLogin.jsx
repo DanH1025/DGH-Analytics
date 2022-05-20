@@ -28,6 +28,8 @@ export default function AdminLogin() {
 
 		const [cookie, setCookie] = useCookies(['user']);
 
+		// for error mesaage
+    const [errMsg, setErrMsg] = useState('');
     const userRef = useRef();
     const errRef = useRef();
 
@@ -36,9 +38,9 @@ export default function AdminLogin() {
 
     const [user , setUser] = useState('');
     const [pwd, setPwd] = useState('');
-    const [errMsg , setErrMsg] = useState({
-        user_name:''
-    });
+    // const [errMsg , setErrMsg] = useState({
+        // user_name:''
+    // });
     const [success , setSuccess] = useState(false);
     const [signupOrLogin , setSignupOrLogin] = useState(false);
 
@@ -61,7 +63,7 @@ export default function AdminLogin() {
     // } , [user, pwd])
  
     const [isError, setIsError] = useState('')
-		
+
     const onFinish = async (values) =>{
         //  console.log('Success:', values);    
 			const email = values.email;
@@ -93,9 +95,20 @@ export default function AdminLogin() {
 				}else{
 					console.log('slave');
 					// navigate('/productManagerDashboard')
+					setErrMsg('Some error');
 				}
-    	}catch (error) {
-    	    console.log(error);   
+    	}catch (err) {
+    	  console.log(err.response.status); 
+          if (!err?.response) {
+            setErrMsg('No Server Response');
+          } else if (err.response?.status === 400) {
+            setErrMsg('Missing Username');
+          } else if (err.response?.status === 401) {
+            setErrMsg('Unauthorized');
+          } else {
+            setErrMsg('Login Failed');
+          } 
+				console.log(errMsg);
     	}
     };
 
@@ -109,6 +122,11 @@ export default function AdminLogin() {
 			<div className="adminLoginWrapper">
 				<div className="al_container">
 					<div className="al_container_wrapper">
+									<p ref={errRef} 
+									className={errMsg ? "errmsg" : "offscreen"} 
+									aria-live="assertive">
+                    {errMsg}
+									</p>
 						{
 							signupOrLogin? (
 							<>
@@ -116,6 +134,7 @@ export default function AdminLogin() {
 									<h4>Administration SignUp</h4>                                    
 								</div>
 								<div className="al_body">
+
 									<Form 
 										name="normal_login"
 										className="admin_register_form"      onFinish={onSignUpFinish}>

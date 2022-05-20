@@ -14,6 +14,19 @@ body{
     background-color: rgb(103, 191, 221);
 }
 
+.offscreen {
+    position: absolute;
+    left: -9999px;
+}
+
+.errmsg {
+    background-color: lightpink;
+    color: firebrick;
+    font-weight: bold;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
 .loginContainer{
     padding: 0;
     margin: 0;
