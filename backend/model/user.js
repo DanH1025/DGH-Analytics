@@ -28,16 +28,25 @@ module.exports = class Request {
       console.log("user save error: " + e);
     }
   }
- 
 
   static fetchPhone(phone){
     try {
       const result = db.execute('SELECT * FROM user WHERE phone_number=?', [phone]);
-      return result
+      return result;
     } catch (error) {
       console.log(error)
     }
   }
+
+  static fetchEmail(email){
+    try {
+      const result = db.execute('SELECT * FROM user WHERE email=?', [email]);
+      return result;
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   static fetchAllUsers(){
     try {
       const result = db.execute('SELECT * FROM user');
@@ -46,9 +55,28 @@ module.exports = class Request {
       console.log(error)
     }
   }
+  
   static fetchAll(email, password) {
     try{
        const result =db.execute('SELECT * FROM user WHERE userEmail=? AND password=?', [email, password]);
+       return result;
+    }catch(err){
+      console.log(err);
+    }
+  }
+  
+  static checkUser(phone) {
+    try{
+       const result =db.execute('SELECT EXISTS(SELECT * from user WHERE phone_number=?)', [phone]);
+       return result;
+    }catch(err){
+      console.log(err);
+    }
+  }
+  
+  static checkEmail(email) {
+    try{
+       const result =db.execute('SELECT EXISTS(SELECT * from user WHERE email=?)', [email]);
        return result;
     }catch(err){
       console.log(err);

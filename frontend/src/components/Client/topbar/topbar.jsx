@@ -271,7 +271,16 @@ export default function Topbar() {
                           {cookies.fname} {cookies.lname} 
                           {/* {fname} {lname} */}
                         </span>
-                        <span> +251 {cookies.phoneNo}
+                        <span>{
+                          cookies?.phoneNo 
+                          ? '+251'
+                          : ''
+                        } 
+                           {
+                          cookies?.phoneNo 
+                          ? cookies?.phoneNo
+                          : cookies?.email
+                        }
                         {/* <span>{phoneNo} */}
                         </span>
                           

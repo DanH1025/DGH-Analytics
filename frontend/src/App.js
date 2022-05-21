@@ -21,6 +21,11 @@ import PM_Dashboard from './pages/ProductManager/dashboard/dashboard';
 import Admin_Dashboard from './pages/Admin/dashboard/dashboard';
 import AdminLogin from './pages/Admin/AdminLogin/adminLogin'
 
+
+import { AuthProvider } from './context/AuthProvider';
+import RequireAuth from './components/Admin/RequireAuth';
+import UserAuth from './components/Admin/UserAuth'
+
 function App() {
     const [user, setUser] = useState(null)
 
@@ -67,14 +72,25 @@ function App() {
             <Route exact path='/' element={<Home />} />
             <Route exact path='/cart' element={<Cart />} />
             <Route exact path='/wishlist' element={<Wishlist />} />
-            <Route exact path='/checking' element={<Checkout />}/>
             <Route exact path='/search' element={<SearchResult />} />
             <Route exact path='/productDetails/:id' element={<ProductDetails />} />
 
-            {/* product Manager paths */}
+            <Route element={<UserAuth />}>
+              <Route exact path='/checking' element={<Checkout />}/>
+            </Route>
+            
+            <Route element={<RequireAuth allowedRoles={'admin'}/>}>
+              {/* admin path */}
+              <Route exact path='/adminDash' element={<Admin_Dashboard />} />
+            </Route>
+            
+            <Route element={<RequireAuth allowedRoles={'manager'}/>}>
+              {/* product Manager paths */}
+              <Route exact path='/productManagerDashboard' element={<PM_Dashboard />} />
+            </Route>
+             
             <Route exact path='/adminstrationLogin' element={<AdminLogin />} />
-            <Route exact path='/productManagerDashboard' element={<PM_Dashboard />} />
-            <Route exact path='/adminDash' element={<Admin_Dashboard />} />
+
 
           </Routes>
         </main>

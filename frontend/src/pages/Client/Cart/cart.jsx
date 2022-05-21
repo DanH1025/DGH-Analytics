@@ -12,7 +12,7 @@ import CartItem from '../../../components/Client/cartItem/cartItem'
 import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
 
 import ShopOutlinedIcon from '@material-ui/icons/ShopOutlined';
-
+import { useLocation, Navigate, useNavigate} from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { addToCart, removeFromCart } from '../../../redux/actions/cartActions'
 
@@ -20,6 +20,9 @@ import { useCookies } from 'react-cookie';
 import { useState } from 'react';
 
 export default function Cart() {
+
+    const locations = useLocation();
+    const navigate = useNavigate();
 
     const dispatch = useDispatch();
     const cart = useSelector(state => state.cart);
@@ -111,7 +114,20 @@ export default function Cart() {
                 <Link to={'/'}>
                     <Button type="primary" ghost> Continue Shopping </Button>
                 </Link>
-                <Link to={cookies.uid ? '/checking'  :'/login'} >
+                 
+                    {/* <Button type="primary" ghost
+                        onClick={() => {
+                            console.log('insie array');
+                            if(cookies.uid){
+                                navigate('/checking');
+                            }else{
+                                navigate('/login', {state: { from: location }});
+                            }
+                        }}>
+                         Checkout   
+                    </Button>  */}
+                
+                <Link to={'/checking'} >
                 {console.log(document.location)}  
                     <Button type="primary" ghost> Checkout   </Button> 
                 </Link>

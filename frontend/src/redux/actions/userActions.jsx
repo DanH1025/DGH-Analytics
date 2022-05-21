@@ -46,7 +46,6 @@ import axios from 'axios';
 // };
 
 
-
 export const getAllUser = () => async(dispatch)=>{
     try {
         dispatch({
@@ -83,6 +82,29 @@ export const createUserByPhone = (FirstName,LastName,phone,password) => async (d
     } catch (error) {
         dispatch({
         type: actionType.CREATE_USER_BY_PHONE_FAIL,
+        payload: 
+            error.response && error.response.data.message 
+            ?error.response.data.message:error.message,
+        });
+    }
+}
+
+export const createUserByEmail = (FirstName,LastName,email,password) => async (dispatch)=>{
+    try {
+        dispatch({
+            type: actionType.CREATE_USER_BY_EMAIL_REQUEST,
+        });
+         api.createUserByEmail(FirstName,LastName,email,password);
+
+        dispatch({
+            type: actionType.CREATE_USER_BY_EMAIL_SUCCESS,    
+            // payload: data        
+        });
+
+        
+    } catch (error) {
+        dispatch({
+        type: actionType.CREATE_USER_BY_EMAIL_FAIL,
         payload: 
             error.response && error.response.data.message 
             ?error.response.data.message:error.message,

@@ -9,7 +9,7 @@ import { message, Switch } from 'antd';
 import { Form, Input, Button, Checkbox } from 'antd';
 import { UserOutlined, LockOutlined ,MailOutlined,PhoneOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { createUserByPhone, getAllUser } from '../../../redux/actions/userActions';
+import { createUserByPhone, createUserByEmail, getAllUser } from '../../../redux/actions/userActions';
 import { useEffect } from 'react';
 
 
@@ -39,34 +39,61 @@ export default function SignUp() {
         fetchUsers()
     } , []);
 
+    const checkuser = async(phone) => {
+        const res = await axios.post('http://localhost:5000/api/checkUserPhone', {
+            phone: phone
+        });
+        console.log(res.data);
+        return res.data;
+    }
+
+    const checkemail = async(email) => {
+        const res = await axios.post('http://localhost:5000/api/checkEmail', {
+            email: email
+        });
+        console.log(res.data);
+        return res.data;
+    }
+
     console.log(user)
     
-    
 
-   
-   
-    
-    const onFinish = (values) => {
+    const onFinish = async (values) => {
            console.log(values.FirstName)
         if(inputState.name === "phone_number"){
-            const existNumber = user.find(x=> x.phone_number === values.phone_number)
+            const existNumber = await checkuser(values.phone_number);
+            console.log('exsnum:' + existNumber);
             if(values.password !== values.confirm_password){
                 message.error("Passwords dont match")
             }
-            if(values.password.length < 6){
+            else if(values.password.length < 6){
                 message.error("Password must be more than 6 characters")
             }
-            if(existNumber){
+            else if(existNumber){
                 message.error("Phone number already in use")
             }
             else{
                 dispatch(createUserByPhone(values.FirstName, values.LastName, values.phone_number, values.password));
                     history('/login');
-                            message.success("SignUp successfull"); 
+                    message.success("SignUp successfull"); 
             }
-
         }  else{
-            message.error("email signup")
+            const existEmail = await checkemail(values.email);
+            console.log('exsnum:' + existEmail);
+            if(values.password !== values.confirm_password){
+                message.error("Passwords dont match")
+            }
+            else if(values.password.length < 6){
+                message.error("Password must be more than 6 characters")
+            }
+            else if(existEmail){
+                message.error("Email already in use")
+            }
+            else{
+                dispatch(createUserByEmail(values.FirstName, values.LastName, values.email, values.password));
+                    history('/login');
+                    message.success("SignUp successfull"); 
+            }
         } 
         };
       

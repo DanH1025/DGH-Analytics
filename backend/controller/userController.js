@@ -1,15 +1,64 @@
 const UserModel = require('../model/user');
 
-
+const jwt = require("jsonwebtoken");
 const bcrypt = require('bcryptjs');
-// const addUser = (req, res) => {
-//   const {first_name,last_name,email,password} = req.body;
-//   const hashPass = encrypt(password);
-//   console.log(hashPass.encryptedData);
-//   const user = new UserModel(first_name,last_name,email,password);
-//   console.log(user);
-//   user.save();
-// }
+let refreshTokens = []; 
+
+const generateAccessToken = (user) => {
+  return jwt.sign({ id: user.id, email: user.email }, "mySecretKey", {
+    expiresIn: "30s",
+  });
+};
+
+const generateRefreshToken = (user) => {
+  return jwt.sign({ id: user.id, email: user.email }, "myRefreshSecretKey");
+};
+
+const verifyAdmin = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  try{
+  if (authHeader) {
+    const token = authHeader.split(" ")[1];
+
+    jwt.verify(token, "mySecretKey", (err, user) => {
+      if (err) {
+        return res.status(403).json("Token is not valid!");
+      }
+
+      req.user = user;
+      // console.log("go token");
+      // res.status(200).json("You are authenticated!");
+        next();
+      });
+    } else {
+      console.log('not autori');
+      res.status(401).json("You are not authenticated!");
+    }
+  }catch(err){
+    console.log(err);
+  }
+};
+
+const addUserByEmail = async (req, res) => {
+  const {fname,lname,email,password} = req.body;
+  
+  const hashPass = await bcrypt.hash(password , 8 );
+  // console.log(hashPass.encryptedData);
+
+  const date = new Date();  
+  
+  try{    
+    const user = new UserModel(fname,lname,email,null,hashPass, date);
+    console.log(user);
+    user.save();
+    res.send(user);
+  }catch(e){    
+    console.log("Phone already in use");
+    res.send("Error while signup");
+  }
+  
+}
+
 const addUserByPhone = async (req,res)=>{
   console.log("adding user by phone number");
  const {fname,lname,phone, password} = req.body;
@@ -58,10 +107,41 @@ const getUser = async(req,res) => {
   console.log(user);
   if(user?.length){
     console.log("found user");
+
     res.send(user);
   }else{
     console.log('no luck');
     res.sendStatus(401);
+  }
+}
+
+const checkUser = async(req,res) => {
+  console.log('in appi get user');
+  const phone = req.body.phone;
+
+  const [user, metaData] = await UserModel.checkUser(phone)
+  console.log(user[0]['EXISTS(SELECT * from user WHERE phone_number=?)']);
+  if(user[0]['EXISTS(SELECT * from user WHERE phone_number=?)']){
+    console.log("found user");
+    res.send(true);
+  }else{
+    console.log('no luck');
+    res.send(false);
+  }
+}
+
+const checkEmail = async(req,res) => {
+  console.log('in appi get user');
+  const email = req.body.email;
+
+  const [user, metaData] = await UserModel.checkEmail(email)
+  console.log(user[0]['EXISTS(SELECT * from user WHERE email=?)']);
+  if(user[0]['EXISTS(SELECT * from user WHERE email=?)']){
+    console.log("found user");
+    res.send(true);
+  }else{
+    console.log('no luck');
+    res.send(false);
   }
 }
 
@@ -72,35 +152,48 @@ const getAdminUser = async (req,res)=>{
 
   console.log(email + password);
   const hashPass = await bcrypt.hash(password,8);
-
-  const [user, metaData] =await UserModel.fetchAdminUser(email);
-
-  const isCorrect = await bcrypt.compare(password , user[0].password );
-
-  console.log(user[0].password)
-  if(user.length >= 1){
-    if(isCorrect){
-      res.send(user[0]);
-    }else{
-      res.send({
-        header: "Error",
-        message:"Password Invalid",
-        status: 1,
+  try{
+    const [user, metaData] = await UserModel.fetchAdminUser(email);
+  
+    const isCorrect = await bcrypt.compare(password , user[0].password );
+  
+    console.log(user[0].password)
+    const da = user[0];
+    if(user.length >= 1){
+      if(isCorrect){
+        const accessToken = generateAccessToken(da);
+        const refreshToken = generateRefreshToken(da);
+        refreshTokens.push(refreshToken);
         
-      })
+        res.send({data: user[0], accessToken: accessToken});
+      }else{
+        res.send({
+          header: "Error",
+          message:"Password Invalid",
+          status: 1,
+          
+        })
+      }
+      
+    }else{
+      // res.send({
+      //   header: "Error",
+      //   message: "User Not Found",
+      //   status: 1
+      // })
+      console.log("Login failed")
+          res.status(401).send("password error")
     }
-    
-  }else{
-    res.send({
-      header: "Error",
-      message: "User Not Found",
-      status: 1
-    })
+  }catch(error){
+    // console.log(error);
+    // res.send({
+    //   header: "Error",
+    //   message: "User Not Found",
+    //   status: 1
+    // })
+    console.log("Login failed")
+      res.status(400).send("Error")
   }
-  
-  
-  
-
 
 }
 
@@ -108,8 +201,11 @@ const getAdminUser = async (req,res)=>{
 
 module.exports = {
 	getUser,
-	// addUser,
+  addUserByEmail,
   addUserByPhone,
   getAllUser,
-  getAdminUser
+  checkUser,
+  checkEmail,
+  getAdminUser,
+  verifyAdmin
 };

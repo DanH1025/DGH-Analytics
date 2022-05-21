@@ -14,11 +14,14 @@ import { createOrderDetails } from '../../../redux/actions/orderDetailAction'
 import { addToCart, removeFromCart } from '../../../redux/actions/cartActions'
 import {LocalShippingOutlined,LocalPhoneOutlined,MonetizationOnOutlined,RedeemOutlined} from '@material-ui/icons';
 
+import { useNavigate } from 'react-router-dom';
+
 import { useCookies } from 'react-cookie';
 
 export default function Checkout() {
 
     const errRef = useRef();
+    const navigate = useNavigate();
     const [cookies, setCookie] = useCookies(['user']);
 
     const [errMsg, setErrMsg] = useState('');
@@ -69,24 +72,16 @@ export default function Checkout() {
     const [phoneNumber , setPhoneNumber] = useState("")
 
     const handleConfirm = () => {
-
-
-
-
-
-
-     // message.success("Order Placed");
-     
-      console.log()
       console.log(cartItems[0])
       const date = new Date();
-      // getUs();
-     
-      // user ? ( message.success("Order Placed"))  : 
-      // ( message.error("Order Place Failed: Check if you are logged in") )
 
       if(cookies.uid){
-        dispatch(createOrders(date, cookies.uid, getTotalProductPrice(), marker.latitude,marker.longitude, phoneNumber ))
+        try{
+
+          dispatch(createOrders(date, cookies.uid, getTotalProductPrice(), marker.latitude,marker.longitude, phoneNumber ))
+        }catch(e){
+          console.log(e);
+        }
 
         cartItems.map((item)=>{
           dispatch(createOrderDetails(date, item.product , item.qtyCounter, item.price))
@@ -112,6 +107,8 @@ export default function Checkout() {
           console.log('user not found');
           reachCheck = false;
         }
+
+        navigate('/');
       }
       else{
         message.error("Order Place Failed: Check if you are logged in");
