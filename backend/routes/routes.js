@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+   
 
 const {getProducts, getAllProducts,addProduct, getProductsByCatagory, getProductsById,
          getProductsBySearch ,deleteProduct ,editProductValues ,recordSearchHistory ,recordAddToCartHistory,changeVisits } = 

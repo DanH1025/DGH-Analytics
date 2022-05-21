@@ -60,7 +60,7 @@ export default function AdminLogin() {
                                         password: values.password
                                     }
                                     )
-            
+            console.log(response)
 
         } catch (error) {
             
