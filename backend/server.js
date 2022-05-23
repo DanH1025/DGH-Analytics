@@ -7,10 +7,10 @@ const Product = require('../backend/model/product');
 const db = require('./database/dbConn');  
 const routes = require('./routes/routes');
 const authRoutes = require('./routes/auth')
-const cookieSession = require('cookie-session'); 
+const cookieSession = require('cookie-session');  
 const passport =require('passport');
 const passportSetup = require('./passport')
-
+ 
 const cookieParser = require('cookie-parser');
 
 var schedule = require('node-schedule');  

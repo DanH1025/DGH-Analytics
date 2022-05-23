@@ -27,19 +27,39 @@ const bcrypt = require('bcryptjs');
 const adminRegister = async(req,res)=>{
     console.log("registering the admin now")
 
-    const { userName ,email, password, access_key} = req.body;
+    const { userName ,email, password, accessKey} = req.body;
 
-    const date = new Date();
-    const hashPassword = await bcrypt.hash(password , 8)
+    const hashPass = await bcrypt.hash(password, 8);
+
+    console.log("inserted access key is: " + accessKey);
 
     try {
-        const [data , metaData] = await UserModel.createAdminUser(userName , email , date , hashPassword ,access_key)
-        res.send(data)
+        const [user, metaData] = await UserModel.fetchAdminUser(email)
+        console.log(user[0].access_key);       
+        
+        
+        if(user.length > 0 ){
+            const input_AK = parseInt(accessKey);
+            const db_AK = parseInt(user[0].access_key);
+
+            console.log(accessKey + " " + db_AK);
+            
+            if(input_AK === db_AK){
+                console.log("signup Successful")
+                const [data, metaData] = await UserModel.updateAdmin(userName ,email, hashPass)
+                res.status(200).send(data);
+            }else{
+                res.status(401).send("Unauthorized")
+            }
+            
+        }else{
+            res.status(404).send("User Not Found!")
+        }
     } catch (error) {
-        res.send("Registration Faild")
+        res.status(401).send("SignUp Faild!")
     }
 
-    // res.send(email + " " + password + " " + hashPassword)
+    
 }
 
 const loginWithPhone = async(req,res)=>{
@@ -61,7 +81,7 @@ const loginWithPhone = async(req,res)=>{
             const resp = [];   
             resp.push(data[0]);
 
-            let options = {
+            let options = { 
                 maxAge: 1000 * 60 * 15, // would expire after 15 minutes
                 httpOnly: true, // The cookie only accessible by the web server
                 signed: true // Indicates if the cookie should be signed

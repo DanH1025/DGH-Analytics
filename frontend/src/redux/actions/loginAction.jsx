@@ -42,6 +42,35 @@ export const loginWithPhone = (phone, password, cookies, setCookie) => async(dis
     }
 };
 
+
+
+export const  adminSignUp = (userName, email, password, accessKey)=> async (dispatch)=>{
+    try{
+      dispatch({
+        type: actionType.ADMIN_SIGNUP_REQUEST,
+      });
+
+      const { data } = await api.admin_signup(userName ,email, password, accessKey);
+      console.log(data);
+
+      dispatch({ 
+          type: actionType.ADMIN_SIGNUP_SUCCESS, 
+          payload: data 
+        });
+       
+
+  }catch(error){
+      dispatch({
+          type:actionType.ADMIN_SIGNUP_FAIL,
+          payload: 
+            error.response && error.response.data.message 
+            ?error.response.data.message:error.message,
+          });
+        console.log(error.response && error.response.data.message 
+          ?error.response.data.message:error.message);
+  }
+}
+
 export const adminLogin = (email , password) => async (dispatch) =>{
   
   // try{

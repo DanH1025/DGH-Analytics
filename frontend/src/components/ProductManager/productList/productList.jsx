@@ -117,7 +117,7 @@ export default function ProductList() {
         dispatch(deleteProductById(record.id));
         setVisible(false);
         message.success("Deleted Successfully");
-        dispatch(getAllProducts());
+        // dispatch(getAllProducts());
        
     }
       

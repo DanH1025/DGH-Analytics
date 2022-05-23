@@ -3,6 +3,29 @@ import * as api from '../api/index';
 import axios from 'axios';
 
 
+
+export const saveAccessKey = (email, accessKey) => async (dispatch)=>{
+    try {
+        dispatch({
+            type: actionType.SAVING_ACCESS_KEY_REQUEST,
+        })
+        const {data} = await api.savingAK(email,accessKey);
+        dispatch({
+            type: actionType.SAVING_ACCESS_KEY_SUCCESS,
+            payload: data,
+        })
+
+    } catch (error) {
+        dispatch({
+            type: actionType.SAVING_ACCESS_KEY_FAIL,
+            payload: 
+                error.response && error.response.data.message 
+                ?error.response.data.message:error.message,
+            });
+    }
+}
+
+
 // export const getUser = (email, password) => async (dispatch)=>{
 //     try {
 //         dispatch({

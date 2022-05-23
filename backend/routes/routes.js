@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-   
+
 
 const {getProducts, getAllProducts,addProduct, getProductsByCatagory, getProductsById,
          getProductsBySearch ,deleteProduct ,editProductValues ,recordSearchHistory ,recordAddToCartHistory,changeVisits } = 
@@ -21,6 +21,9 @@ const {loginWithPhone , adminRegister } =
   require('../controller/loginController')
 
 const {getAllCategories} = require('../controller/categoryController')
+
+const {getNewProductManager , accessKeyGenerator , saveAccessKey} = require('../controller/productManagerController')
+
 
 
 const { route } = require('express/lib/application');
@@ -86,6 +89,10 @@ router.post('/getAllUsers' , getAllUser)
 router.post('/checkUserPhone', checkUser)
 router.post('/checkEmail', checkEmail)
 
+//get product manager route
+router.get('/getNewProductManager' , getNewProductManager)
+
+
 // order routes
 router.post('/addOrder', addOrder);
 router.post('/getOrders', getOrders);
@@ -101,7 +108,13 @@ router.post('/productSearchRecord' , recordSearchHistory);
 router.post('/addToCartRecord' , recordAddToCartHistory )
 
 //login routes
-router.post('/loginWithPhone', loginWithPhone)
+router.post('/loginWithPhone', loginWithPhone);
 
+
+
+//generate access key for product manager
+router.post('/generateAccessKey' , accessKeyGenerator)
+router.post('/saveAccessKey' , saveAccessKey)
 
 module.exports = router;
+ 

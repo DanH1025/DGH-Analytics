@@ -195,7 +195,9 @@ const getAdminUser = async (req,res)=>{
       res.status(400).send("Error")
   }
 
-}
+} 
+
+
 
 
 
@@ -207,5 +209,6 @@ module.exports = {
   checkUser,
   checkEmail,
   getAdminUser,
-  verifyAdmin
+  verifyAdmin,
+  
 };
