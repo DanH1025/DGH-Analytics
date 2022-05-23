@@ -22,7 +22,7 @@ const {loginWithPhone , adminRegister } =
 
 const {getAllCategories} = require('../controller/categoryController')
 
-const {getNewProductManager , accessKeyGenerator , saveAccessKey} = require('../controller/productManagerController')
+const {getNewProductManager , accessKeyGenerator , saveAccessKey, activatePM} = require('../controller/productManagerController')
 
 
 
@@ -114,7 +114,11 @@ router.post('/loginWithPhone', loginWithPhone);
 
 //generate access key for product manager
 router.post('/generateAccessKey' , accessKeyGenerator)
-router.post('/saveAccessKey' , saveAccessKey)
+router.post('/saveAccessKey' , saveAccessKey);
+
+//activate admin user
+
+router.post('/activation' , activatePM)
 
 module.exports = router;
  

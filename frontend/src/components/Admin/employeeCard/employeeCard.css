@@ -30,6 +30,11 @@ body{
     -webkit-box-shadow: 2px 2px 5px 2px rgba(94,94,94,0.21);
     -moz-box-shadow: 2px 2px 5px 2px rgba(94,94,94,0.21);
     cursor: pointer;
+
+
+}
+.EC_wrapper:hover{
+    background-color: rgba(184, 239, 184, 0.718);
 }
 
 .emp_name_holder,
@@ -83,3 +88,6 @@ body{
     margin: 5px auto;
 }
 
+.MuiDialog-paperWidthSm {
+    width: 458px;
+}

@@ -47,11 +47,44 @@ const getNewProductManager = async (req,res)=>{
 
 }
 
+const activatePM = async (req,res)=>{
+    console.log("inside activation");
+
+    const {email} = req.body
+    const activation = "Active";
+
+    const [user, metaD] = await UserModel.fetchAdminUser(email);
+
+
+
+    console.log(user);
+
+    if(user[0].status === activation){
+        res.json({
+            data: "User is Already Active",
+            isSuccess: false,
+        })
+    }else{
+        const [data,metaData] = await UserModel.activatePM(email,activation);
+    
+        res.json({
+            data: data,
+            isSuccess: true
+        })
+    }
+   
+    
+    
+
+
+}
+
 
 
 
 module.exports = {
     getNewProductManager,
     accessKeyGenerator,
-    saveAccessKey
+    saveAccessKey,
+    activatePM  
 };

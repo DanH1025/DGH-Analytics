@@ -111,6 +111,15 @@ module.exports = class Request {
     }
   }
 
+  static activatePM( email ,activation){
+    try {
+      const result = db.execute("UPDATE administrator_user SET status = ?   WHERE email = ? ", [activation, email]);
+      return result;
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   static fetchAdminUser (email){
     try {
       const result = db.execute("SELECT * FROM administrator_user WHERE email=? " , [email]);

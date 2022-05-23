@@ -9,6 +9,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
+import axios from 'axios';
+import { message } from 'antd';
 
 
 
@@ -28,6 +30,23 @@ export default function EmployeeCard({key, user_name, email, accessKey, status ,
   const handleClose = () => {
     setOpen(false);
   };
+
+  const handleActivation = async() =>{
+    
+    const response = await axios.post('http://localhost:5000/api/activation', {
+        email: email
+    })
+    console.log(response.data.message);
+    
+    if(response.data.isSuccess){
+        message.success("User Has Been Activated")
+        setOpen(false);
+    }else{
+        message.error("User Activation Has Failed");
+        setOpen(false);
+    }
+    
+  }
 
   return (
       <>   
@@ -53,6 +72,7 @@ export default function EmployeeCard({key, user_name, email, accessKey, status ,
     <div>
      
       <Dialog
+        
         open={open}
         TransitionComponent={Transition}
         keepMounted
@@ -63,13 +83,16 @@ export default function EmployeeCard({key, user_name, email, accessKey, status ,
         <DialogTitle id="alert-dialog-slide-title">{user_name === null ? "Unavailable" : user_name}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-                <p className='dialog_email'>Email : {email}</p>
-                <p className='dialog_access_key'>Access Key : {accessKey}</p>
-                <p className='dialog_date'>SignUp Date : {date}</p>
-                <p className='dialog_status'>Status : {status}</p>
+                <p className='dialog_email'>  <b>Email :</b> {email}</p>
+                <p className='dialog_access_key'><b>Access Key :</b> {accessKey}</p>
+                <p className='dialog_date'><b>SignUp Date :</b> {date}</p>
+                <p className='dialog_status'> <b>Status : </b> {status}</p>
           </DialogContentText>
         </DialogContent>
-        <DialogActions>          
+        <DialogActions>  
+        <Button onClick={handleActivation} color="primary">
+            Activate
+          </Button>        
           <Button onClick={handleClose} color="primary">
             Close
           </Button>
