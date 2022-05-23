@@ -22,8 +22,16 @@ const getOrders = async(req,res) => {
   res.send(order);
 }
 
+const getOrdersbyId = async(req,res) => {
+  const id = req.body.id;
+  const [order, metaData] = await OrderModle.fetchAllbyUser(id)  
+  // console.log(order);
+  res.send(order);
+}
+
 
 module.exports = {
 	addOrder,
 	getOrders,
+  getOrdersbyId
 };

@@ -24,6 +24,27 @@ export const getOrders = () => async (dispatch)=>{
     }
 };
 
+export const getOrdersById = (id) => async (dispatch)=>{
+    try {
+        dispatch({
+            type: actionType.GET_ORDERS_BY_ID_REQUEST,
+        });
+        const {data} = await api.fetchOrdersById(id);
+        
+        dispatch({
+            type: actionType.GET_ORDERS_BY_ID_SUCCESS,
+            payload: data,
+        });
+    } catch (error) {
+        dispatch({
+            type:actionType.GET_ORDERS_BY_ID_FAIL,
+            payload: 
+                error.response && error.response.data.message 
+                ?error.response.data.message:error.message,
+        });
+    }
+};
+
 export const createOrders = (date, userId, total , lat, lng , contact) => async (dispatch) => {
   console.log('action : ' + total);
 	try{

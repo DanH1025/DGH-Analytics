@@ -10,7 +10,7 @@ export const addToCart =  (id,qtyCounter) => async (dispatch,getState)=>{
     console.log(data);
     console.log(qtyCounter ," is the ammount being added to cart");
     console.log(data[0].productBrand);
-   
+    
     dispatch({
         type: actionType.ADD_TO_CART,
         payload:{
