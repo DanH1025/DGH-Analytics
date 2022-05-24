@@ -125,7 +125,7 @@ export const createOrderDetails = (orderId, productId, price, productQuantity) =
 export const fetchOrders = () =>
   axios.post(fetchOrdersUrl);
 export const fetchOrdersById = (id) =>
-  axios.post(fetchOrdersByIdUrl);
+  axios.post(fetchOrdersByIdUrl, {id: id});
 export const createOrders = (date, userId, total, lat,lng ,contact) => 
   axios.post(createOrdersUrl, {
     date: date,

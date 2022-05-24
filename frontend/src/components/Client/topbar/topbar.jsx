@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react'
 import './topbar.css'
 import {Link} from 'react-router-dom'
-import {Phone, EventNote,Search,ShoppingCartSharp, FavoriteSharp } from '@material-ui/icons'
+import {Phone, EventNote,Search,ShoppingCartSharp, FavoriteSharp, HistorySharp } from '@material-ui/icons'
+
+// import HistoryIcon from '@mui/icons-material/History';
 
 import FaceIcon from '@material-ui/icons/Face';
 import Button from '@material-ui/core/Button';
@@ -380,35 +382,40 @@ export default function Topbar() {
         </div>
         <div className="stickyHeader">
           <div className="stickyContent">
-                  <div className="stickyLeft">
-                    <ul className='lowerSelection'>
-                            <Link to='/'>
-                                 <li className='lowerSelectionItem'>Home</li>
-                             </Link>
-                             <Link to='/about'>
-                                 <li className='lowerSelectionItem'>About</li>
-                             </Link>
-                             <Link to='/contactUs'>
-                                 <li className='lowerSelectionItem'>Contact Us</li>
-                             </Link>                        
-                         </ul>
-                  </div>
-                  <div className="stickyRight">
-                        <div className='wishlist'>
-                     <Link to='/wishlist'>
-                          <FavoriteSharp className='infosIcons' label="Wishlist"/>
-                                  <span>
-                                        {getWishlistCount()}
-                                  </span>
-                     </Link>
-                        </div>
-                   <div className="cartIconHolder">
-         						<Link to='/cart'>
-                       
-         							<ShoppingCartSharp className='infosIcons' />   <span>{getCartCount()}</span>
-         						</Link>  
-                   </div>
-                  </div>
+            <div className="stickyLeft">
+              <ul className='lowerSelection'>
+                      <Link to='/'>
+                            <li className='lowerSelectionItem'>Home</li>
+                        </Link>
+                        <Link to='/about'>
+                            <li className='lowerSelectionItem'>About</li>
+                        </Link>
+                        <Link to='/contactUs'>
+                            <li className='lowerSelectionItem'>Contact Us</li>
+                        </Link>                        
+                    </ul>
+            </div>
+
+            <div className="stickyRight">
+              <div className='orderlist'>
+                <Link to='/orderlist'>
+                  <HistorySharp className='infosIcons' label="orderlist"/>
+                    <span>{getWishlistCount()}</span>
+                </Link>
+              </div>
+              <div className='wishlist'>
+                <Link to='/wishlist'>
+                  <FavoriteSharp className='infosIcons' label="Wishlist"/>
+                    <span>{getWishlistCount()}</span>
+                </Link>
+              </div>
+              <div className="cartIconHolder">
+                <Link to='/cart'>  
+                  <ShoppingCartSharp className='infosIcons' />   
+                  <span>{getCartCount()}</span>
+                </Link>  
+              </div>
+            </div>
               
           </div>
       </div>

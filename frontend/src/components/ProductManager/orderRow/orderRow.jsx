@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import './orderRow.css'
 // import { render } from 'react-dom';
 // import { slideDown, slideUp } from 'anim';
 // // import {slideDown, slideUp} from 'react-slidedown'
@@ -13,6 +14,9 @@ import { Box, Collapse, IconButton,
 
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+
+import Button from '@material-ui/core/Button';
+import Label from '@material-ui/core/InputLabel';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrderDetails } from '../../../redux/actions/orderDetailAction';
@@ -32,7 +36,9 @@ export default function Row(props) {
   return (
     <React.Fragment>
       <TableRow 
-      sx={{ '& > *': { borderBottom: 'unset' } }}>
+      sx={{ '& > *': { borderBottom: 'unset' } }}
+      className={props.status === 'complete' ? 'comRow' 
+      : props.status === 'canceled' ? 'canRow' : 'penRow'}>
         <TableCell>
           <IconButton
             aria-label="expand row"
@@ -49,6 +55,18 @@ export default function Row(props) {
         <TableCell align="right">{props.lname}</TableCell>
         <TableCell align="right">{props.email}</TableCell>
         <TableCell align="right">{props.total}</TableCell>
+        {props?.status === 'pending' ?
+          <TableCell align="right"> 
+          <Button style={{border: '1px solid black'}}>Cancel</Button>
+          </TableCell>
+         : props?.status === 'complete' ? 
+           <TableCell align="right"> 
+            <Label >Complete</Label>
+           </TableCell> : 
+           <TableCell align="right"> 
+            <Label >Canceled</Label>
+           </TableCell>
+        }
       </TableRow>
       <TableRow>
         <TableCell 

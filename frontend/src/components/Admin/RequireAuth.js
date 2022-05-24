@@ -13,10 +13,11 @@ const RequireAuth = ({ allowedRoles }) => {
     return (
         cookie?.ADrole === allowedRoles
         ? <Outlet />
-        : cookie?.ADemail 
-            ? <Unauthorized />
-            // ? <Navigate to="/" state={{ from: location }} replace />
-            :<Navigate to="/adminstrationLogin" state={{ from: location }} replace />
+        : <Navigate to="/adminstrationLogin" state={{ from: location }} replace />
+        // : cookie?.ADemail 
+        //     ? <Unauthorized />
+        //     // ? <Navigate to="/" state={{ from: location }} replace />
+        //     :<Navigate to="/adminstrationLogin" state={{ from: location }} replace />
     );
 }
 
