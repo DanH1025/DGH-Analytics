@@ -8,8 +8,8 @@ const addOrderDetail = (req, res) => {
   
   //const [orderId , productId , productQuantity, latitude, longitude] = req.body;
   const orderDetails = new OrderDetailModel(orderId, productId, productQuantity , price);
-  try{
-    // console.log(orderDetails);
+  try{ 
+    // console.log(orderDetails); 
     orderDetails.save();
   }catch(e){
     console.log('order detail error: ' + e);
@@ -27,4 +27,4 @@ const getOrderDetails = async(req,res) => {
 module.exports = {
 	addOrderDetail,
 	getOrderDetails,
-};
+};  

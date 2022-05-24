@@ -11,58 +11,64 @@ import { Box, Collapse, IconButton,
 // import "bootstrap/dist/css/bootstrap.min.css";
 // // To make rows collapsible
 // import "bootstrap/js/src/collapse.js";
-
-import { useDispatch, useSelector } from 'react-redux';
 import { getOrders } from '../../../redux/actions/orderActions';
 
 import UserTableRow from '../../../components/ProductManager/orderRow/orderRow'
  
 import Row from '../../../components/ProductManager/orderRow/orderRow';
+import axios from 'axios';
+import { useState } from 'react';
 
 export default function Orders() {
-  const dispatch = useDispatch();
 
- 	useEffect(() => {
- 	  dispatch(getOrders());
- 	}, [dispatch]);
+  const [orders , setOrders] = useState([]);
 
-  const orders = useSelector((state) => state.getOrder.orders);
-  console.log(orders);
+
+
+  useEffect(()=>{
+    const fetchAllOrders = async() =>{
+       const response = await axios.post('http://localhost:5000/api/getOrders');
+       setOrders(response.data)
+    }
+    fetchAllOrders()
+  },[])
 
   return (
     <>
       <main>
+       
         <div>
-          <div>
+          <div className='orderTable_holder'>
           <TableContainer component={Paper}>
             <Table aria-label="collapsible table">
-              <TableHead>
+              <TableHead >
                 <TableRow>
                   <TableCell />
-                  <TableCell>Id</TableCell>
+                  <TableCell>Order Id</TableCell>
                   <TableCell align="right">
-                    Fullname</TableCell>
+                    Contact</TableCell>
                   <TableCell align="right">
-                    LastName</TableCell>
+                    Sub-Total</TableCell>
                   <TableCell align="right">
-                    Email</TableCell>
-                  <TableCell align="right">
-                    Total</TableCell>
+                    Status</TableCell>
+                
                 </TableRow>
               </TableHead>
               <TableBody>
               {
                   !orders?.length ? <div>empty</div> : (
                     orders.map((val, key) => {
-                      // console.log(val);
+                      console.log(val);
                       return (
                         <Row 
-                        key = {val.orderId}   
-                        id = {val.orderId}
-                        fname = {val.userFirstName}
-                        lname = {val.userLastName}
-                        email = {val.userEmail} 
-                        total = {val.total} />
+                          key = {val.orderId}   
+                          Order_id = {val.orderId}
+                          fname = {val.userFirstName}
+                          lname = {val.userLastName}
+                          contact = {val.email === null ? val.contact: null} 
+                          total = {val.total}
+                          status = {val.status}
+                          />
                         )
                     }
                   ))

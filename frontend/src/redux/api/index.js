@@ -69,6 +69,21 @@ const addToCartRecordUrl =
 const productVistRecordUrl =
   'http://localhost:5000/api/addVisits'
 
+const savingAKUrl = 'http://localhost:5000/api/saveAccessKey'
+
+const adminSignupUrl = 'http://localhost:5000/api/adminRegister'
+
+//admin signup
+export const admin_signup = (userName, email, password, accessKey)=>{
+  return axios.post(adminSignupUrl , {
+    userName: userName,
+    email: email,
+    password: password,
+    accessKey: accessKey
+  })
+}
+
+
 
 
 export const loginWithPhoneNumber = (phone,password)=>{
@@ -228,3 +243,12 @@ export const productVisitRecord = (id)=>
     axios.post(productVistRecordUrl , {
       id: id
     })
+
+
+// save email and access key for product manager
+export const savingAK = (email , accessKey)=>
+    axios.post(savingAKUrl, {
+      email: email,
+      AK: accessKey
+    })
+

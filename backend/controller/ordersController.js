@@ -18,7 +18,8 @@ const addOrder = (req, res) => {
 
 const getOrders = async(req,res) => {
   const [order, metaData] = await OrderModle.fetchAll()  
-  // console.log(order);
+  console.log(order);
+ // res.send(order.splice(0,4));
   res.send(order);
 }
 

@@ -34,7 +34,7 @@ module.exports = class Request {
 
   static fetchAll() {
     try{
-       const result =db.execute('SELECT orders.orderId, user.fname, user.lname, user.email, orders.total , orders.latitude,orders.longitude,orders.contact , orders.status FROM orders INNER JOIN user ON orders.userId = user.id');
+       const result =db.execute('SELECT orders.orderId, user.fname, user.lname, user.email, orders.total , orders.latitude,orders.longitude,orders.contact , orders.status FROM user INNER JOIN orders ON orders.userId = user.id');
        return result;
     }catch(err){
       console.log(err);

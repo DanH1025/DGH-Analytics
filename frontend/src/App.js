@@ -23,7 +23,7 @@ import Admin_Dashboard from './pages/Admin/dashboard/dashboard';
 import AdminLogin from './pages/Admin/AdminLogin/adminLogin'
 
 
-import { AuthProvider } from './context/AuthProvider';
+
 import RequireAuth from './components/Admin/RequireAuth';
 import UserAuth from './components/Admin/UserAuth'
 

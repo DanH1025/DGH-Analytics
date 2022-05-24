@@ -28,7 +28,7 @@ export default function Row(props) {
   const dispatch = useDispatch();
   const handleClick = () => {
     setOpen(!open);
-    const id = props.id;
+    const id = props.Order_id;
     dispatch(getOrderDetails(id));
   }
   const orders = useSelector((state) => state.getOrderDetail.orderDetails);
@@ -49,24 +49,13 @@ export default function Row(props) {
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row">
-          {props.id}
+          {props.Order_id}
         </TableCell>
-        <TableCell align="right">{props.fname}</TableCell>
-        <TableCell align="right">{props.lname}</TableCell>
-        <TableCell align="right">{props.email}</TableCell>
+        <TableCell align="right">{props.contact}</TableCell>
         <TableCell align="right">{props.total}</TableCell>
-        {props?.status === 'pending' ?
-          <TableCell align="right"> 
-          <Button style={{border: '1px solid black'}}>Cancel</Button>
-          </TableCell>
-         : props?.status === 'complete' ? 
-           <TableCell align="right"> 
-            <Label >Complete</Label>
-           </TableCell> : 
-           <TableCell align="right"> 
-            <Label >Canceled</Label>
-           </TableCell>
-        }
+        <TableCell align="right">{props.status}</TableCell>
+        
+
       </TableRow>
       <TableRow>
         <TableCell 
@@ -74,7 +63,7 @@ export default function Row(props) {
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Typography variant="h6" gutterBottom component="div">
-                History
+                Detail
               </Typography>
               <Table size="small" aria-label="purchases">
                 <TableHead>
