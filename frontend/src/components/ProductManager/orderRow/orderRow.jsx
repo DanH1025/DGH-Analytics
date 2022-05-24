@@ -15,11 +15,14 @@ import { Box, Collapse, IconButton,
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 
+import { Link } from 'react-router-dom'
+
 import Button from '@material-ui/core/Button';
 import Label from '@material-ui/core/InputLabel';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrderDetails } from '../../../redux/actions/orderDetailAction';
+import { changeOrderStatus } from '../../../redux/actions/orderActions'
 
 export default function Row(props) {
   // const { row } = props;
@@ -29,16 +32,24 @@ export default function Row(props) {
   const handleClick = () => {
     setOpen(!open);
     const id = props.Order_id;
-    dispatch(getOrderDetails(id));
+    dispatch(getOrderDetails(props.id));
   }
+  
+  const handleCancelOrder = () => {
+    console.log(props.id);
+    dispatch(changeOrderStatus(props.id, 'inProgress'))
+    window.location.reload(false);
+  }
+
   const orders = useSelector((state) => state.getOrderDetail.orderDetails);
   console.log('inside row');
   return (
     <React.Fragment>
       <TableRow 
       sx={{ '& > *': { borderBottom: 'unset' } }}
-      className={props.status === 'complete' ? 'comRow' 
-      : props.status === 'canceled' ? 'canRow' : 'penRow'}>
+      className={ props.status === 'complete' ? 'comRow' 
+      : props.status === 'canceled' ? 'canRow' 
+      : props.status === 'pending' ? 'penRow' : 'inProg'}>
         <TableCell>
           <IconButton
             aria-label="expand row"
@@ -49,14 +60,35 @@ export default function Row(props) {
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row">
-          {props.Order_id}
+          {props.id}
         </TableCell>
-        <TableCell align="right">{props.contact}</TableCell>
-        <TableCell align="right">{props.total}</TableCell>
-        <TableCell align="right">{props.status}</TableCell>
+
+        { props.admin === true ? ( 
+            <TableCell align="left">
+              {props.id}</TableCell>)
+          : (
+            <>
+            <TableCell align="right">{props.fname}</TableCell>
+            <TableCell align="right">{props.lname}</TableCell>
+            <TableCell align="right">{props.email}</TableCell></>
+          )
+          
+        }
         
 
+        <TableCell align="right">{props.total}</TableCell>
+        
+        { props.status === 'pending' ? (
+          <TableCell align="right">
+            <Button className='btn' onClick={handleCancelOrder} style={{border: '1px solid black'}}>Cancel</Button>
+          </TableCell>
+        ): props.status === 'inProgress' ? (
+        <TableCell align="right">
+          <Label className='btn'>In progress</Label>
+        </TableCell>) : ''
+        }
       </TableRow>
+
       <TableRow>
         <TableCell 
         style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -65,7 +97,8 @@ export default function Row(props) {
               <Typography variant="h6" gutterBottom component="div">
                 Detail
               </Typography>
-              <Table size="small" aria-label="purchases">
+
+              {/* <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
                     <TableCell>Name</TableCell>
@@ -88,7 +121,31 @@ export default function Row(props) {
                     </TableRow>
                   ))}
                 </TableBody>
-              </Table>
+              </Table> */}
+
+              {orders.map((order) => ( 
+              <div className='cartItem'>
+                <div className="cartItemHolder">
+                  <div className='cartItem_img'>
+                    <Link to={`/productDetails/${order.product}`}>
+                      <img src={order.imageUrl}  alt={order.productName} />
+                    </Link>
+                  </div>
+
+                  <p className='cartItem_brand'>{order.brand}</p>
+
+                  <Link to={`/productDetails/${order.product}`}>
+                    <p className='cartItem_name'>{order.productName}</p>            
+                  </Link>
+                  
+                  <p className='cartItem_price'>${order.productPrice}</p>
+
+                  <p className='cartItem_price'>${order.productQuantity}</p>
+
+                  </div>
+                </div>
+
+               ))}
             </Box>
           </Collapse>
         </TableCell>
