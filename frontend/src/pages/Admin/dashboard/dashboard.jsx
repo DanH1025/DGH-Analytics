@@ -37,8 +37,10 @@ import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOut
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import WishList from '../../ProductManager/wishlist/wishlist';
-import Orders from '../../ProductManager/orders/orders';
+import TrackChangesIcon from '@material-ui/icons/TrackChanges';
 import ProductList from '../../../components/ProductManager/productList/productList';
+import GroupOutlinedIcon from '@material-ui/icons/GroupOutlined';
+import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import AddProduct from '../../../components/ProductManager/addProduct/addProduct'
 import Home from '../../../components/Admin/home/home';
 
@@ -46,6 +48,9 @@ import { Button } from '@material-ui/core'
 //material ui menu navigation drawer things
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
+import { ListAltOutlined } from '@material-ui/icons';
+import Orders from '../../../pages/ProductManager/orders/orders';
+import Hiring from '../../../components/Admin/Hiring/hiring';
 
 
 
@@ -144,6 +149,7 @@ export default function PM_Dashboard() {
     };
     //track index of the components clicked
     const [compCounter , setCompCounter] = useState(0);
+    
 
     const handleLogout = (e) => {
       e.preventDefault();
@@ -207,8 +213,8 @@ export default function PM_Dashboard() {
         </div>
         <Divider />
         <List>
-          {['Dashboard', 'Product List', 'Add Products', 'WishList'].map((text, index) => (
-            
+          {['Dashboard', 'Product List', 'Add Products', 'WishList','Users', 'Order List', 'Goals','Hiring', 'Sth', 'Params'].map((text, index) => (
+            <>
             <ListItem button  onClick={()=>{
               setCompCounter(index)
               console.log(index)
@@ -216,29 +222,56 @@ export default function PM_Dashboard() {
               <ListItemIcon>{index === 0 ? <DashboardOutlinedIcon /> :
                              index === 1 ? <ListAltOutlinedIcon />:
                              index === 2 ? <AddCircleOutlineOutlinedIcon />:
-                             index === 3 ? <FavoriteBorderOutlinedIcon/> : <FavoriteBorderOutlinedIcon/> }</ListItemIcon>
+                             index === 3 ? <FavoriteBorderOutlinedIcon/> : 
+                             index === 4 ? <GroupOutlinedIcon/> :
+                             index === 5 ? <ListAltOutlined/> :
+                             index === 6 ? <TrackChangesIcon/> :
+                             index === 7 ? <PersonAddOutlinedIcon/> :
+                             index === 8 ? <MailIcon/> :
+                             index === 9 ? <FavoriteBorderOutlinedIcon/> : ""
+                             
+                             }
+              </ListItemIcon>
+              
+              <ListItemText primary={text} />
+              
+            </ListItem>
+            <Divider />
+            </>
+            
+          ))}
+           
+        </List>
+        {/* <Divider /> */}
+        {/* <List>
+          {['Users', 'Order List', 'Goals'].map((text, index) => (
+
+            <ListItem button onClick={()=> {
+                setCompCounterListTwo(index)
+                console.log(compCounterListTwo)
+                
+                }}  key={text} >
+              <ListItemIcon>{index === 0 ? <GroupOutlinedIcon /> :
+                             index === 1 ? <ListAltOutlined/> :
+                             index === 2 ? <TrackChangesIcon/> :""
+                              
+                
+              }
+              
+              </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
-        </List>
-        <Divider />
-        <List>
-          {['Order List', 'Order Details', 'Updates'].map((text, index) => (
+        </List> */}
+        {/* <Divider /> */}
+        {/* <List>
+          {['Hiring', 'Sth', 'Params'].map((text, index) => (
             <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <ListAltOutlinedIcon /> : <MailIcon />}</ListItemIcon>
+              <ListItemIcon>{index === 0 ? <PersonAddOutlinedIcon /> : <MailIcon />}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
-        </List>
-        <Divider />
-        <List>
-          {['Analysis', 'Goals', 'Params'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
+        </List> */}
       <Button onClick={handleLogout}>Logout</Button>
       </Drawer>
       <main className={classes.content}>
@@ -246,10 +279,16 @@ export default function PM_Dashboard() {
 
             {compCounter === 0 ? <Home /> : 
              compCounter === 1 ? <ProductList /> : 
-             compCounter === 2 ? <AddProduct/> :"others"
-
+             compCounter === 2 ? <AddProduct/> :
+             compCounter === 3 ? <WishList/> :
+             compCounter === 4 ? "User list":
+             compCounter === 5 ? <Orders />: 
+             compCounter === 7 ? <Hiring />:
+             "others"   
+          
             }
 
+          
    
 
       </main>

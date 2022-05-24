@@ -29,6 +29,15 @@ module.exports = class Request {
     }
   }
 
+  static addAccessKey(email,date, AK){
+    try {
+      const result = db.execute('INSERT INTO `administrator_user`(`email`, `user_role`, `sign_up_date`, `access_key`, `status`) VALUES (?,?,?,?,?)', [email, "product_manager", date , AK , "pending"]);
+      return result
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   static fetchPhone(phone){
     try {
       const result = db.execute('SELECT * FROM user WHERE phone_number=?', [phone]);
@@ -92,12 +101,40 @@ module.exports = class Request {
       console.log(error)
     }
   }
+
+  static updateAdmin (userName, email, password){
+    try {
+       const result = db.execute("UPDATE administrator_user SET user_name = ? ,password = ?   WHERE email = ? ", [userName, password, email]);
+       return result;
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  static activatePM( email ,activation){
+    try {
+      const result = db.execute("UPDATE administrator_user SET status = ?   WHERE email = ? ", [activation, email]);
+      return result;
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   static fetchAdminUser (email){
     try {
       const result = db.execute("SELECT * FROM administrator_user WHERE email=? " , [email]);
       return result;
     } catch (error) {
       return error
+    }
+  }
+
+  static fetchNewPM (){
+    try {
+       const result = db.execute("SELECT `id`, `user_name`, `email`, `user_role`, `sign_up_date`, `password`, `access_key` , `status` FROM `administrator_user` WHERE user_role != ? " , ["admin"])
+       return result;
+      } catch (error) {
+        return error
     }
   }
 

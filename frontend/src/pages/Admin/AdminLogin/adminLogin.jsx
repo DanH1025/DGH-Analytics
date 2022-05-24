@@ -18,11 +18,17 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import AuthContext from "../../../context/AuthProvider";
 import useAuth from '../../../hooks/useAuth';
 
+import { useDispatch } from 'react-redux';
+
+import { adminSignUp } from '../../../redux/actions/loginAction';
+
 import { useContext } from "react";
 // import AuthContext from "../context/AuthProvider";
 import { useCookies } from 'react-cookie';
 
 export default function AdminLogin() {
+
+		const dispatch = useDispatch()
 		const { setAuth } = useContext(AuthContext);
 		const navigate = useNavigate();
 
@@ -30,6 +36,7 @@ export default function AdminLogin() {
 
 		// for error mesaage
     const [errMsg, setErrMsg] = useState('');
+	const [successMsg , setSuccessMsg] = useState('');
     const userRef = useRef();
     const errRef = useRef();
 
@@ -44,14 +51,14 @@ export default function AdminLogin() {
     const [success , setSuccess] = useState(false);
     const [signupOrLogin , setSignupOrLogin] = useState(false);
 
-    // const [regVal , setRegVal] = useState({
-    //     userName: '',
-    //     email: '',
-    //     confirm_email: '',
-    //     token_key: '',
-    //     password: '',
-    //     confirm_password: ''
-    // })
+    const [regVal , setRegVal] = useState({
+        userName: '',
+        email: '',
+        confirm_email: '',
+        access_key: '',
+        password: '',
+        confirm_password: ''
+    })
 
 
     // useEffect(()=>{
@@ -62,7 +69,7 @@ export default function AdminLogin() {
     //     setErrMsg('')
     // } , [user, pwd])
  
-    const [isError, setIsError] = useState('')
+   
 
     const onFinish = async (values) =>{
         //  console.log('Success:', values);    
@@ -113,7 +120,42 @@ export default function AdminLogin() {
     };
 
 		const onSignUpFinish = async (value) => {
-			console.log('sign up' + value.user_name);
+
+			console.log('sign up' + value);			
+			
+			try {
+				const response = await axios.post('http://localhost:5000/api/adminRegister',{
+					userName: regVal.userName,
+					email: regVal.email,
+					password: regVal.password,
+					accessKey: regVal.access_key
+				})
+
+				console.log("this is the admin signup finishing");
+				console.log(response.status);
+				if(response.status === 200){
+					setSuccessMsg("SignUp Successful");
+					setRegVal({...regVal , userName:'' , email:'',confirm_email:'', access_key:'', password:'', confirm_password:''});
+					setSignupOrLogin(false);
+					message.success("SignUp Successful");
+				}
+
+			} catch (err) {
+				console.log(err.response.status); 
+				if (!err?.response) {
+				  setErrMsg('No Server Response');
+				} else if (err.response?.status === 400) {
+				  setErrMsg('Invalid Input Provided');
+				} else if (err.response?.status === 404) {
+				  setErrMsg('Account Not Found');
+				} else if (err.response?.status === 401){
+				  setErrMsg('Unauthorized');
+				}else {
+				  setErrMsg('SignUp Failed');
+				} 
+					  console.log(errMsg);
+			}
+
 		}
   
 
@@ -125,7 +167,12 @@ export default function AdminLogin() {
 									<p ref={errRef} 
 									className={errMsg ? "errmsg" : "offscreen"} 
 									aria-live="assertive">
-                    {errMsg}
+                    					{errMsg}
+									</p>
+									<p ref={errRef} 
+									className={successMsg ? "successFul" : "offscreen"} 
+									aria-live="assertive">
+                    					{successMsg}
 									</p>
 						{
 							signupOrLogin? (
@@ -144,8 +191,12 @@ export default function AdminLogin() {
 											, message: "UserName is required" 
 										}]}>
 											<Input type="text" 
+												value={regVal.userName}
 												prefix={<PermIdentityIcon/>} 
-												placeholder="UserName"/>
+												placeholder="UserName"
+												onChange={(e)=> setRegVal({...regVal, userName: e.target.value})}
+												
+												/>
 										</Form.Item>
 
 										<Form.Item
@@ -156,8 +207,10 @@ export default function AdminLogin() {
 														}]}
 										>
 												<Input type="email" 
+														value={regVal.email}
 																prefix={<MailOutlineIcon/>} 
-																placeholder="Email Address"                                                        
+																placeholder="Email Address"
+																onChange={(e)=> setRegVal({...regVal, email: e.target.value})}                                                        
 												/>
 										</Form.Item>
 
@@ -169,8 +222,10 @@ export default function AdminLogin() {
 														}]}
 										>
 												<Input type="email" 
+														value={regVal.confirm_email}
 																prefix={<MailIcon/>} 
 																placeholder="Confirm Email" 
+																onChange={(e)=> setRegVal({...regVal, confirm_email: e.target.value})}
 												/>
 										</Form.Item>
 
@@ -180,8 +235,10 @@ export default function AdminLogin() {
 														, message: "Access key is required"
 														}]}
 										>
-												<Input type="text" 
+												<Input type="text"
+														value={regVal.access_key} 
 																prefix={<VpnKeyIcon />} placeholder="Access Key" 
+																onChange={(e)=> setRegVal({...regVal, access_key: e.target.value})}
 												/>
 										</Form.Item>
 
@@ -192,7 +249,9 @@ export default function AdminLogin() {
 														}]}
 										>
 												<Input type="password" 
+														value={regVal.password}
 																prefix={<LockOpenIcon />} placeholder="Password" 
+																onChange={(e)=> setRegVal({...regVal, password: e.target.value})}
 												/>
 										</Form.Item>
 
@@ -203,7 +262,9 @@ export default function AdminLogin() {
 														}]}
 										>
 												<Input type="password" 
+														value={regVal.confirm_password}
 																prefix={<LockIcon/>} placeholder="Confirm Password" 
+																onChange={(e)=> setRegVal({...regVal, confirm_password: e.target.value})}
 												/>
 										</Form.Item>
 
