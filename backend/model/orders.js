@@ -41,6 +41,15 @@ module.exports = class Request {
     }
   }
 
+  static fetchAllbyUser(id) {
+    try{
+       const result =db.execute('SELECT orders.orderId, user.fname, user.lname, user.email, user.phone_number, orders.total , orders.latitude,orders.longitude,orders.contact , orders.status FROM orders INNER JOIN user ON orders.userId = user.id WHERE user.id = ?', [id]);
+       return result;
+    }catch(err){
+      console.log(err);
+    }
+  }
+
   static totalSum(date) {
     try{
        const result =db.execute("SELECT SUM(total) FROM orders WHERE status = 'complete' AND date=?", [date]);

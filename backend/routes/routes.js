@@ -9,7 +9,7 @@ const {getProducts, getAllProducts,addProduct, getProductsByCatagory, getProduct
 
 const {getUser, getAllUser, addUserByPhone , getAdminUser, verifyAdmin, addUserByEmail, checkUser, checkEmail} =   
   require('../controller/userController')
-const {addOrder, getOrders} =   
+const {addOrder, getOrders, getOrdersbyId} =   
   require('../controller/ordersController')
 const { addOrderDetail, getOrderDetails } =  
   require('../controller/orderDetailController');
@@ -96,6 +96,7 @@ router.get('/getNewProductManager' , getNewProductManager)
 // order routes
 router.post('/addOrder', addOrder);
 router.post('/getOrders', getOrders);
+router.post('/getOrdersById', getOrdersbyId)
 
 // orderDetail routes
 router.post('/addOrderDetail', addOrderDetail);

@@ -166,125 +166,126 @@ export default function ProductDetails() {
   return (
      <> 
      <Topbar/>    
-        <div className="productDetailView">
-            <div className="productDetailsWrapper">
-                <div className="productPathTitle">
-                     <p>    Home / {product.productName} </p>
-                </div>
-                <div className="productDetailsInfo">
-                    <div className="productDetailsInfoWrapper">
-                        <div className="productImageSide">
-                            <div className="productDetailImageHolder">
-                                <img src={product.productImg} />
-                            </div>
-                        </div>
-                        <div className="productDetailsSide">
-                            <div className="productDetailsContainer">
-                                <div className="productNameDetail">
-                                    <p>{product.productName}</p>
-                                </div>
-                                <div className="productRatingDetail">
-                                    <span>                   
-                                        <StarBorderIcon style={product.rating >=1? {color:'orange',fontWeight:'bolder'}: {color:'#80808066'}} />
-                                        <StarBorderIcon style={product.rating >=2? {color:'orange',fontWeight:'bolder'}: {color:'#80808066'}}/>
-                                        <StarBorderIcon style={product.rating >=3? {color:'orange',fontWeight:'bolder'}: {color:'#80808066'}}/>
-                                        <StarBorderIcon style={product.rating >=4? {color:'orange',fontWeight:'bolder'}: {color:'#80808066'}}/>
-                                        <StarBorderIcon style={product.rating >=5? {color:'orange',fontWeight:'bolder'}: {color:'#80808066'}}/>
-                                    </span>       
-                                </div>
-                                <div className="productPriceDetail">
-                                    <p>{product.productPrice} ETB</p>  
-                                </div>
-                                <div className="productInfoDetail">                                    
-                                    <p>Brand : {product.productBrand}</p>
-                                    <p>Availability : {product.countInStock > 0? "In Stock" : "Out of Stock"} </p>
-                                </div>
-                                <div className="productDescriptionShortDetail">
-                                        <p>{product.productDetail}</p>
-                                </div>
-                                <div className="productAddToStock">
-                                    <p> Qty: <span> <RemoveOutlinedIcon onClick={handleMinQty} />
-                                                <input type="text"
-                                                        min={0}
-                                                        value={qtyCounter}
-                                                            
-                                                /> <AddOutlinedIcon  onClick={handlePlusQty} /> 
-                                                
-                                            </span>
-                                    </p>
-                                    <div className="productAddToStockButtonHolder">
-                                        <Button variant='contained' type='primary'                                        
-                                            onClick={addToCartHandler}
-                                            startIcon={<AddShoppingCartOutlinedIcon/> }
-                                            >                                        
-                                            Add To Cart 
-                                        </Button>
-                                        <Button variant='outlined'    
-                                            className='wishlist_btn'                                     
-                                            onClick={addToWishlistHandler}
-                                            startIcon={<FavoriteBorderOutlinedIcon /> }
-                                            >                                        
-                                            Add To WishList 
-                                        </Button>
-                                    </div>
+			<div className="productDetailView">
+				<div className="productDetailsWrapper">
+					<div className="productPathTitle">
+						<p>    Home / {product.productName} </p>
+					</div>
 
-                                   
-                                   
-                                </div>
-                                {/* <div className="productAddToWishList">
-                                    <FavoriteBorderOutlinedIcon />  <p>Add to Wish List </p>
-                                </div> */}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="productDetailDescriptions">
+					<div className="productDetailsInfo">
+						<div className="productDetailsInfoWrapper">
+							<div className="productImageSide">
+								<div className="productDetailImageHolder">
+										<img src={product.productImg} />
+								</div>
+							</div>
 
-                </div>
-            </div>
-        </div>
+							<div className="productDetailsSide">
+								<div className="productDetailsContainer">
+										<div className="productNameDetail">
+												<p>{product.productName}</p>
+										</div>
+										<div className="productRatingDetail">
+												<span>                   
+														<StarBorderIcon style={product.rating >=1? {color:'orange',fontWeight:'bolder'}: {color:'#80808066'}} />
+														<StarBorderIcon style={product.rating >=2? {color:'orange',fontWeight:'bolder'}: {color:'#80808066'}}/>
+														<StarBorderIcon style={product.rating >=3? {color:'orange',fontWeight:'bolder'}: {color:'#80808066'}}/>
+														<StarBorderIcon style={product.rating >=4? {color:'orange',fontWeight:'bolder'}: {color:'#80808066'}}/>
+														<StarBorderIcon style={product.rating >=5? {color:'orange',fontWeight:'bolder'}: {color:'#80808066'}}/>
+												</span>       
+										</div>
+										<div className="productPriceDetail">
+												<p>{product.productPrice} ETB</p>  
+										</div>
+										<div className="productInfoDetail">                                    
+												<p>Brand : {product.productBrand}</p>
+												<p>Availability : {product.countInStock > 0? "In Stock" : "Out of Stock"} </p>
+										</div>
+										<div className="productDescriptionShortDetail">
+														<p>{product.productDetail}</p>
+										</div>
+										<div className="productAddToStock">
+												<p> Qty: <span> <RemoveOutlinedIcon onClick={handleMinQty} />
+																		<input type="text"
+																						min={0}
+																						value={qtyCounter}
+																								
+																		/> <AddOutlinedIcon  onClick={handlePlusQty} /> 
+																		
+																</span>
+												</p>
+												<div className="productAddToStockButtonHolder">
+														<Button variant='contained' type='primary'                                        
+																onClick={addToCartHandler}
+																startIcon={<AddShoppingCartOutlinedIcon/> }
+																>                                        
+																Add To Cart 
+														</Button>
+														<Button variant='outlined'    
+																className='wishlist_btn'                                     
+																onClick={addToWishlistHandler}
+																startIcon={<FavoriteBorderOutlinedIcon /> }
+																>                                        
+																Add To WishList 
+														</Button>
+												</div>
+
+												
+												
+										</div>
+										{/* <div className="productAddToWishList">
+												<FavoriteBorderOutlinedIcon />  <p>Add to Wish List </p>
+										</div> */}
+								</div>
+							</div>
+						</div>
+					</div>
+						<div className="productDetailDescriptions">
+
+						</div>
+				</div>
+			</div>
         
 
         <div className="bottomTabContainer">       
-
-                <div className={classes.root}>
+					<div className={classes.root}>
             <AppBar position="static" color="default">
-                <Tabs
+							<Tabs
                 value={value}
                 onChange={handleChange}
                 variant="scrollable"
                 scrollButtons="on"
                 indicatorColor="primary"
                 textColor="primary"
-                aria-label="scrollable force tabs"
-                >
-                <Tab label="Description"  {...a11yProps(0)} />
-                <Tab label="Reviews" {...a11yProps(1)} />
-                
-                
-                </Tabs>
-            </AppBar>
-                    <TabPanel value={value} index={0}>
-                        {product.productDetail}
-                    </TabPanel>
-                    <TabPanel value={value} index={1}>
-                      <TextareaAutosize 
-                            className='commentTextArea'
-                            aria-label="review product" 
-                            minRows={4} 
-                            placeholder="Comment here ..." />
+                aria-label="scrollable force tabs">
 
-                                        <Button variant='outlined'    
-                                        className='comment_btn'                                     
-                                        onClick={commentHandler}                                        
-                                        >                                        
-                                        Submit
-                                    </Button>
-                    </TabPanel>
-                    
+              	<Tab label="Description"  {...a11yProps(0)} />
+              	<Tab label="Reviews" {...a11yProps(1)}/>
+  
+            	</Tabs>
+            </AppBar>
+
+						<TabPanel value={value} index={0}>
+								{product.productDetail}
+						</TabPanel>
+
+						<TabPanel value={value} index={1}>
+							<TextareaAutosize 
+										className='commentTextArea'
+										aria-label="review product" 
+										minRows={4} 
+										placeholder="Comment here ..." />
+
+																<Button variant='outlined'    
+																className='comment_btn'                                     
+																onClick={commentHandler}                                        
+																>                                        
+																Submit
+														</Button>
+						</TabPanel>         
                 
-                   </div>
-                </div>
+          </div>
+        </div>
                 
       
         <Footer/>
