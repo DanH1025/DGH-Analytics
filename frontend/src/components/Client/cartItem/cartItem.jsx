@@ -8,8 +8,8 @@ import {DeleteOutline} from '@material-ui/icons'
 
 export default function CartItem({item , qtyChangeHandler ,removeFromCartHandler}) {
   return (
-      <div className='cartItem'>
-          <div className="cartItemHolder">
+    <div className='cartItem'>
+        <div className="cartItemHolder">
             <div className='cartItem_img'>
             <Link to={`/productDetails/${item.product}`}>
                 <img src={item.imageUrl}  alt={item.productName} />
@@ -32,8 +32,8 @@ export default function CartItem({item , qtyChangeHandler ,removeFromCartHandler
             <button className='cartItem_delete_btn' onClick={()=> removeFromCartHandler(item.product)} >
                 <DeleteOutline />
             </button>
-          </div>
-      </div>
+        </div>
+    </div>
   
 
   )

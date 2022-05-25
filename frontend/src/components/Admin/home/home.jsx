@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getOrders } from '../../../redux/actions/orderActions';
 import { getOrderReports, getOrderTotal } from "../../../redux/actions/orderReportAction";
 import { getUserLogDetail } from "../../../redux/actions/userLogActions";
+import { Button } from "@material-ui/core";
 
 // const data = [
 //   {
@@ -40,7 +41,7 @@ import { getUserLogDetail } from "../../../redux/actions/userLogActions";
 //   },
 // ];
 
-export default function Home() {
+export default function Home({onMorePage}) {
 
   const dispatch = useDispatch();
 
@@ -156,6 +157,8 @@ export default function Home() {
                   dates={days}
                   chartData={prices}
                   chartType="area"
+                  index={8}
+                  onPageChange={onMorePage}
                   />
               </div>
               <div className="chart">
@@ -165,6 +168,8 @@ export default function Home() {
                   dates={days}
                   chartData={orders}
                   chartType="area"
+                  index={8}
+                  onPageChange={onMorePage}
                   />
               </div>        
               <div className="chart">
@@ -174,6 +179,8 @@ export default function Home() {
                   dates={days}
                   chartData={priceAverage}
                   chartType="area"
+                  index={9}
+                  onPageChange={onMorePage}
                   />
               </div>  
 
@@ -255,7 +262,7 @@ export default function Home() {
             </div>
           
             <div className="lineGraphHolder">  
-                        <p>Orders</p>
+              <p>Orders</p>
               <div className="orders_container">
                 <Chart
                   className="order_barChart"
@@ -264,14 +271,15 @@ export default function Home() {
                   series={stat.series}
                   type="bar"
                   height="200%"
-                  width="320%"                                    
-                                            
-                  />
-              </div> 
-              
-            
+                  width="320%" />
+              </div>
+            </div>
 
-        </div>
+            <div>
+              <Button onClick={() => {
+                onMorePage(8);
+              }}>Change more</Button>
+            </div>
       </div>
 
     

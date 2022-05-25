@@ -3,9 +3,9 @@ const ProductModel = require('../model/product');
 // const async = require('hbs/lib/async');
 
 const addProduct = (req, res) => {
-  const {productName,productPrice,productBrand,productCategory,productDetail,productImg, amount} = req.body;
+  const {productName,productPrice,productBrand,productCategory,productDetail,productImg, amount, productCostPrice} = req.body;
 
-  const prod = new ProductModel(productName,productPrice,productBrand,productCategory,productDetail,productImg, amount);
+  const prod = new ProductModel(productName,productPrice,productBrand,productCategory,productDetail,productImg, amount, productCostPrice);
 
   try{
     prod.save();
