@@ -50,6 +50,9 @@ export default function AddProduct() {
 	const [imgPreview, setImgPreview] = useState('https://img.icons8.com/color/344/gallery.png');
 
 	const onChange = async(e) => {
+		
+		
+
 		// setFileList(newFileList);
 		// const {url} = UseStorage(newFileList[0]);
 		const file = e.target.files[0];
@@ -77,6 +80,8 @@ export default function AddProduct() {
 		// 	// }
 		// // const {url} = imageUploader(newFileList.at(-1))
 
+		
+
 		const storageRef = projectStorage.ref(`imageProduct/${file.name}`);
     const collectionRef = projectFirestore.collection('images');
     
@@ -95,7 +100,7 @@ export default function AddProduct() {
 				}
 			)
     });
-
+	
 		console.log('url: ' + url);
 	};
   
@@ -181,9 +186,9 @@ export default function AddProduct() {
 				<div className="form_side">
 					<div className="form_wrapper">
 
-						<div className="item">
-							<div className="row">
-								Name
+						<div className="aboutProduct_holder">
+							<div className="aboutProduct_container">
+								<p>Name </p>
 								<input 
 									className='product_name_input' 
 									type='text' 
@@ -197,8 +202,8 @@ export default function AddProduct() {
 										)
 								  }} />
 							</div>
-							<div className="row">
-								Description
+							<div className="aboutProduct_container">
+								<p>Description</p>
 								<textarea 
 									className='product_detail_input' 
 									placeholder='Product Description' 
@@ -215,10 +220,10 @@ export default function AddProduct() {
 							</div>
 						</div>
 
-						<div className="item">
+						<div className="productPricing_holder">
 							<h3>Pricing</h3>
-							<div className="row">
-								Price
+							<div className="productPricing_container">
+								<p>Price </p>
 								<input type="number"
 									min={0}
 									className='product_price'
@@ -232,9 +237,9 @@ export default function AddProduct() {
 										)
 								  }} />
 							</div>
-							<div className="pricerow">
-								<div className="row">
-									Cost per items
+							<div className="productPricingCalculator_holder">
+								<div className="productPricingCalculator_container">
+								    <p>Cost per items </p>
 									<input type="number"
 										min={0}
 										className='product_price'
@@ -247,21 +252,21 @@ export default function AddProduct() {
 											)
 										}}/>
 								</div>
-								<div className="row">
+								<div className="productPricingCalculator_container">
 									<p>Margin</p> 
-									<p>{((productData.productCostPrice / productData.productPrice)*100).toFixed(2)} %</p>
+									<span>{productData.productPrice === 0 || productData.productPrice === 0 || productData.productPrice === '' ? 0:  ((productData.productCostPrice / productData.productPrice)*100).toFixed(2) > 100? 'Unbalanced':((productData.productCostPrice / productData.productPrice)*100).toFixed(2)} %</span>
 								</div>
-								<div className="row">
+								<div className="productPricingCalculator_container">
 									<p>Profit</p> 
-									<p>{productData.productPrice - productData.productCostPrice} ETB</p>
+									<span>{   (productData.productPrice - productData.productCostPrice) < 0 ? 'Unbalanced' : (productData.productPrice - productData.productCostPrice)} ETB</span>
 								</div>
 							</div>
 						</div>
 						
-						<div className="item">
+						<div className="productInventory_holder">
 							<h3>Inventory</h3>
-							<div className="row">
-								Stock Keeping Unit
+							<div className="productInventory_container">
+							  <p>Stock Keeping Unit</p>
 								<input type="number"
 										min={0}
 										className='product_price'
@@ -275,12 +280,12 @@ export default function AddProduct() {
 											)
 										}}/>
 										<br />
-								<Checkbox>Keep track of inventory</Checkbox>
+								<Checkbox> <p> Keep track of inventory </p></Checkbox>
 							</div>
 						</div>
 						
-						<div className="item">
-							<div className="row">
+						<div className="productBrand_holder">
+							<div className="productBrand_container">
 								<h3>Brand</h3> 
 								<input type="text" 
 										className='product_brand'
@@ -294,8 +299,8 @@ export default function AddProduct() {
 											)
 										}} />
 							</div>
-							<div className="row">
-								<h3>Category</h3> 
+							<div className="productBrand_container">
+								<p>Category</p> 
 								<input type="text" 
 									className='product_chategory'
 									placeholder='Chategory'
@@ -310,13 +315,19 @@ export default function AddProduct() {
 							</div>
 						</div>
 
-						<div className="item">
+						<div className="productMedia_holder">
 							<h3>Media</h3>
-							<div className="row">
-								<input type="file" onChange={onChange} />
 							</div>
-							<div className="row">
-								<img src={imgPreview} width='100%' height='400px'  />
+							<div className="productMedia_container">
+								<input type="file" onChange={onChange} />
+							<div className="productMediaImage_container">
+								<div className="imagePreviewHolder">								
+
+									  <img  src={imgPreview} alt={productData.productName}  />
+								
+
+								</div>
+
 							</div>
 						</div>
 

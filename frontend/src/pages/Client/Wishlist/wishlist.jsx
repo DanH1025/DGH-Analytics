@@ -24,7 +24,7 @@ export default function Wishlist() {
 
     return(
         <>
-            {/* <Topbar /> */}
+            <Topbar />
         <div className="wishlistContainer">
             <div className="wishlistWrapper">
                 <div className="headerBar">
@@ -53,7 +53,7 @@ export default function Wishlist() {
 
 
 
-        <Footer /> 
+        {/* <Footer />  */}
         </>
     )
 }

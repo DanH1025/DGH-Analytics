@@ -94,7 +94,7 @@ const getProductsById = async(req,res) => {
   const [product, metaData] = await ProductModel.findById(id);
   // console.log(product);
     res.send(product);
-}
+} 
 
 const deleteProduct = async(req,res)=>{
   console.log("im deleting a product with id: " + req.body.id);

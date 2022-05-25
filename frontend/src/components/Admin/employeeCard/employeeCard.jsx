@@ -1,4 +1,4 @@
-import React from 'react'
+import React ,{useState}from 'react'
 import './employeeCard.css'
 
 
@@ -23,6 +23,15 @@ export default function EmployeeCard({key, user_name, email, accessKey, status ,
 
     const [open, setOpen] = React.useState(false);
 
+  const [empInfo,setEmpInfo] = useState({
+    UserName: user_name,
+    Email: email,
+    AccessKey: accessKey,
+    Status: status,
+    Date: date
+  })
+
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -32,8 +41,10 @@ export default function EmployeeCard({key, user_name, email, accessKey, status ,
   };
 
   const handleActivation = async() =>{
-    
-    const response = await axios.post('http://localhost:5000/api/activation', {
+    window.alert("Are you sure you want to Activate User");
+    if(empInfo.Status === 'Diactive'){
+      setEmpInfo({...empInfo, Status: "Active"})
+      const response = await axios.post('http://localhost:5000/api/activation', {
         email: email
     })
     console.log(response.data.message);
@@ -45,6 +56,38 @@ export default function EmployeeCard({key, user_name, email, accessKey, status ,
         message.error("User Activation Has Failed");
         setOpen(false);
     }
+
+    }else{
+      setOpen(false);
+      message.error("User Alread Active");
+    }
+    
+   
+    
+  }
+
+  const handleDiactivation = async()=>{
+    window.alert("Are you sure you want to Diactivate User");
+    if(empInfo.Status === 'Active'){
+        setEmpInfo({...empInfo , Status: "Diactive"})
+
+        const response = await axios.post('http://localhost:5000/api/diactivation',{
+          email:email
+        })
+        console.log(response.data.message);
+    
+        if(response.data.isSuccess){
+          message.success("User Has Been Diactivated");
+          setOpen(false);
+        }else{
+          message.error("User Diactivation Has Failed");
+          setOpen(false)
+        }
+    }else{
+      setOpen(false);
+      message.error("User Is Already Diactive")
+    }
+
     
   }
 
@@ -62,7 +105,7 @@ export default function EmployeeCard({key, user_name, email, accessKey, status ,
                 <p>{date}</p>
             </div>
             <div className="emp_status_holder">
-                <p>{status}</p>
+                <p style={empInfo.Status === 'Active'? {backgroundColor: 'green'}: {backgroundColor: 'red'}} >{empInfo.Status}</p>
             </div>
         </div>
        
@@ -89,10 +132,19 @@ export default function EmployeeCard({key, user_name, email, accessKey, status ,
                 <p className='dialog_status'> <b>Status : </b> {status}</p>
           </DialogContentText>
         </DialogContent>
-        <DialogActions>  
-        <Button onClick={handleActivation} color="primary">
-            Activate
-          </Button>        
+        <DialogActions> 
+          {
+            empInfo.Status === 'Active'? 
+            <Button onClick={handleDiactivation} color="primary">
+              Diactivate
+            </Button>  :
+           <Button onClick={handleActivation} color="primary">
+              Activate
+         </Button>  
+          }
+
+
+             
           <Button onClick={handleClose} color="primary">
             Close
           </Button>

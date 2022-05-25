@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-
+   
 const {getProducts, getAllProducts,addProduct, getProductsByCatagory, getProductsById,
          getProductsBySearch ,deleteProduct ,editProductValues ,recordSearchHistory ,
          recordAddToCartHistory,changeVisits,getActiveProducts ,getDiactiveProducts } =  
@@ -24,7 +24,7 @@ const {loginWithPhone , adminRegister } =
 
 const {getAllCategories} = require('../controller/categoryController')
 
-const {getNewProductManager , accessKeyGenerator , saveAccessKey, activatePM} = require('../controller/productManagerController')
+const {getNewProductManager , accessKeyGenerator , saveAccessKey, activatePM, diactivatePM} = require('../controller/productManagerController')
 
 
 
@@ -126,7 +126,7 @@ router.post('/saveAccessKey' , saveAccessKey);
 //activate admin user
 
 router.post('/activation' , activatePM)
-
+router.post('/diactivation', diactivatePM)
 
 
 module.exports = router;
