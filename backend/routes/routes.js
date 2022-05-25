@@ -7,9 +7,8 @@ getProductsBySearch ,deleteProduct ,editProductValues ,recordSearchHistory ,reco
 const {getUser, getAllUser, addUserByPhone , getAdminUser, verifyAdmin, addUserByEmail, checkUser, checkEmail} =   
   require('../controller/userController')
 const {addOrder, getOrders, getInprogressOrders, getOrdersbyId, changeStatus} =  require('../controller/ordersController')
-const { addOrderDetail, getOrderDetails } =  
-  require('../controller/orderDetailController');
-const { getOrderReports, getLastWeekOrderReports, getTotalOrder, addOrderReport } = 
+const { addOrderDetail, getOrderDetails } =  require('../controller/orderDetailController');
+const { getOrderReports, getLastWeekOrderReports, getTotalOrder, addOrderReport , updateReports} = 
   require('../controller/orderReportController');
 const { getOrderLogs, addOrderLog ,getUserLogs} = 
   require('../controller/orderLogController')
@@ -31,6 +30,8 @@ router.get('/' , (req,res)=>{
   res.send("this is the home url /");
 })
 
+
+router.post('/update' , updateReports);
 
 // router.get('getProductDetail/${id}' , getProductDetail)
 router.post('/getAdminUser' , getAdminUser);

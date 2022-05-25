@@ -88,13 +88,13 @@ export default function DetailSalesAnalysis({onMorePage}) {
       render: (text) => <span>ETB {text.toFixed(2)} </span>,
     },
     {
-      title: 'cost',
-      dataIndex: 'total',
+      title: 'Cost',
+      dataIndex: 'cost',
       key: 'address',
       render: (text) => <span>ETB {text.toFixed(2)} </span>,
     },
     {
-      title: 'Net sales',
+      title: 'Profit',
       key: 'tags',
       dataIndex: 'average',
       render: (text) => <span>ETB {text.toFixed(2)} </span>,
@@ -123,9 +123,7 @@ export default function DetailSalesAnalysis({onMorePage}) {
              />
       </div>
 
-      <br />
-      <br />
-      <br />
+      <br /><br /><br />
 
       <div>
         <Table columns={colum} dataSource={orderReports} />

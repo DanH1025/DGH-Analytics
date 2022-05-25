@@ -263,6 +263,25 @@ export default function ProductList() {
         
 
       ];
+<<<<<<< Updated upstream
+=======
+
+      const handleCategoryChange = (event) => {
+        console.log(event.target.value);
+        const cate = event.target.value;
+        setSearchCategory(event.target.value);
+        console.log(cate)
+        console.log("inside category handler");
+        if(event.target.value === ''){
+          
+        }else{
+           const response =  axios.post('http://localhost:5000/api/getProductsByCategory', {category: cate});
+           setProducts(response.data);  
+          
+        }
+      };
+
+>>>>>>> Stashed changes
     
     const data = [];
 
@@ -272,7 +291,7 @@ export default function ProductList() {
       
 
    
-      if(!products.length){
+      if(!products?.length){
           
       }
       else{      

@@ -11,6 +11,17 @@ const addOrderReport = async (req, res) => {
   console.log('sum:');
   console.log(sum[0][0]["SUM(total)"]);
   let total = sum[0][0]["SUM(total)"];
+
+  const cost = await OrderModle.totalCost(date);
+  console.log('cost:');
+  console.log(cost[0][0]["SUM(total)"]);
+  let cos = cost[0][0]["SUM(cost)"];
+  // console.log(sum);
+
+  const no_item = await OrderModle.totalItem(date);
+  console.log('cost:');
+  console.log(no_item[0][0]["SUM(no_item)"]);
+  let items = no_item[0][0]["SUM(no_item)"];
   // console.log(sum);
 
   const no_orders = await OrderModle.completeOrderComplete(date);
@@ -23,9 +34,9 @@ const addOrderReport = async (req, res) => {
   
   let orders;
   if (total === null || order === null) {
-    orders = new OrderReportModel(date,0,0, 0);
+    orders = new OrderReportModel(date,0,0, 0,0,0);
   }else{
-    orders = new OrderReportModel(date,total,average, order);
+    orders = new OrderReportModel(date,total,average, order, cos, items);
   }
   console.log(orders);
   try{
@@ -38,6 +49,28 @@ const addOrderReport = async (req, res) => {
 
 const getOrderReports = async(req,res) => {
   const [order, metaData] = await OrderReportModel.fetchAll();
+  // console.log(order);
+  res.send(order);
+}
+
+const updateReports = async(req,res) => {
+  let date = new Date().toISOString().slice(0, 10);
+  console.log('now date: ');
+  console.log(date);
+  date = '2022-04-02';
+
+  const cost = await OrderModle.totalCost(date);
+  console.log('cost:');
+  console.log(cost[0][0]["SUM(total)"]);
+  let cos = cost[0][0]["SUM(cost)"];
+  // console.log(sum);
+
+  const no_item = await OrderModle.totalItem(date);
+  console.log('cost:');
+  console.log(no_item[0][0]["SUM(no_item)"]);
+  let items = no_item[0][0]["SUM(no_item)"];
+
+  const [order, metaData] = await OrderReportModel.updateCost(cos, items, date);
   // console.log(order);
   res.send(order);
 }
@@ -86,4 +119,5 @@ module.exports = {
 	getOrderReports,
   getLastWeekOrderReports,
   getTotalOrder,
+  updateReports
 };
