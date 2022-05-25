@@ -2,8 +2,9 @@ import React from 'react'
 import './chart.css'
 
 import Chart from "react-apexcharts";
+import { Button } from '@material-ui/core';
 
-export default function Charts({title,middleTotal ,dates, chartData,chartType}) {
+export default function Charts({title,middleTotal ,dates, chartData,chartType,index,onPageChange}) {
 
   const stat = {
     options: {
@@ -38,7 +39,9 @@ export default function Charts({title,middleTotal ,dates, chartData,chartType}) 
 
         <div className="headerTitle">
           <p>{title}</p>
-          <span>More</span>
+          <span><Button onClick={() => {
+            onPageChange(index)
+          }}>More</Button> </span>
         </div>
         
         <div className="numeric_Information">

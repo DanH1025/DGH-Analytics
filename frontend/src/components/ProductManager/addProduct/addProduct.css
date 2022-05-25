@@ -45,10 +45,26 @@ body{
 .form_wrapper{
     display:flex;
     flex-direction:column;  
-    width: 70%;
+    width: 90%;
     height: fit-content;
     padding: 5px;
     margin: auto;
+}
+
+
+.form_wrapper .item {
+    background-color: white;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+.form_wrapper .item .row{
+    margin-top: 15px;
+}
+
+.pricerow{
+    display: flex;
+    justify-content: space-between;
 }
 
 .form_wrapper input{

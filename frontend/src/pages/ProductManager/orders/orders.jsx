@@ -13,6 +13,9 @@ import { Box, Collapse, IconButton,
 // import "bootstrap/js/src/collapse.js";
 import { getOrders } from '../../../redux/actions/orderActions';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { getOrdersInprogress } from '../../../redux/actions/orderActions';
+
 import UserTableRow from '../../../components/ProductManager/orderRow/orderRow'
  
 import Row from '../../../components/ProductManager/orderRow/orderRow';
@@ -23,6 +26,7 @@ export default function Orders() {
 
   const [orders , setOrders] = useState([]);
 
+  const dispatch = useDispatch();
 
 
   useEffect(()=>{
@@ -30,8 +34,11 @@ export default function Orders() {
        const response = await axios.post('http://localhost:5000/api/getOrders');
        setOrders(response.data)
     }
-    fetchAllOrders()
+    fetchAllOrders();
+    dispatch(getOrdersInprogress());
   },[])
+
+  const inprogOrders = useSelector((state) => state.getOrder.orders);
 
   return (
     <>
@@ -45,29 +52,29 @@ export default function Orders() {
                 <TableRow>
                   <TableCell />
                   <TableCell>Order Id</TableCell>
-                  <TableCell align="right">
-                    Contact</TableCell>
+                  <TableCell>Date</TableCell>
+                  {/* <TableCell>Last name</TableCell> */}
                   <TableCell align="right">
                     Sub-Total</TableCell>
-                  <TableCell align="right">
-                    Status</TableCell>
+                  <TableCell align="right">Status</TableCell>
                 
                 </TableRow>
               </TableHead>
               <TableBody>
               {
-                  !orders?.length ? <div>empty</div> : (
-                    orders.map((val, key) => {
+                  !inprogOrders?.length ? <div>empty</div> : (
+                    inprogOrders.map((val, key) => {
                       console.log(val);
                       return (
                         <Row 
                           key = {val.orderId}   
-                          Order_id = {val.orderId}
-                          fname = {val.userFirstName}
-                          lname = {val.userLastName}
-                          contact = {val.email === null ? val.contact: null} 
+                          id = {val.orderId}
+                          fname = {val.fname}
+                          lname = {val.lname}
+                          contact = {val.contact === null ? val.contact : null} 
                           total = {val.total}
                           status = {val.status}
+                          admin = {true}
                           />
                         )
                     }

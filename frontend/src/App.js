@@ -6,6 +6,7 @@ import Home from './pages/Client/Home/home';
 import About from './pages/Client/About/about'
 import Cart from './pages/Client/Cart/cart';
 import Wishlist from './pages/Client/Wishlist/wishlist';
+import Orderlist from './pages/Client/Orderlist/orderlist';
 import Checkout from './pages/Client/Checkout/checkout';
 import ProductDetails from './pages/Client/ProductDetails/productDetails';
 import SearchResult from './pages/Client/SearchResult/searchResult';
@@ -72,6 +73,7 @@ function App() {
             <Route exact path='/' element={<Home />} />
             <Route exact path='/cart' element={<Cart />} />
             <Route exact path='/wishlist' element={<Wishlist />} />
+            <Route exact path='/orderlist' element={<Orderlist />} />
             <Route exact path='/search' element={<SearchResult />} />
             <Route exact path='/productDetails/:id' element={<ProductDetails />} />
 

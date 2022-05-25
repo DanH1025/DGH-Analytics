@@ -42,6 +42,8 @@ const readOrderTotalUrl =
 // orders url
 const fetchOrdersUrl = 
   'http://localhost:5000/api/getOrders'
+const fetchOrdersByIdUrl = 
+  'http://localhost:5000/api/getOrdersById'
 const createOrdersUrl = 
   'http://localhost:5000/api/addOrder'
   
@@ -126,6 +128,15 @@ export const fetchOrderDetails = (id) =>
   axios.post(fetchOrderDetailsUrl, {
     id: id
   });
+
+// orders
+export const changeOrderStatus = (id, status) =>
+  axios.post("http://localhost:5000/api/changeStatus", {
+    id: id,
+    status: status
+});
+
+
 export const createOrderDetails = (orderId, productId, price, productQuantity) => 
   axios.post(createOrderDetailsUrl, {
     orderId: orderId,
@@ -137,6 +148,10 @@ export const createOrderDetails = (orderId, productId, price, productQuantity) =
 // orders
 export const fetchOrders = () =>
   axios.post(fetchOrdersUrl);
+export const fetchOrdersInprogress = () =>
+  axios.post("http://localhost:5000/api/getInprogressOrders");
+export const fetchOrdersById = (id) =>
+  axios.post(fetchOrdersByIdUrl, {id: id});
 export const createOrders = (date, userId, total, lat,lng ,contact) => 
   axios.post(createOrdersUrl, {
     date: date,

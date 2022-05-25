@@ -11,8 +11,6 @@ export default function OrderMap(){
     const Order = useSelector(state => state.getOrder);
     const {orders} = Order;
 
- 
-
     const [viewPort , setViewPort] = useState({
         latitude:9.022875,
         longitude: 38.752261,
@@ -36,11 +34,7 @@ export default function OrderMap(){
             <ReactMapGL {...viewPort} 
                     mapboxAccessToken="pk.eyJ1IjoiZGFuaGdiIiwiYSI6ImNsMXVnNDIxbzAwMmYzcXBiMXB0ZWVjcWMifQ.nC63RhWneFhiZ4k4XJim9A" 
                     onMove={(viewPort)=> { setViewPort(viewPort)}}
-                    mapStyle="mapbox://styles/mapbox/streets-v11"               
-                    
-                    
-                    
-                    >
+                    mapStyle="mapbox://styles/mapbox/streets-v11">
                         {orders.map(order =>(
                             <Marker 
                               key={order.orderId}

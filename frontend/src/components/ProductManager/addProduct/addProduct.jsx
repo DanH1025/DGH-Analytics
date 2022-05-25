@@ -11,6 +11,7 @@ import { Input,Button } from 'antd';
 
 import { Select, Divider,  Typography, Space } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
+import { Checkbox } from 'antd';
 
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 // import UseStorage from '../firebase/useStorage';
@@ -38,7 +39,9 @@ export default function AddProduct() {
 			productBrand: "",
 			productCategory: "",
 			productImg: "",
-			productPrice: '',
+			productPrice: 0,
+			productSKU: '',
+			productCostPrice: 0,
 			amount: '',
 			productDetail: ""
 	})
@@ -94,8 +97,6 @@ export default function AddProduct() {
     });
 
 		console.log('url: ' + url);
-		
-
 	};
   
 	// const onPreview = async file => {
@@ -114,6 +115,7 @@ export default function AddProduct() {
 	// };
 
 	//for selecting brand
+	
 	const [brands, setBrands] = useState([
 			"Samsung","Apple" ,"LG" , "TCL" , "Nokia" , "Oppo" , "Techno"
 	]);
@@ -178,66 +180,171 @@ export default function AddProduct() {
 			<div className="information">
 				<div className="form_side">
 					<div className="form_wrapper">
-						<input 
-							className='product_name_input' 
-							type='text' 
-							placeholder="Product Name"
-							value={productData.productName}
-							onChange = {(e) => {
-								setProductData({
-									...productData, 
-										productName: e.target.value
-									}
-								)
-						}} />
 
-						<input type="text" 
-							   className='product_brand'
-							   placeholder='Brand'
-							   value={productData.productBrand}
-
-						/>
-						<input type="number"
-								min={0}
-								className='product_price'
-								placeholder='Price'
-								value={productData.productPrice}
-						/>
-						<input type="text" 
-								className='product_chategory'
-								placeholder='Chategory'
-								value={productData.productCategory}
-
-
-								/>
-						<textarea 
-							className='product_detail_input' 
-							placeholder='Product Description' 
-							type='text' 
-							rows={8}
-							
-							value={productData.productDetail}
-							onChange = {(e) => {
-									setProductData({
+						<div className="item">
+							<div className="row">
+								Name
+								<input 
+									className='product_name_input' 
+									type='text' 
+									placeholder="Product Name"
+									value={productData.productName}
+									onChange = {(e) => {
+										setProductData({
 											...productData, 
-											productDetail: e.target.value
-										}
-									)
-							}} />
-						<input type="file" onChange={onChange} />
+												productName: e.target.value
+											}
+										)
+								  }} />
+							</div>
+							<div className="row">
+								Description
+								<textarea 
+									className='product_detail_input' 
+									placeholder='Product Description' 
+									type='text' 
+									rows={8}
+									value={productData.productDetail}
+									onChange = {(e) => {
+											setProductData({
+													...productData, 
+													productDetail: e.target.value
+												}
+										)
+								}} />
+							</div>
+						</div>
+
+						<div className="item">
+							<h3>Pricing</h3>
+							<div className="row">
+								Price
+								<input type="number"
+									min={0}
+									className='product_price'
+									placeholder='Price'
+									value={productData.productPrice}
+									onChange = {(e) => {
+										setProductData({
+											...productData, 
+												productPrice: e.target.value
+											}
+										)
+								  }} />
+							</div>
+							<div className="pricerow">
+								<div className="row">
+									Cost per items
+									<input type="number"
+										min={0}
+										className='product_price'
+										placeholder='Price'
+										value={productData.productCostPrice}onChange = {(e) => {
+											setProductData({
+												...productData, 
+													productCostPrice: e.target.value
+												}
+											)
+										}}/>
+								</div>
+								<div className="row">
+									<p>Margin</p> 
+									<p>{((productData.productCostPrice / productData.productPrice)*100).toFixed(2)} %</p>
+								</div>
+								<div className="row">
+									<p>Profit</p> 
+									<p>{productData.productPrice - productData.productCostPrice} ETB</p>
+								</div>
+							</div>
+						</div>
+						
+						<div className="item">
+							<h3>Inventory</h3>
+							<div className="row">
+								Stock Keeping Unit
+								<input type="number"
+										min={0}
+										className='product_price'
+										placeholder='SKU'
+										value={productData.amount}
+										onChange = {(e) => {
+											setProductData({
+												...productData, 
+													amount: e.target.value
+												}
+											)
+										}}/>
+										<br />
+								<Checkbox>Keep track of inventory</Checkbox>
+							</div>
+						</div>
+						
+						<div className="item">
+							<div className="row">
+								<h3>Brand</h3> 
+								<input type="text" 
+										className='product_brand'
+										placeholder='Brand'
+										value={productData.productBrand}
+										onChange = {(e) => {
+											setProductData({
+												...productData, 
+													productBrand: e.target.value
+												}
+											)
+										}} />
+							</div>
+							<div className="row">
+								<h3>Category</h3> 
+								<input type="text" 
+									className='product_chategory'
+									placeholder='Chategory'
+									value={productData.productCategory}
+									onChange = {(e) => {
+										setProductData({
+											...productData, 
+												productCategory: e.target.value
+											}
+										)
+								  }} />
+							</div>
+						</div>
+
+						<div className="item">
+							<h3>Media</h3>
+							<div className="row">
+								<input type="file" onChange={onChange} />
+							</div>
+							<div className="row">
+								<img src={imgPreview} width='100%' height='400px'  />
+							</div>
+						</div>
+
+						<div className="buttonHolder">
+							<button className='add_product_btn' onClick={handleSubmit} >Add Product</button>
+							<button className='add_product_cancel_btn'>Cancel</button>
+						</div>
+
 					</div>
 				</div>
-				<div className="image_side">
+
+				{/* <div className="image_side item">
 					<div className="image_side_wrapper">
+						<div className='row'>
+							<input type="file" onChange={onChange} />
+						</div>
+						<div className="row">
 						<img src={imgPreview}  />
+
+						</div>
 					</div>
-				</div>
+				</div> */}
 			</div>
 
-			<div className="buttonHolder">
-				<button className='add_product_btn' >Add Product</button>
+			{/* <div className="buttonHolder">
+				<button className='add_product_btn' onClick={handleSubmit} >Add Product</button>
 				<button className='add_product_cancel_btn'>Cancel</button>
-			</div>
+			</div> */}
 			
 		</div>
     </div>

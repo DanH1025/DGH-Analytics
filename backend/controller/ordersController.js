@@ -23,8 +23,36 @@ const getOrders = async(req,res) => {
   res.send(order);
 }
 
+const getInprogressOrders = async(req,res) => {
+  const [order, metaData] = await OrderModle.fetchInprogress();
+  console.log(order);
+ // res.send(order.splice(0,4));
+  res.send(order);
+}
+
+const getOrdersbyId = async(req,res) => {
+  const id = req.body.id;
+  const [order, metaData] = await OrderModle.fetchAllbyUser(id)  
+  // console.log(order);
+  res.send(order);
+}
+
+const changeStatus = async(req, res) => {
+  const id = req.body.id;
+  const status = req.body.status;
+  try{
+    const [order, metaData] = await OrderModle.changeStatus(id, status);
+  } catch(e){
+    console.log(e);
+  }
+  res.sendStatus(200);  
+}
+
 
 module.exports = {
 	addOrder,
 	getOrders,
+  getInprogressOrders,
+  getOrdersbyId,
+  changeStatus,
 };
