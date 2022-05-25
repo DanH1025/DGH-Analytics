@@ -3,9 +3,15 @@ const router = express.Router();
 
 
 const {getProducts, getAllProducts,addProduct, getProductsByCatagory, getProductsById,
-getProductsBySearch ,deleteProduct ,editProductValues ,recordSearchHistory ,recordAddToCartHistory,changeVisits } = require('../controller/productController');
-const {getUser, getAllUser, addUserByPhone , getAdminUser, verifyAdmin, addUserByEmail, checkUser, checkEmail} =   
-  require('../controller/userController')
+         getProductsBySearch ,deleteProduct ,editProductValues ,recordSearchHistory ,
+         recordAddToCartHistory,changeVisits,getActiveProducts ,getDiactiveProducts } =  
+  require('../controller/productController');
+
+
+const {getUser, getAllUser, addUserByPhone , getAdminUser, verifyAdmin, 
+        addUserByEmail, checkUser, checkEmail } =   require('../controller/userController')
+
+
 const {addOrder, getOrders, getInprogressOrders, getOrdersbyId, changeStatus} =  require('../controller/ordersController')
 const { addOrderDetail, getOrderDetails } =  
   require('../controller/orderDetailController');
@@ -62,7 +68,9 @@ router.get('/getAllCategories', getAllCategories)
 // product routes
 router.post('/addToStock' , addProduct); 
 router.get('/getProducts', getProducts);
-router.get('/getAllProducts' ,getAllProducts)
+router.get('/getAllProducts' ,getAllProducts);
+router.get('/getActiveProducts' , getActiveProducts)
+router.get('/getDiactiveProducts', getDiactiveProducts)
 
 router.post('/getProductsByCategory', getProductsByCatagory);
 router.post('/getProductsById', getProductsById);
@@ -80,7 +88,7 @@ router.post('/addVisits', changeVisits)
 
 router.post('/addUserByPhone', addUserByPhone)
 router.post('/addUserByEmail', addUserByEmail)
-router.post('/getUsers', getUser);
+router.post('/getUsers', getUser); 
 router.post('/getAllUsers' , getAllUser)
 router.post('/checkUserPhone', checkUser)
 router.post('/checkEmail', checkEmail)
@@ -118,6 +126,8 @@ router.post('/saveAccessKey' , saveAccessKey);
 //activate admin user
 
 router.post('/activation' , activatePM)
+
+
 
 module.exports = router;
  

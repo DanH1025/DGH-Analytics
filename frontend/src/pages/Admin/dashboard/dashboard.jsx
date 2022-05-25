@@ -53,7 +53,7 @@ import { useNavigate } from 'react-router-dom';
 import { ListAltOutlined } from '@material-ui/icons';
 import Orders from '../../../pages/ProductManager/orders/orders';
 import Hiring from '../../../components/Admin/Hiring/hiring';
-
+import UsersList from '../../../components/Admin/usersList/usersList';
 
 
 const drawerWidth = 240;
@@ -243,36 +243,7 @@ export default function PM_Dashboard() {
           ))}
            
         </List>
-        {/* <Divider /> */}
-        {/* <List>
-          {['Users', 'Order List', 'Goals'].map((text, index) => (
-
-            <ListItem button onClick={()=> {
-                setCompCounterListTwo(index)
-                console.log(compCounterListTwo)
-                
-                }}  key={text} >
-              <ListItemIcon>{index === 0 ? <GroupOutlinedIcon /> :
-                             index === 1 ? <ListAltOutlined/> :
-                             index === 2 ? <TrackChangesIcon/> :""
-                              
-                
-              }
-              
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List> */}
-        {/* <Divider /> */}
-        {/* <List>
-          {['Hiring', 'Sth', 'Params'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index === 0 ? <PersonAddOutlinedIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List> */}
+      
       <Button onClick={handleLogout}>Logout</Button>
       </Drawer>
       <main className={classes.content}>
@@ -282,7 +253,7 @@ export default function PM_Dashboard() {
              compCounter === 1 ? <ProductList /> : 
              compCounter === 2 ? <AddProduct/> :
              compCounter === 3 ? <WishList/> :
-             compCounter === 4 ? "User list":
+             compCounter === 4 ? <UsersList/>:
              compCounter === 5 ? <Orders />: 
              compCounter === 7 ? <Hiring />:
              compCounter === 8 ? <DetailSalesAnalysis onMorePage={setCompCounter} />:
