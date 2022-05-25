@@ -3,14 +3,10 @@ const router = express.Router();
 
 
 const {getProducts, getAllProducts,addProduct, getProductsByCatagory, getProductsById,
-         getProductsBySearch ,deleteProduct ,editProductValues ,recordSearchHistory ,recordAddToCartHistory,changeVisits } = 
-  require('../controller/productController');
-
-
+getProductsBySearch ,deleteProduct ,editProductValues ,recordSearchHistory ,recordAddToCartHistory,changeVisits } = require('../controller/productController');
 const {getUser, getAllUser, addUserByPhone , getAdminUser, verifyAdmin, addUserByEmail, checkUser, checkEmail} =   
   require('../controller/userController')
-const {addOrder, getOrders, getOrdersbyId} =   
-  require('../controller/ordersController')
+const {addOrder, getOrders, getInprogressOrders, getOrdersbyId, changeStatus} =  require('../controller/ordersController')
 const { addOrderDetail, getOrderDetails } =  
   require('../controller/orderDetailController');
 const { getOrderReports, getLastWeekOrderReports, getTotalOrder, addOrderReport } = 
@@ -96,7 +92,9 @@ router.get('/getNewProductManager' , getNewProductManager)
 // order routes
 router.post('/addOrder', addOrder);
 router.post('/getOrders', getOrders);
+router.post('/getInprogressOrders', getInprogressOrders);
 router.post('/getOrdersById', getOrdersbyId)
+router.post('/changeStatus', changeStatus)
 
 // orderDetail routes
 router.post('/addOrderDetail', addOrderDetail);

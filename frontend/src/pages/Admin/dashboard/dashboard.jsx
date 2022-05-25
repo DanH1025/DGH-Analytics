@@ -43,6 +43,8 @@ import GroupOutlinedIcon from '@material-ui/icons/GroupOutlined';
 import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import AddProduct from '../../../components/ProductManager/addProduct/addProduct'
 import Home from '../../../components/Admin/home/home';
+import DetailSalesAnalysis from '../../../components/Admin/detailSalesAnalysis/detailSalesAnalysis';
+import DetailAverage from '../../../components/Admin/detailAverageAnalysis/detailAverage';
 
 import { Button } from '@material-ui/core'
 //material ui menu navigation drawer things
@@ -119,7 +121,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 );
-
 
 
 export default function PM_Dashboard() {
@@ -220,15 +221,15 @@ export default function PM_Dashboard() {
               console.log(index)
               }}   key={text}>
               <ListItemIcon>{index === 0 ? <DashboardOutlinedIcon /> :
-                             index === 1 ? <ListAltOutlinedIcon />:
-                             index === 2 ? <AddCircleOutlineOutlinedIcon />:
-                             index === 3 ? <FavoriteBorderOutlinedIcon/> : 
-                             index === 4 ? <GroupOutlinedIcon/> :
-                             index === 5 ? <ListAltOutlined/> :
-                             index === 6 ? <TrackChangesIcon/> :
-                             index === 7 ? <PersonAddOutlinedIcon/> :
-                             index === 8 ? <MailIcon/> :
-                             index === 9 ? <FavoriteBorderOutlinedIcon/> : ""
+                  index === 1 ? <ListAltOutlinedIcon />:
+                  index === 2 ? <AddCircleOutlineOutlinedIcon />:
+                  index === 3 ? <FavoriteBorderOutlinedIcon/> : 
+                  index === 4 ? <GroupOutlinedIcon/> :
+                  index === 5 ? <ListAltOutlined/> :
+                  index === 6 ? <TrackChangesIcon/> :
+                  index === 7 ? <PersonAddOutlinedIcon/> :
+                  index === 8 ? <MailIcon/> :
+                  index === 9 ? <FavoriteBorderOutlinedIcon/> : ""
                              
                              }
               </ListItemIcon>
@@ -277,19 +278,17 @@ export default function PM_Dashboard() {
       <main className={classes.content}>
         <div className={classes.toolbar} />
 
-            {compCounter === 0 ? <Home /> : 
+            {compCounter === 0 ? <Home onMorePage={setCompCounter}/> : 
              compCounter === 1 ? <ProductList /> : 
              compCounter === 2 ? <AddProduct/> :
              compCounter === 3 ? <WishList/> :
              compCounter === 4 ? "User list":
              compCounter === 5 ? <Orders />: 
              compCounter === 7 ? <Hiring />:
+             compCounter === 8 ? <DetailSalesAnalysis onMorePage={setCompCounter} />:
+             compCounter === 9 ? <DetailAverage onMorePage={setCompCounter}/>:
              "others"   
-          
             }
-
-          
-   
 
       </main>
     </div>

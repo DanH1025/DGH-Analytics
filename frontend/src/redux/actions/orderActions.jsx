@@ -24,6 +24,27 @@ export const getOrders = () => async (dispatch)=>{
     }
 };
 
+export const getOrdersInprogress = () => async (dispatch)=>{
+    try {
+        dispatch({
+            type: actionType.GET_ORDERS_INPROGRESS_REQUEST,
+        });
+        const {data} = await api.fetchOrdersInprogress();
+        
+        dispatch({
+            type: actionType.GET_ORDERS_INPROGRESS_SUCCESS,
+            payload: data,
+        });
+    } catch (error) {
+        dispatch({
+            type:actionType.GET_ORDERS_INPROGRESS_FAIL,
+            payload: 
+                error.response && error.response.data.message 
+                ?error.response.data.message:error.message,
+        });
+    }
+};
+
 export const getOrdersById = (id) => async (dispatch)=>{
     try {
         dispatch({
@@ -35,6 +56,27 @@ export const getOrdersById = (id) => async (dispatch)=>{
             type: actionType.GET_ORDERS_BY_ID_SUCCESS,
             payload: data,
         });
+    } catch (error) {
+        dispatch({
+            type:actionType.GET_ORDERS_BY_ID_FAIL,
+            payload: 
+                error.response && error.response.data.message 
+                ?error.response.data.message:error.message,
+        });
+    }
+};
+
+export const changeOrderStatus = (id, status) => async (dispatch)=>{
+    try {
+        // dispatch({
+        //     // type: actionType.GET_ORDERS_BY_ID_REQUEST,
+        // });
+        const {data} = await api.changeOrderStatus(id, status);
+        
+        // dispatch({
+        //     type: actionType.GET_ORDERS_BY_ID_SUCCESS,
+        //     payload: data,
+        // });
     } catch (error) {
         dispatch({
             type:actionType.GET_ORDERS_BY_ID_FAIL,

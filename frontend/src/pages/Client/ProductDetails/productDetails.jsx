@@ -24,11 +24,6 @@ import Box from '@material-ui/core/Box';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 
 
-
-
-
-
-
 //functions for tabs 
 
 function TabPanel(props) {

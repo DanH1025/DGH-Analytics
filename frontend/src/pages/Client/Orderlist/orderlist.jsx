@@ -115,7 +115,6 @@ export default function Orderlist() {
             </AppBar>
 
 						<TabPanel value={value} index={0}>
-							discription
               <TableContainer className="tableOrder" component={Paper}>
                 <Table aria-label="collapsible table">
                   <TableHead>
@@ -130,6 +129,8 @@ export default function Orderlist() {
                         Email</TableCell>
                       <TableCell align="right">
                         Total</TableCell>
+                      <TableCell align="right">
+                        Status</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -137,14 +138,14 @@ export default function Orderlist() {
                       !orders?.length ? <div>empty</div> : (
                         orders.map((val, key) => {
                           // console.log(val);
-                          if(val.status === 'pending'){
+                          if(val.status === 'pending' || val.status === 'inProgress'){
                             return (
                               <Row 
                               key = {val.orderId}   
                               id = {val.orderId}
-                              fname = {val.userFirstName}
-                              lname = {val.userLastName}
-                              email = {val.userEmail} 
+                              fname = {val.fname}
+                              lname = {val.lname}
+                              email = {val.phone_number}  
                               total = {val.total}
                               status = {val.status} />
                             )
@@ -176,17 +177,17 @@ export default function Orderlist() {
                   </TableHead>
                   <TableBody>
                   {
-                      !orders?.length ? <div>empty</div> : (
+                      !orders?.length ? <div>no order</div> : (
                         orders.map((val, key) => {
                           // console.log(val);
-                          if(val.status != 'pending' ){
+                          if(val.status != 'pending' && val.status != 'inProgress' ){
                             return (
                               <Row 
                               key = {val.orderId}   
                               id = {val.orderId}
-                              fname = {val.userFirstName}
-                              lname = {val.userLastName}
-                              email = {val.userEmail} 
+                              fname = {val.fname}
+                              lname = {val.lname}
+                              email = {val.phone_number} 
                               total = {val.total}
                               status = {val.status} />
                             )
