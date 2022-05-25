@@ -10,11 +10,8 @@ const {getProducts, getAllProducts,addProduct, getProductsByCatagory, getProduct
 
 const {getUser, getAllUser, addUserByPhone , getAdminUser, verifyAdmin, 
         addUserByEmail, checkUser, checkEmail } =   require('../controller/userController')
-const {addOrder, getOrders} =   
-  require('../controller/ordersController')
-getProductsBySearch ,deleteProduct ,editProductValues ,recordSearchHistory ,recordAddToCartHistory,changeVisits } = require('../controller/productController');
-const {getUser, getAllUser, addUserByPhone , getAdminUser, verifyAdmin, addUserByEmail, checkUser, checkEmail} =   
-  require('../controller/userController')
+
+
 const {addOrder, getOrders, getInprogressOrders, getOrdersbyId, changeStatus} =  require('../controller/ordersController')
 const { addOrderDetail, getOrderDetails } =  
   require('../controller/orderDetailController');

@@ -65,7 +65,7 @@ const getAllProducts = async(req,res) => {
   //   })
   // }
 
-
+  
   const {sq} = req.query;
   console.log(sq);
   res.json(product.filter(pro=> pro.productName.toLowerCase().includes(sq)).splice(0,9)) 
