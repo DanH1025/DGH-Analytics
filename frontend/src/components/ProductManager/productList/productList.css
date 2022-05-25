@@ -61,8 +61,140 @@ body{
     height: 60px;
     padding: 0;
     margin: 0;
+    align-items: center;
+    justify-content: space-between;
 }
+
+.sorter{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex:1.5;
+    align-items: center;
+    justify-content: left;
+   
+}
+
+.active_only{
+    display: flex;
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: left;
+ 
+
+}
+.active_only_wrapper{
+    display: flex;
+    padding: 0;
+    margin: 0;
+    width: 40%;
+    height: fit-content;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(222 215 215 / 74%);
+    border: 1px solid #afa1a1;
+    border-radius: 1px;
+
+}
+.all_products{
+    display: flex;
+    padding: 0;
+    margin: 0 0 ;
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    border: none;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid #afa1a1;
+    cursor: pointer;
+
+}
+
+
+
+.all_products p,
+.active_products p,
+.diactive_products p{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding: 4px;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: lighter;
+
+}
+
+.active_products{
+    display: flex;
+    flex: 1;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    border: none;
+    cursor: pointer;
+    border-right: 1px solid #afa1a1;
+
+}
+.category_products{
+    display: flex;
+    flex: 1;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    border: none;
+    cursor: pointer;
+}
+
+.makeStyles-formControl-49 {
+    margin: 0px;
+    min-width: 120px;
+    border: none;
+    padding: 0;
+}
+
+
+
+
+
+
+.diactive_products{
+    display: flex;
+    flex: 1;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    border: none;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+.category_sorting{
+    display: flex;
+    flex: 2;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    
+}
+
 .productList_searchBarWrapper{
+    flex: 1;
     width: 100%;
     height: 100%;
     padding: 0;
@@ -82,7 +214,7 @@ body{
     font-weight: lighter;
     border: 1px solid rgba(0, 0, 0, 0.182);
     border-radius: 2px;
-    width: 25%;
+    width: 80%;
     height: 60%;
   
     
@@ -185,3 +317,138 @@ body{
     background-color: orange;
     border:  transparent;
 }
+
+
+
+
+
+
+.productList_search{
+    display: flex;
+    flex: 2;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+.productList_searchWrapper{
+    display: flex;
+    padding: 0;
+    margin: 0;
+    width: 90%;
+    height: 40px;
+    border: none;
+    border-radius: 2px;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+}
+
+.productLIst_category{
+    display: flex;
+    flex: 1.3;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 40px;
+    border: none;
+    outline: none;
+}
+.productList_searchInput{
+    display: flex;
+    flex: 1.6;
+}
+.productList_searchInput input{
+    width: 100%;
+    height: 60%;
+    outline: none;
+    padding: 5px;
+    font-size: 12px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: lighter;
+    margin: 0px 4px;
+    border: none;
+    border-left: 1px solid black;
+
+}
+
+.productList_searchInput input:focus{
+    border: none;
+    background-color: none;
+    outline: none;
+}
+
+
+
+.productList_searchCategorySelect{
+    display: flex;
+    object-fit: contain;
+    content: fill;
+    justify-content: center;
+    align-content: center;
+}
+.MuiInputBase-input.MuiOutlinedInput-input{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.MuiSelect-root.MuiSelect-select.MuiSelect-selectMenu.MuiSelect-outlined.MuiInputBase-input.MuiOutlinedInput-input
+{
+    font-size: 12px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: lighter;
+
+}
+
+
+
+
+.MuiFormControl-root.searchCategoryForm{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+.productList_searchCategorySelect.MuiInputBase-formControl{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+
+
+.productList_category,.productList_searchInput{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: fit-content;
+    border:none;
+    padding: 0;
+    margin: 0;
+}
+
+
+
+.MuiFormControl-root {
+    border: none;
+    margin: 0;
+    padding: 0;
+    width: 130px;
+    height: fit-content;
+    
+}
+
+

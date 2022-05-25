@@ -51,7 +51,7 @@ import { useNavigate } from 'react-router-dom';
 import { ListAltOutlined } from '@material-ui/icons';
 import Orders from '../../../pages/ProductManager/orders/orders';
 import Hiring from '../../../components/Admin/Hiring/hiring';
-
+import UsersList from '../../../components/Admin/usersList/usersList';
 
 
 const drawerWidth = 240;
@@ -281,7 +281,7 @@ export default function PM_Dashboard() {
              compCounter === 1 ? <ProductList /> : 
              compCounter === 2 ? <AddProduct/> :
              compCounter === 3 ? <WishList/> :
-             compCounter === 4 ? "User list":
+             compCounter === 4 ? <UsersList/>:
              compCounter === 5 ? <Orders />: 
              compCounter === 7 ? <Hiring />:
              "others"   

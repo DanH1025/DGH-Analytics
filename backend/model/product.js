@@ -29,7 +29,14 @@ module.exports = class Request {
       console.log(err);
     }
   }
-
+  static fetchDiactive(){
+    try {
+       const result = db.execute('SELECT * FROM  product WHERE status= ?',[0]);
+       return result;
+    } catch (error) {
+      console.log(error)
+    }
+  }
   //fetch all categories function
   static fetchAllCategory(){
     try {
