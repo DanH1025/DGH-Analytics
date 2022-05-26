@@ -11,7 +11,38 @@ const addProduct = (req, res) => {
     prod.save();
   } catch(e) {
     console.log(e);
-  }
+  }  
+}
+
+const commentHandler = async(req, res)=>{
+  console.log("inside comment handelr");
+  const {message, productId, userId, productName} = req.body;
+
+  const date = new Date(); 
+
+  const [data, metaData] = await ProductModel.productReview(userId,productId,productName,message,date);
+
+  res.json({
+    message,
+    productId,
+    userId,
+    productName,
+    date
+  })
+
+   
+}
+  
+const getComments = async(req,res)=>{
+
+  const {id} = req.body;
+  console.log("product id is " + id);
+
+  const [data, metaData] = await ProductModel.fetchComment(id);
+  console.log(data);
+  res.send(data.splice(0,3));
+
+
 }
 
 const getProducts = async(req,res) => {
@@ -175,6 +206,9 @@ module.exports = {
 
   recordSearchHistory,
   recordAddToCartHistory,
-  changeVisits  
+  changeVisits,
+
+  commentHandler,
+  getComments
 
 };

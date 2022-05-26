@@ -1,9 +1,11 @@
 import { useState,useEffect } from 'react';
 import './productDetails.css'
+import axios  from 'axios';
 import Topbar from '../../../components/Client/topbar/topbar'
 import Footer from '../../../components/Client/footer/footer'
 import RemoveOutlinedIcon from   '@material-ui/icons/RemoveOutlined';
 import AddOutlinedIcon   from '@material-ui/icons/AddOutlined';
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import {  message } from 'antd';
 import Button from '@material-ui/core/Button';
 import AddShoppingCartOutlinedIcon from  '@material-ui/icons/AddShoppingCartOutlined';
@@ -11,7 +13,7 @@ import FavoriteBorderOutlinedIcon from  '@material-ui/icons/FavoriteBorderOutlin
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart , addToCartRecord }  from '../../../redux/actions/cartActions';
 import {addToWishlist} from '../../../redux/actions/wishlistAction'
-import { getProductsById }  from '../../../redux/actions/productActions';
+import { fetchComments, getProductsById , submitComment }  from '../../../redux/actions/productActions';
 import { useParams } from 'react-router-dom';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import PropTypes from 'prop-types';
@@ -22,7 +24,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-
+import { useCookies } from 'react-cookie';
 
 //functions for tabs 
 
@@ -78,6 +80,7 @@ export default function ProductDetails() {
 
     const classes = useStyles();
     const [value, setValue] = useState(0);
+    const [cookies, setCookie] = useCookies(['user']);
   
     const handleChange = (event, newValue) => {
       setValue(newValue);
@@ -91,9 +94,21 @@ export default function ProductDetails() {
     
     useEffect(() => {
         console.log('in use effect detail');
-        dispatch(getProductsById(id));
+        dispatch(getProductsById(id));        
     }, [dispatch]);
     
+    const [allComments ,setAllComments] = useState([]);
+
+    useEffect(()=>{
+        const fetchComments = async ()=>{
+          const response = await axios.post('http://localhost:5000/api/getComment', {id:id});
+          console.log(response.data)
+          setAllComments(response.data)          
+        }
+        fetchComments();
+        console.log("the comments" + allComments);
+    },[])
+
 	const produc = useSelector((state) => state.getProductsDetail.product);
     console.log(produc);    
     // const product = produc[0];
@@ -152,8 +167,27 @@ export default function ProductDetails() {
         dispatch(addToWishlist(product.id))
         message.success("Added to wishlist")
     }
-    const commentHandler = () =>{
-        message.success("Comment Submited");
+
+    const [comment , setComment ]= useState('');
+
+    const commentHandler = () =>{      
+        console.log(comment + " " + "product id :" + id);
+        console.log("Users id : " + cookies.uid);
+
+        if(comment === ''){
+          message.error("Comment is Empty, please insert text");
+        }else if(comment.length < 5){
+          message.error("Comment is too short");
+        }else if(!cookies.uid){
+          message.warning("Please SignUp or Login to submit a comment");
+        } else{
+          dispatch(submitComment(comment , cookies.uid , id, product.productName))
+          message.success("Comment submitted");
+          setComment('');
+        }
+
+
+
     }
 
 
@@ -265,10 +299,38 @@ export default function ProductDetails() {
 						</TabPanel>
 
 						<TabPanel value={value} index={1}>
+
+
+                 {
+                 !allComments?.length? <div></div>:                 
+                 
+                 allComments.map((comment, key)=>{
+                   return(
+                      <div className="some_review" key={comment.id}>
+                      <div className="iconHolder">
+                          <AccountBoxIcon/>                        
+                      </div>
+                      <div className="messageHolder">
+                        <p>{comment.comment}</p>
+                        <span>{comment.date}</span>
+                      </div>
+                  </div>
+                   )
+                 })
+
+                 }     
+
+               
+
+
+
+             
 							<TextareaAutosize 
 										className='commentTextArea'
 										aria-label="review product" 
 										minRows={4} 
+                    value={comment}
+                    onChange={(e)=>setComment(e.target.value)}
 										placeholder="Comment here ..." />
 
 																<Button variant='outlined'    

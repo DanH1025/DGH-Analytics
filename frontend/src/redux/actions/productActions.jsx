@@ -2,6 +2,52 @@ import * as actionType from '../constants/productConstant';
 import * as api from '../api/index';
 
 
+
+export const submitComment = (comment , userId, productId, productName ) => async (dispatch)=>{
+    try {
+        dispatch({
+            type: actionType.COMMENTING_REQUEST,
+
+        })
+        const {data} = await api.addReview(comment, userId, productId, productName);
+
+        dispatch({
+            type: actionType.COMMENTING_SUCCESS,
+            // payload: data,
+        })
+    } catch (error) {
+        dispatch({
+            type:actionType.COMMENTING_FAIL,
+            payload: 
+                error.response && error.response.data.message 
+                ?error.response.data.message:error.message,
+        });   
+    }
+}
+
+// export const fetchComments = () => async (dispatch)=>{
+//     try {
+
+//         dispatch({
+//             type: actionType.FETCH_COMMENT_REQUEST,
+//         })
+//         const {data} = await api.getComments();
+//         dispatch({
+//             type: actionType.FETCH_COMMENT_SUCCESS,
+//             payload: data
+//         })
+        
+//     } catch (error) {
+//         dispatch({
+//             type:actionType.FETCH_COMMENT_FAIL,
+//             payload: 
+//                 error.response && error.response.data.message 
+//                 ?error.response.data.message:error.message,
+//         });
+//     }
+// }
+
+
 export const getProducts = () => async (dispatch)=>{
     try {
         dispatch({
