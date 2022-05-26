@@ -85,7 +85,6 @@ export default function ProductList() {
 
     const [products ,setProducts] = useState([]);
     const [searchInput , setSearchInput] = useState('');
-    const [searchCategory , setSearchCategory] = useState('');
 
     const [searchCategory , setSearchCategory]= useState(''); // search category selection
 
@@ -376,7 +375,7 @@ export default function ProductList() {
         }
       };
 
-    const data = [];
+    
 
   //  const keys =["productName", "productBrand", "productCategory","productPrice"];
       
