@@ -73,9 +73,27 @@ const activatePM = async (req,res)=>{
         })
     }
    
-    
-    
+}
+const diactivatePM = async(req,res)=>{
+    console.log('inside diactivation');
 
+    const {email} = req.body;
+    const diactivation = "Diactive";
+
+    const [user,metaD] = await UserModel.fetchAdminUser(email)
+
+    if(user[0].status === diactivation){
+        res.json({
+            data:"User is already diactive",
+            isSuccess: false
+        })
+    }else{
+        const [data, metaData] = await UserModel.activatePM(email,diactivation);
+        res.json({
+            data:data,
+            isSuccess: true
+        })
+    }
 
 }
 
@@ -86,5 +104,6 @@ module.exports = {
     getNewProductManager,
     accessKeyGenerator,
     saveAccessKey,
-    activatePM  
+    activatePM ,
+    diactivatePM 
 };

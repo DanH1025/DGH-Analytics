@@ -21,6 +21,33 @@ const getProducts = async(req,res) => {
   res.send(product);
 }
 
+const getActiveProducts = async(req,res)=>{
+  console.log("getting active products");
+
+
+  const {sq} = req.query;
+  console.log(sq);
+
+
+  const [product, metaData]= await ProductModel.fetchActive();
+  res.json(product) 
+}
+
+const getDiactiveProducts = async (req,res)=>{
+  console.log("getting diactivated products");
+
+  const {sq} = req.query;
+  console.log(sq);
+
+  const [product , metaData] = await ProductModel.fetchDiactive();
+
+
+
+  res.json(product) 
+}
+
+
+
 const getAllProducts = async(req,res) => {
   console.log('in appi get product');
   const [product, metaData] = await ProductModel.fetchAll();
@@ -38,7 +65,7 @@ const getAllProducts = async(req,res) => {
   //   })
   // }
 
-
+  
   const {sq} = req.query;
   console.log(sq);
   res.json(product.filter(pro=> pro.productName.toLowerCase().includes(sq)).splice(0,9)) 
@@ -67,7 +94,7 @@ const getProductsById = async(req,res) => {
   const [product, metaData] = await ProductModel.findById(id);
   // console.log(product);
     res.send(product);
-}
+} 
 
 const deleteProduct = async(req,res)=>{
   console.log("im deleting a product with id: " + req.body.id);
@@ -133,6 +160,8 @@ const changeVisits = async(req, res) => {
 module.exports = {
 	getProducts,
   getAllProducts,
+  getActiveProducts,
+  getDiactiveProducts,
 	addProduct,
   
   

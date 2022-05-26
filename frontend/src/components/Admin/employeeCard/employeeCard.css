@@ -75,6 +75,14 @@ body{
        
 }
 
+.emp_status_holder p{
+    background-color: gray;
+    padding: 4px;
+    border: none;
+    border-radius: 3px;
+    color: white;
+}
+
 
 .dialog_email,
 .dialog_access_key,

@@ -1,11 +1,17 @@
 const express = require('express');
 const router = express.Router();
 
-
+   
 const {getProducts, getAllProducts,addProduct, getProductsByCatagory, getProductsById,
-getProductsBySearch ,deleteProduct ,editProductValues ,recordSearchHistory ,recordAddToCartHistory,changeVisits } = require('../controller/productController');
-const {getUser, getAllUser, addUserByPhone , getAdminUser, verifyAdmin, addUserByEmail, checkUser, checkEmail} =   
-  require('../controller/userController')
+         getProductsBySearch ,deleteProduct ,editProductValues ,recordSearchHistory ,
+         recordAddToCartHistory,changeVisits,getActiveProducts ,getDiactiveProducts } =  
+  require('../controller/productController');
+
+
+const {getUser, getAllUser, addUserByPhone , getAdminUser, verifyAdmin, 
+        addUserByEmail, checkUser, checkEmail } =   require('../controller/userController')
+
+
 const {addOrder, getOrders, getInprogressOrders, getOrdersbyId, changeStatus} =  require('../controller/ordersController')
 const { addOrderDetail, getOrderDetails } =  require('../controller/orderDetailController');
 const { getOrderReports, getLastWeekOrderReports, getTotalOrder, addOrderReport , updateReports} = 
@@ -17,7 +23,7 @@ const {loginWithPhone , adminRegister } =
 
 const {getAllCategories} = require('../controller/categoryController')
 
-const {getNewProductManager , accessKeyGenerator , saveAccessKey, activatePM} = require('../controller/productManagerController')
+const {getNewProductManager , accessKeyGenerator , saveAccessKey, activatePM, diactivatePM} = require('../controller/productManagerController')
 
 
 
@@ -64,7 +70,9 @@ router.get('/getAllCategories', getAllCategories)
 // product routes
 router.post('/addToStock' , addProduct); 
 router.get('/getProducts', getProducts);
-router.get('/getAllProducts' ,getAllProducts)
+router.get('/getAllProducts' ,getAllProducts);
+router.get('/getActiveProducts' , getActiveProducts)
+router.get('/getDiactiveProducts', getDiactiveProducts)
 
 router.post('/getProductsByCategory', getProductsByCatagory);
 router.post('/getProductsById', getProductsById);
@@ -82,7 +90,7 @@ router.post('/addVisits', changeVisits)
 
 router.post('/addUserByPhone', addUserByPhone)
 router.post('/addUserByEmail', addUserByEmail)
-router.post('/getUsers', getUser);
+router.post('/getUsers', getUser); 
 router.post('/getAllUsers' , getAllUser)
 router.post('/checkUserPhone', checkUser)
 router.post('/checkEmail', checkEmail)
@@ -120,6 +128,8 @@ router.post('/saveAccessKey' , saveAccessKey);
 //activate admin user
 
 router.post('/activation' , activatePM)
+router.post('/diactivation', diactivatePM)
+
 
 module.exports = router;
  

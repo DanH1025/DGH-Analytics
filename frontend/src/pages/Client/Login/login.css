@@ -3,7 +3,7 @@ body{
     margin: 0;
 }
 
-.login{
+.UserloginHolder{
     padding: 0;
     margin: 0;
     width: 100%;
@@ -11,7 +11,22 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgb(103, 191, 221);
+    background-color: white;
+
+    
+}
+
+.dimBackground{
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: rgba(0, 0, 0, 0.216);
+    
 }
 
 .offscreen {
@@ -27,11 +42,199 @@ body{
     margin-bottom: 0.5rem;
 }
 
+.UserloginContainer {
+    padding: 0;
+    margin: 0;
+    width: 65%;
+    height: -moz-fit-content;
+    height: 80%;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 4px 7px 12px -5px rgba(28, 28, 28, 0.771);
+-webkit-box-shadow: 4px 7px 12px -5px rgba(28, 28, 28, 0.799);
+-moz-box-shadow: 4px 7px 12px -5px rgba(28, 28, 28, 0.764);
+}
+
+
+.UserLoginFormSide,
+.introSide{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    flex: 1;
+}
+.UserLoginFormSide{
+    background-color: white;
+}
+.introSide{
+    display: flex;
+    align-items: baseline;
+    justify-content: left;
+    background-color: transparent;
+    background-image: url(https://media.istockphoto.com/photos/online-home-appliance-shopping-picture-id523788889?k=20&m=523788889&s=612x612&w=0&h=sukCXPUW4EaLVEjHwvrwqf_HwlEBPZ9XTYUzDpbRdig=);
+    
+}
+
+.introSide h2{
+    width: 100%;
+    height: fit-content;
+    justify-content: left;
+    margin-top: 90%;
+    margin-left: 7px;
+    font-weight: bold;
+    padding: 5px;
+    font-size: 31px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: rgb(102 0 255);
+    bottom: 0;
+    
+    
+}
+
+.userLoginHeader{
+    width: 100%;
+    height: 50%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+
+.userCreateAccHeader{
+    width: 100%;
+    height: 30%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.userLoginHeader h2,
+.userCreateAccHeader h2{
+    width: 100%;
+    color: rgb(0, 0, 0);
+    font-size: 33px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin: 1px 20px;
+}
+.userLoginHeader span{
+    margin: 0 30px;
+    font-size: 14px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: lighter;
+    color: green;
+
+}
+
+.loginTypeSwitch{
+    width: 100%;
+    height: 40px;
+    padding: 4px;
+    margin: 5px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+.loginTypeSwitch label{
+    margin: 0px 6px;
+    font-size: 12px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: lighter;
+    column-rule: rgba(57, 51, 51, 0.379);
+}
+.loginForm{
+    display: flex;
+    flex-direction: column;
+}
+.SignupForm{
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+}
+
+.userLoginFormButton {
+    width: 100%;
+    display: flex;
+    padding: 7px;
+    align-items: center;
+    justify-content: center;
+    background-color: #8b08c8;
+    border: transparent;
+}
+.userLoginFormButton p{
+    font-size: 13px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    align-items: center;
+    font-weight: bold;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    height: fit-content;
+    padding: 0;
+    margin: 0;
+
+}
+.signUpWithGoogle{
+    display: flex;
+    width: 30%;
+    height: fit-content;
+    padding: 4px;
+    margin: 4px auto;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 2px;
+
+}
+
+.signUpWithGoogle img{
+    transform: 0;
+
+}
+.signUpWithGoogle img:hover{
+    transform: scale(1.1);
+    transition: all ease-out 0.2s;
+}
+
+.signUpWithGoogle:hover{
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+/* redundunt but required code , needs refactoring */
+body{
+    padding: 0;
+    margin: 0;
+}
+
+.login{
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(103, 191, 221);
+}
+
 .loginContainer{
     padding: 0;
     margin: 0;
-    width: 30%;
-    height: 76vh;
+    width: 50%;
+    height: fit-content;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -48,7 +251,7 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    border-bottom-right-radius: 60%;
+    border-bottom-right-radius: 55%;
     border-bottom-left-radius: 2%;
     transform: 0;
     
@@ -86,6 +289,9 @@ body{
 .loginForm{
     display: flex;
     flex-direction: column;
+    height: 100%;
+    width: 100%;
+    position: relative;
 }
 .login-form-button{
     width: 100%;
@@ -105,29 +311,67 @@ body{
     margin: 0;
 
 }
-.signUpWithGoogle{
+
+#normal_login{
     display: flex;
-    background-color: rgb(235, 46, 46);
-    width: 30%;
-    height: fit-content;
-    padding: 4px;
-    margin: 4px auto;
+    flex-direction: column;
+    width: 100%;
+    
+    height: 80%;
+    position: relative;
     align-items: center;
     justify-content: center;
-    border: none;
-    border-radius: 2px;
+    padding: 0;
+    margin: 0;
+}
 
+.ant-row.ant-form-item{
+    margin-bottom: 7px;
+    width: 70%;
 }
-.signUpWithGoogle svg{
-    font-size: 30px;
-    color: white;
-    display: flex;
-    margin: 0px 4px;
+.ant-row.ant-form-item.ant-form-item-with-help.ant-form-item-has-error{
+    height: 40px;
+    margin-bottom: 9px;
+    padding: 2px;
+    font-size: 12px;
 }
-.signUpWithGoogle span{
-    color: white;
+
+.ant-form-item-explain-error {
+    font-size: 11px;
 }
-.signUpWithGoogle:hover{
-    background-color: red;
+
+.goToRegister{
+    font-size: 12px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;
+    font-weight: lighter;
+    color: blue;
     cursor: pointer;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
