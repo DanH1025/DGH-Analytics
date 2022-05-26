@@ -191,6 +191,8 @@ export default function Home({onMorePage}) {
                   dates={Object.keys(userByHour)}
                   chartData={Object.values(userByHour)}
                   chartType="bar"
+                  index={10}
+                  onPageChange={onMorePage}
                   />
               </div>
 

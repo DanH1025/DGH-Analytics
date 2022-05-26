@@ -31,7 +31,7 @@ export default function Checkout() {
     const {cartItems} = cart;
     console.log(cartItems)
 
-
+    const product = useSelector((state) => state.getProduct.products)
     const user = useSelector((state) => state.getUser.user);
     console.log(user);
 		let users = [];
@@ -77,13 +77,23 @@ export default function Checkout() {
 
       if(cookies.uid){
         try{
-
-          dispatch(createOrders(date, cookies.uid, getTotalProductPrice(), marker.latitude,marker.longitude, phoneNumber ))
+          let costTotal = 0;
+          let no_item = 0;
+          cartItems.map((item)=>{
+            const pro = product.find(x => x.id === item.product).cost;
+            costTotal += pro*item.qtyCounter;
+            no_item += Number(item.qtyCounter);
+          });
+          console.log(costTotal); 
+          console.log(no_item);
+          dispatch(createOrders(date, cookies.uid, getTotalProductPrice(), marker.latitude,marker.longitude, phoneNumber, costTotal, no_item ))
         }catch(e){
           console.log(e);
         }
 
         cartItems.map((item)=>{
+          // const pro = product.find(x => x.id === item.product).cost;
+          // console.log(pro*item.qtyCounter);
           dispatch(createOrderDetails(date, item.product , item.qtyCounter, item.price))
         });
         message.success("Order Placed");

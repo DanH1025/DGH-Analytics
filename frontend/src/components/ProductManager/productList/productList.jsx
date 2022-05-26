@@ -85,6 +85,7 @@ export default function ProductList() {
 
     const [products ,setProducts] = useState([]);
     const [searchInput , setSearchInput] = useState('');
+    const [searchCategory , setSearchCategory] = useState('');
 
     const [searchCategory , setSearchCategory]= useState(''); // search category selection
 
@@ -355,26 +356,31 @@ export default function ProductList() {
 
         const response =  axios.post('http://localhost:5000/api/getProductsByCategory', {category: event.target.value });
         setProducts(response.data);  
-       
-        
-          
-      
+  
       };
 
-
-      
-      
-
-
-    
     const data = [];
 
+      const handleCategoryChange = (event) => {
+        console.log(event.target.value);
+        const cate = event.target.value;
+        setSearchCategory(event.target.value);
+        console.log(cate)
+        console.log("inside category handler");
+        if(event.target.value === ''){
+          
+        }else{
+           const response =  axios.post('http://localhost:5000/api/getProductsByCategory', {category: cate});
+           setProducts(response.data);  
+          
+        }
+      };
 
+    const data = [];
 
   //  const keys =["productName", "productBrand", "productCategory","productPrice"];
       
 
-   
       if(!products?.length){
           
       }

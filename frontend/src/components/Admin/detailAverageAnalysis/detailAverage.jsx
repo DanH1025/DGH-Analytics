@@ -119,9 +119,7 @@ export default function DetailAverage({onMorePage}) {
              />
       </div>
 
-      <br />
-      <br />
-      <br />
+      <br /><br /><br />
 
       <div>
         <Table columns={colum} dataSource={orderReports} />

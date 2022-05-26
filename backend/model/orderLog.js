@@ -79,6 +79,34 @@ module.exports = class Request {
     }
   }
 
+  
+  static addToCartCountByDate(date) {
+    try{
+       const result =db.execute('SELECT COUNT(addToCart) AS cartCount FROM `user_log` WHERE addToCart = true  AND date=?', [date]);
+       return result;
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+  static reachCheckCountByDate(date) {
+    try{
+       const result =db.execute('SELECT COUNT(reachedCheckout) AS checkoutCount FROM `user_log` WHERE reachedCheckout = true  AND date=?', [date]);
+       return result;
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+  static purchaseCountByDate(date) {
+    try{
+       const result =db.execute('SELECT COUNT(purchased) AS purchaseCount FROM `user_log` WHERE purchased = true AND date=?', [date]);
+       return result;
+    }catch(err){
+      console.log(err);
+    }
+  }
+
   static fetchTotalUserByDate(date) {
     try{
        const result =db.execute('SELECT COUNT(id) AS userToday FROM user_log WHERE date=?', [date]);
@@ -87,6 +115,7 @@ module.exports = class Request {
       console.log(err);
     }
   }
+
 
   static fetchTotalUserByDateHour(date, hour) {
     try{

@@ -1,5 +1,5 @@
 import React from 'react'
-import './detailSalesAnalysis.css'
+import './detailSessionAnalysis.css'
 
 
 import { Table , Switch , message, Button} from 'antd';
@@ -20,7 +20,7 @@ import { getUserLogDetail } from "../../../redux/actions/userLogActions";
 
 const { Option } = Select;
 
-export default function DetailSalesAnalysis({onMorePage}) {
+export default function DetailSessionAnalysis({onMorePage}) {
 
   const dispatch = useDispatch();
   
@@ -53,7 +53,7 @@ export default function DetailSalesAnalysis({onMorePage}) {
     series: [
       {
         name: "order",
-        data: orderReports.map(a => a.total)
+        data: orderReports.map(a => a.session)
       }
     ],
     tooltip: {
@@ -77,27 +77,33 @@ export default function DetailSalesAnalysis({onMorePage}) {
       render: (text) => <a>{text}</a>,
     },
     {
-      title: 'Orders',
-      dataIndex: 'orders',
+      title: 'Session',
+      dataIndex: 'session',
       key: 'age',
     },
     {
-      title: 'Total sales',
-      dataIndex: 'total',
+      title: 'Added to cart',
+      dataIndex: 'addToCart',
       key: 'address',
-      render: (text) => <span>ETB {text.toFixed(2)} </span>,
+      // render: (text) => <span>ETB {text.toFixed(2)} </span>,
     },
     {
-      title: 'Cost',
-      dataIndex: 'cost',
+      title: 'Reached checkout',
+      dataIndex: 'reachedCheckout',
       key: 'address',
-      render: (text) => <span>ETB {text.toFixed(2)} </span>,
+      // render: (text) => <span>ETB {text.toFixed(2)} </span>,
     },
     {
-      title: 'Profit',
+      title: 'Session converted',
+      dataIndex: 'converted',
+      key: 'address',
+      // render: (text) => <span>ETB {text.toFixed(2)} </span>,
+    },
+    {
+      title: 'Conversion Rate',
       key: 'tags',
       dataIndex: 'average',
-      render: (text) => <span>ETB {text.toFixed(2)} </span>,
+      render: (text) => <span>{text.toFixed(2)} %</span>,
     },
     
   ];
