@@ -11,7 +11,7 @@ import Checkout from './pages/Client/Checkout/checkout';
 import ProductDetails from './pages/Client/ProductDetails/productDetails';
 import SearchResult from './pages/Client/SearchResult/searchResult';
 import Login from './pages/Client/Login/login'
-import SignUp from './pages/Client/SignUp/signUp'
+import SignUp from './pages/Client/Login/login'
 import Topbar from './components/Client/topbar/topbar'
 
 import axios from 'axios';
