@@ -1,6 +1,30 @@
 import * as actionTypes from '../constants/productConstant';
 
 
+// export const commentReducer = (state = {comment: [] }, action)=>{
+//     switch(action.type){
+//         case actionTypes.FETCH_COMMENT_REQUEST:
+//             return{
+//                 loading: true,
+//                 comment: []
+//             }
+//         case actionTypes.FETCH_COMMENT_SUCCESS:
+//             return{
+//                 loading: false,
+//                 comment: action.payload
+//             }
+//         case actionTypes.FETCH_COMMENT_FAIL:
+//             return{
+//                 loading: false,
+//                 error: action.payload,
+//             }
+//         default:
+//             return state;
+//     }
+// }
+
+
+
 export const getProductsReducer = (state = {products: [] }, action)=>{
     switch(action.type){
         case actionTypes.GET_PRODUCTS_REQUEST:

@@ -79,6 +79,7 @@ export default function Checkout() {
         try{
 
           dispatch(createOrders(date, cookies.uid, getTotalProductPrice(), marker.latitude,marker.longitude, phoneNumber ))
+          console.log('user id : ' + cookies.uid)
         }catch(e){
           console.log(e);
         }

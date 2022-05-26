@@ -9,6 +9,6 @@ const getAllCategories = async (req,res)=>{
     res.send(category);
 }
 
-module.exports ={
+module.exports ={   
     getAllCategories
 }

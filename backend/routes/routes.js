@@ -4,7 +4,7 @@ const router = express.Router();
    
 const {getProducts, getAllProducts,addProduct, getProductsByCatagory, getProductsById,
          getProductsBySearch ,deleteProduct ,editProductValues ,recordSearchHistory ,
-         recordAddToCartHistory,changeVisits,getActiveProducts ,getDiactiveProducts } =  
+         recordAddToCartHistory,changeVisits,getActiveProducts ,getDiactiveProducts,commentHandler ,getComments} =  
   require('../controller/productController');
 
 
@@ -117,7 +117,7 @@ router.post('/addToCartRecord' , recordAddToCartHistory )
 //login routes
 router.post('/loginWithPhone', loginWithPhone);
 
-
+ 
 
 //generate access key for product manager
 router.post('/generateAccessKey' , accessKeyGenerator)
@@ -128,6 +128,10 @@ router.post('/saveAccessKey' , saveAccessKey);
 router.post('/activation' , activatePM)
 router.post('/diactivation', diactivatePM)
 
+
+//submitting comment
+router.post('/addComment', commentHandler);
+router.post('/getComment' , getComments)
 
 module.exports = router;
  

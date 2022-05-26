@@ -111,6 +111,25 @@ module.exports = class Request {
     return db.execute('UPDATE product SET visits = visits + 1 WHERE product.id = ?', [id]);
   }
 
+  //commenting on a product
+  static productReview (userId,productId, productName,comment,date){
+    try {
+       const result = db.execute("INSERT INTO product_review(user_id, product_id, product_name, comment, date) VALUES (?,?,?,?,?)", [userId,productId,productName,comment, date])
+       return result;
+    } catch (error) {
+      console.log("error from product review submission")
+      console.log(error)
+    }
+  }
+  static fetchComment (id){
+    try {
+      const result = db.execute("SELECT * FROM product_review WHERE product_id=?", [id]);
+      return result;
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   // static fetchNew() {
   //   try{
   //      const result =db.execute('SELECT * FROM product WHERE requests.status = "pending"');

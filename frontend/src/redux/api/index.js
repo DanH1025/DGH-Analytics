@@ -72,6 +72,8 @@ const productVistRecordUrl =
 const savingAKUrl = 'http://localhost:5000/api/saveAccessKey'
 
 const adminSignupUrl = 'http://localhost:5000/api/adminRegister'
+const addReviewUrl = 'http://localhost:5000/api/addComment'
+const fetchCommentsUrl = 'http://localhost:5000/api/getComment'
 
 //admin signup
 export const admin_signup = (userName, email, password, accessKey)=>{
@@ -262,4 +264,19 @@ export const savingAK = (email , accessKey)=>
       email: email,
       AK: accessKey
     })
+
+
+//product review 
+export const addReview = (text, userId, productId, productName )=>{
+  axios.post( addReviewUrl,{
+    message: text,
+    userId: userId,
+    productId: productId,
+    productName: productName
+  })
+}
+
+export const getComments = ()=>{
+  axios.post(fetchCommentsUrl)
+}
 
