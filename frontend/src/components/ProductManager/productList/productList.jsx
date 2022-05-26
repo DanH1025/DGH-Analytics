@@ -2,8 +2,7 @@ import React from 'react'
 import './productList.css'
 
 
-
-import { Table , message,Button} from 'antd';
+import { Table , Switch , message,Button} from 'antd';
 
 import {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,37 +15,8 @@ import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined'
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 
 
-import { Drawer, Form, Col, Row, Input, DatePicker, Space } from 'antd';
+import { Drawer, Form, Col, Row, Input, Select, DatePicker, Space } from 'antd';
 import axios from 'axios';
-
-
-
-
-import {Link} from 'react-router-dom'
-import {Search } from '@material-ui/icons'
-
-
-import TvIcon from '@material-ui/icons/Tv';
-import PhoneAndroidIcon from '@material-ui/icons/PhoneAndroid';
-import WatchIcon from '@material-ui/icons/Watch';
-import ComputerIcon from '@material-ui/icons/Computer';
-import DesktopMacIcon from '@material-ui/icons/DesktopMac';
-import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
-
-
-
-
-import { getProductsByCategory } from '../../../redux/actions/productActions';
-
-import { makeStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-
-
-
 
 
 
@@ -56,15 +26,6 @@ const { Option } = Select;
 
 
 
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-}));
 
 
 
@@ -77,71 +38,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ProductList() {
 
-  const classes = useStyles();
-  const [age, setAge] = React.useState('');
-  
 
     const dispatch = useDispatch();
 
     const [products ,setProducts] = useState([]);
     const [searchInput , setSearchInput] = useState('');
-
-    const [searchCategory , setSearchCategory]= useState(''); // search category selection
-
-    const [open_category ,  setOpen_category] = React.useState(false);
-
-      // to handle the changes on the search catagory option
-    //   const handleSearchCategoryChange = (event)=>{
-    //     setSearchCategory(event.target.value);
-    // }
-
-    //to handle when the search category option closes
-    const handleCloseSearchCategory = () =>{
-        setOpen_category(false);
-    }
-    // //to handle hwen the search category option opens
-    const handleOpenSearchCategory = () =>{
-        setOpen_category(true);
-    }
-
-
-      //set style for all and active product list
-      const [isAll ,setIsAll] = useState(0);
-
-      const handleAllSelection = async()=>{
-        if(isAll === 1 || isAll === 2){
-          setIsAll(0);
-          const res =  await axios.get(`http://localhost:5000/api/getAllProducts?sq=${searchInput}`);
-          setProducts(res.data);
-        }else{
-        }
-      }
-
-      const handleActiveSelection = async()=>{
-        
-        if(isAll === 0 || isAll === 2){        
-          setIsAll(1);         
-          const res =  await axios.get(`http://localhost:5000/api/getActiveProducts?sq=${searchInput}`);
-          setProducts(res.data); 
-          
-        }else{
-          
-        }
-      }
-      const handleDiActiveSelection = async ()=>{
-        if(isAll === 0 || isAll === 1){
-          setIsAll(2);          
-          const res = await axios.get(`http://localhost:5000/api/getDiActiveProducts?sq=${searchInput}`)
-          setProducts(res.data)
-        }else{
-
-        }
-      }
-
-   
-
-
-    
+    const [searchCategory , setSearchCategory] = useState('');
 
     useEffect(()=>{
       const fetchProducts = async ()=>{
@@ -152,9 +54,24 @@ export default function ProductList() {
       fetchProducts()
     }, [searchInput])
 
-    
-
+  //       useEffect(() => {
+  //         dispatch(getAllProducts(searchInput));
+  //       }, [dispatch]);
+      
+      
+  //  const products = useSelector((state) => state.getProduct.products);
   
+   
+
+
+
+
+  //  console.log(products);
+
+   
+
+
+
 
 
     // rowSelection objects indicates the need for row selection
@@ -348,18 +265,7 @@ export default function ProductList() {
 
       ];
 
-      const categoryChangeHandler = (event) => {
-        setSearchCategory(event.target.value);
-        console.log(searchCategory)
-        console.log("inside category handler");
-
-        const response =  axios.post('http://localhost:5000/api/getProductsByCategory', {category: event.target.value });
-        setProducts(response.data);  
-  
-      };
-
-    const data = [];
-
+      const data = [];
       const handleCategoryChange = (event) => {
         console.log(event.target.value);
         const cate = event.target.value;
@@ -371,7 +277,6 @@ export default function ProductList() {
         }else{
            const response =  axios.post('http://localhost:5000/api/getProductsByCategory', {category: cate});
            setProducts(response.data);  
-          
         }
       };
 
@@ -379,11 +284,11 @@ export default function ProductList() {
 
   //  const keys =["productName", "productBrand", "productCategory","productPrice"];
       
-
       if(!products?.length){
           
       }
-      else{          
+      else{      
+
           products.filter(
             (product)=>product.productName.toLowerCase().includes(searchInput)                              
             
@@ -402,111 +307,26 @@ export default function ProductList() {
                 status:  val.status === 0 ? <FiberManualRecordIcon style={{color:"#ff0000"}} /> : <FiberManualRecordIcon style={{color:"#19ff05"}} /> 
             })
           })
-
-        
-
           
       };
+
+
      
-
-
-    
-
 
       console.log(searchInput);
   return (
     <>
    <div className="productListPageHolder">
     <div className="searchBarContainer">
-        <div className="sorter">
-            <div className="active_only">
-              <div className="active_only_wrapper">
-               <div className="all_products"   onClick={handleAllSelection}   style={isAll === 0? {backgroundColor: '#ffc400cc', border:'none', color:'white'}: {}} >
-                  <p>All</p>
-               </div>
-               <div className="active_products" onClick={handleActiveSelection}  style={isAll === 1? {backgroundColor: '#ffc400cc', color:'white', border:'none'}: {}}  >
-                  <p>Active</p>
-               </div>
-               <div className="diactive_products" onClick={handleDiActiveSelection}  style={isAll === 2 ? {backgroundColor: '#ffc400cc', color:'white', border:'none'}: {}}  >
-                  <p>Diactive</p>
-               </div>            
-              </div>
-                
-            </div>
-            
-        </div>
        <div className="productList_searchBarWrapper">
-
-
-          <div className="productList_search">
-                    <div className="productList_searchWrapper">                 
-                      <div className="productLIst_category">
-                        <FormControl variant="outlined" className='productList_searchCategoryForm'>                    
-                          <Select className='productList_searchCategorySelect'
-                              labelId='productList_searchCategory-items-lable'
-                              id='productList_searchCategory-items'
-                              displayEmpty="true"
-                              open={open_category}
-                              onClose={handleCloseSearchCategory}
-                              onOpen={handleOpenSearchCategory}
-                              value={searchCategory}
-                              onChange={categoryChangeHandler}
-                             
-                          >
-                            <MenuItem  className='allCategoryMenuItem' value="">
-                                  Category
-                            </MenuItem>
-                            <MenuItem className='productList_allCategoryMenuItem' value={"television"}>
-                              <TvIcon className='menuItemIcons' /> TV </MenuItem>
-                              <MenuItem  className='productList_allCategoryMenuItem' value={"smart phone"}>
-                            <PhoneAndroidIcon className='menuItemIcons' /> 	Smart Phone </MenuItem>
-                            <MenuItem  className='productList_allCategoryMenuItem' value={"smart watch"}>
-                              <WatchIcon className='menuItemIcons' /> Smart Watch </MenuItem>
-                            <MenuItem  className='productList_allCategoryMenuItem' value={"PC"}>
-                            <ComputerIcon className='menuItemIcons' /> Computer </MenuItem>
-                            <MenuItem  className='productList_allCategoryMenuItem' value={"Moniter"}>
-                            <DesktopMacIcon className='menuItemIcons' /> Moniter</MenuItem>
-                            <MenuItem  className='productList_allCategoryMenuItem' value={"play station"}>
-                            <SportsEsportsIcon className='menuItemIcons'/>PS</MenuItem>
-                          </Select> 
-                        
-                        </FormControl>
-                      </div>
-                      <div className="productList_searchInput">
-                        <input  
-                        placeholder='Search product' 
-                        name='productList_search'
-                        onChange={e=>setSearchInput(e.target.value)}
-                        type="text" />
-                      </div>
-                      {/* <div className="searchbtn">
-                          <Link to='/search' className='searchbtnLink'>
-                              <Search 
-                              onClick={handleSearch}/>
-                        </Link> 
-                      </div> */}
-                    </div>
-                  </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            {/* <input type="text" 
+            <input type="text" 
                    className='productList_searchBar' 
                    placeholder='Search Product'
                    onChange={e=>setSearchInput(e.target.value)}
                    />
-             */}
+            {/* <div className="searchIconContainer">
+              <SearchOutlinedIcon />
+            </div> */}
        </div>
     </div>
 
@@ -582,7 +402,7 @@ export default function ProductList() {
         </Form.Item>
 
 
-        {/* <Form.Item
+        <Form.Item
           name="brand"
           label="Brand"
           rules={[{ required: true, message: 'Please choose the brand' }]}
@@ -591,7 +411,7 @@ export default function ProductList() {
             <Option value="private">Samsung</Option>
             <Option value="public">Apple</Option>
           </Select>
-        </Form.Item> */}
+        </Form.Item>
 
 
         <Form.Item

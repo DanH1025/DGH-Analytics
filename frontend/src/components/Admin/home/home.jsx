@@ -197,7 +197,7 @@ export default function Home({onMorePage}) {
               </div>
 
               <div className="chart">
-                  <div className="conversion_rate_holder">
+                <div className="conversion_rate_holder">
                       <div className="cr_title">
                         <p className="cr_title_content" >Store Conversion Rate</p>
                         <span className="cr_title_more">More</span>
@@ -233,7 +233,8 @@ export default function Home({onMorePage}) {
                           key={row.id}
                           sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
-                          <TableCell className="product_name" align="left">  {row.productName}</TableCell>
+                          <TableCell className="product_name" align="left">  {row.productName}
+                          </TableCell>
                           <TableCell className="total_sold" align="right">{row.total}</TableCell>
                         </TableRow>
                       ))}
