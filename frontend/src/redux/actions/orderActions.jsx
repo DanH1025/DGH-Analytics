@@ -87,13 +87,13 @@ export const changeOrderStatus = (id, status) => async (dispatch)=>{
     }
 };
 
-export const createOrders = (date, userId, total , lat, lng , contact) => async (dispatch) => {
+export const createOrders = (date, userId, total , lat, lng , contact, cost, no_item) => async (dispatch) => {
   console.log('action : ' + total);
 	try{
     dispatch({
       type: actionType.CREATE_ORDERS_REQUEST,
     });
-		const { data } = await  api.createOrders(date, userId, total, lat, lng ,contact);
+		const { data } = await  api.createOrders(date, userId, total, lat, lng ,contact, cost, no_item);
 		dispatch({ 
       type: actionType.CREATE_ORDERS_SUCCESS, 
       payload: data 

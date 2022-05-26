@@ -13,11 +13,10 @@ const {getUser, getAllUser, addUserByPhone , getAdminUser, verifyAdmin,
 
 
 const {addOrder, getOrders, getInprogressOrders, getOrdersbyId, changeStatus} =  require('../controller/ordersController')
-const { addOrderDetail, getOrderDetails } =  
-  require('../controller/orderDetailController');
-const { getOrderReports, getLastWeekOrderReports, getTotalOrder, addOrderReport } = 
+const { addOrderDetail, getOrderDetails } =  require('../controller/orderDetailController');
+const { getOrderReports, getLastWeekOrderReports, getTotalOrder, addOrderReport , updateReports} = 
   require('../controller/orderReportController');
-const { getOrderLogs, addOrderLog ,getUserLogs} = 
+const { getOrderLogs, addOrderLog ,getUserLogs, getUserLogInHour} = 
   require('../controller/orderLogController')
 const {loginWithPhone , adminRegister } = 
   require('../controller/loginController')
@@ -38,6 +37,8 @@ router.get('/' , (req,res)=>{
 })
 
 
+router.post('/update' , updateReports);
+
 // router.get('getProductDetail/${id}' , getProductDetail)
 router.post('/getAdminUser' , getAdminUser);
 router.post('/getAdminUserVer', verifyAdmin ,getOrderLogs);
@@ -49,6 +50,7 @@ router.post('/adminRegister' , adminRegister)
 router.post('/addUserLogs', addOrderLog);
 router.post('/getUserLogs', getOrderLogs);
 router.post('/getUserLogCount', getUserLogs);
+router.post('/getUserLogCountInDay', getUserLogInHour);
 
 // test user api
 router.post('/app', users);

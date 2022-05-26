@@ -154,14 +154,16 @@ export const fetchOrdersInprogress = () =>
   axios.post("http://localhost:5000/api/getInprogressOrders");
 export const fetchOrdersById = (id) =>
   axios.post(fetchOrdersByIdUrl, {id: id});
-export const createOrders = (date, userId, total, lat,lng ,contact) => 
+export const createOrders = (date, userId, total, lat,lng ,contact, cost, no_item) => 
   axios.post(createOrdersUrl, {
     date: date,
     userId: userId,
     total: total,
     latitude: lat,
     longitude: lng,
-    contact: contact
+    contact: contact,
+    cost: cost,
+    no_item: no_item
   });
 
 // users

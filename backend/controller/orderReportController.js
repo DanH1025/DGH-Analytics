@@ -1,16 +1,28 @@
 const OrderModle = require('../model/orders');
 const OrderReportModel = require('../model/orderReport');
 const OrderDetailModel = require('../model/orderDetail');
+const OrderLogModel = require('../model/orderLog');
 
 const addOrderReport = async (req, res) => {
   let date = new Date().toISOString().slice(0, 10);
   console.log('now date: ');
   console.log(date);
-  // date = '2022-04-13';
+  date = '2022-05-25';
   const sum = await OrderModle.totalSum(date);
   console.log('sum:');
   console.log(sum[0][0]["SUM(total)"]);
   let total = sum[0][0]["SUM(total)"];
+
+  const cost = await OrderModle.totalCost(date);
+  console.log('cost:');
+  console.log(cost[0][0]["SUM(total)"]);
+  let cos = cost[0][0]["SUM(cost)"];
+  // console.log(sum);
+
+  const no_item = await OrderModle.totalItem(date);
+  console.log('cost:');
+  console.log(no_item[0][0]["SUM(no_item)"]);
+  let items = no_item[0][0]["SUM(no_item)"];
   // console.log(sum);
 
   const no_orders = await OrderModle.completeOrderComplete(date);
@@ -21,11 +33,30 @@ const addOrderReport = async (req, res) => {
   const average = total/order;
   console.log('average' + average);
   
+  const [userByDate, metaDat] = await OrderLogModel.fetchTotalUserByDate(date);
+  console.log(userByDate[0]['userToday']);
+  const session = userByDate[0]['userToday'];
+  
+  const [addToCartByDate, metaDa] = await OrderLogModel.addToCartCountByDate(date);
+  console.log(addToCartByDate[0]['cartCount']);
+  const addToCart = addToCartByDate[0]['cartCount'];
+  
+  const [checkoutByDate, metaD] = await OrderLogModel.reachCheckCountByDate(date);
+  console.log(checkoutByDate[0]['checkoutCount']);
+  const reachedCheckout = checkoutByDate[0]['checkoutCount'];
+  
+  const [outByDate, meta] = await OrderLogModel.purchaseCountByDate(date);
+  console.log(outByDate[0]['purchaseCount']);
+  const converted = outByDate[0]['purchaseCount'];
+
+
+
+  
   let orders;
   if (total === null || order === null) {
-    orders = new OrderReportModel(date,0,0, 0);
+    orders = new OrderReportModel(date,0,0, 0,0,0,0,0,0,0);
   }else{
-    orders = new OrderReportModel(date,total,average, order);
+    orders = new OrderReportModel(date,total,average, order, cos, items, session, addToCart, reachedCheckout, converted);
   }
   console.log(orders);
   try{
@@ -38,6 +69,28 @@ const addOrderReport = async (req, res) => {
 
 const getOrderReports = async(req,res) => {
   const [order, metaData] = await OrderReportModel.fetchAll();
+  // console.log(order);
+  res.send(order);
+}
+
+const updateReports = async(req,res) => {
+  let date = new Date().toISOString().slice(0, 10);
+  console.log('now date: ');
+  console.log(date);
+  date = '2022-04-02';
+
+  const cost = await OrderModle.totalCost(date);
+  console.log('cost:');
+  console.log(cost[0][0]["SUM(total)"]);
+  let cos = cost[0][0]["SUM(cost)"];
+  // console.log(sum);
+
+  const no_item = await OrderModle.totalItem(date);
+  console.log('cost:');
+  console.log(no_item[0][0]["SUM(no_item)"]);
+  let items = no_item[0][0]["SUM(no_item)"];
+
+  const [order, metaData] = await OrderReportModel.updateCost(cos, items, date);
   // console.log(order);
   res.send(order);
 }
@@ -86,4 +139,5 @@ module.exports = {
 	getOrderReports,
   getLastWeekOrderReports,
   getTotalOrder,
+  updateReports
 };
