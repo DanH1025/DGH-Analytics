@@ -43,7 +43,6 @@ export default function ProductList() {
 
     const [products ,setProducts] = useState([]);
     const [searchInput , setSearchInput] = useState('');
-    const [searchCategory , setSearchCategory] = useState('');
 
     useEffect(()=>{
       const fetchProducts = async ()=>{
@@ -279,7 +278,7 @@ export default function ProductList() {
         }
       };
 
-    const data = [];
+    
 
   //  const keys =["productName", "productBrand", "productCategory","productPrice"];
       
