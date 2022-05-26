@@ -45,6 +45,7 @@ import AddProduct from '../../../components/ProductManager/addProduct/addProduct
 import Home from '../../../components/Admin/home/home';
 import DetailSalesAnalysis from '../../../components/Admin/detailSalesAnalysis/detailSalesAnalysis';
 import DetailAverage from '../../../components/Admin/detailAverageAnalysis/detailAverage';
+import DetailSessionAnalysis from '../../../components/Admin/detailSessionAnalysis/detailSesionAnalysis';
 
 import { Button } from '@material-ui/core'
 //material ui menu navigation drawer things
@@ -287,6 +288,7 @@ export default function PM_Dashboard() {
              compCounter === 7 ? <Hiring />:
              compCounter === 8 ? <DetailSalesAnalysis onMorePage={setCompCounter} />:
              compCounter === 9 ? <DetailAverage onMorePage={setCompCounter}/>:
+             compCounter === 10 ? <DetailSessionAnalysis onMorePage={setCompCounter}/>:
              "others"   
             }
 

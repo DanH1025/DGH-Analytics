@@ -1,27 +1,35 @@
 const db = require('../database/dbConn')
 
 module.exports = class Request {
-  constructor(date, total, average, orders, cost, no_item){
+  constructor(date, total, average, orders, cost, no_item ,session, addToCart, reachedCheckout, converted){
     this.date = date;
     this.total = total;
     this.average = average;
     this.orders = orders;
     this.cost = cost;
     this.no_item = no_item;
+    this.session = session;
+    this.addToCart = addToCart;
+    this.reachedCheckout = reachedCheckout;
+    this.converted = converted;
   }
-// INSERT INTO `orderreport`( `date`, `total`, `average`, `orders`) VALUES ('2022-04-08',1100,240,5)
+
   save() {
     console.log('in order report modle');
     // const date = new Date().toISOString().slice(0, 10);
     try{
-      db.execute('INSERT INTO orderreport (date, total, average, orders,cost ,no_item) VALUES (?,?,?,?,?,?)', 
+      db.execute('INSERT INTO orderreport (date, total, average, orders,cost ,no_item, session, addToCart, reachedCheckout, converted) VALUES (?,?,?,?,?,?,?,?,?,?)', 
       [ 
         this.date,
         this.total,
         this.average,
         this.orders,
         this.cost,
-        this.no_item
+        this.no_item,
+        this.session,
+        this.addToCart,
+        this.reachedCheckout,
+        this.converted
       ])
     }catch(e){
       console.log("order reporrt save error: " + e);

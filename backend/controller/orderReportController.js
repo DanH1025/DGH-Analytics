@@ -1,12 +1,13 @@
 const OrderModle = require('../model/orders');
 const OrderReportModel = require('../model/orderReport');
 const OrderDetailModel = require('../model/orderDetail');
+const OrderLogModel = require('../model/orderLog');
 
 const addOrderReport = async (req, res) => {
   let date = new Date().toISOString().slice(0, 10);
   console.log('now date: ');
   console.log(date);
-  // date = '2022-04-13';
+  date = '2022-05-25';
   const sum = await OrderModle.totalSum(date);
   console.log('sum:');
   console.log(sum[0][0]["SUM(total)"]);
@@ -32,11 +33,30 @@ const addOrderReport = async (req, res) => {
   const average = total/order;
   console.log('average' + average);
   
+  const [userByDate, metaDat] = await OrderLogModel.fetchTotalUserByDate(date);
+  console.log(userByDate[0]['userToday']);
+  const session = userByDate[0]['userToday'];
+  
+  const [addToCartByDate, metaDa] = await OrderLogModel.addToCartCountByDate(date);
+  console.log(addToCartByDate[0]['cartCount']);
+  const addToCart = addToCartByDate[0]['cartCount'];
+  
+  const [checkoutByDate, metaD] = await OrderLogModel.reachCheckCountByDate(date);
+  console.log(checkoutByDate[0]['checkoutCount']);
+  const reachedCheckout = checkoutByDate[0]['checkoutCount'];
+  
+  const [outByDate, meta] = await OrderLogModel.purchaseCountByDate(date);
+  console.log(outByDate[0]['purchaseCount']);
+  const converted = outByDate[0]['purchaseCount'];
+
+
+
+  
   let orders;
   if (total === null || order === null) {
-    orders = new OrderReportModel(date,0,0, 0,0,0);
+    orders = new OrderReportModel(date,0,0, 0,0,0,0,0,0,0);
   }else{
-    orders = new OrderReportModel(date,total,average, order, cos, items);
+    orders = new OrderReportModel(date,total,average, order, cos, items, session, addToCart, reachedCheckout, converted);
   }
   console.log(orders);
   try{

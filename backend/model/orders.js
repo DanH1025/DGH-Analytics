@@ -16,11 +16,12 @@ module.exports = class Request {
     console.log('in order modle');
     console.log('userId');
     console.log(this.userId);
+    const fullDate = new Date();
     const date = new Date().toISOString().slice(0, 10);
     try{
       db.execute('INSERT INTO orders (orderId, userId, total, date,status, latitude,longitude, contact, cost, no_item) VALUES (?,?,?,?,?,?,?,?,?,?)', 
       [ 
-        this.orderId,
+        fullDate,
         this.userId, 
         this.total,
         date,

@@ -43,6 +43,7 @@ export default function ProductList() {
 
     const [products ,setProducts] = useState([]);
     const [searchInput , setSearchInput] = useState('');
+    const [searchCategory , setSearchCategory] = useState('');
 
     useEffect(()=>{
       const fetchProducts = async ()=>{
@@ -263,8 +264,6 @@ export default function ProductList() {
         
 
       ];
-<<<<<<< Updated upstream
-=======
 
       const handleCategoryChange = (event) => {
         console.log(event.target.value);
@@ -281,16 +280,10 @@ export default function ProductList() {
         }
       };
 
->>>>>>> Stashed changes
-    
     const data = [];
-
-
 
   //  const keys =["productName", "productBrand", "productCategory","productPrice"];
       
-
-   
       if(!products?.length){
           
       }

@@ -19,6 +19,23 @@ const getOrderLogs = async(req,res) => {
   res.send(logs);
 }
 
+const getUserLogInHour = async(req, res) => {
+  let date = req.body.date;
+
+   date = new Date().toISOString().slice(0, 10);
+  date = '2022-05-16';
+
+  let dayData = {};
+  for(let i = 0; i<24; i++){
+    // console.log('hour: ' + i);
+    const [userByHour, metaDa] = await OrderLogModel.fetchTotalUserByDateHour(date, i);
+    // console.log(userByHour[0]['userHour']);
+    dayData[formatAMPM(i)] = userByHour[0]['userHour'];
+  }
+
+  res.send(dayData);
+}
+
 const getUserLogs = async(req,res) => {
   const date = new Date().toISOString().slice(0, 10);
   const [userNo, metaData] = await OrderLogModel.fetchTotalUser();
@@ -44,15 +61,16 @@ const getUserLogs = async(req,res) => {
   console.log(purchaseCount[0]['purchaseCount']);
   
   var hour = new Date().getHours();
+  
   let dayData = {};
-  hour = 11;
+  // hour = 11;
   let j = hour - 4;
   let i = hour;
   for(i; i>j; i--){
     // console.log('hour: ' + i);
     const [userByHour, metaDa] = await OrderLogModel.fetchTotalUserByDateHour(date, i);
     // console.log(userByHour[0]['userHour']);
-    dayData[i+'PM'] = userByHour[0]['userHour'];
+    dayData[formatAMPM(i)] = userByHour[0]['userHour'];
   }
 
   // dayData = dayData.filter(Number);
@@ -75,9 +93,20 @@ const getUserLogs = async(req,res) => {
   res.send(respon);
 }
 
+function formatAMPM(hour) {
+  var hours = hour;
+  var minutes = 56;
+  var ampm = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  minutes = minutes < 10 ? '0'+minutes : minutes;
+  var strTime = hours + ' ' + ampm;
+  return strTime;
+}
 
 module.exports = {
 	addOrderLog,
   getOrderLogs,
   getUserLogs,
+  getUserLogInHour
 };
