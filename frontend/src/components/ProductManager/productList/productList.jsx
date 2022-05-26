@@ -348,17 +348,17 @@ export default function ProductList() {
 
       ];
 
-      const handleCategoryChange = (event) => {
+      const categoryChangeHandler = (event) => {
         setSearchCategory(event.target.value);
         console.log(searchCategory)
         console.log("inside category handler");
-        if(event.target.value === ''){
+
+        const response =  axios.post('http://localhost:5000/api/getProductsByCategory', {category: event.target.value });
+        setProducts(response.data);  
+       
+        
           
-        }else{
-           const response =  axios.post('http://localhost:5000/api/getProductsByCategory', {category: event.targe.value});
-           setProducts(response.data);  
-          
-        }
+      
       };
 
 
@@ -375,7 +375,7 @@ export default function ProductList() {
       
 
    
-      if(!products.length){
+      if(!products?.length){
           
       }
       else{          
@@ -445,7 +445,8 @@ export default function ProductList() {
                               onClose={handleCloseSearchCategory}
                               onOpen={handleOpenSearchCategory}
                               value={searchCategory}
-                              onChange={handleCategoryChange}
+                              onChange={categoryChangeHandler}
+                             
                           >
                             <MenuItem  className='allCategoryMenuItem' value="">
                                   Category

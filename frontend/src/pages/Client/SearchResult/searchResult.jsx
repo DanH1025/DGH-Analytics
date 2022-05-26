@@ -237,7 +237,7 @@ export default function SearchResult() {
           {console.log(products)} */}
           <h3 productCardTitle>Search result</h3>
 
-          <div className="productHolder">
+          <div className="search_productHolder">
             {/* {setProdcuts(products)} */}
             {
               !displayedProducts.length ? <div>No product found</div> : (
@@ -261,8 +261,8 @@ export default function SearchResult() {
           </div>
         </div>
       </div>
-      <ContactUs />
-      <Footer />
+      {/* <ContactUs />
+      <Footer /> */}
     </>
   )
 }

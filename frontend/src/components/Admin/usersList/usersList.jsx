@@ -262,16 +262,7 @@ export default function UsersList() {
     
   return (
     <div className="productListPageHolder">
-    {/* <div className="searchBarContainer">
-       <div className="productList_searchBarWrapper">
-            <input type="text" 
-                   className='productList_searchBar' 
-                   placeholder='Search Product'
-                   onChange={e=>setSearchInput(e.target.value)}
-                   />
-            
-       </div>
-    </div> */}
+  
 
     <Table 
     rowSelection={{ ...rowSelection }}
