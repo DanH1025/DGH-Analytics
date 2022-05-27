@@ -154,8 +154,8 @@ export default function Home({onMorePage}) {
                 <Charts 
                   title='Total Sales'
                   middleTotal={ totalPrice + ' ETB'   }
-                  dates={days}
-                  chartData={prices}
+                  dates={days.reverse()}
+                  chartData={prices.reverse()}
                   chartType="area"
                   index={8}
                   onPageChange={onMorePage}
@@ -165,8 +165,8 @@ export default function Home({onMorePage}) {
                 <Charts 
                   title='Total Orders'
                   middleTotal={orderNo}
-                  dates={days}
-                  chartData={orders}
+                  dates={days.reverse()}
+                  chartData={orders.reverse()}
                   chartType="area"
                   index={8}
                   onPageChange={onMorePage}
@@ -176,8 +176,8 @@ export default function Home({onMorePage}) {
                 <Charts 
                   title='Averages'
                   middleTotal={average}
-                  dates={days}
-                  chartData={priceAverage}
+                  dates={days.reverse()}
+                  chartData={priceAverage.reverse()}
                   chartType="area"
                   index={9}
                   onPageChange={onMorePage}
@@ -188,8 +188,8 @@ export default function Home({onMorePage}) {
                 <Charts 
                   title='Total online store visitor'
                   middleTotal={totalUserNoToday}
-                  dates={Object.keys(userByHour)}
-                  chartData={Object.values(userByHour)}
+                  dates={Object.keys(userByHour).reverse()}
+                  chartData={Object.values(userByHour).reverse()}
                   chartType="bar"
                   index={10}
                   onPageChange={onMorePage}
@@ -200,7 +200,11 @@ export default function Home({onMorePage}) {
                 <div className="conversion_rate_holder">
                       <div className="cr_title">
                         <p className="cr_title_content" >Store Conversion Rate</p>
-                        <span className="cr_title_more">More</span>
+                        <span className="cr_title_more">
+                          <Button onClick={() => {
+                            onMorePage(10)
+                            }}>More</Button> 
+                        </span>
                       </div>
                       <div className="price_conversion_rate">
                         <p>{(totalOrderNo/totalUserNo*100).toFixed(2)} %</p>
@@ -224,19 +228,30 @@ export default function Home({onMorePage}) {
               </div> 
 
               <div className="chart">
-                <h3 className="unit_sell_title">Top product by unit sold</h3>
+                {/* <h3 className="unit_sell_title">Top product by unit sold</h3> */}
+
+                <div className="cr_title">
+                  <p className="cr_title_content" >Top product by unit sold</p>
+                  <span className="cr_title_more">
+                    <Button onClick={() => {
+                      onMorePage(11)
+                      }}>More</Button> 
+                  </span>
+                </div>
+
                 <TableContainer component={Paper}>
                   <Table className="unit_sell_table" aria-label="simple table">
                     <TableBody>
-                      {topProdByQun?.map((row) => (
+                      {topProdByQun?.map((row, index) => (
+                        index <5 && (
                         <TableRow
                           key={row.id}
                           sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                           <TableCell className="product_name" align="left">  {row.productName}
                           </TableCell>
-                          <TableCell className="total_sold" align="right">{row.total}</TableCell>
-                        </TableRow>
+                          <TableCell className="total_sold" align="right">{row.quantity}</TableCell>
+                        </TableRow>)
                       ))}
                     </TableBody>
                   </Table>
@@ -244,18 +259,30 @@ export default function Home({onMorePage}) {
             </div> 
             
               <div className="chart">
-                <h3 className="product_price_sold_title">Top product by price sold</h3>
+                
+
+                <div className="cr_title">
+                  <h3 className="product_price_sold_title">
+                    Top product by price sold</h3>
+                  <span className="cr_title_more">
+                    <Button onClick={() => {
+                      onMorePage(11)
+                      }}>More</Button> 
+                  </span>
+                </div>
+
                 <TableContainer component={Paper}>
                   <Table aria-label="simple table">
                     <TableBody>
-                      {topProdByPrice?.map((row) => (
+                      {topProdByPrice?.map((row, index) => (
+                        index <5 && (
                         <TableRow
                           key={row.id}
                           sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                           <TableCell align="left">{row.productName}</TableCell>
-                          <TableCell align="right">{row.total} ETB</TableCell>
-                        </TableRow>
+                          <TableCell align="right">{row.totalSale} ETB</TableCell>
+                        </TableRow>)
                       ))}
                     </TableBody>
                   </Table>

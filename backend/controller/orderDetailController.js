@@ -22,9 +22,25 @@ const getOrderDetails = async(req,res) => {
   // console.log(order);
   res.send(order);
 }
+ 
+const getTopProductByQuan = async(req,res) => {
+  const id = req.body.id;
+  const [order, metaData] = await OrderDetailModel.topProductByQuantityLIM10();
+  // console.log(order);
+  res.send(order);
+}
+ 
+const getTopProductByTotalSale = async(req,res) => {
+  const id = req.body.id;
+  const [order, metaData] = await OrderDetailModel.topProductByPriceLIM10();
+  // console.log(order);
+  res.send(order);
+}
 
 
 module.exports = {
 	addOrderDetail,
 	getOrderDetails,
+  getTopProductByQuan,
+  getTopProductByTotalSale,
 };  

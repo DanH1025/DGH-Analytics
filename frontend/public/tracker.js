@@ -14,31 +14,31 @@
 
 let lati = '', longi = '';
 
-// const sucess = async(postition) => {
-//   const { latitude, longitude } = postition.coords;
-//   console.log(latitude + ' : ' + longitude);
+const sucess = async(postition) => {
+  const { latitude, longitude } = postition.coords;
+  console.log(latitude + ' : ' + longitude);
 
-//   lati = latitude;
-//   longi = longitude;
+  lati = latitude;
+  longi = longitude;
 
-//   await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=018d9986cb5c483380337c7f6526c2fe`)
-//   .then(response => response.json())
-//   .then(data =>  printIt(data.results));
-//   // .then(() => console.log(loc));
-//   // .then(response => console.log(response.results[0].formatted));
-// }
+  await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=018d9986cb5c483380337c7f6526c2fe`)
+  .then(response => response.json())
+  .then(data =>  printIt(data.results));
+  // .then(() => console.log(loc));
+  // .then(response => console.log(response.results[0].formatted));
+}
 
-// navigator.geolocation.getCurrentPosition(sucess, console.log());
+navigator.geolocation.getCurrentPosition(sucess, console.log('error location'));
 
 // let loc = '';
 
-// let printIt = (data) => {
-//   console.log(data);
-//   data?.map((val) => {
-//     console.log(val.formatted);
-//     loc = val.formatted;
-//   })
-// }
+let printIt = (data) => {
+  console.log(data);
+  data?.map((val) => {
+    console.log(val.formatted);
+    loc = val.formatted;
+  })
+}
 
 // console.log(loc);
 // console.log(lati);
