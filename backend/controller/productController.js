@@ -12,9 +12,9 @@ const addProduct = (req, res) => {
   } catch(e) {
     console.log(e);
   }  
-}
+}   
 
-const commentHandler = async(req, res)=>{
+const commentHandler = async(req, res)=>{ 
   console.log("inside comment handelr");
   const {message, productId, userId, productName} = req.body;
 
@@ -26,7 +26,7 @@ const commentHandler = async(req, res)=>{
     message,
     productId,
     userId,
-    productName,
+    productName, 
     date
   })
 
