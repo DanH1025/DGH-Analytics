@@ -67,7 +67,7 @@ router.post('/getTotal', getTotalOrder)
 //get all the categories from db
 router.get('/getAllCategories', getAllCategories)
 
-// product routes
+// product routes 
 router.post('/addToStock' , addProduct); 
 router.get('/getProducts', getProducts);
 router.get('/getAllProducts' ,getAllProducts);
