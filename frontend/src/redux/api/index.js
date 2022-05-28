@@ -98,7 +98,7 @@ export const loginWithPhoneNumber = (phone,password)=>{
 
 
 // user log url
-export const createUserLogs = (href, referrer, screenWidth, screenHeight, addToCart, reachedCheckout, purchased, date, time) => 
+export const createUserLogs = (href, referrer, screenWidth, screenHeight, addToCart, reachedCheckout, purchased, date, time, city, state) => 
   axios.post('http://localhost:5000/api/addUserLogs', {
     href : href,
     referrer : referrer, 
@@ -108,7 +108,9 @@ export const createUserLogs = (href, referrer, screenWidth, screenHeight, addToC
     reachedCheckout : reachedCheckout, 
     purchased : purchased,
     date : date,
-    time : time
+    time : time,
+    city: city,
+    state: state
   });
 
 export const fetchUserLogs = () =>

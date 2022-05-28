@@ -44,6 +44,7 @@ import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import AddProduct from '../../../components/ProductManager/addProduct/addProduct'
 import Home from '../../../components/Admin/home/home';
 import DetailSalesAnalysis from '../../../components/Admin/detailSalesAnalysis/detailSalesAnalysis';
+import DetailTopProductAnalysis from '../../../components/Admin/detailTopProductAnalysis/detailTopProductAnalysis'
 import DetailAverage from '../../../components/Admin/detailAverageAnalysis/detailAverage';
 import DetailSessionAnalysis from '../../../components/Admin/detailSessionAnalysis/detailSesionAnalysis';
 
@@ -260,6 +261,7 @@ export default function PM_Dashboard() {
              compCounter === 8 ? <DetailSalesAnalysis onMorePage={setCompCounter} />:
              compCounter === 9 ? <DetailAverage onMorePage={setCompCounter}/>:
              compCounter === 10 ? <DetailSessionAnalysis onMorePage={setCompCounter}/>:
+             compCounter === 11 ? <DetailTopProductAnalysis onMorePage={setCompCounter}/>:
              "others"   
             }
 
