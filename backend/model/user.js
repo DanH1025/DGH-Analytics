@@ -7,10 +7,10 @@ module.exports = class Request {
     this.email = email;
     this.phone =phone;
     this.password = password;
-    this.date = date;
+    this.date = date; 
     this.status = status;
     
-    
+     
   }
 
   save() {
