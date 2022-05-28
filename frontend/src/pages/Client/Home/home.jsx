@@ -31,7 +31,7 @@ export default function Home() {
   };
 
   const setCook = () => {
-    const user = JSON.parse(sessionStorage.getItem('user'));
+    const user = JSON.parse(sessionStorage.getItem('loc'));
     const date = new Date().toISOString().slice(0, 10);
     console.log(date);
 
@@ -57,7 +57,6 @@ export default function Home() {
     }else{
       dispatch(createUserLog(user.href,user.referrer,user.screenWidth,user.screenHeight,true,reachCheck,purchased,date,time, null))
     }
-
 
 
     sessionStorage.removeItem('user');

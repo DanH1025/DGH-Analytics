@@ -35,7 +35,7 @@ module.exports = class Request {
       console.log("order log save error: " + e);
     }
   }
-
+ 
   static fetchAll() {
     try{
        const result =db.execute('SELECT * FROM user_log');
@@ -122,6 +122,24 @@ module.exports = class Request {
   static fetchTotalUserByDateHour(date, hour) {
     try{
        const result =db.execute('SELECT COUNT(id) AS userHour FROM user_log WHERE date=? AND time LIKE ?', [date, hour + ':%']);
+       return result;
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+  static fetchDeviceType() {
+    try{
+       const result =db.execute("select sum(case when screenWidth <= 414 then 1 else 0 end) as phone, sum(case when screenWidth > 601 and screenHeight < 962 and screenWidth <= 1280 and screenHeight>= 800 then 1 else 0 end) as tablet, sum(case when screenWidth > 1024 and screenHeight > 798 and screenWidth <= 1980 and screenHeight <= 1080 then 1 else 0 end) as desktop from user_log");
+       return result;
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+  static fetchByLocation() {
+    try{
+       const result =db.execute("SELECT city, state, COUNT(state) AS session FROM user_log GROUP BY state ORDER BY COUNT(state) DESC LIMIT 5");
        return result;
     }catch(err){
       console.log(err);

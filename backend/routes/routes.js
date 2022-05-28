@@ -13,7 +13,7 @@ const {getUser, getAllUser, addUserByPhone , getAdminUser, verifyAdmin,
 
 
 const {addOrder, getOrders, getInprogressOrders, getOrdersbyId, changeStatus} =  require('../controller/ordersController')
-const { addOrderDetail, getOrderDetails } =  require('../controller/orderDetailController');
+const { addOrderDetail, getOrderDetails, getTopProductByQuan, getTopProductByTotalSale } =  require('../controller/orderDetailController');
 const { getOrderReports, getLastWeekOrderReports, getTotalOrder, addOrderReport , updateReports} = 
   require('../controller/orderReportController');
 const { getOrderLogs, addOrderLog ,getUserLogs, getUserLogInHour} = 
@@ -109,6 +109,8 @@ router.post('/changeStatus', changeStatus)
 // orderDetail routes
 router.post('/addOrderDetail', addOrderDetail);
 router.post('/getOrdersDetail', getOrderDetails);
+router.post('/getTopProductByQuan', getTopProductByQuan);
+router.post('/getTopProductByTotalSale', getTopProductByTotalSale);
 
 //search record router
 router.post('/productSearchRecord' , recordSearchHistory);

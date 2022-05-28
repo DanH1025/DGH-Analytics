@@ -7,7 +7,7 @@ const addOrderReport = async (req, res) => {
   let date = new Date().toISOString().slice(0, 10);
   console.log('now date: ');
   console.log(date);
-  date = '2022-05-25';
+  date = '2022-05-26';
   const sum = await OrderModle.totalSum(date);
   console.log('sum:');
   console.log(sum[0][0]["SUM(total)"]);
@@ -54,7 +54,7 @@ const addOrderReport = async (req, res) => {
   
   let orders;
   if (total === null || order === null) {
-    orders = new OrderReportModel(date,0,0, 0,0,0,0,0,0,0);
+    orders = new OrderReportModel(date,0,0 ,0,0,0,0,0,0,0);
   }else{
     orders = new OrderReportModel(date,total,average, order, cos, items, session, addToCart, reachedCheckout, converted);
   }
@@ -115,11 +115,11 @@ const getTotalOrder = async(req,res) => {
 
   const ave = total/orderNo;
 
-  const topProd = await OrderDetailModel.topProductByQuantityLIM5();
+  const topProd = await OrderDetailModel.topProductByQuantityLIM10();
   console.log('top product');
   // console.log(topProd[0]);
 
-  const topProdByPrice = await OrderDetailModel.topProductByPriceLIM5();
+  const topProdByPrice = await OrderDetailModel.topProductByPriceLIM10();
 
   const den = [
     {

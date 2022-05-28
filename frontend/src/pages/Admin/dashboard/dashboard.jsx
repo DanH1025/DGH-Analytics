@@ -255,9 +255,9 @@ export default function PM_Dashboard() {
              compCounter === 4 ? <UsersList/>:
              compCounter === 5 ? <Orders />: 
              compCounter === 6 ? <Hiring />:
-            //  compCounter === 8 ? <DetailSalesAnalysis onMorePage={setCompCounter} />:
-            //  compCounter === 9 ? <DetailAverage onMorePage={setCompCounter}/>:
-            //  compCounter === 10 ? <DetailSessionAnalysis onMorePage={setCompCounter}/>:
+             compCounter === 8 ? <DetailSalesAnalysis onMorePage={setCompCounter} />:
+             compCounter === 9 ? <DetailAverage onMorePage={setCompCounter}/>:
+             compCounter === 10 ? <DetailSessionAnalysis onMorePage={setCompCounter}/>:
              "others"   
             }
 

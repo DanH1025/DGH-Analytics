@@ -19,6 +19,12 @@ const getOrderLogs = async(req,res) => {
   res.send(logs);
 }
 
+const getDeviceType = async(req,res) => {
+  const [logs, metaData] = await OrderLogModel.fetchDeviceType();
+  // console.log(order);
+  res.send(logs);
+}
+
 const getUserLogInHour = async(req, res) => {
   let date = req.body.date;
 
@@ -59,6 +65,11 @@ const getUserLogs = async(req,res) => {
   const [purchaseCount, meDat] = await OrderLogModel.purchaseCount();
   console.log('%%%%%%%%%%');
   console.log(purchaseCount[0]['purchaseCount']);
+
+  const [logs, metaData12] = await OrderLogModel.fetchDeviceType();
+
+  const [location, metaData123] = await OrderLogModel.fetchByLocation();
+ 
   
   var hour = new Date().getHours();
   
@@ -73,10 +84,6 @@ const getUserLogs = async(req,res) => {
     dayData[formatAMPM(i)] = userByHour[0]['userHour'];
   }
 
-  // dayData = dayData.filter(Number);
-  
-  //console.log(dayData['8']);
-
   const respon = [
     {
       'noOFTotalUser' : userNo[0]['userNo'],
@@ -87,7 +94,9 @@ const getUserLogs = async(req,res) => {
       'checkCount' : checkCount[0]['checkoutCount'],
       'purchaseCount' : 
         purchaseCount[0]['purchaseCount'],
-      'noOfTotalUserByDateHour' : dayData
+      'noOfTotalUserByDateHour': dayData,
+      'deviceType': logs,
+      'location': location
     }
   ]
   res.send(respon);

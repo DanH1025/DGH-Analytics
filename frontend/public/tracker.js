@@ -80,6 +80,8 @@ function setCookie(name,value,days) {
   document.cookie = name + "=" + (value || "")  + expires + "; path=/";
 }
 
+console.log(loc);
+
 // window.onbeforeunload = function(){
 //   console.log('want to leave');
 //   setCook();

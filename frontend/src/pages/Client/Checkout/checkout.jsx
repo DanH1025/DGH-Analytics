@@ -68,8 +68,25 @@ export default function Checkout() {
     const [marker,setMarker] = useState({
       latitude: 9.022875,
       longitude: 38.752261
-    })
-    const [phoneNumber , setPhoneNumber] = useState("")
+    });
+    const [mapLocation, setMapLocation] = useState("");
+    const [phoneNumber , setPhoneNumber] = useState("");
+
+    let printIt = (data) => {
+      console.log(data);
+      data?.map((val) => {
+        console.log(val.formatted);
+      setMapLocation(val.formatted);
+      })
+    }
+
+    const handleLocation = async () => {
+      await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${marker.latitude}+${marker.longitude}&key=018d9986cb5c483380337c7f6526c2fe`)
+      .then(response => response.json())
+      .then(data => printIt(data.results));
+
+    }
+
 
     const handleConfirm = () => {
       console.log(cartItems[0])
@@ -201,7 +218,9 @@ export default function Checkout() {
                           latitude: viewPort.lngLat.lat,
                           longitude: viewPort.lngLat.lng
                         }) 
-                  console.log(viewPort) }}
+                  console.log(viewPort);
+                  setMapLocation()
+                   }}
                   
                 
                  
@@ -221,7 +240,10 @@ export default function Checkout() {
                          
                       </div>
                       <div className="locationName">
-                        <Input prefix={<LocationOnIcon />} placeholder='Location ' value={""} disabled  />
+                        <Input prefix={<LocationOnIcon />} placeholder='Location ' 
+                        value={mapLocation} 
+                        
+                        disabled  />
                       </div>
                       <div className="phoneNumber">
                           <Input type="number" 

@@ -65,6 +65,8 @@ export default function Home({onMorePage}) {
   let reachedCheckout = 0;
   let purchaseCount = 0;
   let userByHour = [];
+  let deviceType = [];
+  let locations = [];
   {
     userLog?.map((userlog) => {
       console.log(userlog.noOFTotalUser);
@@ -79,13 +81,15 @@ export default function Home({onMorePage}) {
       reachedCheckout = (userlog.checkCount/totalUserNo*100).toFixed(2);
       purchaseCount = (userlog.purchaseCount/totalUserNo*100).toFixed(2);
       userByHour = userlog.noOfTotalUserByDateHour;
+      deviceType = userlog.deviceType;
+      locations = userlog.location;
     })
   }
   
   console.log('user log');
-  console.log(totalUserNo);
-  console.log(totalUserNoToday);
-  console.log(Object.keys(userByHour));
+  console.log(deviceType);
+  // console.log(totalUserNoToday);
+  // console.log(Object.keys(userByHour));
 
 
   let totalPrice = 0;
@@ -111,7 +115,7 @@ export default function Home({onMorePage}) {
       topProdByPrice = repo.topProdByPrice;
     })
   } 
-  console.log(topProdByQun);
+  // console.log(topProdByQun);
   
   const prices = [];
   const priceAverage = [];
@@ -126,7 +130,7 @@ export default function Home({onMorePage}) {
     })
   }
 
-  console.log(orderReports);
+  // console.log(orderReports);
   // console.log(prices);
   const stat = {
     options: {
@@ -154,8 +158,8 @@ export default function Home({onMorePage}) {
                 <Charts 
                   title='Total Sales'
                   middleTotal={ totalPrice + ' ETB'   }
-                  dates={days}
-                  chartData={prices}
+                  dates={days.reverse()}
+                  chartData={prices.reverse()}
                   chartType="area"
                   index={8}
                   onPageChange={onMorePage}
@@ -165,8 +169,8 @@ export default function Home({onMorePage}) {
                 <Charts 
                   title='Total Orders'
                   middleTotal={orderNo}
-                  dates={days}
-                  chartData={orders}
+                  dates={days.reverse()}
+                  chartData={orders.reverse()}
                   chartType="area"
                   index={8}
                   onPageChange={onMorePage}
@@ -176,8 +180,8 @@ export default function Home({onMorePage}) {
                 <Charts 
                   title='Averages'
                   middleTotal={average}
-                  dates={days}
-                  chartData={priceAverage}
+                  dates={days.reverse()}
+                  chartData={priceAverage.reverse()}
                   chartType="area"
                   index={9}
                   onPageChange={onMorePage}
@@ -188,8 +192,8 @@ export default function Home({onMorePage}) {
                 <Charts 
                   title='Total online store visitor'
                   middleTotal={totalUserNoToday}
-                  dates={Object.keys(userByHour)}
-                  chartData={Object.values(userByHour)}
+                  dates={Object.keys(userByHour).reverse()}
+                  chartData={Object.values(userByHour).reverse()}
                   chartType="bar"
                   index={10}
                   onPageChange={onMorePage}
@@ -198,69 +202,162 @@ export default function Home({onMorePage}) {
 
               <div className="chart">
                 <div className="conversion_rate_holder">
-                      <div className="cr_title">
-                        <p className="cr_title_content" >Store Conversion Rate</p>
-                        <span className="cr_title_more">More</span>
-                      </div>
-                      <div className="price_conversion_rate">
-                        <p>{(totalOrderNo/totalUserNo*100).toFixed(2)} %</p>
-                      </div>
-                      <div className="cart_cr">
-                        <p className="cart_cr_title">Add To Cart Rate</p>
-                        <p className="cart_cr_content">{addCartCount} %</p>
-                      </div>
-                      <div className="checkout_cr">
-                        <p className="checkout_cr_title">Reaching Checkout Rate</p>
-                        <p className="checkout_cr_content">{reachedCheckout} %</p>
-                      </div>
-                      <div className="purchase_cr">
-                        <p className="purchase_cr_title">Purchase</p>
-                        <p className="purchase_cr_content">{purchaseCount} %</p>
-                      </div>
+                  <div className="cr_title">
+                    <p className="cr_title_content" >Store Conversion Rate</p>
+                    <span className="cr_title_more">
+                      <Button onClick={() => {
+                        onMorePage(10)
+                        }}>More</Button> 
+                    </span>
+                  </div>
+                  <div className="price_conversion_rate">
+                    <p>{(totalOrderNo/totalUserNo*100).toFixed(2)} %</p>
+                  </div>
+                  <div className="cart_cr">
+                    <p className="cart_cr_title">Add To Cart Rate</p>
+                    <p className="cart_cr_content">{addCartCount} %</p>
+                  </div>
+                  <div className="checkout_cr">
+                    <p className="checkout_cr_title">Reaching Checkout Rate</p>
+                    <p className="checkout_cr_content">{reachedCheckout} %</p>
+                  </div>
+                  <div className="purchase_cr">
+                    <p className="purchase_cr_title">Purchase</p>
+                    <p className="purchase_cr_content">{purchaseCount} %</p>
+                  </div>
 
-
-                  </div>                
-                
+                </div>                
               </div> 
 
               <div className="chart">
-                <h3 className="unit_sell_title">Top product by unit sold</h3>
+                {/* <h3 className="unit_sell_title">Top product by unit sold</h3> */}
+
+                <div className="cr_title">
+                  <p className="cr_title_content" >Top product by unit sold</p>
+                  <span className="cr_title_more">
+                    <Button onClick={() => {
+                      onMorePage(11)
+                      }}>More</Button> 
+                  </span>
+                </div>
+
                 <TableContainer component={Paper}>
                   <Table className="unit_sell_table" aria-label="simple table">
                     <TableBody>
-                      {topProdByQun?.map((row) => (
+                      {topProdByQun?.map((row, index) => (
+                        index <5 && (
                         <TableRow
                           key={row.id}
                           sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                           <TableCell className="product_name" align="left">  {row.productName}
                           </TableCell>
-                          <TableCell className="total_sold" align="right">{row.total}</TableCell>
-                        </TableRow>
+                          <TableCell className="total_sold" align="right">{row.quantity}</TableCell>
+                        </TableRow>)
                       ))}
                     </TableBody>
                   </Table>
                 </TableContainer>
-            </div> 
+              </div> 
             
               <div className="chart">
-                <h3 className="product_price_sold_title">Top product by price sold</h3>
+                
+                <div className="cr_title">
+                  <h3 className="product_price_sold_title">
+                    Top product by price sold</h3>
+                  <span className="cr_title_more">
+                    <Button onClick={() => {
+                      onMorePage(11)
+                      }}>More</Button> 
+                  </span>
+                </div>
+
                 <TableContainer component={Paper}>
                   <Table aria-label="simple table">
                     <TableBody>
-                      {topProdByPrice?.map((row) => (
+                      {topProdByPrice?.map((row, index) => (
+                        index <5 && (
                         <TableRow
                           key={row.id}
                           sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                           <TableCell align="left">{row.productName}</TableCell>
-                          <TableCell align="right">{row.total} ETB</TableCell>
-                        </TableRow>
+                          <TableCell align="right">{row.totalSale} ETB</TableCell>
+                        </TableRow>)
                       ))}
                     </TableBody>
                   </Table>
                 </TableContainer>
               </div>
+
+              <div className="chart">  
+
+                <div className="cr_title">
+                  <p className="cr_title_content" >device type</p>
+                  <span className="cr_title_more">
+                    <Button onClick={() => {
+                      onMorePage(11)
+                      }}>More</Button> 
+                  </span>
+                </div>
+
+                <TableContainer component={Paper}>
+                  <Table className="unit_sell_table" aria-label="simple table">
+                    <TableBody>
+                      {deviceType?.map((row, index) => (
+                        index <5 && (
+                        <div className="conversion_rate_holder">
+                          <div className="cart_cr">
+                            <p className="cart_cr_title">Phone</p>
+                            <p className="cart_cr_content">{((row.phone/totalUserNo)*100).toFixed(2) } % </p>
+                          </div>
+                          <div className="checkout_cr">
+                            <p className="checkout_cr_title">Tablet</p>
+                            <p className="checkout_cr_content">{((row.tablet/totalUserNo)*100).toFixed(2) } %</p>
+                          </div>
+                          <div className="purchase_cr">
+                            <p className="purchase_cr_title">Desktop</p>
+                            <p className="purchase_cr_content">{((row.desktop/totalUserNo)*100).toFixed(2) } %</p>
+                          </div>
+        
+                        </div> 
+                      )))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </div> 
+
+              <div className="chart">
+                {/* <h3 className="unit_sell_title">Top product by unit sold</h3> */}
+
+                <div className="cr_title">
+                  <p className="cr_title_content" >Top location</p>
+                  <span className="cr_title_more">
+                    <Button onClick={() => {
+                      onMorePage(11)
+                      }}>More</Button> 
+                  </span>
+                </div>
+
+                <TableContainer component={Paper}>
+                  <Table className="unit_sell_table" aria-label="simple table">
+                    <TableBody>
+                      {locations?.map((row, index) => (
+                        index <5 && (
+                        <TableRow
+                          key={row.id}
+                          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                        >
+                          <TableCell className="product_name" align="left">  {row.city}
+                          </TableCell>
+                          <TableCell className="total_sold" align="right">{row.state}</TableCell>
+                          <TableCell className="total_sold" align="right">{row.session}</TableCell>
+                        </TableRow>)
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </div> 
 
             </div>
           
