@@ -2,9 +2,9 @@ const OrderModel = require('../model/orders')
 const OrderLogModel = require('../model/orderLog');
 
 const addOrderLog = async (req, res) => {
-  const {href, referrer, screenWidth, screenHeight, addToCart, reachedCheckout, purchased, date, time} = req.body;
+  const {href, referrer, screenWidth, screenHeight, addToCart, reachedCheckout, purchased, date, time, city, state} = req.body;
 
-  const log = new OrderLogModel(href, referrer, screenWidth, screenHeight, addToCart, reachedCheckout, purchased, date, time);
+  const log = new OrderLogModel(href, referrer, screenWidth, screenHeight, addToCart, reachedCheckout, purchased, date, time, city, state);
   console.log(log);
   try{
     log.save();
@@ -15,6 +15,12 @@ const addOrderLog = async (req, res) => {
 
 const getOrderLogs = async(req,res) => {
   const [logs, metaData] = await OrderLogModel.fetchAll();
+  // console.log(order);
+  res.send(logs);
+}
+
+const getDeviceType = async(req,res) => {
+  const [logs, metaData] = await OrderLogModel.fetchDeviceType();
   // console.log(order);
   res.send(logs);
 }
@@ -59,6 +65,11 @@ const getUserLogs = async(req,res) => {
   const [purchaseCount, meDat] = await OrderLogModel.purchaseCount();
   console.log('%%%%%%%%%%');
   console.log(purchaseCount[0]['purchaseCount']);
+
+  const [logs, metaData12] = await OrderLogModel.fetchDeviceType();
+
+  const [location, metaData123] = await OrderLogModel.fetchByLocation();
+ 
   
   var hour = new Date().getHours();
   
@@ -73,10 +84,6 @@ const getUserLogs = async(req,res) => {
     dayData[formatAMPM(i)] = userByHour[0]['userHour'];
   }
 
-  // dayData = dayData.filter(Number);
-  
-  //console.log(dayData['8']);
-
   const respon = [
     {
       'noOFTotalUser' : userNo[0]['userNo'],
@@ -87,7 +94,9 @@ const getUserLogs = async(req,res) => {
       'checkCount' : checkCount[0]['checkoutCount'],
       'purchaseCount' : 
         purchaseCount[0]['purchaseCount'],
-      'noOfTotalUserByDateHour' : dayData
+      'noOfTotalUserByDateHour': dayData,
+      'deviceType': logs,
+      'location': location
     }
   ]
   res.send(respon);
