@@ -45,12 +45,12 @@ export const getUserLogDetail = () => async (dispatch)=>{
     }
 };
 
-export const createUserLog = (href, referrer, screenWidth, screenHeight, addToCart, reachedCheckout, purchased, date, time, city, state) => async (dispatch) => {
+export const createUserLog = (href, referrer, screenWidth, screenHeight, addToCart, reachedCheckout, purchased, date, time, userId) => async (dispatch) => {
 	try{
     dispatch({
       type: actionType.CREATE_USER_LOGS_REQUEST,
     });
-		const { data } = await  api.createUserLogs(href, referrer, screenWidth, screenHeight, addToCart, reachedCheckout, purchased, date, time, city, state);
+		const { data } = await  api.createUserLogs(href, referrer, screenWidth, screenHeight, addToCart, reachedCheckout, purchased, date, time,userId);
 		
 	dispatch({ 
       type: actionType.CREATE_USER_LOGS_SUCCESS, 

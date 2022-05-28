@@ -12,9 +12,9 @@ const addProduct = (req, res) => {
   } catch(e) {
     console.log(e);
   }  
-}
+}   
 
-const commentHandler = async(req, res)=>{
+const commentHandler = async(req, res)=>{ 
   console.log("inside comment handelr");
   const {message, productId, userId, productName} = req.body;
 
@@ -26,7 +26,7 @@ const commentHandler = async(req, res)=>{
     message,
     productId,
     userId,
-    productName,
+    productName, 
     date
   })
 
@@ -176,9 +176,9 @@ const recordSearchHistory = async(req,res)=>{
 }
 const recordAddToCartHistory = async(req,res)=>{
   console.log("recording whats added on the cart");
-  const {id, quantity} = req.body;
+  const {id, quantity, userId} = req.body;
   
-  await ProductModel.recordAddToCart(id, quantity);
+  await ProductModel.recordAddToCart(id, quantity, userId);
 }
 
 const changeVisits = async(req, res) => {

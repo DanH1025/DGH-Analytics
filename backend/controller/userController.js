@@ -41,6 +41,8 @@ const verifyAdmin = (req, res, next) => {
 
 const addUserByEmail = async (req, res) => {
   const {fname,lname,email,password} = req.body;
+
+  const status = 'active';
   
   const hashPass = await bcrypt.hash(password , 8 );
   // console.log(hashPass.encryptedData);
@@ -48,7 +50,7 @@ const addUserByEmail = async (req, res) => {
   const date = new Date();  
   
   try{    
-    const user = new UserModel(fname,lname,email,null,hashPass, date);
+    const user = new UserModel(fname,lname,email,null,hashPass, date , status);
     console.log(user);
     user.save();
     res.send(user);
@@ -62,6 +64,7 @@ const addUserByEmail = async (req, res) => {
 const addUserByPhone = async (req,res)=>{
   console.log("adding user by phone number");
  const {fname,lname,phone, password} = req.body;
+ const status = 'active';
 
   console.log(phone + " " + password)
   console.log(fname + " " + lname)
@@ -75,7 +78,7 @@ const addUserByPhone = async (req,res)=>{
   console.log(user.length);
 
   if(user.length === 0){    
-   const user = new UserModel(fname,lname,null,phone,hashPassword , date);
+   const user = new UserModel(fname,lname,null,phone,hashPassword , date , status);
     console.log(user);
    user.save();
    res.send(user);
@@ -144,7 +147,7 @@ const checkEmail = async(req,res) => {
     res.send(false);
   }
 }
-
+    
 const getAdminUser = async (req,res)=>{
   // res.send("getting all the admin users")
 

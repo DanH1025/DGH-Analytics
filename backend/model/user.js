@@ -1,20 +1,22 @@
 const db = require('../database/dbConn')
 
 module.exports = class Request {
-  constructor(fname,lname,email,phone, password, date){
+  constructor(fname,lname,email,phone, password, date,status){
     this.fname = fname;
     this.lname = lname;
     this.email = email;
     this.phone =phone;
     this.password = password;
     this.date = date;
+    this.status = status;
+    
     
   }
 
   save() {
     
     try{
-      db.execute('INSERT INTO user (fname,lname,email,phone_number,password,signUpDate) VALUES (?,?,?,?,?,?)', 
+      db.execute('INSERT INTO user (fname,lname,email,phone_number,password,signUpDate,status) VALUES (?,?,?,?,?,?,?)', 
       [  
         this.fname,
         this.lname,
@@ -22,6 +24,7 @@ module.exports = class Request {
         this.phone, 
         this.password,
         this.date,
+        this.status
       ])
 
     }catch(e){
@@ -138,5 +141,30 @@ module.exports = class Request {
     }
   }
 
+  static colCount (userId){
+    try {
+      const result = db.execute('SELECT COUNT(reachedCheckout) FROM user_log WHERE userId=?' , [userId])
+      return result
+    } catch (error) {
+      return error
+    }
+  }
+
+  static countOne (userId){
+    try {
+      const result = db.execute('SELECT COUNT(reachedCheckout) FROM user_log WHERE userId=? AND reachedCheckout=?' , [userId,1])
+      return result
+    } catch (error) {
+      return error
+    }
+  }
+  static countZero (userId){
+    try {
+      const result = db.execute('SELECT COUNT(reachedCheckout) FROM user_log WHERE userId=? AND reachedCheckout=?' , [userId,0])
+      return result
+    } catch (error) {
+      return error
+    }
+  }
 
 }

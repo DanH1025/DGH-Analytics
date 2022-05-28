@@ -101,9 +101,9 @@ module.exports = class Request {
     return db.execute('INSERT INTO search_history (search_key, search_category , search_date) VALUES (?,?,?)', [name,catagory ,date]);
   }
   //record add_to_cart
-  static recordAddToCart(id, quantity ){
+  static recordAddToCart(id, quantity ,userId){
     const date = new Date();
-    return db.execute('INSERT INTO cart_history (product_id, qty, date) VALUES (?,?,?)' , [id , quantity , date]);
+    return db.execute('INSERT INTO cart_history (product_id, qty, date, userId) VALUES (?,?,?,?)' , [id , quantity , date, userId]);
 
   }
 
