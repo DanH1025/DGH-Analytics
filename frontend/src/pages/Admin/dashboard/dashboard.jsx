@@ -215,7 +215,7 @@ export default function PM_Dashboard() {
         </div>
         <Divider />
         <List>
-          {['Dashboard', 'Product List', 'Add Products', 'WishList','Users', 'Order List', 'Goals','Hiring', 'Sth', 'Params'].map((text, index) => (
+          {['Dashboard', 'Product List', 'Add Products', 'WishList','Users', 'Order List','Hiring'].map((text, index) => (
             <>
             <ListItem button  onClick={()=>{
               setCompCounter(index)
@@ -228,9 +228,7 @@ export default function PM_Dashboard() {
                   index === 4 ? <GroupOutlinedIcon/> :
                   index === 5 ? <ListAltOutlined/> :
                   index === 6 ? <TrackChangesIcon/> :
-                  index === 7 ? <PersonAddOutlinedIcon/> :
-                  index === 8 ? <MailIcon/> :
-                  index === 9 ? <FavoriteBorderOutlinedIcon/> : ""
+                   ""
                              
                              }
               </ListItemIcon>
@@ -256,10 +254,10 @@ export default function PM_Dashboard() {
              compCounter === 3 ? <WishList/> :
              compCounter === 4 ? <UsersList/>:
              compCounter === 5 ? <Orders />: 
-             compCounter === 7 ? <Hiring />:
-             compCounter === 8 ? <DetailSalesAnalysis onMorePage={setCompCounter} />:
-             compCounter === 9 ? <DetailAverage onMorePage={setCompCounter}/>:
-             compCounter === 10 ? <DetailSessionAnalysis onMorePage={setCompCounter}/>:
+             compCounter === 6 ? <Hiring />:
+            //  compCounter === 8 ? <DetailSalesAnalysis onMorePage={setCompCounter} />:
+            //  compCounter === 9 ? <DetailAverage onMorePage={setCompCounter}/>:
+            //  compCounter === 10 ? <DetailSessionAnalysis onMorePage={setCompCounter}/>:
              "others"   
             }
 

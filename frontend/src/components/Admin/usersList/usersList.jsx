@@ -191,9 +191,9 @@ export default function UsersList() {
      
     }
 
+
+    const [dialogPage , setDialogPage] = useState(0)
    
-   
-    
     
   
     
@@ -255,7 +255,7 @@ export default function UsersList() {
      
 
     <div>
-      <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
+      <Dialog  onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}   >
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
             <div className="dialog_userInfoHolder">
                   <h2>Name: {userInfo.fname + " " + userInfo.lname}</h2>
@@ -266,30 +266,55 @@ export default function UsersList() {
 
             </div>
         </DialogTitle>
+        <div className="userAnalyticsTypeSlider">
+             <div className="reachedCheckoutPage" onClick={()=> setDialogPage(0)}  style={dialogPage === 0? {backgroundColor: "#574c7f", color:'white'} : {}}  >
+                <p>Checkout Status</p>
+             </div>
+             <div className="visitPage" onClick={()=> setDialogPage(1)}  style={dialogPage === 1? {backgroundColor: "#574c7f", color:'white'} : {}}   >
+               <p>Ordered From</p>
+             </div>
+             <div className="recentPerchases" onClick={()=> setDialogPage(3)}  style={dialogPage === 3? {backgroundColor: "#574c7f", color:'white'} : {}} >
+                <p>Perchase Info</p>
+             </div>
+          </div>
         <DialogContent dividers>
+          
             <div className="userAnalysisBody">
-              <div className="userAnalysisBodyLeft">
-                 <div className="checkoutRateHolder">
-                    <div className="chartHolder">                      
-                      <Chart
-                          className="userPieChart"
-                          options={stat.options}
-                          series={stat.series} 
-                          type="donut"
-                          height="120%"
-                          width="120%"         
-                          title='checkoutRate'
-                          />
+                {
+                  dialogPage === 0 ? (
+                    <div className="userAnalysisBodyLeft">
+                    <div className="checkoutRateHolder">
+                       <div className="chartHolder">                      
+                         <Chart
+                             className="userPieChart"
+                             options={stat.options}
+                             series={stat.series} 
+                             type="donut"                        
+                             title='checkoutRate'
+                             width={'100%'}
+                             height={'130%'}
+                             />
+                       </div>
+                      
                     </div>
-                   
+                    <div className="recentCartHistory">
+   
+                    </div>
                  </div>
-                 <div className="recentCartHistory">
 
-                 </div>
-              </div>
-              <div className="userAnalysisRight">
+                  ):
+                dialogPage === 1 ? (
+                  " visited From"
+                ): (
+                  "purchase histroy"
+                )
+                }
+
+              
+              {/* <div className="userAnalysisRight">
                 right
               </div>
+               */}
             </div>
 
 
