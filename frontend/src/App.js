@@ -86,10 +86,10 @@ function App() {
               <Route exact path='/adminDash' element={<Admin_Dashboard />} />
             </Route>
             
-            <Route element={<RequireAuth allowedRoles={'manager'}/>}>
-              {/* product Manager paths */}
+            {/* <Route element={<RequireAuth allowedRoles={'manager'}/>}>
+
+              </Route> */}
               <Route exact path='/productManagerDashboard' element={<PM_Dashboard />} />
-            </Route>
              
             <Route exact path='/adminstrationLogin' element={<AdminLogin />} />
 
