@@ -176,9 +176,9 @@ const recordSearchHistory = async(req,res)=>{
 }
 const recordAddToCartHistory = async(req,res)=>{
   console.log("recording whats added on the cart");
-  const {id, quantity} = req.body;
+  const {id, quantity, userId} = req.body;
   
-  await ProductModel.recordAddToCart(id, quantity);
+  await ProductModel.recordAddToCart(id, quantity, userId);
 }
 
 const changeVisits = async(req, res) => {

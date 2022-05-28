@@ -1,25 +1,92 @@
 import React from 'react'
 import './usersList.css'
-
-import { Table , Switch , message,Button} from 'antd';
-
 import {useState, useEffect} from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllProducts ,deleteProductById ,editProduct } from '../../../redux/actions/productActions';
-
-import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
-
-import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
-import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
-import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
-
-
-import { Drawer, Form, Col, Row, Input, Select, DatePicker, Space } from 'antd';
 import axios from 'axios';
 
+import { makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import { Button } from '@material-ui/core';
+
+//imports for dialog box
+import { withStyles } from '@material-ui/core/styles';
+import Dialog from '@material-ui/core/Dialog';
+import MuiDialogTitle from '@material-ui/core/DialogTitle';
+import MuiDialogContent from '@material-ui/core/DialogContent';
+import MuiDialogActions from '@material-ui/core/DialogActions';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import Typography from '@material-ui/core/Typography';
 
 
-const { Option } = Select;
+import Chart from "react-apexcharts";
+
+
+
+//user analysis dialog box content
+const styles = (theme) => ({
+  root: {
+    margin: 0,
+    padding: theme.spacing(2),
+  },
+  closeButton: {
+    position: 'absolute',
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+    color: theme.palette.grey[500],
+  },
+});
+
+const DialogTitle = withStyles(styles)((props) => {
+  const { children, classes, onClose, ...other } = props;
+  return (
+    <MuiDialogTitle disableTypography className={classes.root} {...other}>
+      <Typography variant="h6">{children}</Typography>
+      {onClose ? (
+        <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
+          <CloseIcon />
+        </IconButton>
+      ) : null}
+    </MuiDialogTitle>
+  );
+});
+
+const DialogContent = withStyles((theme) => ({
+  root: {
+    padding: theme.spacing(2),
+  },
+}))(MuiDialogContent);
+
+const DialogActions = withStyles((theme) => ({
+  root: {
+    margin: 0,
+    padding: theme.spacing(1),
+  },
+}))(MuiDialogActions);
+
+
+
+
+
+
+
+
+
+const useStyles = makeStyles({
+  table: {
+    minWidth: 650,
+  },
+});
+
+function createData(name, calories, fat, carbs, protein) {
+  return { name, calories, fat, carbs, protein };
+}
+
 
 
 
@@ -32,10 +99,14 @@ export default function UsersList() {
 
 
 
-    const dispatch = useDispatch();
+  
 
+
+
+  const classes = useStyles();
+
+  
     const [users ,setUsers] = useState([]);
-    // const [searchInput , setSearchInput] = useState('');
 
     useEffect(()=>{
       const fetchProducts = async ()=>{
@@ -47,232 +118,235 @@ export default function UsersList() {
       fetchProducts()
     }, [])
 
+    // console.log(users);
 
-   
+    const handleNext = async ()=>{
+      const response = await axios.post('http://localhost:5000/api/getAllUsers');
+      setUsers(response.data)
+   }
 
 
+    // for the dialog box
+    const [open, setOpen] = React.useState(false);
+
+   const [userInfo , setUserInfo]= useState({
+     id:'',
+     fname:'',
+     lname:'',
+     emal:'',
+     phone_number:'',
+     signUpDate:'',
+     status:''
+   });
 
 
-
-    // rowSelection objects indicates the need for row selection
-    const rowSelection = {
-        onChange: (selectedRowKeys, selectedRows) => {
-        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-    
-        },
-        onSelect: (record, selected, selectedRows ) => {
-        console.log(record, selected, selectedRows);
-      
-        console.log( selectedRows[0].id);
-        
-        },
-        onSelectAll: (selected, selectedRows, changeRows) => {
-      console.log(selected, selectedRows, changeRows);
-        },
-        getCheckboxProps: (record)=>{
-          //console.log(record)  
-        }  ,
-        selections: true,
-        hideSelectAll: true,
+  const handleClickOpen = () => {
+    // setUserInfo({...userInfo , fname: fname})
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
   };
 
+  const [checkoutRate , setCheckoutRate]= useState([]);
+  const [recentCart , setRecentCart]= useState([]);
 
-
-
-      
    
- 
-  const [fixedTop, setFixedTop] = React.useState(false);
+     const calcChechoutRate =  async (userId)=>{
+        const resp = await axios.post('http://localhost:5000/api/getUserCheckoutRate', {userId: userId})
+        console.log(resp);
+        setCheckoutRate(resp.data)
+     }
 
- 
+     const getRecetentCart = async(userId)=>{
+       const resp = await axios.post('http://localhost:5000/api/getRecentCartHistory',{userId:userId})
+       console.log(resp);
+       setRecentCart(resp.data)
+     }
 
-   //handle delete
-//    const DeleteProduct = (record) =>{
-//     console.log(record.id)    
-
-//     if(record.statusValue === 0){
-//       message.error("Product Already Deleted")
-//     }
-//     else{
-//       if(window.confirm("Are you sure you want to delete?")){
-//         dispatch(deleteProductById(record.id));
-//         setVisible(false);
-//         message.success("Deleted Successfully");
-//         // dispatch(getAllProducts());
-       
-//     }
-      
-//     }
-  
-
-//   }
-
-  //state for sidedrawer edit
-
-  const [visible , setVisible] = useState(false)
-  //state = { visible: false };
-
-  const showDrawer = () => {
-    setVisible(!visible);
-  };
-
-  const onClose = () => {
-    setVisible(false);
-  }
-
-//   const [editValues ,setEditValues] = useState({
-//     id:'',
-//     category:'',
-//     detail: '',
-//     image: '',
-//     name: '',
-//     brand: '',
-//     price: '',
-//     status:'',
-//     count_in_stock: '',
-//   })
-  // state for product list search bar
-
- 
-
-//   const EditProduct = (record) =>{
-   
-//     setEditValues({ ...editValues,
-//       id: record.id,
-//       category: record.category,
-//       image: record.image,
-//       detail: record.detail,
-//       name: record.name,
-//       brand: record.brand,
-//       price: record.price,
-//       count_in_stock: record.count_in_stock,
-//       status: record.statusValue 
-//     })
-
-//   }
+      console.log(checkoutRate);
 
 
-  const [sortedInfo ,setSortedInfo] = useState()
- 
-  const handleChange = (pagination, filters, sorter) =>{
-    console.log('Various parameters', pagination, filters, sorter);
-    setSortedInfo(sorter)
-  }
+     const stat = {  
 
-
-    const columns = [
-        {
-          title: 'ID',
-          dataIndex: 'id',
-          key: 'id',
-          fixed: 'left',
-          width: 30
+      series:  checkoutRate['one'] === null || checkoutRate['zero']=== null ? [0 , 0] :   [checkoutRate["zero"], checkoutRate["one"]],
+      options: {
+        chart: {
+          type: 'pie',
         },
-        {
-          title: 'First Name',
-          dataIndex: 'fname',
-          key: 'fname',
-          width:100,  
-          sorter: (a, b) => a.fname - b.fname     
-       
+        labels:[`Failed to reach Checkout ( ${checkoutRate['zero']} #)`,`Reached Checkout ( ${checkoutRate['one']} #)`],
+        // responsive: [{
          
-        },
-  
-        {
-            title: 'Last Name',
-            dataIndex: 'lname',
-            key: 'lname',
-            width:100,
-            sorter: (a, b) => a.lname - b.lname
-            
-           
-        },
-        {
-            title: 'Contact',
-            dataIndex: 'contact',
-            key: 'contact',
-            width:80,
-            sorter: (a, b) => a.contact - b.contact
-
-        },
-        {
-          title: 'SignUp Date',
-          dataIndex:'SU_date',
-          key: 'SU_date',
-          width:120
-        },   
-        {
-            title:'Status',
-            dataIndex: 'status',
-            key: "status",
-            width:60,
-            
-        },
-        // {
-        //   title: "Action",
-        //   key: "deleteAndEdit",
-        //   width: 70,
-          
-        //   render: (record) => {
-        //     return(
-        //       <>
-        //       <EditOutlinedIcon  onClick={()=> { 
-        //         showDrawer()  
-        //         EditProduct(record)} 
-        //       }
-        //         style={{color: "gray" , fontWeight: "bolder", cursor: "pointer" }}  />
-        //       <DeleteOutlineOutlinedIcon onClick={() =>{
-        //         DeleteProduct(record)
-        //       }}  style={{color: "red" , fontWeight: "bolder", cursor: "pointer" , marginLeft:10}}  />
-
-        //       </>
-        //     );
-        //   },
-        // },
-        
-
-      ];
-    
-    const data = [];     
-
-   
-      if(!users.length){
-          return <div>Empty</div>
-      }
-      else{      
-
-          users.map((val,key)=>{
-            data.push({
-                key: val.id,
-                id: val.id,
-                fname: val.fname,
-                lname: val.lname,
-                contact: val.email === null ? val.phone_number : val.email,
-                SU_date: val.signUpDate,
-                status:  val.status === "active"? <p className='active_status'>{val.status}</p> : <p className="de-active_status">{val.status}</p>  
-            })
-          })
-          
-      };
-
+        //   options: {
+        //     chart: {
+        //       width: 100
+        //     },
+        //     legend: {
+        //       position: 'bottom'
+        //     }
+        //   }
+        // }]
+      },
 
      
+    }
 
+   
+   
+    
+    
+  
     
     
   return (
+    <>
     <div className="productListPageHolder">
-  
+     
+      <TableContainer component={Paper}>
+      <Table className={classes.table} aria-label="caption table">
+        <caption>All Users table</caption>
+        <TableHead>
+          <TableRow>
+            <TableCell>UserID</TableCell>
+            <TableCell align="right">First Name</TableCell>
+            <TableCell align="right">Last Name</TableCell>
+            <TableCell align="right">Contact</TableCell>
+            <TableCell align="right">SignUp Date</TableCell>
+            <TableCell align='right'>Status</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {
+            !users?.length ? <div>Empty</div>:
 
-    <Table 
+            users.map((val,key)=>{
+                return (
+                  <>
+                     <TableRow key={val.id}  style={{cursor:'pointer'}} onClick={()=>{ 
+                       setUserInfo({...userInfo, id:val.id ,fname:val.fname, lname:val.lname,email:val.email,phone_number:val.phone_number, signUpDate:val.signUpDate, status:val.status }); 
+                       calcChechoutRate(val.id);
+                       handleClickOpen();
+                       
+                       }} > 
+                    <TableCell component="th" scope="val">
+                      {val.id}
+                    </TableCell>
+                    <TableCell align="right">{val.fname}</TableCell>
+                    <TableCell align="right">{val.lname}</TableCell>
+                    <TableCell align="right">{val.email === null? val.phone_number : val.email}</TableCell>
+                    <TableCell align="right">{val.signUpDate}</TableCell>
+                    <TableCell align='center'>{ val.status === "active"? <p className='active_status'>{val.status}</p> : <p className="de-active_status">{val.status}</p>}</TableCell>
+                  </TableRow>
+                  </>
+                )
+            })
+
+          }
+        </TableBody>
+      </Table>
+    </TableContainer>
+
+    <div className="nextButtonHolder">
+      <Button  onClick={handleNext} >
+          Next
+      </Button>
+    </div>
+</div>
+     
+
+    <div>
+      <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
+        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
+            <div className="dialog_userInfoHolder">
+                  <h2>Name: {userInfo.fname + " " + userInfo.lname}</h2>
+                  <hr /> 
+                  <p>Contact: {userInfo.email === null? userInfo.phone_number : userInfo.email}</p>
+                  <p>SignUpDate: {userInfo.signUpDate}</p>
+                  <p>Status: {userInfo.status}</p>
+
+            </div>
+        </DialogTitle>
+        <DialogContent dividers>
+            <div className="userAnalysisBody">
+              <div className="userAnalysisBodyLeft">
+                 <div className="checkoutRateHolder">
+                    <div className="chartHolder">                      
+                      <Chart
+                          className="userPieChart"
+                          options={stat.options}
+                          series={stat.series} 
+                          type="donut"
+                          height="120%"
+                          width="120%"         
+                          title='checkoutRate'
+                          />
+                    </div>
+                   
+                 </div>
+                 <div className="recentCartHistory">
+
+                 </div>
+              </div>
+              <div className="userAnalysisRight">
+                right
+              </div>
+            </div>
+
+
+
+         
+        </DialogContent>
+      </Dialog>
+    </div>
+
+         
+
+
+    </>
+  )
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {/* <Table 
     rowSelection={{ ...rowSelection }}
     columns={columns}
     dataSource={data}
     scroll={{ x: 1000 }}
     onChange={handleChange}
+    
     summary={pageData => (
           <Table.Summary fixed={fixedTop ? 'top' : 'bottom'}>
-            <Table.Summary.Row >
+            <Table.Summary.Row    >
           
               <Table.Summary.Cell   index={2} colSpan={8}>
                 
@@ -282,8 +356,4 @@ export default function UsersList() {
           </Table.Summary>
     )}
     sticky
-    />
-
-</div>
-  )
-}
+    /> */}

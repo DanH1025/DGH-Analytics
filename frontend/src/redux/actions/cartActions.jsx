@@ -29,13 +29,13 @@ export const addToCart =  (id,qtyCounter) => async (dispatch,getState)=>{
     // localStorage.setItem('cart', JSON.stringify(getState().cart.cartItems));
 };
 
-export const addToCartRecord = (id, qtyCounter) => async (dispatch)=>{
+export const addToCartRecord = (id, qtyCounter , userId) => async (dispatch)=>{
     try {
         dispatch({
             type: actionType.RECORD_ADD_TO_CART,
         })
 
-        await api.addToCartRecord(id, qtyCounter);
+        await api.addToCartRecord(id, qtyCounter, userId);
 
         
     } catch (error) {

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+ 
    
 const {getProducts, getAllProducts,addProduct, getProductsByCatagory, getProductsById,
          getProductsBySearch ,deleteProduct ,editProductValues ,recordSearchHistory ,
@@ -24,7 +24,7 @@ const {loginWithPhone , adminRegister } =
 const {getAllCategories} = require('../controller/categoryController')
 
 const {getNewProductManager , accessKeyGenerator , saveAccessKey, activatePM, diactivatePM} = require('../controller/productManagerController')
-
+const {calcCheckoutRate,getRecentCart} = require('../controller/calcController');
 
 
 const { route } = require('express/lib/application');
@@ -133,7 +133,17 @@ router.post('/diactivation', diactivatePM)
 
 //submitting comment
 router.post('/addComment', commentHandler);
-router.post('/getComment' , getComments)
+router.post('/getComment' , getComments);
+
+ 
+
+//user analysis
+router.post('/getUserCheckoutRate', calcCheckoutRate)
+// router.post('/getRecentCartHistory' , getRecentCart)
+
+
+
+
 
 module.exports = router;
  

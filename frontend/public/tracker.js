@@ -1,5 +1,7 @@
 // import { response } from "express";
 
+import { withSuccess } from "antd/lib/modal/confirm";
+
 
 
 // console.log(document.location); // the url
@@ -12,37 +14,40 @@
 
 // console.log(screen); // screen size
 
-let lati = '', longi = '';
+let lat = '', lng = '';
 
-// const sucess = async(postition) => {
-//   const { latitude, longitude } = postition.coords;
-//   console.log(latitude + ' : ' + longitude);
+const success = async(postition) => {
+  const { latitude, longitude } = postition.coords;
+  console.log(latitude + ' : ' + longitude);
 
-//   lati = latitude;
-//   longi = longitude;
+  lat = latitude;
+  lng = longitude;
 
-//   await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=018d9986cb5c483380337c7f6526c2fe`)
-//   .then(response => response.json())
-//   .then(data =>  printIt(data.results));
-//   // .then(() => console.log(loc));
-//   // .then(response => console.log(response.results[0].formatted));
-// }
+  await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=018d9986cb5c483380337c7f6526c2fe`)
+  .then(response => response.json())
+  .then(data =>  printIt(data.results));
+  // .then(() => console.log(loc));
+  // .then(response => console.log(response.results[0].formatted));
+}
 
-// navigator.geolocation.getCurrentPosition(sucess, console.log());
 
-// let loc = '';
 
-// let printIt = (data) => {
-//   console.log(data);
-//   data?.map((val) => {
-//     console.log(val.formatted);
-//     loc = val.formatted;
-//   })
-// }
 
-// console.log(loc);
-// console.log(lati);
-// console.log(longi);
+navigator.geolocation.getCurrentPosition(success, console.log());
+
+let loc = '';
+
+let printIt = (data) => {
+  console.log(data);
+  data?.map((val) => {
+    console.log(val.formatted);
+    loc = val.formatted;
+  })
+}
+
+console.log(loc);
+console.log(lat);
+console.log(lng);
 
 // let cookie_code="random_cookie_id";
 // let data_to_send=RegExp(cookie_code+"=[^;]+").exec(document.cookie);
@@ -57,7 +62,9 @@ const user = { referrer : document.referrer,
                href: document.location.href,
                screenWidth: screen.width,
                screenHeight: screen.height,
-               status: 'visit'
+               status: 'visit',
+               lat: lat,
+               lng:lng
               };
 console.log(user);
 

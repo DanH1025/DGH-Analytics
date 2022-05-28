@@ -18,12 +18,12 @@ import { getCagegory } from '../../../redux/actions/categoryActions'
 import { createUserLog } from '../../../redux/actions/userLogActions';
 //import redux actions to call all the functions
 // import { getProducts as listProducts } from '../../redux/actions/productActions'
-
+import { useCookies } from 'react-cookie';
 
 import StarsSharpIcon from '@material-ui/icons/StarsSharp';
 
 export default function Home() {
-  
+  const [cookies, setCookie] = useCookies(['user']);
   window.onbeforeunload = function(){
     console.log('want to leave');
     setCook();
@@ -52,9 +52,13 @@ export default function Home() {
       reachCheck = false;
     }else{
       reachCheck = true;
+    }if(cookies.uid){
+      dispatch(createUserLog(user.href,user.referrer,user.screenWidth,user.screenHeight,true,reachCheck,purchased,date,time, cookies.uid))
+    }else{
+      dispatch(createUserLog(user.href,user.referrer,user.screenWidth,user.screenHeight,true,reachCheck,purchased,date,time, null))
     }
 
-    dispatch(createUserLog(user.href,user.referrer,user.screenWidth,user.screenHeight,true,reachCheck,purchased,date,time));
+
 
     sessionStorage.removeItem('user');
     sessionStorage.removeItem('reachedCheckout');

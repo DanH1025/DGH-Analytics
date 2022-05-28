@@ -155,8 +155,11 @@ export default function ProductDetails() {
         }else{
 
             dispatch(addToCart(product.id , qtyCounter));
-
-            dispatch(addToCartRecord(product.id, qtyCounter))
+            if(!cookies.uid){
+              dispatch(addToCartRecord(product.id,qtyCounter, null))
+            }else{
+              dispatch(addToCartRecord(product.id, qtyCounter, cookies.uid))
+            }
             message.success("Added to Shopping Cart")
 
         }

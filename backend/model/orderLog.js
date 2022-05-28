@@ -1,23 +1,24 @@
 const db = require('../database/dbConn')
 
 module.exports = class Request {
-  constructor(href, referrer, screenWidth, screenHeight, addToCart, reachedCheckout, purchased, date, time){
+  constructor(href, referrer, screenWidth, screenHeight, addToCart, reachedCheckout, purchased, date, time,userId){
     this.href = href;
     this.referrer = referrer; 
     this.screenWidth = screenWidth; 
     this.screenHeight = screenHeight; 
     this.addToCart = addToCart; 
     this.reachedCheckout = reachedCheckout; 
-    this.purchased = purchased;
+    this.purchased = purchased; 
     this.date = date;
-    this.time = time; 
+    this.time = time;
+    this.userId = userId; 
   }
 
   save() {
     console.log('in order log modle');
     // const date = new Date().toISOString().slice(0, 10);
     try{
-      db.execute("INSERT INTO user_log (href, referrer, screenWidth, screenHeight, addToCart, reachedCheckout, purchased, date, time) VALUES (?,?,?,?,?,?,?,?,?)", 
+      db.execute("INSERT INTO user_log (href, referrer, screenWidth, screenHeight, addToCart, reachedCheckout, purchased, date, time, userId) VALUES (?,?,?,?,?,?,?,?,?,?)", 
       [ 
         this.href,
         this.referrer,
@@ -27,7 +28,8 @@ module.exports = class Request {
         this.reachedCheckout,
         this.purchased,
         this.date,
-        this.time
+        this.time,
+        this.userId
       ])
     }catch(e){
       console.log("order log save error: " + e);

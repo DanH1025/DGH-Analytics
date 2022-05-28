@@ -98,7 +98,7 @@ export const loginWithPhoneNumber = (phone,password)=>{
 
 
 // user log url
-export const createUserLogs = (href, referrer, screenWidth, screenHeight, addToCart, reachedCheckout, purchased, date, time) => 
+export const createUserLogs = (href, referrer, screenWidth, screenHeight, addToCart, reachedCheckout, purchased, date, time,userId) => 
   axios.post('http://localhost:5000/api/addUserLogs', {
     href : href,
     referrer : referrer, 
@@ -108,7 +108,8 @@ export const createUserLogs = (href, referrer, screenWidth, screenHeight, addToC
     reachedCheckout : reachedCheckout, 
     purchased : purchased,
     date : date,
-    time : time
+    time : time,
+    userId: userId
   });
 
 export const fetchUserLogs = () =>
@@ -246,10 +247,11 @@ export const productSearchRecord = (name,category)=>
       name: name,
       category: category
     })
-export const addToCartRecord = (id, qtyCounter)=>
+export const addToCartRecord = (id, qtyCounter, userId)=>
     axios.post(addToCartRecordUrl , {
       id: id,
-      quantity: qtyCounter
+      quantity: qtyCounter,
+      userId: userId
 
     })
 
