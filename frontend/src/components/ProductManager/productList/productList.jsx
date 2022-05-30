@@ -55,6 +55,16 @@ export default function ProductList() {
       fetchProducts()
     }, [searchInput])
 
+  //       useEffect(() => {
+  //         dispatch(getAllProducts(searchInput));
+  //       }, [dispatch]);
+      
+      
+  //  const products = useSelector((state) => state.getProduct.products);
+  
+   
+  //  console.log(products);
+
 
 
     const getActive = async()=>{
@@ -76,11 +86,6 @@ export default function ProductList() {
   }
 
     
-
-
-   
-
-
 
 
 

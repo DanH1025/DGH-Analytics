@@ -13,7 +13,7 @@ import { sliderData } from '../../../components/Client/imageSlider/sliderData'
 //import redux to use redux action and constants
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getProducts } from '../../../redux/actions/productActions';
+import { getProducts, recordProductVisit } from '../../../redux/actions/productActions';
 import { getCagegory } from '../../../redux/actions/categoryActions'
 import { createUserLog } from '../../../redux/actions/userLogActions';
 //import redux actions to call all the functions
@@ -27,7 +27,7 @@ export default function Home() {
   window.onbeforeunload = function(){
     console.log('want to leave');
     setCook();
-    //return 'Are you sure you want to leave?';
+    return 'Are you sure you want to leave?';
   };
 
   const setCook = () => {
@@ -42,6 +42,7 @@ export default function Home() {
 
     let purchased = sessionStorage.getItem('purchased');
     let reachCheck = sessionStorage.getItem ("reachedCheckout");
+    let addedToCart = sessionStorage.getItem("addToCart")
 
     if(purchased === null){
       purchased = false;
@@ -57,11 +58,28 @@ export default function Home() {
     }else{
       dispatch(createUserLog(user.href,user.referrer,user.screenWidth,user.screenHeight,true,reachCheck,purchased,date,time, null))
     }
+    if(addedToCart === null){
+      addedToCart = false 
+    }else{
+      if (addedToCart) {
+        addedToCart = true
+      }else{
+        addedToCart = false
+      }
+    }
+
+    dispatch(createUserLog(user.href,user.referrer,user.screenWidth,user.screenHeight,addedToCart,reachCheck,purchased,date,time, user.state, user.county));
 
 
     sessionStorage.removeItem('user');
     sessionStorage.removeItem('reachedCheckout');
     sessionStorage.removeItem('purchased');
+    sessionStorage.removeItem('addToCart');
+
+    let productVisit = JSON.parse(sessionStorage.getItem("productVisit"));
+    productVisit.map((item) => {
+      dispatch(recordProductVisit(Number(item)));
+    })
   }
   // const dispatch = useDispatch();
   // const getProducts = useSelector(state=>state.getProducts);
@@ -76,6 +94,7 @@ export default function Home() {
 
     
     console.log(sessionStorage.getItem('user'));
+    
 
  	}, [dispatch]);
 
