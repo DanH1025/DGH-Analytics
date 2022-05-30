@@ -107,6 +107,15 @@ export default function ProductDetails() {
         }
         fetchComments();
         console.log("the comments" + allComments);
+
+        let productVisit = JSON.parse(sessionStorage.getItem("productVisit"));
+        if(productVisit === null){
+          productVisit = [];
+          productVisit.push(id);
+        }else{
+          productVisit.push(id);
+        }
+        sessionStorage.setItem("productVisit", JSON.stringify(productVisit));
     },[])
 
 	const produc = useSelector((state) => state.getProductsDetail.product);
@@ -158,9 +167,15 @@ export default function ProductDetails() {
 
             dispatch(addToCartRecord(product.id, qtyCounter))
             message.success("Added to Shopping Cart")
-
         }
 
+        let cart = sessionStorage.getItem('addToCart');
+        if(cart === null){
+            cart = 1;
+        }else{
+            cart = Number(cart) + 1;
+        }
+        sessionStorage.setItem('addToCart', cart);
     }
     // adding to wishlist
     const addToWishlistHandler = ()=>{

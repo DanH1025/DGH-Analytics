@@ -35,6 +35,8 @@ export default function Cart() {
         console.log(path);
         setLocation(path);
         console.log(location);
+
+        
     })
 
     const qtyChangeHandler = (id,qty) =>{
@@ -43,6 +45,13 @@ export default function Cart() {
 
     const removeFromCartHandler=(id) =>{
         dispatch(removeFromCart(id));
+        let cart = sessionStorage.getItem('addToCart');
+        if(cart === null){
+            cart = 0;
+        }else{
+            cart = Number(cart) - 1;
+        }
+        sessionStorage.setItem('addToCart', cart);
     }
 
     //handle how many items are in the total cart

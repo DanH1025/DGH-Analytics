@@ -123,7 +123,7 @@ export default function Home({onMorePage}) {
   const orders = [];
   {
     orderReports?.map((order) => {
-      dates.push(order.date);
+      dates.push((order.date).slice(5));
       prices.push(order.total);
       orders.push(order.orders);
       priceAverage.push(order.average);
@@ -158,7 +158,7 @@ export default function Home({onMorePage}) {
                 <Charts 
                   title='Total Sales'
                   middleTotal={ totalPrice + ' ETB'   }
-                  dates={days.reverse()}
+                  dates={dates.reverse()}
                   chartData={prices.reverse()}
                   chartType="area"
                   index={8}

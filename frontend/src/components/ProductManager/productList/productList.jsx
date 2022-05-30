@@ -62,16 +62,7 @@ export default function ProductList() {
   //  const products = useSelector((state) => state.getProduct.products);
   
    
-
-
-
-
   //  console.log(products);
-
-   
-
-
-
 
 
     // rowSelection objects indicates the need for row selection

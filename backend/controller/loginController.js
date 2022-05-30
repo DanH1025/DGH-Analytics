@@ -58,8 +58,6 @@ const adminRegister = async(req,res)=>{
     } catch (error) {
         res.status(401).send("SignUp Faild!")
     }
-
-    
 }
 
 const loginWithPhone = async(req,res)=>{

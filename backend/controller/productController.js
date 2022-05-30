@@ -184,7 +184,8 @@ const recordAddToCartHistory = async(req,res)=>{
 const changeVisits = async(req, res) => {
   const id = req.body.id;
   await ProductModel.addVisits(id);
- }
+  res.send(200);
+}
 
 
 
