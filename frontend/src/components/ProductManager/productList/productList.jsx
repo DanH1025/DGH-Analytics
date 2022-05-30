@@ -44,6 +44,7 @@ export default function ProductList() {
     const [products ,setProducts] = useState([]);
     const [searchInput , setSearchInput] = useState('');
     const [searchCategory , setSearchCategory] = useState('');
+    const [category , setCategory] = useState(0);
 
     useEffect(()=>{
       const fetchProducts = async ()=>{
@@ -63,6 +64,29 @@ export default function ProductList() {
   
    
   //  console.log(products);
+
+
+
+    const getActive = async()=>{
+      setCategory(1);
+      const res = await axios.get('http://localhost:5000/api/getActiveProducts');
+      setProducts(res.data);
+      
+  }
+
+  const getAll = async ()=>{
+    setCategory(0);
+    const res = await axios.get(`http://localhost:5000/api/getAllProducts?sq=${searchInput}`);
+    setProducts(res.data)
+  }
+  const getDiactive = async ()=>{
+    setCategory(2);
+    const res = await axios.get('http://localhost:5000/api/getDiactiveProducts');
+    setProducts(res.data)
+  }
+
+    
+
 
 
     // rowSelection objects indicates the need for row selection
@@ -301,6 +325,7 @@ export default function ProductList() {
           
       };
 
+    
 
      
 
@@ -309,6 +334,21 @@ export default function ProductList() {
     <>
    <div className="productListPageHolder">
     <div className="searchBarContainer">
+        <div className="sorter">
+          <div className="active_only">
+              <div className="active_only_wrapper">
+                <div className="all_products" onClick={getAll}  style={category === 0 ? {backgroundColor:'orange', color:'white'}:{}}  >
+                  <p>All</p>
+                </div>
+                <div className="active_products"  onClick={getActive}  style={category === 1 ? {backgroundColor:'orange', color:'white'}:{}}   >
+                  <p>Active</p>
+                </div>
+                <div className="diactive_products" onClick={getDiactive}  style={category === 2 ? {backgroundColor:'orange', color:'white'}:{}}   >
+                  <p>Diactive</p>
+                </div>
+              </div>
+          </div> 
+        </div> 
        <div className="productList_searchBarWrapper">
             <input type="text" 
                    className='productList_searchBar' 

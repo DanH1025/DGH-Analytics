@@ -101,7 +101,7 @@ export default function AdminLogin() {
 					// navigate(from, { replace: true });
 				}else{
 					console.log('slave');
-					// navigate('/productManagerDashboard')
+					navigate('/productManagerDashboard')
 					setErrMsg('Some error');
 				}
     	}catch (err) {
