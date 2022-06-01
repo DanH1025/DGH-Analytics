@@ -334,7 +334,7 @@ export default function Home({onMorePage}) {
                   <p className="cr_title_content" >Top location</p>
                   <span className="cr_title_more">
                     <Button onClick={() => {
-                      onMorePage(11)
+                      onMorePage(12)
                       }}>More</Button> 
                   </span>
                 </div>

@@ -3,6 +3,10 @@
   /* height: 300px; */
 }
 
+*{
+  font-family: sans-serif;
+}
+
 .cha{
   /* border: 1px solid black; */
   padding: 15px;
@@ -10,3 +14,18 @@
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
+.tops{
+  display: flex;
+}
+
+.tops h3{
+  padding-left: 2rem;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+}
+
+.table{
+  background-color: white;
+  padding: 15px;
+}
