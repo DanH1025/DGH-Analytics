@@ -12,46 +12,56 @@ const addOrderReport = async (req, res) => {
   console.log('sum:');
   console.log(sum[0][0]["SUM(total)"]);
   let total = sum[0][0]["SUM(total)"];
+  if(total === null){total = 0}
 
   const cost = await OrderModle.totalCost(date);
   console.log('cost:');
   console.log(cost[0][0]["SUM(total)"]);
   let cos = cost[0][0]["SUM(cost)"];
+  if(cos === null){cos = 0}
   // console.log(sum);
 
   const no_item = await OrderModle.totalItem(date);
   console.log('cost:');
   console.log(no_item[0][0]["SUM(no_item)"]);
   let items = no_item[0][0]["SUM(no_item)"];
+  if(items === null){items = 0}
   // console.log(sum);
 
   const no_orders = await OrderModle.completeOrderComplete(date);
   console.log('order count: ');
   console.log(no_orders[0][0]["COUNT(status)"]);
   const order = no_orders[0][0]["COUNT(status)"];
+  if(order === null){order = 0}
 
-  const average = total/order;
+
+  let average = 0;
+  if(order != 0){
+    average = total/order;
+  }
   console.log('average' + average);
   
   const [userByDate, metaDat] = await OrderLogModel.fetchTotalUserByDate(date);
   console.log(userByDate[0]['userToday']);
-  const session = userByDate[0]['userToday'];
+  let session = userByDate[0]['userToday'];
+  if(session === null){session = 0}
   
   const [addToCartByDate, metaDa] = await OrderLogModel.addToCartCountByDate(date);
   console.log(addToCartByDate[0]['cartCount']);
-  const addToCart = addToCartByDate[0]['cartCount'];
-  
+  let addToCart = addToCartByDate[0]['cartCount'];
+  if(addToCart === null){addToCart = 0}
+
   const [checkoutByDate, metaD] = await OrderLogModel.reachCheckCountByDate(date);
   console.log(checkoutByDate[0]['checkoutCount']);
-  const reachedCheckout = checkoutByDate[0]['checkoutCount'];
+  let reachedCheckout = checkoutByDate[0]['checkoutCount'];
+  if(reachedCheckout === null){ reachedCheckout = 0 }
   
   const [outByDate, meta] = await OrderLogModel.purchaseCountByDate(date);
   console.log(outByDate[0]['purchaseCount']);
-  const converted = outByDate[0]['purchaseCount'];
+  let converted = outByDate[0]['purchaseCount'];
+  if(converted === null){converted = 0}
 
 
-
-  
   let orders;
   if (total === null || order === null) {
     orders = new OrderReportModel(date,0,0 ,0,0,0,0,0,0,0);
