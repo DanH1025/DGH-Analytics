@@ -68,7 +68,7 @@ module.exports = class Request {
 
   static fetchByCategory(name) {
     try{
-       const result =db.execute('SELECT * FROM product WHERE product.productCategory = ?', [name]);
+       const result =db.execute('SELECT * FROM product WHERE product.productCategory = ? AND product.status =?', [name, '1']);
        return result;
     }catch(err){
       console.log(err);
@@ -88,11 +88,11 @@ module.exports = class Request {
   }
 
   static findByName(name) {
-    return db.execute('SELECT * FROM product WHERE product.productName LIKE ?', ["%"+name+"%"]);
+    return db.execute('SELECT * FROM product WHERE product.productName LIKE ? AND product.status = ?', ["%"+name+"%", '1']);
   }
 
   static findByNameCategory(name, category) {
-    return db.execute('SELECT * FROM product WHERE productCategory = ? AND product.productName LIKE ?', [category, "%"+name+"%"]);
+    return db.execute('SELECT * FROM product WHERE productCategory = ? AND product.productName LIKE ? AND product.status =?', [category, "%"+name+"%", '1']);
   }
 
   //record search 

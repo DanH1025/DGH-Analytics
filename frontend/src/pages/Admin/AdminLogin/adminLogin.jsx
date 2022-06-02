@@ -73,13 +73,14 @@ export default function AdminLogin() {
 
     const onFinish = async (values) =>{
         //  console.log('Success:', values);    
-			const email = values.email;
-			const password = values.password;         
+			const email = values.email_log;
+			const password = values.password_log;    
+			console.log(email+ password + "from admin login")     
     	try {
 				const response = await axios.post('http://localhost:5000/api/getAdminUser', 
 					{
-						email: values.email,
-						password: values.password
+						email: email,
+						password: password
 					}
 				)
 				console.log(response.data);
@@ -128,21 +129,36 @@ export default function AdminLogin() {
 			console.log('sign up' + value);			
 			
 			try {
-				const response = await axios.post('http://localhost:5000/api/adminRegister',{
-					userName: regVal.userName,
-					email: regVal.email,
-					password: regVal.password,
-					accessKey: regVal.access_key
-				})
-
-				console.log("this is the admin signup finishing");
-				console.log(response.status);
-				if(response.status === 200){
-					setSuccessMsg("SignUp Successful");
-					setRegVal({...regVal , userName:'' , email:'',confirm_email:'', access_key:'', password:'', confirm_password:''});
-					setSignupOrLogin(false);
-					message.success("SignUp Successful");
+				
+				if(regVal.userName.length < 3){
+					setErrMsg('UserName must be more than 3 characters')
+				}else if(regVal.email !== regVal.confirm_email){
+					setErrMsg("Emails dont match")
+				}else if(regVal.password !== regVal.confirm_password){
+					setErrMsg("Passwords dont match")
+				}else if (regVal.password.length < 6){
+					setErrMsg("Password must be more than 6 characters")
+				}else if(regVal.access_key.length > 5 || regVal.access_key.length < 5){
+					setErrMsg("Invalid Access Key")
+				}else{
+					const response = await axios.post('http://localhost:5000/api/adminRegister',{
+						userName: regVal.userName,
+						email: regVal.email,
+						password: regVal.password,
+						accessKey: regVal.access_key
+					})
+	
+					console.log("this is the admin signup finishing");
+					console.log(response.status);
+					if(response.status === 200){
+						setSuccessMsg("SignUp Successful");
+						setRegVal({...regVal , userName:'' , email:'',confirm_email:'', access_key:'', password:'', confirm_password:''});
+						setSignupOrLogin(false);
+						message.success("SignUp Successful");
+					}
 				}
+
+				
 
 			} catch (err) {
 				console.log(err.response.status); 
@@ -187,10 +203,10 @@ export default function AdminLogin() {
 								<div className="al_body">
 
 									<Form 
-										name="normal_login"
+										name="normal_signup"
 										className="admin_register_form"      onFinish={onSignUpFinish}>
 										<Form.Item
-											name="user_name"
+											name="user_name_reg"
 											rules={[{required: true
 											, message: "UserName is required" 
 										}]}>
@@ -204,7 +220,7 @@ export default function AdminLogin() {
 										</Form.Item>
 
 										<Form.Item
-												name="email"
+												name="email_reg"
 												rules={[{required: true
 														, message: "Email is not Valid",
 															pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
@@ -219,7 +235,7 @@ export default function AdminLogin() {
 										</Form.Item>
 
 										<Form.Item
-												name="confirm_email"
+												name="confirm_email_reg"
 												rules={[{required: true
 														, message: "confirm your email" ,
 														pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
@@ -234,7 +250,7 @@ export default function AdminLogin() {
 										</Form.Item>
 
 										<Form.Item
-												name="access_key"
+												name="access_key_reg"
 												rules={[{required: true
 														, message: "Access key is required"
 														}]}
@@ -247,7 +263,7 @@ export default function AdminLogin() {
 										</Form.Item>
 
 										<Form.Item
-												name="password"
+												name="password_reg"
 												rules={[{required: true
 														, message: "Password is required",                                                
 														}]}
@@ -260,7 +276,7 @@ export default function AdminLogin() {
 										</Form.Item>
 
 										<Form.Item
-												name="confirm_password"
+												name="confirm_password_reg"
 												rules={[{required: true
 														, message: "conifrm your password"
 														}]}
@@ -283,7 +299,8 @@ export default function AdminLogin() {
 									</Form>
 								</div>
 
-									<p onClick={()=> setSignupOrLogin(false)}>
+									<p onClick={()=> {setSignupOrLogin(false) 
+													 setErrMsg('')}}>
 										Login
 									</p>
 							</>
@@ -299,18 +316,19 @@ export default function AdminLogin() {
 										className="login_form"
 										onFinish={onFinish}>
 											<Form.Item
-												name="email"
+												name="email_log"
 												rules={[{required: true, message: "Email is required"}]}>
 												<Input type="text" 
-																prefix={<MailOutlineIcon/>} 
-																placeholder="Email Address"/>
+														prefix={<MailOutlineIcon/>} 
+														placeholder="Email Address"/>
 											</Form.Item>
 
 											<Form.Item
-												name="password"
+												name="password_log"
 												rules={[{required: true, message: "Password is required"}]}>
 												<Input type="password" 
-													prefix={<LockOpenIcon />} placeholder="Password"/>
+														prefix={<LockOpenIcon />} 
+														placeholder="Password"/>
 											</Form.Item>
 
 											<Form.Item name="login">
@@ -323,7 +341,9 @@ export default function AdminLogin() {
 										</Form>   
 									</div>                              
 										
-									<p onClick={()=> setSignupOrLogin(true)}>SignUp</p>
+									<p onClick={()=> {setSignupOrLogin(true)
+														 setErrMsg('');
+														}}>SignUp</p>
 										
 								</>
 							)

@@ -48,7 +48,7 @@ module.exports = class Request {
 
   static fetchInprogress() {
     try{
-       const result =db.execute('SELECT orders.orderId, user.fname, user.lname, user.email, orders.total , orders.latitude,orders.longitude,orders.contact , orders.status, orders.cost, orders.no_item FROM user INNER JOIN orders ON orders.userId = user.id WHERE orders.status = "pending" OR orders.status = "inProgress"');
+       const result =db.execute('SELECT orders.orderId, user.fname, user.lname, user.email, orders.total , orders.latitude,orders.longitude,orders.contact , orders.status, orders.cost, orders.no_item FROM user INNER JOIN orders ON orders.userId = user.id WHERE orders.status = ?' , ["inProgress"]);
        return result;
     }catch(err){
       console.log(err);

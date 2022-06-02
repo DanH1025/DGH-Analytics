@@ -2,6 +2,19 @@ import * as actionType from '../constants/productConstant';
 import * as api from '../api/index';
 
 
+export const getFiveProducts = () => async (dispatch)=>{
+    try {
+        
+    } catch (error) {
+        dispatch({
+            type:actionType.GE_TOP_FIVE_PRODUCTS_FAIL,
+            payload: 
+                error.response && error.response.data.message 
+                ?error.response.data.message:error.message,
+        }); 
+    }
+}
+
 
 export const submitComment = (comment , userId, productId, productName ) => async (dispatch)=>{
     try {

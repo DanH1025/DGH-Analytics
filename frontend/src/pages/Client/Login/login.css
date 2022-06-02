@@ -118,7 +118,7 @@ body{
 
 .userLoginHeader h2,
 .userCreateAccHeader h2{
-    width: 100%;
+    width: fit-content;
     color: rgb(0, 0, 0);
     font-size: 33px;
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -152,11 +152,19 @@ body{
 .loginForm{
     display: flex;
     flex-direction: column;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+    justify-content: center;
 }
 .SignupForm{
     display: flex;
     flex-direction: column;
     margin-top: 30px;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
 }
 
 .userLoginFormButton {

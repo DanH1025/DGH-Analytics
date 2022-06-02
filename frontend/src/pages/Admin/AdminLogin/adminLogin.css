@@ -16,12 +16,12 @@ body{
 }
 
 .errmsg {
-    background-color: lightpink;
+    background-color: rgb(214, 38, 68);
     width: 100%;
     display: flex;
     align-items: center;
-    color: firebrick;
     font-weight: bold;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     padding: 0.5rem;
     margin-bottom: 0.5rem;
 }
@@ -69,20 +69,22 @@ body{
 
 .al_container{
     display: flex;
-    width: 35%;
+    width: 30%;
     height: fit-content;
     /* border: 1px solid black; */
     background: rgb(103, 111, 234);
     border-radius: 4px;
+    align-items: center;
+    justify-content: center;
 }
 .al_container_wrapper{
     display: flex;
+    width: 100%;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 0;
     margin: 0;
-    width: 100%
     
 }
 
@@ -106,10 +108,16 @@ body{
     margin-top: 8px;
 }
 
+.ant-row.ant-form-item {
+    width: 100%;    
+}
+
+
+
 .al_body{
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 100% ;
     flex: 2;
     align-items: center;
     justify-content: center;
@@ -117,7 +125,86 @@ body{
     margin: 5px auto;
 }
 
-.al_email_container,
+
+#normal_login,#normal_signup{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    height: 80%;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+}
+
+.ant-input-affix-wrapper > input.ant-input {
+    padding: 0;
+    border: none;
+    outline: none;
+    font-size: 12px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: lighter;
+
+}
+.ant-input-prefix svg{
+    font-size: 17px;
+}
+
+@media(max-width:845px){
+    .adminLoginWrapper{
+        display: flex;
+        width: 90%;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+        justify-content: center;
+        align-items: center;
+        
+    }
+    .al_container{
+        display: flex;
+        width: 50%;
+        height: fit-content;
+        /* border: 1px solid black; */
+        background: rgb(103, 111, 234);
+        border-radius: 4px;
+        align-items: center;
+        justify-content: center;
+    }
+    .al_header h4{
+        font-size: 22px;
+      
+    }
+    .ant-input-prefix svg{
+        font-size: 15px;
+    }
+}
+
+@media(max-width:515px){
+    
+    .al_container{
+        display: flex;
+        width: 70%;
+       ;
+    }
+    .al_header h4{
+        font-size: 20px;
+      
+    }
+    .ant-input-prefix svg{
+        font-size: 13px;
+    }
+    .ant-input-affix-wrapper > input.ant-input {
+        font-size: 11px;      
+    }
+}
+
+
+
+
+
+/* .al_email_container,
 .al_password_container,
 .al_username_container,
 .al_confirm_email_container,
@@ -176,7 +263,7 @@ body{
     justify-content: center;
     flex: 1;
     
-}
+} */
 .MuiButtonBase-root.MuiButton-root.MuiButton-text.al_login_btn{
     background-color: rgb(243, 168, 6);
     color: white;

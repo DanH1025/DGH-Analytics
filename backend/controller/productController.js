@@ -109,7 +109,7 @@ const getAllProducts = async(req,res) => {
 const getProductsByCatagory = async(req,res) => {
   console.log('in get product by catagory');
   console.log(req.body.category);
-  const catagory= req.body.category;
+  const catagory= req.body.category; 
   console.log('cat: ' + catagory);
   console.log('in appi get product catagory');
   const [product, metaData] = await ProductModel.fetchByCategory(catagory);
@@ -120,7 +120,7 @@ const getProductsByCatagory = async(req,res) => {
 const getProductsById = async(req,res) => {
   console.log('in get product by id');
   const id= req.body.id;
-  console.log('cat: ' + id);
+  console.log('cat: ' + id);      
   console.log('in appi get product id');
   const [product, metaData] = await ProductModel.findById(id);
   // console.log(product);

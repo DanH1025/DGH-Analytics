@@ -46,7 +46,7 @@ export default function SearchResult() {
  	//   dispatch(getProductsBySearch(name, category));
  	// }, [dispatch]);
 
-   const products = useSelector((state) => state.getProductsSearch.productSearch);
+   const products = useSelector((state) => state.getProductsSearch.products);
    console.log(products);
    // setProdcuts(products);
    // let displayedProducts = [];

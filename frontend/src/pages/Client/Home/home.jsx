@@ -148,6 +148,7 @@ export default function Home() {
                                 title={val.ctgr_title}
                                 rating={val.ctgr_rating}
                                 image={val.ctgr_img}
+                                value={val.ctgr_value}
                               
                               />
                             )
