@@ -35,15 +35,19 @@ export default function Home() {
   
   // const componentWillUnmount = () => {
   //   window.removeEventListener("beforeunload", function(){
-  //     console.log('want to leave');
-  //     setCook();
-  //     return 'Are you sure you want to leave?';
+    //     setCook();
+    //     return 'Are you sure you want to leave?';
   //   });
   // }
 
+  // window.addEventListener('beforeunload', (event) => {
+  //   console.log('want to leave');
+  //   event.returnValue = `Are you sure you want to leave?`;
+  // });
+  
   window.onbeforeunload = function(){
     console.log('want to leave');
-    setCook();
+      setCook();
     return 'Are you sure you want to leave?';
   };
 

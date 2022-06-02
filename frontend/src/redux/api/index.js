@@ -85,7 +85,15 @@ export const admin_signup = (userName, email, password, accessKey)=>{
   })
 }
 
+export const fetchOrderReportByYear = () =>{
+  return axios.post('http://localhost:5000/api/getMonthYearOrderReport');
+}
 
+export const fetchOrderReportByMonth = (month) =>{
+  return axios.post('http://localhost:5000/api/getMonthDayOrderReport', {
+    month: month
+  });
+}
 
 
 export const loginWithPhoneNumber = (phone,password)=>{

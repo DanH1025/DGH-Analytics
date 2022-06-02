@@ -111,6 +111,61 @@ const getLastWeekOrderReports = async(req,res) => {
   res.send(order);
 }
 
+const getMonthOrderReports = async(req,res) => {
+  let month = req.body.month;
+  console.log(month);
+  month = '' + month;
+  if(month.length < 2){
+    month = '0'+month;
+  }
+  console.log(month.length);
+  // month = '04';
+  const [order, metaData] = await OrderReportModel.fetchByDaysOfMonth(month); 
+  console.log(order);
+  res.send(order);
+}
+
+const getMonthsOrderReports = async(req,res) => {
+  const currentMonth = new Date().getMonth() + 1;
+  let monthData = [];
+  for(let i = currentMonth; i>0; i--){
+    let month = ''+ i;
+    console.log(i.length);
+    if(month.length < 2){
+      console.log(month + ' :inside');
+      month = '0' + month;
+    }
+    console.log(month);
+    const [order, metaData] = await OrderReportModel.fetchByMonth(month);
+
+    order[0]["id"] = i;
+    order[0]["date"] = getMonth(i);
+    console.log(order[0]);
+    monthData.push(order[0]) ;
+  }
+  // console.log(order);
+  res.send(monthData);
+}
+
+const getMonth = (month) => {
+  switch (month) {
+    case 1:
+      return "January"
+    case 2:
+      return "February"
+    case 3:
+      return "March"
+    case 4:
+      return "April"
+    case 5:
+      return "June"
+    case 6:
+      return "July"
+    default:
+      return "Month"
+  }
+}
+
 const getTotalOrder = async(req,res) => {
   const date = new Date().toISOString().slice(0, 10);
   const sum = await OrderModle.totalSum(date);
@@ -148,6 +203,8 @@ module.exports = {
 	addOrderReport,
 	getOrderReports,
   getLastWeekOrderReports,
+  getMonthsOrderReports,
+  getMonthOrderReports,
   getTotalOrder,
   updateReports
 };

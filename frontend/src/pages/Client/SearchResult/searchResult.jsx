@@ -52,6 +52,7 @@ export default function SearchResult() {
    // let displayedProducts = [];
    
    const [displayedProducts, setProdcuts] = useState(products);
+   
    useEffect(() => {
      setProdcuts(products);
    }, [products])
