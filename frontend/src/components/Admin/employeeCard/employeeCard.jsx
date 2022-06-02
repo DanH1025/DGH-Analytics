@@ -42,7 +42,7 @@ export default function EmployeeCard({key, user_name, email, accessKey, status ,
 
   const handleActivation = async() =>{
     window.alert("Are you sure you want to Activate User");
-    if(empInfo.Status === 'Diactive'){
+    if(empInfo.Status === 'Diactive' || empInfo.Status === "pending"){
       setEmpInfo({...empInfo, Status: "Active"})
       const response = await axios.post('http://localhost:5000/api/activation', {
         email: email
@@ -137,6 +137,10 @@ export default function EmployeeCard({key, user_name, email, accessKey, status ,
             empInfo.Status === 'Active'? 
             <Button onClick={handleDiactivation} color="primary">
               Diactivate
+            </Button>  :
+            empInfo.status === 'pending' ?
+            <Button onClick={handleActivation} color="primary">
+              Activate
             </Button>  :
            <Button onClick={handleActivation} color="primary">
               Activate

@@ -147,14 +147,15 @@ const checkEmail = async(req,res) => {
     res.send(false);
   }
 }
-    
+      
 const getAdminUser = async (req,res)=>{
   // res.send("getting all the admin users")
 
   const{email, password} = req.body;
 
-  console.log(email + password);
-  const hashPass = await bcrypt.hash(password,8);
+  console.log("from admin login controller " +email + password);
+
+  // const hashPass = await bcrypt.hash(password,8);
   try{
     const [user, metaData] = await UserModel.fetchAdminUser(email);
   

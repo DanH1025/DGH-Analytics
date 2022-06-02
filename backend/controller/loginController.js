@@ -78,7 +78,7 @@ const loginWithPhone = async(req,res)=>{
         if(isCorrect){ 
             console.log("Login Successfull")
             console.log(phone);
-            const resp = [];   
+            const resp = [];      
             resp.push(data[0]);
 
             let options = { 
@@ -95,7 +95,7 @@ const loginWithPhone = async(req,res)=>{
 
            // res.send("this is what the data should be")
      
-        }else{ 
+        }else{  
             console.log("Login failed")
             res.status(401).send("Error")
         }

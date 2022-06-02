@@ -127,8 +127,11 @@ export default function Topbar() {
       // console.log('search handler');
       // console.log(searchValue.searchValue);
       // console.log('category' + searchCategory);
-      dispatch(getProductsBySearch(searchValue.searchValue, searchCategory));
-      dispatch(recordProductSearch(searchValue.searchValue, searchCategory))
+      if(searchValue.searchValue !== ''){
+        dispatch(getProductsBySearch(searchValue.searchValue, searchCategory));
+        dispatch(recordProductSearch(searchValue.searchValue, searchCategory))
+
+      }
     }
 
     //for the dialog
@@ -355,7 +358,7 @@ export default function Topbar() {
                   </div>
                   <div className="searchInput">
                     <input  
-                    placeholder='Search...' 
+                    placeholder='Search' 
                     name='search'
                     value={searchValue.task}
                     onChange={(e) => {

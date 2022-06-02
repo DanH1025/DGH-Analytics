@@ -121,24 +121,41 @@ export const getProductsDetailsReducer = (state = {product: []}, action)=>{
     }
 }
 
-export const getProductsSearchReducer = (state = {productSearch: []}, action)=>{
+export const getProductsSearchReducer = (state = {products: []}, action)=>{
     switch(action.type){
         case actionTypes.GET_PRODUCTS_BY_SEARCH_REQUEST:
             return{
                 loading: true,
-                productSearch: []
+                products: []
             }
         case actionTypes.GET_PRODUCTS_BY_SEARCH_SUCCESS:
             return{
                 loading:false,
-                productSearch: action.payload,
+                products: action.payload,
             }  
         case actionTypes.GET_PRODUCTS_BY_SEARCH_FAIL:
             return{
                 loading:false,
                 error: action.payload,
-                productSearch: []
+                products: []
             }
+            //for the category selection done on the home page
+            case actionTypes.GET_PRODUCTS_BY_CATEGORY_REQUEST:
+                return{
+                    loading: true,
+                    products: []
+                }
+            case actionTypes.GET_PRODUCTS_BY_CATEGORY_SUCCESS:
+                return{
+                    loading:false,
+                    products: action.payload,
+                }  
+            case actionTypes.GET_PRODUCTS_BY_CATEGORY_FAIL:
+                return{
+                    loading:false,
+                    // error: action.payload,
+                    products: []
+                }
         default:
             return state;
     }

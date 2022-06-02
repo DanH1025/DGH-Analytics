@@ -86,14 +86,14 @@ router.post('/editProduct' , editProductValues)
 router.post('/addVisits', changeVisits)
 
 // user routes
-// router.post('/addUser', addUser);
+// router.post('/addUser', addUser); 
 
 router.post('/addUserByPhone', addUserByPhone)
 router.post('/addUserByEmail', addUserByEmail)
 router.post('/getUsers', getUser); 
 router.post('/getAllUsers' , getAllUser)
 router.post('/checkUserPhone', checkUser)
-router.post('/checkEmail', checkEmail)
+router.post('/checkEmail', checkEmail) 
 
 //get product manager route
 router.get('/getNewProductManager' , getNewProductManager)

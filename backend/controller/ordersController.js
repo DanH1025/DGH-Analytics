@@ -17,7 +17,7 @@ const addOrder = (req, res) => {
   }catch(e){ 
     console.log('orders error: ' + e);
   }
-}
+} 
 
 const getOrders = async(req,res) => {
   const [order, metaData] = await OrderModle.fetchAll()  
