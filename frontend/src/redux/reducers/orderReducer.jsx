@@ -147,3 +147,40 @@ export const getOrderTotalReducer = (state = {total: []}, action)=>{
         return state;
   } 
 };
+
+export const getOrderReportsByTimeReducer = (state = {orderReportSpecific: []}, action)=>{
+  switch(action.type){
+    case actionTypes.GET_ORDER_REPORTS_BY_MONTH_REQUEST:
+        return{
+            loading: true,
+            orderReportSpecific: []
+        }
+    case actionTypes.GET_ORDERS_REPORTS_BY_MONTH_SUCCESS:
+        return{
+            loading:false,
+            orderReportSpecific: action.payload
+        }  
+    case actionTypes.GET_ORDERS_REPORT_BY_MONTH_FAIL:
+        return{
+            loading:false,
+            orderReportSpecific: action.payload
+        }
+    case actionTypes.GET_ORDER_REPORTS_BY_YEAR_REQUEST:
+        return{
+            loading: true,
+            orderReportSpecific: []
+        }
+    case actionTypes.GET_ORDERS_REPORTS_BY_YEAR_SUCCESS:
+        return{
+            loading:false,
+            orderReportSpecific: action.payload
+        }  
+    case actionTypes.GET_ORDERS_REPORT_BY_YEAR_FAIL:
+        return{
+            loading:false,
+            orderReportSpecific: action.payload
+        }
+    default:
+        return state;
+  } 
+};

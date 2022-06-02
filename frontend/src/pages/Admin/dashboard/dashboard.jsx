@@ -55,6 +55,8 @@ import { ListAltOutlined } from '@material-ui/icons';
 import Orders from '../../../pages/ProductManager/orders/orders';
 import Hiring from '../../../components/Admin/Hiring/hiring';
 import UsersList from '../../../components/Admin/usersList/usersList';
+import DetailDeviceAnalysis from '../../../components/Admin/detailDeviceAnalysis/detailDeviceAnalysis';
+import DetailLocationAnalysis from '../../../components/Admin/detailLocationAnalysis/detailLocationAnalysis';
 
 
 const drawerWidth = 240;
@@ -215,7 +217,7 @@ export default function PM_Dashboard() {
         </div>
         <Divider />
         <List>
-          {['Dashboard', 'Product List', 'Add Products', 'WishList','Users', 'Order List','Hiring'].map((text, index) => (
+          {['Dashboard', 'Product List', 'Add Products', 'WishList','Users', 'Order List','Hiring', 'Analysis', 'Profile'].map((text, index) => (
             <>
             <ListItem button  onClick={()=>{
               setCompCounter(index)
@@ -258,6 +260,8 @@ export default function PM_Dashboard() {
              compCounter === 8 ? <DetailSalesAnalysis onMorePage={setCompCounter} />:
              compCounter === 9 ? <DetailAverage onMorePage={setCompCounter}/>:
              compCounter === 10 ? <DetailSessionAnalysis onMorePage={setCompCounter}/>:
+             compCounter === 11 ? <DetailDeviceAnalysis onMorePage={setCompCounter}/>:
+             compCounter === 12 ? <DetailLocationAnalysis onMorePage={setCompCounter}/>:
              "others"   
             }
 

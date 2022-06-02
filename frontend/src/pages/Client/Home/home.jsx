@@ -24,9 +24,30 @@ import StarsSharpIcon from '@material-ui/icons/StarsSharp';
 
 export default function Home() {
   const [cookies, setCookie] = useCookies(['user']);
+
+  // const componentDidMount = () => {
+  //   window.addEventListener("beforeunload", function(){
+  //     console.log('want to leave');
+  //     setCook();
+  //     return 'Are you sure you want to leave?';
+  //   });
+  // }
+  
+  // const componentWillUnmount = () => {
+  //   window.removeEventListener("beforeunload", function(){
+    //     setCook();
+    //     return 'Are you sure you want to leave?';
+  //   });
+  // }
+
+  // window.addEventListener('beforeunload', (event) => {
+  //   console.log('want to leave');
+  //   event.returnValue = `Are you sure you want to leave?`;
+  // });
+  
   window.onbeforeunload = function(){
     console.log('want to leave');
-    setCook();
+      setCook();
     return 'Are you sure you want to leave?';
   };
 

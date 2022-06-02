@@ -4,7 +4,7 @@ import thunk from 'redux-thunk';
 import { getProductsReducer, getProductsDetailsReducer, getProductsSearchReducer } from './reducers/productReducers'
 import { cartReducer } from './reducers/cartReducer';
 import { getUserReducer, getUserLogCount } from './reducers/userReducer';
-import { getOrdersReducer, getOrderDetailsReducer, getOrderReportsReducer, getOrderTotalReducer } from './reducers/orderReducer'
+import { getOrdersReducer, getOrderDetailsReducer, getOrderReportsReducer, getOrderTotalReducer, getOrderReportsByTimeReducer } from './reducers/orderReducer'
 import { wishlistReducer } from './reducers/wishlistReducer';
 import { loginReducer } from './reducers/loginReducer';
 import { getCagegoryReducer } from './reducers/categoryReducers';
@@ -25,6 +25,7 @@ const reducer = combineReducers({
   getOrderTotal: getOrderTotalReducer,
   getCategory: getCagegoryReducer,
   userCount: getUserLogCount,
+  orderReportsSpecific :getOrderReportsByTimeReducer
   // users: loginReducer
  // getComment: commentReducer,
 })

@@ -1,8 +1,3 @@
-// import { response } from "express";
-
-import { withSuccess } from "antd/lib/modal/confirm";
-
-
 
 // console.log(document.location); // the url
 
@@ -29,7 +24,6 @@ const success = async(postition) => {
   // .then(() => console.log(loc));
   // .then(response => console.log(response.results[0].formatted));
 }
-
 
 
 

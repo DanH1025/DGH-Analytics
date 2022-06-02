@@ -54,6 +54,24 @@ module.exports = class Request {
     }
   }
 
+  static fetchByDaysOfMonth(month) {
+    try{
+       const result =db.execute('SELECT * FROM `orderreport` WHERE orderreport.date LIKE ? ORDER BY date', ["2022-" + month + "-%"]);
+       return result;
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+  static fetchByMonth(month) {
+    try{
+       const result =db.execute('SELECT  COUNT(date) AS date,SUM(total) AS total,SUM(average) AS average, SUM(orders) AS orders,SUM(cost) AS cost ,SUM(no_item) AS no_item, SUM(session) AS session,SUM(addToCart) AS addToCart, SUM(reachedCheckout)AS reachedCheckout FROM `orderreport` WHERE orderreport.date LIKE ? ORDER BY date', ["2022-" + month + "-%"]);
+       return result;
+    }catch(err){
+      console.log(err);
+    }
+  }
+
   static fetchLastFour() {
     try{
        const result =db.execute('SELECT * FROM orderreport ORDER BY date DESC LIMIT 4');

@@ -88,7 +88,7 @@ export default function AdminLogin() {
 					console.log('admin');
 					const accessToken = response.data.accessToken;
 					const role = response.data.data.user_role;
-
+					console.log(role);
 					let expires = new Date();
           expires.setTime(expires.getTime() + (2 * 60 * 60 * 1000));
           
@@ -97,11 +97,15 @@ export default function AdminLogin() {
           setCookie('ADaccess_token', accessToken, { path: '/',  expires});
 
 					setAuth({email, password, accessToken});
-					navigate(from, { replace: true })
-					// navigate(from, { replace: true });
+					if(role === 'admin'){
+						navigate('/adminDash')
+					}else if(role === 'manager'){
+						navigate('/productManagerDashboard')
+					}
+					// navigate(from, { replace: true })
 				}else{
 					console.log('slave');
-					navigate('/productManagerDashboard')
+					// navigate('/productManagerDashboard')
 					setErrMsg('Some error');
 				}
     	}catch (err) {
