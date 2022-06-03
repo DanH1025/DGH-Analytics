@@ -14,6 +14,9 @@ import { createOrderDetails } from '../../../redux/actions/orderDetailAction'
 import { addToCart, removeFromCart } from '../../../redux/actions/cartActions'
 import {LocalShippingOutlined,LocalPhoneOutlined,MonetizationOnOutlined,RedeemOutlined} from '@material-ui/icons';
 
+import { clearCart } from '../../../redux/actions/cartActions';
+
+
 import { useNavigate } from 'react-router-dom';
 
 import { useCookies } from 'react-cookie';
@@ -92,6 +95,66 @@ export default function Checkout() {
       console.log(cartItems[0])
       const date = new Date();
 
+      if(cartItems?.length !== 0){
+            if(cookies.uid){
+              try{
+                let costTotal = 0;
+                let no_item = 0;
+                cartItems.map((item)=>{
+                  const pro = product.find(x => x.id === item.product).cost;
+                  costTotal += pro*item.qtyCounter;
+                  no_item += Number(item.qtyCounter);
+                });
+                console.log(costTotal); 
+                console.log(no_item);
+                dispatch(createOrders(date, cookies.uid, getTotalProductPrice(), marker.latitude,marker.longitude, phoneNumber, costTotal, no_item ))
+              }catch(e){
+                console.log(e);
+              }
+      
+            
+      
+              cartItems.map((item)=>{
+                // const pro = product.find(x => x.id === item.product).cost;
+                // console.log(pro*item.qtyCounter);
+                dispatch(createOrderDetails(date, item.product , item.qtyCounter, item.price))
+              });
+              sessionStorage.setItem('purchased', true);
+              console.log(phoneNumber)
+              dispatch(clearCart());
+              message.success("Order Placed");
+      
+              let purchased = false;
+              let reachCheck = false;
+              if (sessionStorage.getItem('purchased') === null) {
+                console.log('purchased found');
+                purchased = sessionStorage.getItem('purchased');
+              }else{
+                console.log('purchased not found');
+                console.log(sessionStorage.getItem('purchased'));
+                purchased = false;
+              }
+              if (sessionStorage.getItem('user') === null) {
+                reachCheck = sessionStorage.getItem('reachedCheckout');
+                console.log('userr found');
+              }else{
+                console.log('user not found');
+                reachCheck = false;
+              }
+      
+              navigate('/');
+            }
+            else{
+              message.error("Order Place Failed: Check if you are logged in");
+            }
+      
+
+
+      }else{
+        navigate('/');
+        message.error("Your cart is empty")
+      }
+
       if(cookies.uid){
         try{
           let costTotal = 0;
@@ -107,6 +170,8 @@ export default function Checkout() {
         }catch(e){
           console.log(e);
         }
+
+      
 
         cartItems.map((item)=>{
           // const pro = product.find(x => x.id === item.product).cost;
@@ -143,27 +208,7 @@ export default function Checkout() {
 
 
    
-      // console.log(cartItems);
-			// // let date = Date();
-      // getUs();
-      // console.log(users);
-			// // const pt = user;
-			// // console.log('cun pt: ' + pt);
-			// // console.log(users);
-      // if(users?.userId){
-      //   setErrMsg('');
-      //   console.log(user);
-      //   message.success("Order Placed")
-			// 	// console.log(users);
-			// 	dispatch(createOrders(date,users.userId, 100));
-			// 	{cartItems?.map((cart) => {
-			// 		console.log('chekh out' + cart.product + cart.qtyCounter);
-			// 		dispatch(createOrderDetails(date, cart.product, cart.qtyCounter));
-			// 	})}
-      // }else{
-      //   console.log('login in first');
-      //   setErrMsg('Login in first');
-      // }
+   
     }
 
 

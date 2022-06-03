@@ -74,6 +74,14 @@ module.exports = class Request {
       console.log(err);
     }
   }
+  static fetchRand(){ 
+    try {
+       const result = db.execute('SELECT * FROM product WHERE status = ? ORDER BY date DESC', ['1'])
+       return result;
+    } catch (error) {
+      console.log(error)
+    }
+  }
   
   static findById(id) {
     return db.execute('SELECT * FROM product WHERE product.id = ?', [id]);
@@ -125,6 +133,16 @@ module.exports = class Request {
     try {
       const result = db.execute("SELECT * FROM product_review WHERE product_id=?", [id]);
       return result;
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  static fetchTopFive (){
+    try {
+      const result = db.execute('SELECT * FROM product WHERE status=? ORDER BY date DESC' , ['1']);
+      return result
+      
     } catch (error) {
       console.log(error)
     }

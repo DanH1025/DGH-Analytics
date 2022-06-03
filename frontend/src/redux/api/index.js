@@ -74,6 +74,7 @@ const savingAKUrl = 'http://localhost:5000/api/saveAccessKey'
 const adminSignupUrl = 'http://localhost:5000/api/adminRegister'
 const addReviewUrl = 'http://localhost:5000/api/addComment'
 const fetchCommentsUrl = 'http://localhost:5000/api/getComment'
+const fetchFiveProductsUrl = 'http://localhost:5000/api/getTopProducts'
 
 //admin signup
 export const admin_signup = (userName, email, password, accessKey)=>{
@@ -291,4 +292,9 @@ export const addReview = (text, userId, productId, productName )=>{
 export const getComments = ()=>{
   axios.post(fetchCommentsUrl)
 }
+
+export const fetchFiveProducts = ()=>{
+  return axios.post(fetchFiveProductsUrl)
+}
+
 

@@ -8,6 +8,7 @@ import { getOrdersReducer, getOrderDetailsReducer, getOrderReportsReducer, getOr
 import { wishlistReducer } from './reducers/wishlistReducer';
 import { loginReducer } from './reducers/loginReducer';
 import { getCagegoryReducer } from './reducers/categoryReducers';
+import { topFiveReducer } from './reducers/productReducers';
 //import { commentReducer } from './reducers/productReducers';
 
 const reducer = combineReducers({
@@ -25,7 +26,8 @@ const reducer = combineReducers({
   getOrderTotal: getOrderTotalReducer,
   getCategory: getCagegoryReducer,
   userCount: getUserLogCount,
-  orderReportsSpecific :getOrderReportsByTimeReducer
+  orderReportsSpecific :getOrderReportsByTimeReducer,
+  topFiveNewProducts: topFiveReducer
   // users: loginReducer
  // getComment: commentReducer,
 })

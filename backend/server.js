@@ -9,10 +9,10 @@ const routes = require('./routes/routes');
 const authRoutes = require('./routes/auth')
 const cookieSession = require('cookie-session');  
 const passport =require('passport');
-const passportSetup = require('./passport')
- 
+const passportSetup = require('./passport')   
+    
 const cookieParser = require('cookie-parser');
-
+  
 var schedule = require('node-schedule');  
 const {addOrderReport} = require('./controller/orderReportController');
 

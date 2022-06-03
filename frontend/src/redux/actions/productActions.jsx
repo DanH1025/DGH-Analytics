@@ -4,10 +4,18 @@ import * as api from '../api/index';
 
 export const getFiveProducts = () => async (dispatch)=>{
     try {
+        dispatch({
+            type: actionType.GET_TOP_FIVE_PRODUCTS_REQUEST,
+        })
+        const {data} = await api.fetchFiveProducts();
+        dispatch({
+            type: actionType.GET_TOP_FIVE_PRODUCTS_SUCCESS,
+            payload: data
+        })
         
     } catch (error) {
         dispatch({
-            type:actionType.GE_TOP_FIVE_PRODUCTS_FAIL,
+            type:actionType.GET_TOP_FIVE_PRODUCTS_FAIL,
             payload: 
                 error.response && error.response.data.message 
                 ?error.response.data.message:error.message,
