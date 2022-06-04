@@ -6,6 +6,8 @@ import {Phone, EventNote,Search,ShoppingCartSharp, FavoriteSharp, HistorySharp }
 // import HistoryIcon from '@mui/icons-material/History';
 
 import FaceIcon from '@material-ui/icons/Face';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -271,7 +273,7 @@ export default function Topbar() {
                   {cookies.fname ?                      
                     <div className='isLoggedIn'>
                       <div className="profilePic"> 
-                        <FaceIcon/>
+                        <AccountCircleIcon/>
                       </div>
                       <div className='profile_info'>
                         <span>  
@@ -292,6 +294,8 @@ export default function Topbar() {
                         </span>
                           
                       </div>
+                        
+
                       <Button className="logout_btn" size='small' variant="outlined" color="secondary"
                       onClick={logoutHandler}>
                         Logout

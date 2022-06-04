@@ -404,8 +404,8 @@ export default function Checkout() {
         
 
 
-   <ContactUs/>
-   <footer/>
+   {/* <ContactUs/> */}
+   {/* <footer/> */}
    
    
    

@@ -1,6 +1,8 @@
 *{
     padding: 0;
     margin: 0;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 12px;
 }
 body{
     padding: 0;
@@ -45,29 +47,29 @@ a{
 }
 
 .cartItem_img{
-    width: fit-content;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     background: transparent;
     background-color: transparent;
+    object-fit: contain;
 }
 
 .cartItem_img img{
-    width:fill;
     height: fill;
+    width: fill;
+    object-fit: contain;
     background-color: transparent;
     background: transparent;
     scale: 1;
 }
 .cartItem_brand{
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-size: 12px;
     color: black;
-
+    font-weight: lighter;
 }
 .cartItem_name{
     text-decoration: none;
     color: black;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-size: 12px;
 }
 
@@ -75,10 +77,9 @@ a{
     color: rgb(33, 161, 247);
 }
 .cartItem_price{
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-size: 12px;
-    color: rgb(21, 173, 34);
-    font-weight: bold;
+    color: rgb(11, 190, 26);
+    font-weight: normal;
 }
 .cartItem_select{
     padding: 4px 6px;
@@ -89,7 +90,7 @@ a{
     outline: none;
     transform: 0;
     font-size: 12px;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    
 
 
 }
@@ -107,7 +108,7 @@ a{
     transition: all 0.4s ease;
 }
 .cartItem_delete_btn svg{
-    font-size: 23px;
+    font-size: 18px;
 }
 .cartItem_delete_btn:hover, 
 .cartItem_delete_btn:active
@@ -202,6 +203,43 @@ a{
     
 
 
+}
+
+@media(max-width: 370px){
+    .cartItemHolder{
+       
+        padding: 1px;
+        margin: 4px 10px;
+        
+    }
+    .cartItem_img{
+        width: 30px;
+        height: 30px;
+    }
+
+        
+    .cartItem_brand{
+        font-size: 6px;
+        
+
+    }
+    .cartItem_name{
+       font-size: 6px;
+    }
+
+   
+    .cartItem_price{
+        font-size: 7px;
+      
+    }
+    .cartItem_select{
+        font-size: 6px;
+    }
+    
+    .cartItem_delete_btn svg{
+        font-size: 14px;
+    }
+    
 }
 
 /* @media(max-width: 600px){
