@@ -47,7 +47,7 @@ body {
 }
 .categoryCardListContent{
   display: flex;
-  width: 100%;
+  width: fit-content;
   height: 100%;
   justify-content: center;
   align-items: center;
@@ -59,8 +59,8 @@ body {
 }
 .categoryCardContentWrapper{
   display: grid;        
-   grid-template-columns: repeat(7,1fr);
-        
+   grid-template-columns: repeat(5,1fr);
+  align-items: center;  
   justify-content: center;
   width: 100%;
   height: 100%;
@@ -250,7 +250,8 @@ body {
   .categoryCardContentWrapper{
       display: grid;        
       grid-template-columns: repeat(5,1fr);
-    
+      align-items: center;
+      justify-content: center;
       
   }
 
