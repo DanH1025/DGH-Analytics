@@ -24,7 +24,7 @@ import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-
+import {message} from 'antd'
 
 
 
@@ -53,8 +53,7 @@ export default function Topbar() {
 
     const [Allcategory, setAllCategory] = React.useState(''); // for all the categories
     const [searchCategory , setSearchCategory]= React.useState(''); // search category selection
-    const [searchValue , setSearchValue]= 
-    React.useState(''); // search category selection
+    const [searchValue , setSearchValue]= useState(''); // search category selection
     const [open_category ,  setOpen_category] = React.useState(false);//open and close the select option for search 
     const [open_allCategories, setOpen_allCategories] = React.useState(false);//open and close the select option for all
 
@@ -127,11 +126,14 @@ export default function Topbar() {
       // console.log('search handler');
       // console.log(searchValue.searchValue);
       // console.log('category' + searchCategory);
-      if(searchValue.searchValue !== ''){
+      if(searchValue === ''){
+        message.error("Noting to search ")
+      }else{
         dispatch(getProductsBySearch(searchValue.searchValue, searchCategory));
         dispatch(recordProductSearch(searchValue.searchValue, searchCategory))
 
       }
+      
     }
 
     //for the dialog

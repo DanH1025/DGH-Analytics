@@ -9,6 +9,7 @@ import ContactUs from '../../../components/Client/contactUs/contactUs'
 import Footer from '../../../components/Client/footer/footer'
 import CategoryCard from '../../../components/Client/categoryCard/categoryCard'
 import { sliderData } from '../../../components/Client/imageSlider/sliderData'
+import { getFiveProducts } from '../../../redux/actions/productActions'
 
 //import redux to use redux action and constants
 
@@ -112,6 +113,7 @@ export default function Home() {
  	useEffect(() => {
  	  dispatch(getProducts());
     dispatch(getCagegory())
+    dispatch(getFiveProducts())
 
     
     console.log(sessionStorage.getItem('user'));
@@ -122,6 +124,11 @@ export default function Home() {
 	const products = useSelector((state) => state.getProduct.products);
 	// console.log(products);
   const categories = useSelector((state)=> state.getCategory.categories)
+
+  //getting the top five new products here
+  const fiveNewProducts = useSelector((state) => state.topFiveNewProducts);
+  const {topFive, loading , error} = fiveNewProducts;
+
   console.log(categories)
 
 
@@ -185,11 +192,23 @@ export default function Home() {
                     </div>
                     <div className="newItemContainerContent"> 
                         <div className="newItemsContainer">
-                             <ProductCard/>
-                              <ProductCard/>
-                              <ProductCard/>
-                              <ProductCard/>
-                              <ProductCard/>
+                            {
+                              loading? <h2>Loading...</h2> : error? <h3>{error}</h3>:
+                              !topFive?.length? <div></div>:
+                              topFive.map((val, key)=>{
+                                return (
+                                  <ProductCard 
+                                    key = {val.id}
+                                    productId={val.id} // this id is not the product id should be the random generated number for the product id
+                                    name={val.productName}
+                                    price={val.productPrice}
+                                    imageUrl={val.productImg}
+                                    brand={val.productBrand} 
+                                    rating={val.rating}
+                                  />
+                                )
+                              })
+                            }
                         </div>
                          
                       </div>

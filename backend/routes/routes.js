@@ -4,7 +4,7 @@ const router = express.Router();
    
 const {getProducts, getAllProducts,addProduct, getProductsByCatagory, getProductsById,
          getProductsBySearch ,deleteProduct ,editProductValues ,recordSearchHistory ,
-         recordAddToCartHistory,changeVisits,getActiveProducts ,getDiactiveProducts,commentHandler ,getComments} =  
+         recordAddToCartHistory,changeVisits,getActiveProducts ,getDiactiveProducts,commentHandler ,getComments,getTopFive} =  
   require('../controller/productController');
 
 
@@ -138,6 +138,9 @@ router.post('/diactivation', diactivatePM)
 //submitting comment
 router.post('/addComment', commentHandler);
 router.post('/getComment' , getComments);
+
+//getting top five products
+router.post('/getTopProducts' , getTopFive)
 
  
 

@@ -150,18 +150,34 @@ const getProductsBySearch = async(req,res) => {
   const name= req.body.name;
   const category= req.body.category;
   console.log('cat: ' + name);
+
   console.log('in appi get product id');
-  if(category === ''){
-    console.log('in search no catagory');
-    const [product, metaData] = await ProductModel.findByName(name);
-    console.log(product);
+  
+  if(name === ''){
+    console.log("i know txt is empty")
+    if(category === ''){
+      console.log("i know both the txt and category are empty")
+       const [product , metaData] = await ProductModel.fetchRand();
+       res.send(product.splice(0,7))
+    }
+    else{    
+      console.log("i know txt is empty byt category is not")
+      console.log('in search with  catagory');
+      const [product, metaData] = await ProductModel.findByNameCategory(name, category);
+      console.log(product);
+        res.send(product);
+    }
+    console.log("i know both are not empty")
+    const [product, metaData] = await ProductModel.fetchByCategory(category);
     res.send(product);
-  } else {
-    console.log('in search with  catagory');
-    const [product, metaData] = await ProductModel.findByNameCategory(name, category);
-    console.log(product);
-      res.send(product);
+
+    
+
   }
+
+
+
+ 
 }
 
 
@@ -186,6 +202,11 @@ const changeVisits = async(req, res) => {
   await ProductModel.addVisits(id);
   res.send(200);
 }
+const getTopFive = async(req,res)=>{
+    const [data, metaData] = await ProductModel.fetchTopFive();
+
+    res.json(data.splice(0,5))
+}
 
 
 
@@ -195,6 +216,7 @@ module.exports = {
   getActiveProducts,
   getDiactiveProducts,
 	addProduct,
+  getTopFive,
   
   
   getProductsByCatagory,

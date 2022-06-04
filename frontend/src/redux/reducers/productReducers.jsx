@@ -23,6 +23,29 @@ import * as actionTypes from '../constants/productConstant';
 //     }
 // }
 
+export const topFiveReducer = (state = {topFive: []}, action)=>{
+    switch(action.type){
+        case actionTypes.GET_TOP_FIVE_PRODUCTS_REQUEST:
+            return {
+                loading:true,
+                topFive: []
+            }
+        case actionTypes.GET_TOP_FIVE_PRODUCTS_SUCCESS:
+            return {
+                loading:false,
+                topFive: action.payload
+            }
+        case actionTypes.GET_TOP_FIVE_PRODUCTS_FAIL:
+            return {
+                loading:true,
+                error: action.payload
+            }
+            default:
+                return state;
+        
+    }
+}
+
 
 
 export const getProductsReducer = (state = {products: [] }, action)=>{
