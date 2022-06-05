@@ -147,6 +147,10 @@ export const changeOrderStatus = (id, status) =>
     status: status
 });
 
+// orders
+export const fetchOrdersPending = () =>
+  axios.post("http://localhost:5000/api/getPendingOrders");
+
 
 export const createOrderDetails = (orderId, productId, price, productQuantity) => 
   axios.post(createOrderDetailsUrl, {

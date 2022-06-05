@@ -236,7 +236,7 @@ export default function Home({onMorePage}) {
                   <p className="cr_title_content" >Top product by unit sold</p>
                   <span className="cr_title_more">
                     <Button onClick={() => {
-                      onMorePage(11)
+                      onMorePage(13)
                       }}>More</Button> 
                   </span>
                 </div>
@@ -267,7 +267,7 @@ export default function Home({onMorePage}) {
                     Top product by price sold</h3>
                   <span className="cr_title_more">
                     <Button onClick={() => {
-                      onMorePage(11)
+                      onMorePage(13)
                       }}>More</Button> 
                   </span>
                 </div>

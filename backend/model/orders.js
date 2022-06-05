@@ -15,17 +15,17 @@ module.exports = class Request {
   save() {
     console.log('in order modle');
     console.log('userId');
-    console.log(this.userId);
-    const fullDate = new Date();
+    console.log(this.orderId);
+    // const fullDate = new Date();
     const date = new Date().toISOString().slice(0, 10);
     try{
       db.execute('INSERT INTO orders (orderId, userId, total, date,status, latitude,longitude, contact, cost, no_item) VALUES (?,?,?,?,?,?,?,?,?,?)', 
       [ 
-        fullDate,
+        this.orderId,
         this.userId, 
         this.total,
         date,
-        'complete', 
+        'pending', 
         this.latitude,
         this.longitude,
         this.contact,
@@ -49,6 +49,15 @@ module.exports = class Request {
   static fetchInprogress() {
     try{
        const result =db.execute('SELECT orders.orderId, user.fname, user.lname, user.email, orders.total , orders.latitude,orders.longitude,orders.contact , orders.status, orders.cost, orders.no_item FROM user INNER JOIN orders ON orders.userId = user.id WHERE orders.status = ?' , ["inProgress"]);
+       return result;
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+  static fetchOrdersPending() {
+    try{
+       const result = db.execute('SELECT * FROM orders WHERE orders.status = "pending"');
        return result;
     }catch(err){
       console.log(err);

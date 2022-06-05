@@ -7,19 +7,18 @@ module.exports = class Request {
     this.productId = productId;
     this.productQuantity = productQuantity;
     this.price = price;
- 
   }  
 
   save() {
     console.log('in order detail modle');
-    
+    console.log(this.orderId);
     try{
       db.execute('INSERT INTO orderdetails (orderId, productId, productPrice, productQuantity) VALUES (?,?,?,?)', 
-      [ this.orderId, 
+      [ 
+        this.orderId, 
         this.productId,
         this.price,
         this.productQuantity      
-      
       ])
     }catch(e){
       console.log("order save error: " + e);

@@ -33,6 +33,13 @@ const getInprogressOrders = async(req,res) => {
   res.send(order);
 }
 
+const getPendingOrders = async(req,res) => {
+  const [order, metaData] = await OrderModle.fetchOrdersPending();
+  console.log(order);
+ // res.send(order.splice(0,4));
+  res.send(order);
+}
+
 const getOrdersbyId = async(req,res) => {
   const id = req.body.id;
   const [order, metaData] = await OrderModle.fetchAllbyUser(id)  
@@ -58,4 +65,5 @@ module.exports = {
   getInprogressOrders,
   getOrdersbyId,
   changeStatus,
+  getPendingOrders
 };

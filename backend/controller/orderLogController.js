@@ -25,6 +25,15 @@ const getDeviceType = async(req,res) => {
   res.send(logs);
 }
 
+const getUserByHistory = async(req,res) => {
+  const date = req.body.date;
+  const day = req.body.day;
+
+  const [logs, metaData] = await OrderLogModel.fetchByUserHistory(date, day);
+  console.log(logs);
+  res.send(logs);
+}
+
 const getUserLogInHour = async(req, res) => {
   let date = req.body.date;
 
@@ -102,6 +111,7 @@ const getUserLogs = async(req,res) => {
   res.send(respon);
 }
 
+
 function formatAMPM(hour) {
   var hours = hour;
   var minutes = 56;
@@ -117,5 +127,7 @@ module.exports = {
 	addOrderLog,
   getOrderLogs,
   getUserLogs,
-  getUserLogInHour
+  getUserLogInHour,
+  getUserByHistory,
+  getDeviceType
 };

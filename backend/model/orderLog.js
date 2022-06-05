@@ -145,4 +145,26 @@ module.exports = class Request {
       console.log(err);
     }
   }
+
+  static fetchByUserHistory(date, day) {
+    try{
+       const result =db.execute("SELECT user_log.userId, user.fname, user.lname, user.signUpDate, COUNT(user_log.userId), COUNT(case user_log.purchased when 1 then 1 else null end) AS purchase FROM user_log INNER JOIN user ON user_log.userId = user.id WHERE date > DATE_SUB(?, INTERVAL ? DAY) AND userId != 0 GROUP BY userId ORDER BY COUNT(userId) DESC", [date, day]);
+       return result;
+    }catch(err){
+      console.log(err);
+    }
+  }
 }
+
+// SELECT userId, COUNT(userId) FROM user_log WHERE date > DATE_SUB('2022-06-03', INTERVAL 10 DAY) GROUP BY userId
+
+
+// SELECT * FROM user_log WHERE date > DATE_SUB('2022-06-03', INTERVAL 10 DAY) 
+
+// top visitor in 100 day in asc
+// SELECT userId, COUNT(userId) FROM user_log WHERE date > DATE_SUB('2022-06-03', INTERVAL 100 DAY) AND userId != 0 GROUP BY userId ORDER BY COUNT(userId) DESC
+
+// SELECT userId, COUNT(userId), COUNT(case purchased when 1 then 1 else null end)  FROM user_log WHERE date > DATE_SUB('2022-06-03', INTERVAL 100 DAY) AND userId != 0 GROUP BY userId ORDER BY COUNT(userId) DESC
+
+// final sql
+// SELECT user_log.userId, user.fname, user.lname, user.signUpDate, COUNT(user_log.userId), COUNT(case user_log.purchased when 1 then 1 else null end) AS purchase FROM user_log INNER JOIN user ON user_log.userId = user.id WHERE date > DATE_SUB('2022-06-03', INTERVAL 100 DAY) AND userId != 0 GROUP BY userId ORDER BY COUNT(userId) DESC
