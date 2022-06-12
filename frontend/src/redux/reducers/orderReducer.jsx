@@ -196,6 +196,36 @@ export const getOrderReportsByTimeReducer = (state = {orderReportSpecific: []}, 
             loading:false,
             orderReportSpecific: action.payload
         }
+    case actionTypes.GET_ORDER_REPORTS_BY_WEEK_REQUEST:
+        return{
+            loading: true,
+            orderReportSpecific: []
+        }
+    case actionTypes.GET_ORDERS_REPORTS_BY_WEEK_SUCCESS:
+        return{
+            loading:false,
+            orderReportSpecific: action.payload
+        }  
+    case actionTypes.GET_ORDERS_REPORT_BY_WEEK_FAIL:
+        return{
+            loading:false,
+            orderReportSpecific: action.payload
+        }
+    case actionTypes.GET_ORDER_REPORTS_OF_LAST_WEEK_REQUEST:
+        return{
+            loading: true,
+            orderReportSpecific: []
+        }
+    case actionTypes.GET_ORDERS_REPORTS_OF_LAST_WEEK_SUCCESS:
+        return{
+            loading:false,
+            orderReportSpecific: action.payload
+        }  
+    case actionTypes.GET_ORDERS_REPORT_OF_LAST_WEEK_FAIL:
+        return{
+            loading:false,
+            orderReportSpecific: action.payload
+        }
     default:
         return state;
   } 

@@ -14,7 +14,7 @@ const {getUser, getAllUser, addUserByPhone , getAdminUser, verifyAdmin,
 
 const {addOrder, getOrders, getInprogressOrders, getOrdersbyId, changeStatus, getPendingOrders} =  require('../controller/ordersController')
 const { addOrderDetail, getOrderDetails, getTopProductByQuan, getTopProductByTotalSale } =  require('../controller/orderDetailController');
-const { getOrderReports, getLastWeekOrderReports, getTotalOrder, addOrderReport , updateReports, getMonthsOrderReports, getMonthOrderReports} = 
+const { getOrderReports, getLastWeekOrderReports, getTotalOrder, addOrderReport , updateReports, getMonthsOrderReports, getMonthOrderReports, getWeeksOrderReports} = 
   require('../controller/orderReportController');
 const { getOrderLogs, addOrderLog ,getUserLogs, getUserLogInHour, getDeviceType, getUserByHistory} = 
   require('../controller/orderLogController')
@@ -67,6 +67,7 @@ router.post('/getOrderReport', getOrderReports);
 router.post('/getLastWeekOrderReport', getLastWeekOrderReports);
 router.post('/getTotal', getTotalOrder)
 router.post('/getMonthYearOrderReport', getMonthsOrderReports)
+router.post('/getWeekReport', getWeeksOrderReports)
 router.post('/getMonthDayOrderReport', getMonthOrderReports)
 
 //get all the categories from db

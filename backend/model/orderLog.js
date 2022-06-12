@@ -1,7 +1,7 @@
 const db = require('../database/dbConn')
 
 module.exports = class Request {
-  constructor(href, referrer, screenWidth, screenHeight, addToCart, reachedCheckout, purchased, date, time,userId){
+  constructor(href, referrer, screenWidth, screenHeight, addToCart, reachedCheckout, purchased, date, time,state, county, userId){
     this.href = href;
     this.referrer = referrer; 
     this.screenWidth = screenWidth; 
@@ -11,6 +11,8 @@ module.exports = class Request {
     this.purchased = purchased; 
     this.date = date;
     this.time = time;
+    this.state = state, 
+    this.county = county,
     this.userId = userId; 
   }
 
@@ -18,7 +20,7 @@ module.exports = class Request {
     console.log('in order log modle');
     // const date = new Date().toISOString().slice(0, 10);
     try{
-      db.execute("INSERT INTO user_log (href, referrer, screenWidth, screenHeight, addToCart, reachedCheckout, purchased, date, time, userId) VALUES (?,?,?,?,?,?,?,?,?,?)", 
+      db.execute("INSERT INTO user_log (href, referrer, screenWidth, screenHeight, addToCart, reachedCheckout, purchased, date, time, city, state, userId) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", 
       [ 
         this.href,
         this.referrer,
@@ -29,6 +31,8 @@ module.exports = class Request {
         this.purchased,
         this.date,
         this.time,
+        this.state, 
+        this.county,
         this.userId
       ])
     }catch(e){
@@ -168,3 +172,5 @@ module.exports = class Request {
 
 // final sql
 // SELECT user_log.userId, user.fname, user.lname, user.signUpDate, COUNT(user_log.userId), COUNT(case user_log.purchased when 1 then 1 else null end) AS purchase FROM user_log INNER JOIN user ON user_log.userId = user.id WHERE date > DATE_SUB('2022-06-03', INTERVAL 100 DAY) AND userId != 0 GROUP BY userId ORDER BY COUNT(userId) DESC
+
+// SELECT SUM(id),COUNT(date), date, SUM(total), SUM(average), SUM(orders), SUM(cost), SUM(no_item) ,SUM(session), SUM(addToCart), SUM(reachedCheckout), SUM(converted) FROM `orderreport` GROUP BY MONTH(date) ORDER BY date

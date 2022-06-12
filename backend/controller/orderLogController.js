@@ -2,9 +2,9 @@ const OrderModel = require('../model/orders')
 const OrderLogModel = require('../model/orderLog');
 
 const addOrderLog = async (req, res) => { 
-  const {href, referrer, screenWidth, screenHeight, addToCart, reachedCheckout, purchased, date, time,userId} = req.body;
+  const {href, referrer, screenWidth, screenHeight, addToCart, reachedCheckout, purchased, date, time,state, county, userId} = req.body;
 
-  const log = new OrderLogModel(href, referrer, screenWidth, screenHeight, addToCart, reachedCheckout, purchased, date, time,userId);
+  const log = new OrderLogModel(href, referrer, screenWidth, screenHeight, addToCart, reachedCheckout, purchased, date, time,state, county,userId);
   console.log(log);
   try{
     log.save();

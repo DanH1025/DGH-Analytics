@@ -34,7 +34,7 @@ export default function Row(props) {
   
   const handleCancelOrder = () => {
     console.log(props.id);
-    dispatch(changeOrderStatus(props.id, 'inProgress'))
+    dispatch(changeOrderStatus(props.id, 'cancel'))
     window.location.reload(false);
   }
 
@@ -105,7 +105,7 @@ export default function Row(props) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {orders.map((order) => (
+                  {orders?.map((order) => (
                     <TableRow key={order.id}>
                       <TableCell component="th" scope="row">
                         {order.productName}

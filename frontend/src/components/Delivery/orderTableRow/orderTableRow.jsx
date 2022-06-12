@@ -34,7 +34,7 @@ export default function Row(props) {
   
   const handleCancelOrder = () => {
     console.log(props.id);
-    dispatch(changeOrderStatus(props.id, 'inProgress'))
+    dispatch(changeOrderStatus(props.id, 'complete'))
     window.location.reload(false);
   }
 

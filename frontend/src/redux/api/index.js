@@ -52,10 +52,8 @@ const createOrderDetailsUrl =
   'http://localhost:5000/api/addOrderDetail'
 const fetchOrderDetailsUrl = 
   'http://localhost:5000/api/getOrdersDetail'
-
 const deleteProductByIdUrl =
   'http://localhost:5000/api/deleteProductById'
-
 const editProductUrl =
   'http://localhost:5000/api/editProduct'
 
@@ -95,6 +93,12 @@ export const fetchOrderReportByMonth = (month) =>{
   });
 }
 
+// order report
+export const fetchWeeklyReport = () =>{
+  return axios.post('http://localhost:5000/api/getWeekReport');
+  
+}
+
 
 export const loginWithPhoneNumber = (phone,password)=>{
   return axios.post(loginWithPhoneUrl, {
@@ -106,7 +110,7 @@ export const loginWithPhoneNumber = (phone,password)=>{
 
 
 // user log url
-export const createUserLogs = (href, referrer, screenWidth, screenHeight, addToCart, reachedCheckout, purchased, date, time,userId) => 
+export const createUserLogs = (href, referrer, screenWidth, screenHeight, addToCart, reachedCheckout, purchased, date, time, state, county, userId) => 
   axios.post('http://localhost:5000/api/addUserLogs', {
     href : href,
     referrer : referrer, 
@@ -117,6 +121,8 @@ export const createUserLogs = (href, referrer, screenWidth, screenHeight, addToC
     purchased : purchased,
     date : date,
     time : time,
+    state: state,
+    county: county,
     userId: userId
   });
 

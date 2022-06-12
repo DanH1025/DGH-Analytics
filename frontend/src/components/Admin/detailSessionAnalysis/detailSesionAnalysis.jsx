@@ -54,7 +54,7 @@ export default function DetailSessionAnalysis({onMorePage}) {
   };
 
   const handleSelectChange = (event) => {
-    // setSelectedOption(event.target.value);
+    setSelectedOption(event.target.value);
     console.log(event.target.value);
     // console.log(selectedOption + ':' + dateOption);
     if(dateOption === 'month'){
@@ -82,13 +82,13 @@ export default function DetailSessionAnalysis({onMorePage}) {
         title: "Order"
       },
       xaxis: {
-        categories: orderReports.map(a => a.date + '').reverse()
+        categories: orderReports.map(a => a.date.slice(5) + '')
       }
     },
     series: [
       {
         name: "order",
-        data: orderReports.map(a => a.session).reverse()
+        data: orderReports.map(a => a.session)
       }
     ],
     tooltip: {

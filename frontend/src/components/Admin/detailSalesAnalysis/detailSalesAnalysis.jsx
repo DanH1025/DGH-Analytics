@@ -16,7 +16,7 @@ import {DataGrid} from "@mui/x-data-grid";
 import axios from 'axios';
 
 import { getOrders } from '../../../redux/actions/orderActions';
-import { getOrderReports, getOrderTotal, getOrderReportByMonth, getOrderReportByYear } from "../../../redux/actions/orderReportAction";
+import { getOrderReports, getOrderTotal, getOrderReportByMonth, getOrderReportByYear, getOrderReportByWeek, getOrderReportOfLastWeek } from "../../../redux/actions/orderReportAction";
 import { getUserLogDetail } from "../../../redux/actions/userLogActions";
 
 import {InputLabel, MenuItem,Option, FormHelperText, FormControl, Select} from '@mui/material';
@@ -26,7 +26,7 @@ import {InputLabel, MenuItem,Option, FormHelperText, FormControl, Select} from '
 export default function DetailSalesAnalysis({onMorePage}) {
 
   const dispatch = useDispatch();
-  const [dateOption, setDateOption] = useState('month');
+  const [dateOption, setDateOption] = useState('week');
 
   const currentday = new Date().getMonth() + 1;
   const currentMonth = new Date().getMonth();
@@ -41,10 +41,12 @@ export default function DetailSalesAnalysis({onMorePage}) {
  	  dispatch(getOrderReports());
     dispatch(getOrders());
     dispatch(getUserLogDetail());
-    dispatch(getOrderReportByMonth(currentMonth))
+    dispatch(getOrderReportOfLastWeek())
   }, [searchInput])
    
   const orderReports = useSelector((state) => state.orderReportsSpecific.orderReportSpecific);
+
+  const orderReportWeek = useSelector((state) => state.getOrderReport.orderReports);
   // console.log(orderReports);
 
   const [displayOrders, setDisplayedOrders] = useState(orderReports);
@@ -56,7 +58,7 @@ export default function DetailSalesAnalysis({onMorePage}) {
           title: "Order"
         },
         xaxis: {
-          categories: orderReports?.map(a => a.date + '')
+          categories: orderReports?.map(a => a.date.slice(5) + '')
         }
       },
       series: [
@@ -128,11 +130,17 @@ export default function DetailSalesAnalysis({onMorePage}) {
     }else if(event.target.value === 'year'){
       console.log('inside year');
       dispatch(getOrderReportByYear(event.target.value))
+    }else if(event.target.value === 'weekly'){
+      console.log('inside year');
+      dispatch(getOrderReportByWeek())
+    }else if(event.target.value === 'week'){
+      console.log('inside year');
+      dispatch(getOrderReportOfLastWeek())
     }
   };
 
   const handleSelectChange = (event) => {
-    // setSelectedOption(event.target.value);
+    setSelectedOption(event.target.value);
     console.log(event.target.value);
     // console.log(selectedOption + ':' + dateOption);
     if(dateOption === 'month'){
@@ -222,40 +230,38 @@ export default function DetailSalesAnalysis({onMorePage}) {
             onChange={handleChange}
             inputProps={{ 'aria-label': 'Without label' }}
             defaultValue={dateOption}>
-              <MenuItem value="days">Daily</MenuItem>
-              <MenuItem value="month">Monthly</MenuItem>
-              <MenuItem value="year">Yearly</MenuItem>
+              <MenuItem value="week">This week</MenuItem>
+              <MenuItem value="weekly">By Weeks</MenuItem>
+              <MenuItem value="month">By Month</MenuItem>
+              <MenuItem value="year">By Year</MenuItem>
           </Select>
           
             {     
-              dateOption === 'days' ? days.map((item) => { 
-                return(
-                  // <MenuItem value={item}>{item}</MenuItem>
-                  ""
-                )
+              dateOption === 'weekly' ? days.map((item) => { 
+                return("")
               }) : dateOption === 'month' ?
-              <Select
-              value={selectedOption ?? " "}
-              onChange={handleSelectChange}
-              // inputProps={{ 'aria-label': 'Without label' }
-              displayEmpty>
-                {months.map((item) => {
-                  return(
-                    <MenuItem value={item.id}>{item.name}</MenuItem>
-                )})}
-              </ Select>
+                <Select
+                value={selectedOption ?? " "}
+                onChange={handleSelectChange}
+                // inputProps={{ 'aria-label': 'Without label' }
+                displayEmpty>
+                  {months.map((item) => {
+                    return(
+                      <MenuItem value={item.id}>{item.name}</MenuItem>
+                  )})}
+                </ Select>
               : dateOption === 'year' ?
-              <Select
-              value={selectedYear ?? " "}
-              onChange={handleSelectChange}
-              // inputProps={{ 'aria-label': 'Without label' }
-              displayEmpty>
-                {years.map((item) => {
-                  return(
-                    <MenuItem value={item}>{item}</MenuItem>
-                )}) }
-              </Select> 
-              : <MenuItem value="0">"no item"</MenuItem>
+                <Select
+                value={selectedYear ?? " "}
+                onChange={handleSelectChange}
+                // inputProps={{ 'aria-label': 'Without label' }
+                displayEmpty>
+                  {years.map((item) => {
+                    return(
+                      <MenuItem value={item}>{item}</MenuItem>
+                  )}) }
+                </Select> 
+              : ""
             }
           
         </div>

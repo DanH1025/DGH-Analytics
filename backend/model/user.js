@@ -9,8 +9,6 @@ module.exports = class Request {
     this.password = password;
     this.date = date; 
     this.status = status;
-    
-     
   }
 
   save() {

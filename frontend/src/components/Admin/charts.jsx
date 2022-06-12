@@ -4,7 +4,7 @@ import './chart.css'
 import Chart from "react-apexcharts";
 import { Button } from '@material-ui/core';
 
-export default function Charts({title,middleTotal ,dates, chartData,chartType,index,onPageChange}) {
+export default function Charts({title,middleTotal ,dates, chartData,chartType,index,onPageChange, persent}) {
 
   const stat = {
     options: {
@@ -46,7 +46,7 @@ export default function Charts({title,middleTotal ,dates, chartData,chartType,in
         
         <div className="numeric_Information">
           <p className="price">{middleTotal}</p>
-          <p className='rate'>2%</p>
+          <p className='rate'>{persent}%</p>
         </div>
         <Chart
           options={stat.options}
