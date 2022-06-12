@@ -11,35 +11,70 @@ import { getAllProducts ,deleteProductById ,editProduct } from '../../../redux/a
 
 // import { Button } from "@material-ui/core";
 
-import { Select } from 'antd';
 import axios from 'axios';
 
 import { getOrders } from '../../../redux/actions/orderActions';
-import { getOrderReports, getOrderTotal } from "../../../redux/actions/orderReportAction";
+import { getOrderReports, getOrderTotal, getOrderReportByMonth, getOrderReportByYear } from "../../../redux/actions/orderReportAction";
 import { getUserLogDetail } from "../../../redux/actions/userLogActions";
 
-const { Option } = Select;
+import {InputLabel, MenuItem,Option, FormHelperText, FormControl, Select} from '@mui/material';
+
 
 export default function DetailSessionAnalysis({onMorePage}) {
 
   const dispatch = useDispatch();
   
+  const currentday = new Date().getMonth() + 1;
+  const currentMonth = new Date().getMonth();
+  const currentYear = new Date().getFullYear();
+  const [selectedOption, setSelectedOption] = useState(currentMonth);
+  const [selectedYear, setSelectedYear] = useState(currentYear);
   const [searchInput , setSearchInput] = useState('');
+  const [dateOption, setDateOption] = useState('month');
+
 
  	useEffect(() => {
     dispatch(getOrderTotal());
  	  dispatch(getOrderReports());
     dispatch(getOrders());
     dispatch(getUserLogDetail());
- 	
+    dispatch(getOrderReportByMonth(currentMonth))
   }, [searchInput])
    
+  const handleChange = (event) => {
+    setDateOption(event.target.value);
+    console.log(dateOption);
+    if(event.target.value === 'month'){
+      console.log('inside mnth');
+      dispatch(getOrderReportByMonth(selectedOption ))
+    }else if(event.target.value === 'year'){
+      console.log('inside year');
+      dispatch(getOrderReportByYear(event.target.value))
+    }
+  };
+
+  const handleSelectChange = (event) => {
+    setSelectedOption(event.target.value);
+    console.log(event.target.value);
+    // console.log(selectedOption + ':' + dateOption);
+    if(dateOption === 'month'){
+      console.log('inside mnth');
+      dispatch(getOrderReportByMonth(event.target.value))
+    }else if(dateOption === 'year'){
+      console.log('inside year');
+      dispatch(getOrderReportByYear(event.target.value))
+    }
+  };
   
-  const orderReports = useSelector((state) => state.getOrderReport.orderReports);
+  const orderReports = useSelector((state) => state.orderReportsSpecific.orderReportSpecific);
   console.log(orderReports);
 
-  const days = ['Mon','Tue','Wen','Thu','Fri','Sat','Sun'];
+  const [displayOrders, setDisplayedOrders] = useState(orderReports);
   
+  useEffect(() => {
+    setDisplayedOrders(orderReports);
+  }, [handleSelectChange])
+
   const stat = {
     options: {
       chart: {
@@ -47,7 +82,7 @@ export default function DetailSessionAnalysis({onMorePage}) {
         title: "Order"
       },
       xaxis: {
-        categories: orderReports.map(a => a.date + '')
+        categories: orderReports.map(a => a.date.slice(5) + '')
       }
     },
     series: [
@@ -103,10 +138,29 @@ export default function DetailSessionAnalysis({onMorePage}) {
       title: 'Conversion Rate',
       key: 'tags',
       dataIndex: 'average',
-      render: (text) => <span>{text.toFixed(2)} %</span>,
+  
+      render: (text) => <span>{text != null ? text.toFixed(2) : text} %</span>,
     },
     
   ];
+
+  const  months = [
+    {id: 1, name: "January"}, 
+    {id: 2, name: "February"}, 
+    {id: 3, name: "March"}, 
+    {id: 4, name: "April"}, 
+    {id: 5, name: "May"}, 
+    {id: 6, name: "June"}, 
+    {id: 7, name: "July"}, 
+    {id: 8, name: "August"}, 
+    {id: 9, name: "September"}, 
+    {id: 10, name: "October"}, 
+    {id: 11, name: "November"}, 
+    {id: 12, name: "December"}
+  ];
+  const days = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29, 30];
+  const years = [2022,2021,2020,2019,2018];
+
 
   return (
     <>
@@ -132,7 +186,51 @@ export default function DetailSessionAnalysis({onMorePage}) {
       <br /><br /><br />
 
       <div>
-        <Table columns={colum} dataSource={orderReports} />
+
+      <div>
+        <Select
+          value={dateOption ?? " "}
+          onChange={handleChange}
+          inputProps={{ 'aria-label': 'Without label' }}
+          defaultValue={dateOption}>
+            <MenuItem value="days">Daily</MenuItem>
+            <MenuItem value="month">Monthly</MenuItem>
+            <MenuItem value="year">Yearly</MenuItem>
+        </Select>
+          {     
+            dateOption === 'days' ? days.map((item) => { 
+              return(
+                // <MenuItem value={item}>{item}</MenuItem>
+                ""
+              )
+            }) : dateOption === 'month' ?
+            <Select
+            value={selectedOption ?? " "}
+            onChange={handleSelectChange}
+            // inputProps={{ 'aria-label': 'Without label' }
+            displayEmpty>
+              {months.map((item) => {
+                return(
+                  <MenuItem value={item.id}>{item.name}</MenuItem>
+              )})}
+            </ Select>
+            : dateOption === 'year' ?
+            <Select
+            value={selectedYear ?? " "}
+            onChange={handleSelectChange}
+            // inputProps={{ 'aria-label': 'Without label' }
+            displayEmpty>
+              {years.map((item) => {
+                return(
+                  <MenuItem value={item}>{item}</MenuItem>
+              )}) }
+            </Select> 
+            : <MenuItem value="0">"no item"</MenuItem>
+          }
+          
+        </div>
+
+        <Table columns={colum} dataSource={displayOrders} />
       </div>
     </>  
   )

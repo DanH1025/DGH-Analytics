@@ -87,3 +87,45 @@ export const getOrderReportByMonth = (month) => async (dispatch)=>{
     }
 };
 
+export const getOrderReportByWeek = () => async (dispatch)=>{
+    try {
+        dispatch({
+            type: actionType.GET_ORDER_REPORTS_BY_WEEK_REQUEST,
+        });
+        const {data} = await api.fetchWeeklyReport();
+        
+        dispatch({
+            type: actionType.GET_ORDERS_REPORTS_BY_WEEK_SUCCESS,
+            payload: data,
+        });
+    } catch (error) {
+        dispatch({
+            type:actionType.GET_ORDERS_REPORT_BY_WEEK_FAIL,
+            payload: 
+                error.response && error.response.data.message 
+                ?error.response.data.message:error.message,
+        });
+    }
+};
+
+export const getOrderReportOfLastWeek = () => async (dispatch)=>{
+    try {
+        dispatch({
+            type: actionType.GET_ORDER_REPORTS_OF_LAST_WEEK_REQUEST,
+        });
+        const {data} = await api.fetchOrderReports();
+        
+        dispatch({
+            type: actionType.GET_ORDERS_REPORTS_OF_LAST_WEEK_SUCCESS,
+            payload: data,
+        });
+    } catch (error) {
+        dispatch({
+            type:actionType.GET_ORDERS_REPORT_OF_LAST_WEEK_FAIL,
+            payload: 
+                error.response && error.response.data.message 
+                ?error.response.data.message:error.message,
+        });
+    }
+};
+

@@ -6,8 +6,8 @@ const OrderLogModel = require('../model/orderLog');
 const addOrderReport = async (req, res) => {
   let date = new Date().toISOString().slice(0, 10);
   console.log('now date: ');
-  console.log(date);
-  // date = '2022-05-28';
+  // console.log(date); 
+  // date = '2022-06-11';
   const sum = await OrderModle.totalSum(date);
   console.log('sum:');
   console.log(sum[0][0]["SUM(total)"]);
@@ -111,6 +111,12 @@ const getLastWeekOrderReports = async(req,res) => {
   res.send(order);
 }
 
+const getWeeksOrderReports = async(req,res) => {
+  const [order, metaData] = await OrderReportModel.fetchByWeek(); 
+  // console.log(order);
+  res.send(order);
+}
+
 const getMonthOrderReports = async(req,res) => {
   let month = req.body.month;
   console.log(month);
@@ -121,7 +127,7 @@ const getMonthOrderReports = async(req,res) => {
   console.log(month.length);
   // month = '04';
   const [order, metaData] = await OrderReportModel.fetchByDaysOfMonth(month); 
-  console.log(order);
+  // console.log(order);
   res.send(order);
 }
 
@@ -206,5 +212,6 @@ module.exports = {
   getMonthsOrderReports,
   getMonthOrderReports,
   getTotalOrder,
-  updateReports
+  updateReports,
+  getWeeksOrderReports
 };

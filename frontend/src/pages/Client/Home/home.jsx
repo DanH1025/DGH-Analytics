@@ -41,22 +41,25 @@ export default function Home() {
   //   });
   // }
 
-  // window.addEventListener('beforeunload', (event) => {
-  //   console.log('want to leave');
-  //   event.returnValue = `Are you sure you want to leave?`;
-  // });
-  
-  window.onbeforeunload = function(){
+  window.addEventListener('beforeunload', (event) => {
     console.log('want to leave');
-      setCook();
-    return 'Are you sure you want to leave?';
-  };
+    event.returnValue = `Are you sure you want to leave?`;
+    setCook();
+  });
+  
+  // window.onbeforeunload = function(){
+  //   console.log('want to leave');
+  //     setCook();
+  //   return 'Are you sure you want to leave?';
+  // };
 
   const setCook = () => {
-    const user = JSON.parse(sessionStorage.getItem('loc'));
+    const user = JSON.parse(sessionStorage.getItem('user'));
     const date = new Date().toISOString().slice(0, 10);
+    
+    console.log('set cookies:');
+    console.log(user);
     console.log(date);
-
     localStorage.setItem('user leave', JSON.stringify(user));
 
     var today = new Date();
@@ -71,15 +74,13 @@ export default function Home() {
     }else{
       purchased = true;
     }
+
     if(reachCheck === null){
       reachCheck = false;
     }else{
       reachCheck = true;
-    }if(cookies.uid){
-      dispatch(createUserLog(user.href,user.referrer,user.screenWidth,user.screenHeight,true,reachCheck,purchased,date,time, cookies.uid))
-    }else{
-      dispatch(createUserLog(user.href,user.referrer,user.screenWidth,user.screenHeight,true,reachCheck,purchased,date,time, null))
     }
+
     if(addedToCart === null){
       addedToCart = false 
     }else{
@@ -89,19 +90,27 @@ export default function Home() {
         addedToCart = false
       }
     }
+    
+    if(cookies.uid){
+      console.log('In loged user');
+      dispatch(createUserLog(user.href,user.referrer,user.screenWidth,user.screenHeight,addedToCart,reachCheck,purchased,date,time, user.city, user.state, cookies.uid));
+    }else{
+      console.log('In not loged user');
+      dispatch(createUserLog(user.href,user.referrer,user.screenWidth,user.screenHeight,addedToCart,reachCheck,purchased,date,time, user.city, user.state, null));
+    }
 
-    dispatch(createUserLog(user.href,user.referrer,user.screenWidth,user.screenHeight,addedToCart,reachCheck,purchased,date,time, user.state, user.county));
-
+    // dispatch(createUserLog(user.href,user.referrer,user.screenWidth,user.screenHeight,addedToCart,reachCheck,purchased,date,time, user.city, user.state, cookies.uid));
 
     sessionStorage.removeItem('user');
     sessionStorage.removeItem('reachedCheckout');
     sessionStorage.removeItem('purchased');
     sessionStorage.removeItem('addToCart');
-
+    
     let productVisit = JSON.parse(sessionStorage.getItem("productVisit"));
     productVisit.map((item) => {
       dispatch(recordProductVisit(Number(item)));
     })
+    sessionStorage.removeItem('productVisit');
   }
   // const dispatch = useDispatch();
   // const getProducts = useSelector(state=>state.getProducts);

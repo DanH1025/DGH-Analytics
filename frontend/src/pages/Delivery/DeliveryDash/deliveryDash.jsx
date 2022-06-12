@@ -1,6 +1,6 @@
 import React from 'react'
 
-import './dashboard.css'
+import './deliveryDash.css'
 
 import {useState} from 'react'
 // import {Link} from 'react-router-dom'
@@ -53,11 +53,8 @@ import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import { ListAltOutlined } from '@material-ui/icons';
 import Orders from '../../../pages/ProductManager/orders/orders';
-import Hiring from '../../../components/Admin/Hiring/hiring';
+import Order_list from '../../../components/Delivery/order_list'
 import UsersList from '../../../components/Admin/usersList/usersList';
-import DetailDeviceAnalysis from '../../../components/Admin/detailDeviceAnalysis/detailDeviceAnalysis';
-import DetailLocationAnalysis from '../../../components/Admin/detailLocationAnalysis/detailLocationAnalysis';
-import DetailTopProductAnalysis from '../../../components/Admin/detailTopProductAnalysis/detailTopProductAnalysis'
 
 const drawerWidth = 240;
 
@@ -125,16 +122,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-
-export default function PM_Dashboard() {
-  
-  // // handle the state of the sidebar slider
-  // const [sidebarCollapsed , setSidebarCollapsed] = useState(false);
-  // // handle the state of the body components
-  //   
-  //     const handlerSidebarCollapse = () =>{
-    //           setSidebarCollapsed(!sidebarCollapsed);
-    //       }
+export default function Delivery_Dashboard() {
     
     const [cookies, setCookie, removeCookie] = useCookies(['user']);
 
@@ -152,8 +140,7 @@ export default function PM_Dashboard() {
       setOpen(false);
     };
     //track index of the components clicked
-    const [compCounter , setCompCounter] = useState(0);
-    
+    const [compCounter , setCompCounter] = useState(0); 
 
     const handleLogout = (e) => {
       e.preventDefault();
@@ -165,16 +152,14 @@ export default function PM_Dashboard() {
 
   return (  
     <>
-       <div className={classes.root}>
+      <div className={classes.root}>
       <CssBaseline />
       <AppBar
         position="fixed"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
-        })}
-      >
+        })}>
         <Toolbar>
-          
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -182,9 +167,8 @@ export default function PM_Dashboard() {
             edge="start"
             className={clsx(classes.menuButton, {
               [classes.hide]: open,
-            })}
-          >
-            <MenuIcon />
+            })}>
+              <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
             profile Info
@@ -202,13 +186,11 @@ export default function PM_Dashboard() {
             [classes.drawerOpen]: open,
             [classes.drawerClose]: !open,
           }),
-        }}
-      >
+        }}>
         <div className={classes.toolbar}>
           <div className="imgHolder">
             <img className='admin_logo_img' src="https://cdn-icons-png.flaticon.com/512/732/732204.png" alt="Logo" />
-            <span>ADMIN</span>
-
+            <span>DELIVERY</span>
           </div>
 
           <IconButton onClick={handleDrawerClose}>
@@ -217,30 +199,27 @@ export default function PM_Dashboard() {
         </div>
         <Divider />
         <List>
-          {['Dashboard', 'Product List', 'Add Products', 'WishList','Users', 'Order List','Hiring', 'Analysis', 'Profile'].map((text, index) => (
+          {['Order List', 'History', 'Profile'].map((text, index) => (
             <>
             <ListItem button  onClick={()=>{
               setCompCounter(index)
               console.log(index)
               }}   key={text}>
-              <ListItemIcon>{index === 0 ? <DashboardOutlinedIcon /> :
-                  index === 1 ? <ListAltOutlinedIcon />:
-                  index === 2 ? <AddCircleOutlineOutlinedIcon />:
-                  index === 3 ? <FavoriteBorderOutlinedIcon/> : 
-                  index === 4 ? <GroupOutlinedIcon/> :
-                  index === 5 ? <ListAltOutlined/> :
-                  index === 6 ? <TrackChangesIcon/> :
-                   ""
-                             
-                             }
+              <ListItemIcon>
+                {
+                index ===0? <TrackChangesIcon/> :
+                index === 1 ? <ListAltOutlinedIcon />:
+                index === 2 ? <AddCircleOutlineOutlinedIcon />:
+                index === 3 ? <FavoriteBorderOutlinedIcon/> : 
+                index === 4 ? <GroupOutlinedIcon/> :
+                index === 5 ? <ListAltOutlined/> :
+                ""
+                }
               </ListItemIcon>
-              
-              <ListItemText primary={text} />
-              
+              <ListItemText primary={text} />   
             </ListItem>
             <Divider />
-            </>
-            
+            </> 
           ))}
            
         </List>
@@ -249,130 +228,15 @@ export default function PM_Dashboard() {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-
-            {compCounter === 0 ? <Home onMorePage={setCompCounter}/> : 
-             compCounter === 1 ? <ProductList /> : 
-             compCounter === 2 ? <AddProduct/> :
-             compCounter === 3 ? <WishList/> :
-             compCounter === 4 ? <UsersList/>:
-             compCounter === 5 ? <Orders />: 
-             compCounter === 6 ? <Hiring />:
-             compCounter === 8 ? <DetailSalesAnalysis onMorePage={setCompCounter} />:
-             compCounter === 9 ? <DetailAverage onMorePage={setCompCounter}/>:
-             compCounter === 10 ? <DetailSessionAnalysis onMorePage={setCompCounter}/>:
-             compCounter === 11 ? <DetailDeviceAnalysis onMorePage={setCompCounter}/>:
-             compCounter === 12 ? <DetailLocationAnalysis onMorePage={setCompCounter}/>:
-             compCounter === 13 ? <DetailTopProductAnalysis onMorePage={setCompCounter}/>:
-             "others"   
-            }
-
+          {
+           compCounter === 0 ? <Order_list /> :
+           compCounter === 1 ? <UsersList/>:
+           compCounter === 2 ? <Orders />: 
+           "others"
+          }
       </main>
     </div>
 
     </>
   )
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-// <Layout style={{ minHeight: '100vh' }}>
-    //   <Sider 
-    //   collapsible collapsed={sidebarCollapsed} 
-    //   onCollapse={handlerSidebarCollapse} width='220' >
-      
-    //     <div className="pm_dash_logo" > 
-    //       <h1>LOGO</h1> 
-    //     </div>
-    //     <Menu theme="dark" 
-    //       defaultSelectedKeys={['sub_dashboard']}     
-    //       mode="inline">
-         
-    //       <Menu.Item key="sub_dashboard" 
-    //           onClick={()=> setCompCounter("0")}                           
-    //           icon={<UserOutlined />}>           
-    //             Dashboard           
-    //       </Menu.Item>
-    //       <SubMenu 
-    //         key="sub_products" 
-    //         icon={<ShopOutlinedIcon />} 
-    //         title="Products">
-    //         <Menu.Item key="menu_product_list" 
-    //           onClick={()=>setCompCounter("2")} 
-    //           icon={<ListAltOutlinedIcon/>}>
-    //             Product List
-    //         </Menu.Item>      
-    //         <SubMenu key="sub_product_manager"  
-    //           icon={<TuneOutlinedIcon/>} 
-    //           title="Product Manager">
-    //             <Menu.Item key="menu_add_products"  
-    //               onClick={()=>setCompCounter("3")}  
-    //               icon={<AddCircleOutlineOutlinedIcon/>} >
-    //                 Add Products
-    //             </Menu.Item>               
-    //         </SubMenu>  
-    //       </SubMenu>
-
-    //       <Menu.Item key="menu_wishlist" 
-    //         icon={<PieChartOutlined />}>
-    //           WishList
-    //       </Menu.Item>
-    //       <Menu.Item key="menu_advertisment" 
-    //         icon={<PieChartOutlined />}>
-    //           Advertisment
-    //       </Menu.Item>
-    //       <Menu.Item key="menu_updates" 
-    //         icon={<PieChartOutlined />}>
-    //           Updates
-    //       </Menu.Item>
-    //       <SubMenu key="sub_orders" 
-    //       icon={<TeamOutlined />} 
-    //       title="Orders">
-    //         <Menu.Item key="mennu_order_list" 
-    //           onClick={()=>setCompCounter("4")} >
-    //           Order List
-    //         </Menu.Item>
-    //         <Menu.Item key="menu_order_details">
-    //           Order Details
-    //         </Menu.Item>
-    //       </SubMenu>
-       
-    //   </Menu>
-    // </Sider>
-
-    //   <Layout className="site-layout">
-    //   <Header className='pm_dash_header' />
-    //     <Content style={{ margin: '0 16px' }}>
-    //       <Breadcrumb style={{ margin: '16px 0' }}>
-    //         <Breadcrumb.Item>
-    //           {compCounter === "0" ? "Dashbord" :
-    //            compCounter === "1" ? "Profile" : 
-    //            compCounter === "2"? "Product List" : 
-    //            compCounter === "3" ? "Add Product" : 
-    //            compCounter === "4"? "Others" : "" }
-    //         </Breadcrumb.Item>
-    //       </Breadcrumb>
-    //       <div className="site-layout-background" 
-    //         style={{ padding: 0, minHeight: 360 }}>
-    //           {compCounter === "0" ? <Home /> : 
-    //            compCounter === "1" ? <WishList />:
-    //            compCounter === "2" ? <ProductList/>:
-    //            compCounter === "3" ? <AddProduct/>:
-    //            compCounter === "4" ? <Orders/> : "others"
-    //           }               
-    //       </div>
-    //     </Content>
-    //     <Footer style={{ textAlign: 'center' }}>
-
-    //     </Footer>
-    //   </Layout>
-    // </Layout>

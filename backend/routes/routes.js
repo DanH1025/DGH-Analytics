@@ -12,11 +12,11 @@ const {getUser, getAllUser, addUserByPhone , getAdminUser, verifyAdmin,
         addUserByEmail, checkUser, checkEmail } =   require('../controller/userController')
 
 
-const {addOrder, getOrders, getInprogressOrders, getOrdersbyId, changeStatus} =  require('../controller/ordersController')
+const {addOrder, getOrders, getInprogressOrders, getOrdersbyId, changeStatus, getPendingOrders} =  require('../controller/ordersController')
 const { addOrderDetail, getOrderDetails, getTopProductByQuan, getTopProductByTotalSale } =  require('../controller/orderDetailController');
-const { getOrderReports, getLastWeekOrderReports, getTotalOrder, addOrderReport , updateReports, getMonthsOrderReports, getMonthOrderReports} = 
+const { getOrderReports, getLastWeekOrderReports, getTotalOrder, addOrderReport , updateReports, getMonthsOrderReports, getMonthOrderReports, getWeeksOrderReports} = 
   require('../controller/orderReportController');
-const { getOrderLogs, addOrderLog ,getUserLogs, getUserLogInHour} = 
+const { getOrderLogs, addOrderLog ,getUserLogs, getUserLogInHour, getDeviceType, getUserByHistory} = 
   require('../controller/orderLogController')
 const {loginWithPhone , adminRegister } = 
   require('../controller/loginController')
@@ -51,6 +51,9 @@ router.post('/addUserLogs', addOrderLog);
 router.post('/getUserLogs', getOrderLogs);
 router.post('/getUserLogCount', getUserLogs);
 router.post('/getUserLogCountInDay', getUserLogInHour);
+router.post('/getUserLogHistory', getUserByHistory);
+
+
 
 // test user api
 router.post('/app', users);
@@ -64,6 +67,7 @@ router.post('/getOrderReport', getOrderReports);
 router.post('/getLastWeekOrderReport', getLastWeekOrderReports);
 router.post('/getTotal', getTotalOrder)
 router.post('/getMonthYearOrderReport', getMonthsOrderReports)
+router.post('/getWeekReport', getWeeksOrderReports)
 router.post('/getMonthDayOrderReport', getMonthOrderReports)
 
 //get all the categories from db
@@ -105,6 +109,7 @@ router.get('/getNewProductManager' , getNewProductManager)
 router.post('/addOrder', addOrder);
 router.post('/getOrders', getOrders);
 router.post('/getInprogressOrders', getInprogressOrders);
+router.post('/getPendingOrders', getPendingOrders);
 router.post('/getOrdersById', getOrdersbyId)
 router.post('/changeStatus', changeStatus)
 

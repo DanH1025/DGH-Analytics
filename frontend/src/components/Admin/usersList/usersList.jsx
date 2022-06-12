@@ -23,10 +23,9 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 
-
 import Chart from "react-apexcharts";
 
-
+import {InputLabel, MenuItem,Option, FormHelperText, FormControl, Select} from '@mui/material';
 
 //user analysis dialog box content
 const styles = (theme) => ({
@@ -69,14 +68,6 @@ const DialogActions = withStyles((theme) => ({
   },
 }))(MuiDialogActions);
 
-
-
-
-
-
-
-
-
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
@@ -87,25 +78,9 @@ function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
 }
 
-
-
-
-
-
-
-
-
 export default function UsersList() {
 
-
-
-  
-
-
-
   const classes = useStyles();
-
-  
     const [users ,setUsers] = useState([]);
 
     useEffect(()=>{
@@ -123,7 +98,7 @@ export default function UsersList() {
     const handleNext = async ()=>{
       const response = await axios.post('http://localhost:5000/api/getAllUsers');
       setUsers(response.data)
-   }
+    }
 
 
     // for the dialog box
@@ -191,17 +166,30 @@ export default function UsersList() {
      
     }
 
-
     const [dialogPage , setDialogPage] = useState(0)
-   
-    
-  
-    
     
   return (
     <>
     <div className="productListPageHolder">
-     
+      
+      <Select
+        // value={dateOption ?? " "}
+        // onChange={handleChange}
+        inputProps={{ 'aria-label': 'Without label' }}
+        defaultValue='all'
+        >
+          <MenuItem value="all">All user</MenuItem>
+          <MenuItem value="tcal">Top customer all time</MenuItem>
+          <MenuItem value="tcty">Top customer this year</MenuItem>
+          <MenuItem value="tctm">Top customer this month</MenuItem>
+          <MenuItem value="acal">Active customer all time</MenuItem>
+          <MenuItem value="acty">Active customer this year</MenuItem>
+          <MenuItem value="actm">Active customer this month</MenuItem>
+          <MenuItem value="icat">Inactive customer all time</MenuItem>
+          <MenuItem value="icty">Inactive customer this year</MenuItem>
+          <MenuItem value="ictm">Inactive customer this month</MenuItem>     
+      </Select>
+
       <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="caption table">
         <caption>All Users table</caption>

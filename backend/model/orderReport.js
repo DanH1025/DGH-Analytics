@@ -54,6 +54,15 @@ module.exports = class Request {
     }
   }
 
+  static fetchByWeek() {
+    try{
+       const result =db.execute('SELECT SUM(id) AS id,COUNT(date) , date, SUM(total) AS total, SUM(average) AS average, SUM(orders) AS orders, SUM(cost) AS cost, SUM(no_item) AS no_item ,SUM(session) AS session, SUM(addToCart) AS addToCart, SUM(reachedCheckout) AS reachedCheckout, SUM(converted) AS converted FROM `orderreport` GROUP BY WEEK(date) ORDER BY date DESC');
+       return result;
+    }catch(err){
+      console.log(err);
+    }
+  }
+
   static fetchByDaysOfMonth(month) {
     try{
        const result =db.execute('SELECT * FROM `orderreport` WHERE orderreport.date LIKE ? ORDER BY date', ["2022-" + month + "-%"]);
@@ -65,7 +74,7 @@ module.exports = class Request {
 
   static fetchByMonth(month) {
     try{
-       const result =db.execute('SELECT  COUNT(date) AS date,SUM(total) AS total,SUM(average) AS average, SUM(orders) AS orders,SUM(cost) AS cost ,SUM(no_item) AS no_item, SUM(session) AS session,SUM(addToCart) AS addToCart, SUM(reachedCheckout)AS reachedCheckout FROM `orderreport` WHERE orderreport.date LIKE ? ORDER BY date', ["2022-" + month + "-%"]);
+       const result =db.execute('SELECT  COUNT(date) AS date,SUM(total) AS total,SUM(average) AS average, SUM(orders) AS orders,SUM(cost) AS cost ,SUM(no_item) AS no_item, SUM(session) AS session,SUM(addToCart) AS addToCart, SUM(reachedCheckout)AS reachedCheckout, SUM(converted)AS converted FROM `orderreport` WHERE orderreport.date LIKE ? ORDER BY date', ["2022-" + month + "-%%"]);
        return result;
     }catch(err){
       console.log(err);
