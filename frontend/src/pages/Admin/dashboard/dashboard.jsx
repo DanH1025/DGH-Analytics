@@ -28,6 +28,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import DashboardOutlinedIcon from '@material-ui/icons/DashboardOutlined';
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 import ShopOutlinedIcon from '@material-ui/icons/ShopOutlined';
@@ -54,10 +56,14 @@ import { useNavigate } from 'react-router-dom';
 import { ListAltOutlined } from '@material-ui/icons';
 import Orders from '../../../pages/ProductManager/orders/orders';
 import Hiring from '../../../components/Admin/Hiring/hiring';
+import Profile from '../../../components/Admin/Profile/profile'
 import UsersList from '../../../components/Admin/usersList/usersList';
 import DetailDeviceAnalysis from '../../../components/Admin/detailDeviceAnalysis/detailDeviceAnalysis';
 import DetailLocationAnalysis from '../../../components/Admin/detailLocationAnalysis/detailLocationAnalysis';
-
+import { getAdminUserName } from '../../../redux/actions/userActions';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 const drawerWidth = 240;
 
@@ -135,8 +141,21 @@ export default function PM_Dashboard() {
   //     const handlerSidebarCollapse = () =>{
     //           setSidebarCollapsed(!sidebarCollapsed);
     //       }
-    
+    const dispatch = useDispatch();
     const [cookies, setCookie, removeCookie] = useCookies(['user']);
+
+    console.log(cookies.ADemail)
+
+    useEffect(()=>{
+        dispatch(getAdminUserName(cookies.ADemail));
+    },[])
+
+    const data = useSelector((state) => state.getUser)
+    const {user , loading , error} = data;
+
+
+    console.log(user);
+
 
     //material ui menu navigation
     const classes = useStyles();
@@ -187,7 +206,32 @@ export default function PM_Dashboard() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            profile Info
+
+              {
+                loading? <p>Loading...</p> : error? <p>{error}</p>:
+                (
+                  <div className="profileInfoHolder">
+                  <div className='profileInfWrapper' >
+                       <div className="profileIconHolder"  onClick={()=>alert("show profile")}>
+                          <AccountCircleIcon/>
+                       </div>
+                       <div className="profileInfo">
+                              <p>{user.user_name}</p>  
+                              <span>{cookies.ADemail}</span> 
+                       </div>
+                       <div className="logoutButtonHolder">
+                          <ExitToAppIcon   onClick={handleLogout} />
+                       </div>
+                  </div>
+              </div>
+                )
+              }
+
+
+
+
+             
+
           </Typography>
         </Toolbar>
       </AppBar>
@@ -217,19 +261,20 @@ export default function PM_Dashboard() {
         </div>
         <Divider />
         <List>
-          {['Dashboard', 'Product List', 'Add Products', 'WishList','Users', 'Order List','Hiring', 'Analysis', 'Profile'].map((text, index) => (
+          {['Dashboard', 'Profile', 'Product List', 'Add Products', 'WishList','Users', 'Order List','Hiring', 'Analysis', 'Profile'].map((text, index) => (
             <>
             <ListItem button  onClick={()=>{
               setCompCounter(index)
               console.log(index)
               }}   key={text}>
               <ListItemIcon>{index === 0 ? <DashboardOutlinedIcon /> :
-                  index === 1 ? <ListAltOutlinedIcon />:
-                  index === 2 ? <AddCircleOutlineOutlinedIcon />:
-                  index === 3 ? <FavoriteBorderOutlinedIcon/> : 
-                  index === 4 ? <GroupOutlinedIcon/> :
-                  index === 5 ? <ListAltOutlined/> :
-                  index === 6 ? <TrackChangesIcon/> :
+                  index === 1 ? <AccountCircleIcon />:
+                  index === 2 ? <ListAltOutlinedIcon />:
+                  index === 3 ? <AddCircleOutlineOutlinedIcon />:
+                  index === 4 ? <FavoriteBorderOutlinedIcon/> : 
+                  index === 5 ? <GroupOutlinedIcon/> :
+                  index === 6 ? <ListAltOutlined/> :
+                  index === 7 ? <TrackChangesIcon/> :
                    ""
                              
                              }
@@ -245,18 +290,18 @@ export default function PM_Dashboard() {
            
         </List>
       
-      <Button onClick={handleLogout}>Logout</Button>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
 
             {compCounter === 0 ? <Home onMorePage={setCompCounter}/> : 
-             compCounter === 1 ? <ProductList /> : 
-             compCounter === 2 ? <AddProduct/> :
-             compCounter === 3 ? <WishList/> :
-             compCounter === 4 ? <UsersList/>:
-             compCounter === 5 ? <Orders />: 
-             compCounter === 6 ? <Hiring />:
+             compCounter === 1 ? <Profile userName={user.user_name}  email={user.email} role={user.user_role} signUpDate={user.sign_up_date} />:
+             compCounter === 2 ? <ProductList /> : 
+             compCounter === 3 ? <AddProduct/> :
+             compCounter === 4 ? <WishList/> :
+             compCounter === 5 ? <UsersList/>:
+             compCounter === 6 ? <Orders />: 
+             compCounter === 7 ? <Hiring />:
              compCounter === 8 ? <DetailSalesAnalysis onMorePage={setCompCounter} />:
              compCounter === 9 ? <DetailAverage onMorePage={setCompCounter}/>:
              compCounter === 10 ? <DetailSessionAnalysis onMorePage={setCompCounter}/>:

@@ -132,6 +132,7 @@ export default function ProductList() {
       if(window.confirm("Are you sure you want to delete?")){
         dispatch(deleteProductById(record.id));
         setVisible(false);
+        window.location.reload(true)
         message.success("Deleted Successfully");
         // dispatch(getAllProducts());
        

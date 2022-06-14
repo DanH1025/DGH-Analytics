@@ -4,6 +4,75 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require('bcryptjs');
 let refreshTokens = []; 
 
+       
+const changeAdminUserName = async (req,res)=>{
+    const {email,userName} = req.body;
+
+    const [user, metaUser] = await UserModel.fetchAdminUser(email);
+
+    if(user.length === 0){
+      res.json({
+        status: "404",
+        message: 'User Not Found' 
+      }) 
+    }else{   
+        console.log("changin the admin name ")
+        UserModel.changeAdminName(userName , email);
+        res.json({
+          status:"200",
+          message:"UserName change successful"
+        })     
+    }
+
+}
+
+const changeAdminPassword = async (req,res)=>{
+  const {email , oldPassword , newPassword} = req.body;
+
+  const [user , userData] = await UserModel.fetchAdminUser(email);
+  if(user.length === 0){
+    res.json({
+      status: "404",
+      message: "user Not found"
+    })
+  }else{ 
+     if( await bcrypt.compare(oldPassword , user[0].password)){
+       const hashPass = await bcrypt.hash(newPassword , 8)
+       const [data, metaData] = await UserModel.adminPasswordChange(email, hashPass);
+
+      res.json({
+        status: '200',
+        message:'admin password change successful'
+      })
+
+
+     }else{
+       res.json({
+        status: '402',
+        message: "Invalid old password"
+       })
+     }
+  }
+
+
+}
+
+const getAdminUserName = async(req,res)=>{
+  const {email} = req.body;
+
+  const [data , metaData] = await UserModel.fetchAdminUser(email)
+
+  if(data.length === 0){
+    res.json({
+      status: "404",
+      message: "user Not found"
+    })
+  }else{
+    res.json(data[0])
+
+  }
+}
+
 const generateAccessToken = (user) => {
   return jwt.sign({ id: user.id, email: user.email }, "mySecretKey", {
     expiresIn: "30s",
@@ -201,6 +270,46 @@ const getAdminUser = async (req,res)=>{
 
 } 
 
+const createAdminAccount = async (req,res)=>{
+  console.log("the dispatch is working , im here")
+  const {name, email , password} = req.body;
+  const date = new Date();
+  const user_role = 'admin'
+  const access_key = 'master'
+
+  const hashPass = await bcrypt.hash(password , 8);
+
+  const [user, metaUser] = await UserModel.fetchAdminUser(email);
+
+  if(user.length === 0){
+    if(name === '' || email === '' || password === '' || hashPass ===''){
+      res.json({
+        status: 401,
+        message: "Error while creating account"
+      })
+    }else{
+      const [data , metaData] = await UserModel.addAdministratorAccount(name , email, user_role , access_key, hashPass, date);
+      res.json({
+        status: 200,
+        message: "Account created successfully"
+      })
+    }
+  
+
+  }else{
+    res.json({
+      status: 400,
+      message: "Email already in use"
+    })
+  }
+
+  
+  
+
+
+  console.log(name  ,email , password);
+}
+
 
 
 
@@ -214,5 +323,9 @@ module.exports = {
   checkEmail,
   getAdminUser,
   verifyAdmin,
+  getAdminUserName,
+  changeAdminUserName,
+  changeAdminPassword,
+  createAdminAccount
   
 };
