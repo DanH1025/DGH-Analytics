@@ -2,6 +2,95 @@ import * as actionType from '../constants/userConstant';
 import * as api from '../api/index';
 import axios from 'axios';
 
+export const getAdminUserName = (email) => async (dispatch) =>{
+    try {
+        dispatch({
+            type: actionType.GET_ADMIN_NAME_REQUEST,
+        })
+        const {data} = await api.fetchAdminUserName(email);
+        dispatch({
+            type: actionType.GET_ADMIN_NAME_SUCCESS,
+            payload: data
+        })
+        
+        
+    } catch (error) {
+        dispatch({
+            type: actionType.GET_ADMIN_NAME_FAIL,
+            payload: 
+                error.response && error.response.data.message 
+                ?error.response.data.message:error.message,
+            });
+    }
+}
+
+export const changeAdminUserName = (email , userName) => async (dispatch)=>{
+    try {
+        dispatch({
+            type: actionType.CHANGE_ADMIN_USERNAME,
+        })
+
+        api.changeAdminName(email,userName);
+        
+        dispatch({
+            type: actionType.CHANGE_ADMIN_USERNAME_SUCCESS,      
+        })
+        
+    } catch (error) {
+        dispatch({
+            type: actionType.CHANGE_ADMIN_USERNAME_FAIL,
+            payload: 
+                error.response && error.response.data.message 
+                ?error.response.data.message:error.message,
+            });
+    }
+}
+
+
+export const changeAdminPassword = (email , oldPassword , newPassword) => async (dispatch)=>{
+    try {
+        dispatch({
+            type: actionType.CHANGE_ADMIN_PASSWORD,
+        })
+
+         api.changeAdminPassword(email, oldPassword, newPassword);
+        
+        dispatch({
+            type: actionType.CHANGE_ADMIN_PASSWORD_SUCCESS,      
+        })
+        
+    } catch (error) {
+        dispatch({
+            type: actionType.CHANGE_ADMIN_PASSWORD_FAIL,
+            payload: 
+                error.response && error.response.data.message 
+                ?error.response.data.message:error.message,
+            });
+    }
+}
+
+export const createAdminAccount = (userName, email , password)=> async (dispatch)=>{
+    try {
+        dispatch({
+            type: actionType.CREATE_ADMIN_ACCOUNT,
+        })
+        const {data} = await api.addAdminAccount(userName, email , password);
+        dispatch({
+            type: actionType.CREATE_ADMIN_ACCOUNT_SUCCESS,
+            payload: data
+        })
+        
+    } catch (error) {
+        dispatch({
+            type: actionType.CREATE_ADMIN_ACCOUNT_FAIL,
+            payload: 
+                error.response && error.response.data.message 
+                ?error.response.data.message:error.message,
+            });
+    }
+}
+
+
 
 
 export const saveAccessKey = (email, accessKey) => async (dispatch)=>{

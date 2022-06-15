@@ -9,7 +9,8 @@ const {getProducts, getAllProducts,addProduct, getProductsByCatagory, getProduct
 
 
 const {getUser, getAllUser, addUserByPhone , getAdminUser, verifyAdmin, 
-        addUserByEmail, checkUser, checkEmail } =   require('../controller/userController')
+        addUserByEmail, checkUser, checkEmail , getAdminUserName ,changeAdminUserName,
+        changeAdminPassword , createAdminAccount} =   require('../controller/userController')
 
 
 const {addOrder, getOrders, getInprogressOrders, getOrdersbyId, changeStatus, getPendingOrders} =  require('../controller/ordersController')
@@ -153,6 +154,13 @@ router.post('/getTopProducts' , getTopFive)
 router.post('/getUserCheckoutRate', calcCheckoutRate)
 // router.post('/getRecentCartHistory' , getRecentCart)
 
+//router to get the admin user name
+router.post('/getAdminUserName' , getAdminUserName)
+
+router.post('/changeAdminUserName' , changeAdminUserName) 
+router.post('/changeAdminPassword', changeAdminPassword)
+
+router.post('/createAdminAccount' , createAdminAccount)
 
 
 
