@@ -5,7 +5,7 @@ const getAllCategories = async (req,res)=>{
     console.log("getting all the categories for you");
     const [category, metaData] = await ProductModel.fetchAllCategory();
 
-    console.log(category),
+    // console.log(category),
     res.send(category);
 }
 

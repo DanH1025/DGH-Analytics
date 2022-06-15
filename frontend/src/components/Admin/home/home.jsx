@@ -159,6 +159,7 @@ export default function Home({onMorePage}) {
                   title='Total Sales'
                   middleTotal={ totalPrice + ' ETB'   }
                   dates={dates.reverse()}
+                  persent = {2}
                   chartData={prices.reverse()}
                   chartType="area"
                   index={8}
@@ -170,6 +171,7 @@ export default function Home({onMorePage}) {
                   title='Total Orders'
                   middleTotal={orderNo}
                   dates={days.reverse()}
+                  persent = {2}
                   chartData={orders.reverse()}
                   chartType="area"
                   index={8}
@@ -180,6 +182,7 @@ export default function Home({onMorePage}) {
                 <Charts 
                   title='Averages'
                   middleTotal={average}
+                  persent = {2}
                   dates={days.reverse()}
                   chartData={priceAverage.reverse()}
                   chartType="area"
@@ -192,6 +195,7 @@ export default function Home({onMorePage}) {
                 <Charts 
                   title='Total online store visitor'
                   middleTotal={totalUserNoToday}
+                  persent = {(orderNo/totalUserNoToday*100).toFixed(0)}
                   dates={Object.keys(userByHour).reverse()}
                   chartData={Object.values(userByHour).reverse()}
                   chartType="bar"
@@ -236,7 +240,7 @@ export default function Home({onMorePage}) {
                   <p className="cr_title_content" >Top product by unit sold</p>
                   <span className="cr_title_more">
                     <Button onClick={() => {
-                      onMorePage(11)
+                      onMorePage(13)
                       }}>More</Button> 
                   </span>
                 </div>
@@ -267,7 +271,7 @@ export default function Home({onMorePage}) {
                     Top product by price sold</h3>
                   <span className="cr_title_more">
                     <Button onClick={() => {
-                      onMorePage(11)
+                      onMorePage(13)
                       }}>More</Button> 
                   </span>
                 </div>

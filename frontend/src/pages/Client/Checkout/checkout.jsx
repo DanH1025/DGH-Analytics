@@ -39,27 +39,12 @@ export default function Checkout() {
     console.log(user);
 		let users = [];
 
-		// const getUs = () => {
-    //   console.log('in get us');
-    //   user.map((pro) => {
-		// 	  users = pro;
-		// 	  console.log(users);
-		//   }
-    // )}
-
     useEffect(() => {
       sessionStorage.setItem('reachedCheckout', true);
     })
 		// const getTotalProductPrice = ()=>{
 		// 	return cartItems.reduce((price , item)=> item.price * item.qtyCounter + price , 0)
 		// }
-
-		// function User() { 
-		// 	const user = useSelector((state) => state.getUser.user); // Rule 1: call hooks in top-level
-		// 	return <>{user}</>
-		// }
-
-      
 
     const [viewPort , setViewPort] = useState({
       latitude:9.022875,
@@ -87,9 +72,7 @@ export default function Checkout() {
       await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${marker.latitude}+${marker.longitude}&key=018d9986cb5c483380337c7f6526c2fe`)
       .then(response => response.json())
       .then(data => printIt(data.results));
-
     }
-
 
     const handleConfirm = () => {
       console.log(cartItems[0])
@@ -165,8 +148,8 @@ export default function Checkout() {
             no_item += Number(item.qtyCounter);
           });
           console.log(costTotal); 
-          console.log(no_item);
-          dispatch(createOrders(date, cookies.uid, getTotalProductPrice(), marker.latitude,marker.longitude, phoneNumber, costTotal, no_item ))
+          console.log(date);
+          dispatch(createOrders(date, cookies.uid, getTotalProductPrice(), marker.latitude,marker.longitude, phoneNumber, costTotal, no_item))
         }catch(e){
           console.log(e);
         }
@@ -175,7 +158,7 @@ export default function Checkout() {
 
         cartItems.map((item)=>{
           // const pro = product.find(x => x.id === item.product).cost;
-          // console.log(pro*item.qtyCounter);
+          console.log(date);
           dispatch(createOrderDetails(date, item.product , item.qtyCounter, item.price))
         });
         message.success("Order Placed");
@@ -210,8 +193,6 @@ export default function Checkout() {
    
    
     }
-
-
 
       const qtyChangeHandler = (id,qty) =>{
         dispatch(addToCart(id,qty))

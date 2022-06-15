@@ -2,9 +2,9 @@ const OrderModel = require('../model/orders')
 const OrderLogModel = require('../model/orderLog');
 
 const addOrderLog = async (req, res) => { 
-  const {href, referrer, screenWidth, screenHeight, addToCart, reachedCheckout, purchased, date, time,userId} = req.body;
+  const {href, referrer, screenWidth, screenHeight, addToCart, reachedCheckout, purchased, date, time,state, county, userId} = req.body;
 
-  const log = new OrderLogModel(href, referrer, screenWidth, screenHeight, addToCart, reachedCheckout, purchased, date, time,userId);
+  const log = new OrderLogModel(href, referrer, screenWidth, screenHeight, addToCart, reachedCheckout, purchased, date, time,state, county,userId);
   console.log(log);
   try{
     log.save();
@@ -22,6 +22,15 @@ const getOrderLogs = async(req,res) => {
 const getDeviceType = async(req,res) => {
   const [logs, metaData] = await OrderLogModel.fetchDeviceType();
   // console.log(order);
+  res.send(logs);
+}
+
+const getUserByHistory = async(req,res) => {
+  const date = req.body.date;
+  const day = req.body.day;
+
+  const [logs, metaData] = await OrderLogModel.fetchByUserHistory(date, day);
+  console.log(logs);
   res.send(logs);
 }
 
@@ -102,6 +111,7 @@ const getUserLogs = async(req,res) => {
   res.send(respon);
 }
 
+
 function formatAMPM(hour) {
   var hours = hour;
   var minutes = 56;
@@ -117,5 +127,7 @@ module.exports = {
 	addOrderLog,
   getOrderLogs,
   getUserLogs,
-  getUserLogInHour
+  getUserLogInHour,
+  getUserByHistory,
+  getDeviceType
 };

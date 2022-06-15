@@ -230,6 +230,7 @@ export default function Topbar() {
       setFname('');
       setLname('');
       setPhoneNo('');
+      window.location.reload(false);
       navigate('/')
     }
    
@@ -407,10 +408,14 @@ export default function Topbar() {
 
             <div className="stickyRight">
               <div className='orderlist'>
-                <Link to='/orderlist'>
-                  <HistorySharp className='infosIcons' label="orderlist"/>
-                    <span>{getWishlistCount()}</span>
-                </Link>
+                {
+                  cookies.uid ?
+                  <Link to='/orderlist'>
+                    <HistorySharp className='infosIcons' label="orderlist"/>
+                      <span>{getWishlistCount()}</span>
+                  </Link>
+                 : '' 
+                }
               </div>
               <div className='wishlist'>
                 <Link to='/wishlist'>

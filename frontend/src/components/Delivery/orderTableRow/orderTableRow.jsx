@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import './orderRow.css'
+import './orderTableRow.css'
 
 import { Box, Collapse, IconButton, 
   Table, TableBody, TableCell, 
@@ -34,7 +34,7 @@ export default function Row(props) {
   
   const handleCancelOrder = () => {
     console.log(props.id);
-    dispatch(changeOrderStatus(props.id, 'cancel'))
+    dispatch(changeOrderStatus(props.id, 'complete'))
     window.location.reload(false);
   }
 
@@ -59,25 +59,13 @@ export default function Row(props) {
         <TableCell component="th" scope="row">
           {props.id}
         </TableCell>
-
-        { props.admin === true ? ( 
-            <TableCell align="left">
-              {props.id}</TableCell>)
-          : (
-            <>
-            <TableCell align="right">{props.fname}</TableCell>
-            <TableCell align="right">{props.lname}</TableCell>
-            <TableCell align="right">{props.email}</TableCell></>
-          )
-          
-        }
-        
-
+        <TableCell align="right">{props.date}</TableCell>
         <TableCell align="right">{props.total}</TableCell>
+        <TableCell align="right">location</TableCell>
         
         { props.status === 'pending' ? (
           <TableCell align="right">
-            <Button className='btn' onClick={handleCancelOrder} style={{border: '1px solid black'}}>Cancel</Button>
+            <Button className='btn' onClick={handleCancelOrder} style={{border: '1px solid black'}}>Accept</Button>
           </TableCell>
         ): props.status === 'inProgress' ? (
         <TableCell align="right">
@@ -105,7 +93,7 @@ export default function Row(props) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {orders?.map((order) => (
+                  {orders.map((order) => (
                     <TableRow key={order.id}>
                       <TableCell component="th" scope="row">
                         {order.productName}

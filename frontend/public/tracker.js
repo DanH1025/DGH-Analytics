@@ -35,7 +35,24 @@ let printIt = (data) => {
   console.log(data);
   data?.map((val) => {
     console.log(val.formatted);
+    console.log(val.components.state);
+    console.log(val.components.county);
     loc = val.formatted;
+
+    
+    const user = { referrer : document.referrer,
+      href: document.location.href,
+      screenWidth: screen.width,
+      screenHeight: screen.height,
+      status: 'visit',
+      lat: lat,
+      lng:lng,
+      city: val.components.state,
+      state: val.components.county
+    };
+    console.log(user);
+
+    sessionStorage.setItem('user' , JSON.stringify(user));
   })
 }
 
@@ -52,17 +69,6 @@ console.log(lng);
 
 // let final_array_to_send=[data_to_send2, document.referrer, document.location.href, screen.width, screen.height]
 
-const user = { referrer : document.referrer,
-               href: document.location.href,
-               screenWidth: screen.width,
-               screenHeight: screen.height,
-               status: 'visit',
-               lat: lat,
-               lng:lng
-              };
-console.log(user);
-
-sessionStorage.setItem('user' , JSON.stringify(user));
 
 function setCookie(name,value,days) {
   var expires = "";

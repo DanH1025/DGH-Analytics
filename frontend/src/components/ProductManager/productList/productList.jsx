@@ -110,16 +110,8 @@ export default function ProductList() {
         selections: true,
         hideSelectAll: true,
   };
-
-
-
-
-      
-   
  
   const [fixedTop, setFixedTop] = React.useState(false);
-
- 
 
    //handle delete
    const DeleteProduct = (record) =>{
@@ -144,7 +136,6 @@ export default function ProductList() {
   }
 
   //state for sidedrawer edit
-
   const [visible , setVisible] = useState(false)
   //state = { visible: false };
 
@@ -208,133 +199,127 @@ export default function ProductList() {
   }
 
 
-    const columns = [
-        {
-          title: 'ID',
-          dataIndex: 'id',
-          key: 'id',
-          fixed: 'left',
-          width: 30
-        },
-        {
-          title: 'Name',
-          dataIndex: 'name',
-          key: 'name',
-          width:110,       
-       
-         
-        },
-  
-        {
-            title: 'Price',
-            dataIndex: 'price',
-            key: 'price',
-            width:70,
-            ellipsis: true,
-            sorter: (a, b) => a.price - b.price
-            
-           
-        },
-        {
-            title: 'Count In Stock',
-            dataIndex: 'count_in_stock',
-            key: 'count_in_stock',
-            width:80,
-            sorter: (a, b) => a.count_in_stock - b.count_in_stock
-
-        },
-        {
-          title: 'Category',
-          dataIndex:'category',
-          key: 'category',
-          width:100
-        },   
-        {
-            title:'Status',
-            dataIndex: 'status',
-            key: "status",
-            width:60,
-            
-        },
-        {
-          title: "Action",
-          key: "deleteAndEdit",
-          width: 70,
-          
-          render: (record) => {
-            return(
-              <>
-              <EditOutlinedIcon  onClick={()=> { 
-                showDrawer()  
-                EditProduct(record)} 
-              }
-                style={{color: "gray" , fontWeight: "bolder", cursor: "pointer" }}  />
-              <DeleteOutlineOutlinedIcon onClick={() =>{
-                DeleteProduct(record)
-              }}  style={{color: "red" , fontWeight: "bolder", cursor: "pointer" , marginLeft:10}}  />
-
-              </>
-            );
-          },
-        },
+  const columns = [
+      {
+        title: 'ID',
+        dataIndex: 'id',
+        key: 'id',
+        fixed: 'left',
+        width: 30
+      },
+      {
+        title: 'Name',
+        dataIndex: 'name',
+        key: 'name',
+        width:110,       
+      
         
+      },
 
-      ];
-
-      const data = [];
-      const handleCategoryChange = (event) => {
-        console.log(event.target.value);
-        const cate = event.target.value;
-        setSearchCategory(event.target.value);
-        console.log(cate)
-        console.log("inside category handler");
-        if(event.target.value === ''){
+      {
+          title: 'Price',
+          dataIndex: 'price',
+          key: 'price',
+          width:70,
+          ellipsis: true,
+          sorter: (a, b) => a.price - b.price
           
-        }else{
-           const response =  axios.post('http://localhost:5000/api/getProductsByCategory', {category: cate});
-           setProducts(response.data);  
-        }
-      };
+          
+      },
+      {
+          title: 'Count In Stock',
+          dataIndex: 'count_in_stock',
+          key: 'count_in_stock',
+          width:80,
+          sorter: (a, b) => a.count_in_stock - b.count_in_stock
+
+      },
+      {
+        title: 'Category',
+        dataIndex:'category',
+        key: 'category',
+        width:100
+      },   
+      {
+          title:'Status',
+          dataIndex: 'status',
+          key: "status",
+          width:60,
+          
+      },
+      {
+        title: "Action",
+        key: "deleteAndEdit",
+        width: 70,
+        
+        render: (record) => {
+          return(
+            <>
+            <EditOutlinedIcon  onClick={()=> { 
+              showDrawer()  
+              EditProduct(record)} 
+            }
+              style={{color: "gray" , fontWeight: "bolder", cursor: "pointer" }}  />
+            <DeleteOutlineOutlinedIcon onClick={() =>{
+              DeleteProduct(record)
+            }}  style={{color: "red" , fontWeight: "bolder", cursor: "pointer" , marginLeft:10}}  />
+
+            </>
+          );
+        },
+      },
+      
+
+    ];
+
+  const data = [];
+  const handleCategoryChange = (event) => {
+    console.log(event.target.value);
+    const cate = event.target.value;
+    setSearchCategory(event.target.value);
+    console.log(cate)
+    console.log("inside category handler");
+    if(event.target.value === ''){
+      
+    }else{
+        const response =  axios.post('http://localhost:5000/api/getProductsByCategory', {category: cate});
+        setProducts(response.data);  
+    }
+  };
 
     
 
   //  const keys =["productName", "productBrand", "productCategory","productPrice"];
       
-      if(!products?.length){
-          
-      }
-      else{      
+  if(!products?.length){
+      
+  }
+  else{      
+    products.filter(
+      (product)=>product.productName.toLowerCase().includes(searchInput)                              
+      
+    ).map((val,key)=>{
+      data.push({
+        key: val.id,
+        id: val.id,
+        category:val.productCategory,
+        detail: val.productDetail,
+        image: val.productImg,
+        name: val.productName,
+        brand: val.productBrand,
+        price: val.productPrice,
+        statusValue: val.status,
+        count_in_stock: val.countInStock,
+        status:  val.status === 0 ? <FiberManualRecordIcon style={{color:"#ff0000"}} /> : <FiberManualRecordIcon style={{color:"#19ff05"}} /> 
+      })
+    })
+  };
 
-          products.filter(
-            (product)=>product.productName.toLowerCase().includes(searchInput)                              
-            
-          ).map((val,key)=>{
-            data.push({
-                key: val.id,
-                id: val.id,
-                category:val.productCategory,
-                detail: val.productDetail,
-                image: val.productImg,
-                name: val.productName,
-                brand: val.productBrand,
-                price: val.productPrice,
-                statusValue: val.status,
-                count_in_stock: val.countInStock,
-                status:  val.status === 0 ? <FiberManualRecordIcon style={{color:"#ff0000"}} /> : <FiberManualRecordIcon style={{color:"#19ff05"}} /> 
-            })
-          })
-          
-      };
-
-    
-
-     
-
-      console.log(searchInput);
+  console.log(searchInput);
   return (
     <>
-   <div className="productListPageHolder">
-    <div className="searchBarContainer">
+    <div className="productListPageHolder">
+      <div className="searchBarContainer">
         <div className="sorter">
           <div className="active_only">
               <div className="active_only_wrapper">
@@ -350,42 +335,41 @@ export default function ProductList() {
               </div>
           </div> 
         </div> 
-       <div className="productList_searchBarWrapper">
+        <div className="productList_searchBarWrapper">
             <input type="text" 
-                   className='productList_searchBar' 
-                   placeholder='Search Product'
-                   onChange={e=>setSearchInput(e.target.value)}
-                   />
+                    className='productList_searchBar' 
+                    placeholder='Search Product'
+                    onChange={e=>setSearchInput(e.target.value)}
+                    />
             {/* <div className="searchIconContainer">
               <SearchOutlinedIcon />
             </div> */}
-       </div>
+        </div>
+      </div>
+
+      <Table 
+      rowSelection={{ ...rowSelection }}
+      columns={columns}
+      dataSource={data}
+      scroll={{ x: 1000 }}
+      onChange={handleChange}
+      summary={pageData => (
+        <Table.Summary fixed={fixedTop ? 'top' : 'bottom'}>
+          <Table.Summary.Row >
+        
+            <Table.Summary.Cell   index={2} colSpan={8}>
+              
+            </Table.Summary.Cell>
+            <Table.Summary.Cell index={10}></Table.Summary.Cell>
+          </Table.Summary.Row>
+        </Table.Summary>
+      )}
+      sticky
+      />
     </div>
 
-    <Table 
-    rowSelection={{ ...rowSelection }}
-    columns={columns}
-    dataSource={data}
-    scroll={{ x: 1000 }}
-    onChange={handleChange}
-    summary={pageData => (
-          <Table.Summary fixed={fixedTop ? 'top' : 'bottom'}>
-            <Table.Summary.Row >
-          
-              <Table.Summary.Cell   index={2} colSpan={8}>
-                
-              </Table.Summary.Cell>
-              <Table.Summary.Cell index={10}></Table.Summary.Cell>
-            </Table.Summary.Row>
-          </Table.Summary>
-    )}
-    sticky
-    />
 
-</div>
-
-
-<Drawer
+  <Drawer
   title="Edit Product"
   width={720}
   onClose={onClose}
@@ -397,127 +381,115 @@ export default function ProductList() {
       <Button type="primary" onClick={()=> handleEditChanges()}  >
         Submit
       </Button>
-      
+    </Space> }>
 
-    </Space>
-  }
->
-  <Form layout="vertical" hideRequiredMark>
-  <Row gutter={20}>
-    </Row>
-    <Row gutter={16}>
+    <Form layout="vertical" hideRequiredMark>
+    <Row gutter={20}>
+      </Row>
+      <Row gutter={16}>
 
-      <Col span={12}>
-         <div className='editProduct_imageHolder'>
-            <img src={editValues.image} onClick={()=> message.warning("Want To Change the image")} />
-         </div>
-      </Col>
+        <Col span={12}>
+            <div className='editProduct_imageHolder'>
+              <img src={editValues.image} onClick={()=> message.warning("Want To Change the image")} />
+            </div>
+        </Col>
 
-      <Col span={12}>
-        <Form.Item
-          name="product_name"
-          label="Product Name"
-          rules={[{ required: true, message: 'Please enter product Name' }]}
-        >
-          <Input value={editValues.name} onChange={(e)=> setEditValues({...editValues, name: e.target.value})}  placeholder={editValues.name} />
-        </Form.Item>
+        <Col span={12}>
+          <Form.Item
+            name="product_name"
+            label="Product Name"
+            rules={[{ required: true, message: 'Please enter product Name' }]}
+          >
+            <Input value={editValues.name} onChange={(e)=> setEditValues({...editValues, name: e.target.value})}  placeholder={editValues.name} />
+          </Form.Item>
 
-        <Form.Item
-          name="category"
-          label="Category"
-          rules={[{ required: true, message: 'Please select a category' }]}
-        >
-          <Select placeholder={editValues.category} value={editValues.category} onChange={(e)=> setEditValues({...editValues, category: e.target.value})}  >
-            <Option value="xiao">Television</Option>
-            <Option value="mao">Smart-Phone</Option>
-          </Select>
-        </Form.Item>
+          <Form.Item
+            name="category"
+            label="Category"
+            rules={[{ required: true, message: 'Please select a category' }]}
+          >
+            <Select placeholder={editValues.category} value={editValues.category} onChange={(e)=> setEditValues({...editValues, category: e.target.value})}  >
+              <Option value="xiao">Television</Option>
+              <Option value="mao">Smart-Phone</Option>
+            </Select>
+          </Form.Item>
 
 
-        <Form.Item
-          name="brand"
-          label="Brand"
-          rules={[{ required: true, message: 'Please choose the brand' }]}
-        >
-          <Select placeholder={editValues.brand}   value={editValues.brand} onChange={(e)=> setEditValues({...editValues, brand: e.target.value})}     >
-            <Option value="private">Samsung</Option>
-            <Option value="public">Apple</Option>
-          </Select>
-        </Form.Item>
+          <Form.Item
+            name="brand"
+            label="Brand"
+            rules={[{ required: true, message: 'Please choose the brand' }]}
+          >
+            <Select placeholder={editValues.brand}   value={editValues.brand} onChange={(e)=> setEditValues({...editValues, brand: e.target.value})}     >
+              <Option value="private">Samsung</Option>
+              <Option value="public">Apple</Option>
+            </Select>
+          </Form.Item>
 
 
-        <Form.Item
-          name="count_in_stock"
-          label="Amount In Stock"
-          rules={[{ required: true, message: 'Please enter count in stock' }]}
-        >
-          <Input prefix='#' min={0} type='number' placeholder={editValues.count_in_stock}   value={editValues.count_in_stock} onChange={(e)=> setEditValues({...editValues, count_in_stock: e.target.value})}   />
-        </Form.Item>
+          <Form.Item
+            name="count_in_stock"
+            label="Amount In Stock"
+            rules={[{ required: true, message: 'Please enter count in stock' }]}
+          >
+            <Input prefix='#' min={0} type='number' placeholder={editValues.count_in_stock}   value={editValues.count_in_stock} onChange={(e)=> setEditValues({...editValues, count_in_stock: e.target.value})}   />
+          </Form.Item>
+          
+
+        </Col>
+
+      </Row>
+      <Row gutter={16}>
+        <Col span={12}>
+          
+        </Col>
+        <Col span={12}>
         
-
-      </Col>
-
-    </Row>
-    <Row gutter={16}>
-      <Col span={12}>
-       
-      </Col>
-      <Col span={12}>
-      
-      </Col>
-    </Row>
-    <Row gutter={16}>
-      <Col span={12}>
-      <Form.Item
-          name="price"
-          label="Price"
-          rules={[{ required: true, message: 'Please enter product price' }]}
-        >
-          <Input min={0} prefix="$" type='number' placeholder={editValues.price} value={editValues.price} onChange={(e)=> setEditValues({...editValues, price: e.target.value})}   />
-        </Form.Item>
-      </Col>
-      <Col span={12}>
-        {/* <Form.Item
-          name="dateTime"
-          label="DateTime"
-          rules={[{ required: true, message: 'Please choose the dateTime' }]}
-        >
-          <DatePicker.RangePicker
-            style={{ width: '100%' }}
-            getPopupContainer={trigger => trigger.parentElement}
-          />
-        </Form.Item> */}
-       
-      </Col>
-    </Row>
-    <Row gutter={16}>
-      <Col span={24}>
+        </Col>
+      </Row>
+      <Row gutter={16}>
+        <Col span={12}>
         <Form.Item
-          name="description"
-          label="Description"
-          rules={[
-            {
-              required: true,
-              message: 'please enter description',
-            },
-          ]}
-        >
-          <Input.TextArea rows={4} placeholder={editValues.detail}  value={editValues.detail} onChange={(e)=> setEditValues({...editValues, detail: e.target.value})}   />
-        </Form.Item>
-      </Col>
-    </Row>
-  </Form>
-</Drawer>
-
-    </>
-
-
-
-
-
-   
-
-       
+            name="price"
+            label="Price"
+            rules={[{ required: true, message: 'Please enter product price' }]}
+          >
+            <Input min={0} prefix="$" type='number' placeholder={editValues.price} value={editValues.price} onChange={(e)=> setEditValues({...editValues, price: e.target.value})}   />
+          </Form.Item>
+        </Col>
+        <Col span={12}>
+          {/* <Form.Item
+            name="dateTime"
+            label="DateTime"
+            rules={[{ required: true, message: 'Please choose the dateTime' }]}
+          >
+            <DatePicker.RangePicker
+              style={{ width: '100%' }}
+              getPopupContainer={trigger => trigger.parentElement}
+            />
+          </Form.Item> */}
+          
+        </Col>
+      </Row>
+      <Row gutter={16}>
+        <Col span={24}>
+          <Form.Item
+            name="description"
+            label="Description"
+            rules={[
+              {
+                required: true,
+                message: 'please enter description',
+              },
+            ]}
+          >
+            <Input.TextArea rows={4} placeholder={editValues.detail}  value={editValues.detail} onChange={(e)=> setEditValues({...editValues, detail: e.target.value})}   />
+          </Form.Item>
+        </Col>
+      </Row>
+    </Form>
+  </Drawer>
+  </>     
   )
 }
 

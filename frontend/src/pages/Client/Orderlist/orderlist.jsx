@@ -6,7 +6,7 @@ import Footer from "../../../components/Client/footer/footer";
 import { useDispatch , useSelector } from "react-redux";
 import { getOrdersById } from '../../../redux/actions/orderActions'
 
-
+import { useCookies } from 'react-cookie';
 import { makeStyles } from '@material-ui/core/styles';
 
 import AppBar from '@material-ui/core/AppBar';
@@ -26,7 +26,7 @@ import Row from '../../../components/ProductManager/orderRow/orderRow';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
-
+  
   return (
     <div
       role="tabpanel"
@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Orderlist() {
 
   const dispatch = useDispatch();
-
+  const [cookies] = useCookies(['user']);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -78,7 +78,8 @@ export default function Orderlist() {
   const classes = useStyles();
 
   useEffect(() => {
-    dispatch(getOrdersById(26));
+    console.log(cookies.uid);
+    dispatch(getOrdersById(cookies?.uid));
   }, [dispatch]);
 
   const orders = useSelector((state) => state.getOrder.orders);

@@ -34,6 +34,22 @@ export const getOrdersReducer = (state = {orders: [] }, action)=>{
             error: action.payload,
             // products: []
         }
+    case actionTypes.GET_ORDERS_PENDING_REQUEST:
+        return{
+            loading: true,
+            orders: []
+        }
+    case actionTypes.GET_ORDERS_PENDING_SUCCESS:
+        return{
+            loading:false,
+            orders: action.payload
+        }  
+    case actionTypes.GET_ORDERS_PENDING_FAIL:
+        return{
+            loading:false,
+            error: action.payload,
+            // products: []
+        }
     case actionTypes.GET_ORDERS_BY_ID_REQUEST:
         return{
             loading: true,
@@ -176,6 +192,36 @@ export const getOrderReportsByTimeReducer = (state = {orderReportSpecific: []}, 
             orderReportSpecific: action.payload
         }  
     case actionTypes.GET_ORDERS_REPORT_BY_YEAR_FAIL:
+        return{
+            loading:false,
+            orderReportSpecific: action.payload
+        }
+    case actionTypes.GET_ORDER_REPORTS_BY_WEEK_REQUEST:
+        return{
+            loading: true,
+            orderReportSpecific: []
+        }
+    case actionTypes.GET_ORDERS_REPORTS_BY_WEEK_SUCCESS:
+        return{
+            loading:false,
+            orderReportSpecific: action.payload
+        }  
+    case actionTypes.GET_ORDERS_REPORT_BY_WEEK_FAIL:
+        return{
+            loading:false,
+            orderReportSpecific: action.payload
+        }
+    case actionTypes.GET_ORDER_REPORTS_OF_LAST_WEEK_REQUEST:
+        return{
+            loading: true,
+            orderReportSpecific: []
+        }
+    case actionTypes.GET_ORDERS_REPORTS_OF_LAST_WEEK_SUCCESS:
+        return{
+            loading:false,
+            orderReportSpecific: action.payload
+        }  
+    case actionTypes.GET_ORDERS_REPORT_OF_LAST_WEEK_FAIL:
         return{
             loading:false,
             orderReportSpecific: action.payload

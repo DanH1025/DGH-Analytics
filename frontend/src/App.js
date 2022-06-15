@@ -20,6 +20,7 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import PM_Dashboard from './pages/ProductManager/dashboard/dashboard';
 import Admin_Dashboard from './pages/Admin/dashboard/dashboard';
+import Delivery_Dashboard from './pages/Delivery/DeliveryDash/deliveryDash';
 import AdminLogin from './pages/Admin/AdminLogin/adminLogin'
 
 
@@ -88,7 +89,9 @@ function App() {
             
             <Route element={<RequireAuth allowedRoles={'manager'}/>}>
               <Route exact path='/productManagerDashboard' element={<PM_Dashboard />} />
-            </Route> 
+            </Route>
+
+            <Route exact path='/deliveryDashboard' element={<Delivery_Dashboard />} />
              
             <Route exact path='/adminstrationLogin' element={<AdminLogin />} />
 

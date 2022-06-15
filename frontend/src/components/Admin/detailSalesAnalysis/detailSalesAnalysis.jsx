@@ -16,7 +16,7 @@ import {DataGrid} from "@mui/x-data-grid";
 import axios from 'axios';
 
 import { getOrders } from '../../../redux/actions/orderActions';
-import { getOrderReports, getOrderTotal, getOrderReportByMonth, getOrderReportByYear } from "../../../redux/actions/orderReportAction";
+import { getOrderReports, getOrderTotal, getOrderReportByMonth, getOrderReportByYear, getOrderReportByWeek, getOrderReportOfLastWeek } from "../../../redux/actions/orderReportAction";
 import { getUserLogDetail } from "../../../redux/actions/userLogActions";
 
 import {InputLabel, MenuItem,Option, FormHelperText, FormControl, Select} from '@mui/material';
@@ -26,11 +26,13 @@ import {InputLabel, MenuItem,Option, FormHelperText, FormControl, Select} from '
 export default function DetailSalesAnalysis({onMorePage}) {
 
   const dispatch = useDispatch();
-  const [dateOption, setDateOption] = useState('month');
+  const [dateOption, setDateOption] = useState('week');
 
   const currentday = new Date().getMonth() + 1;
   const currentMonth = new Date().getMonth();
+  const currentYear = new Date().getFullYear();
   const [selectedOption, setSelectedOption] = useState(currentMonth);
+  const [selectedYear, setSelectedYear] = useState(currentYear);
   const [searchInput , setSearchInput] = useState('');
 
 
@@ -39,10 +41,12 @@ export default function DetailSalesAnalysis({onMorePage}) {
  	  dispatch(getOrderReports());
     dispatch(getOrders());
     dispatch(getUserLogDetail());
-    dispatch(getOrderReportByMonth(currentMonth))
+    dispatch(getOrderReportOfLastWeek())
   }, [searchInput])
    
   const orderReports = useSelector((state) => state.orderReportsSpecific.orderReportSpecific);
+
+  const orderReportWeek = useSelector((state) => state.getOrderReport.orderReports);
   // console.log(orderReports);
 
   const [displayOrders, setDisplayedOrders] = useState(orderReports);
@@ -54,7 +58,7 @@ export default function DetailSalesAnalysis({onMorePage}) {
           title: "Order"
         },
         xaxis: {
-          categories: orderReports?.map(a => a.date + '')
+          categories: orderReports?.map(a => a.date.slice(5) + '')
         }
       },
       series: [
@@ -120,12 +124,25 @@ export default function DetailSalesAnalysis({onMorePage}) {
   const handleChange = (event) => {
     setDateOption(event.target.value);
     console.log(dateOption);
+    if(event.target.value === 'month'){
+      console.log('inside mnth');
+      dispatch(getOrderReportByMonth(selectedOption ))
+    }else if(event.target.value === 'year'){
+      console.log('inside year');
+      dispatch(getOrderReportByYear(event.target.value))
+    }else if(event.target.value === 'weekly'){
+      console.log('inside year');
+      dispatch(getOrderReportByWeek())
+    }else if(event.target.value === 'week'){
+      console.log('inside year');
+      dispatch(getOrderReportOfLastWeek())
+    }
   };
 
   const handleSelectChange = (event) => {
     setSelectedOption(event.target.value);
     console.log(event.target.value);
-    console.log(selectedOption + ':' + dateOption);
+    // console.log(selectedOption + ':' + dateOption);
     if(dateOption === 'month'){
       console.log('inside mnth');
       dispatch(getOrderReportByMonth(event.target.value))
@@ -179,7 +196,8 @@ export default function DetailSalesAnalysis({onMorePage}) {
     {id: 11, name: "November"}, 
     {id: 12, name: "December"}
   ];
-  const days = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29, 30]
+  const days = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29, 30];
+  const years = [2022,2021,2020,2019,2018];
 
   return (
     <>
@@ -190,16 +208,16 @@ export default function DetailSalesAnalysis({onMorePage}) {
         <h3>Average sales value over time</h3>
       </div>
       <div className="cha">
-          <h3>Average order value</h3>
-          <Chart
-            className="order_barChart"
-            title='Orders'
-            options={stat.options}
-            series={stat.series}
-            type="area"
-            height="200%"
-            width="100%"
-             />
+        <h3>Average order value</h3>
+        <Chart
+          className="order_barChart"
+          title='Orders'
+          options={stat.options}
+          series={stat.series}
+          type="area"
+          height="200%"
+          width="100%"
+            />
       </div>
 
       <br /><br /><br />
@@ -212,28 +230,40 @@ export default function DetailSalesAnalysis({onMorePage}) {
             onChange={handleChange}
             inputProps={{ 'aria-label': 'Without label' }}
             defaultValue={dateOption}>
-              <MenuItem value="days">Daily</MenuItem>
-              <MenuItem value="month">Monthly</MenuItem>
-              <MenuItem value="year">Yearly</MenuItem>
+              <MenuItem value="week">This week</MenuItem>
+              <MenuItem value="weekly">By Weeks</MenuItem>
+              <MenuItem value="month">By Month</MenuItem>
+              <MenuItem value="year">By Year</MenuItem>
           </Select>
-          <Select
-            value={selectedOption ?? " "}
-            onChange={handleSelectChange}
-            // inputProps={{ 'aria-label': 'Without label' }
-            displayEmpty>
+          
             {     
-              dateOption === 'days' ? days.map((item) => { 
-                return(
-                  <MenuItem value={item}>{item}</MenuItem>
-                )
-              })
-              : months.map((item) => {
-                return(
-                  <MenuItem value={item.id}>{item.name}</MenuItem>
-                )
-              })
+              dateOption === 'weekly' ? days.map((item) => { 
+                return("")
+              }) : dateOption === 'month' ?
+                <Select
+                value={selectedOption ?? " "}
+                onChange={handleSelectChange}
+                // inputProps={{ 'aria-label': 'Without label' }
+                displayEmpty>
+                  {months.map((item) => {
+                    return(
+                      <MenuItem value={item.id}>{item.name}</MenuItem>
+                  )})}
+                </ Select>
+              : dateOption === 'year' ?
+                <Select
+                value={selectedYear ?? " "}
+                onChange={handleSelectChange}
+                // inputProps={{ 'aria-label': 'Without label' }
+                displayEmpty>
+                  {years.map((item) => {
+                    return(
+                      <MenuItem value={item}>{item}</MenuItem>
+                  )}) }
+                </Select> 
+              : ""
             }
-          </Select>
+          
         </div>
 
         <DataGrid

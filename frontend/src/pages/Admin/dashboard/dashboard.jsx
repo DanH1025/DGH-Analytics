@@ -64,6 +64,7 @@ import { getAdminUserName } from '../../../redux/actions/userActions';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import DetailTopProductAnalysis from '../../../components/Admin/detailTopProductAnalysis/detailTopProductAnalysis'
 
 const drawerWidth = 240;
 
@@ -307,6 +308,7 @@ export default function PM_Dashboard() {
              compCounter === 10 ? <DetailSessionAnalysis onMorePage={setCompCounter}/>:
              compCounter === 11 ? <DetailDeviceAnalysis onMorePage={setCompCounter}/>:
              compCounter === 12 ? <DetailLocationAnalysis onMorePage={setCompCounter}/>:
+             compCounter === 13 ? <DetailTopProductAnalysis onMorePage={setCompCounter}/>:
              "others"   
             }
 

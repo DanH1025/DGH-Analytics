@@ -267,7 +267,7 @@ const getAdminUser = async (req,res)=>{
     console.log("Login failed")
       res.status(400).send("Error")
   }
-
+ 
 } 
 
 const createAdminAccount = async (req,res)=>{
