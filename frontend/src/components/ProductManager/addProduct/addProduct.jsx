@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import './addProduct.css'
 
 import { v4 } from 'uuid';
@@ -9,9 +9,11 @@ import { Upload } from 'antd';
 
 import { Input,Button } from 'antd';
 
-import { Select, Divider,  Typography, Space } from 'antd';
+import { Divider,  Typography, Space } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { Checkbox } from 'antd';
+
+import {MenuItem, Select} from '@mui/material';
 
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 // import UseStorage from '../firebase/useStorage';
@@ -23,9 +25,11 @@ import { projectStorage, projectFirestore, timestamp } from '../firebase/config'
 
 import { useDispatch, useSelector } from 'react-redux';
 import { createProduct } from '../../../redux/actions/productActions';
+import { getCagegory } from '../../../redux/actions/categoryActions';
+
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 
-const { Option } = Select;
+// const { Option } = Select;
 
 // https://i5.walmartimages.com/asr/076705ce-1368-4a07-98ce-91fe3589f24b.50ad01b1b2a6404a1a041160d0ad031d.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF
 // https://m.media-amazon.com/images/I/81mFSlcmWqL._AC_UY500_.jpg
@@ -46,12 +50,16 @@ export default function AddProduct() {
 			productDetail: ""
 	})
 	
+	useEffect(() => {
+		dispatch(getCagegory());
+	}, [])
+
+	const categories = useSelector((state) => state.getCategory.categories);
+	console.log(categories);
 
 	const [imgPreview, setImgPreview] = useState('https://img.icons8.com/color/344/gallery.png');
 
 	const onChange = async(e) => {
-		
-		
 
 		// setFileList(newFileList);
 		// const {url} = UseStorage(newFileList[0]);
@@ -78,9 +86,7 @@ export default function AddProduct() {
 		// 	// 		console.log(downloadURL);
 		// 	// 	});
 		// 	// }
-		// // const {url} = imageUploader(newFileList.at(-1))
-
-		
+		// // const {url} = imageUploader(newFileList.at(-1))	
 
 		const storageRef = projectStorage.ref(`imageProduct/${file.name}`);
     const collectionRef = projectFirestore.collection('images');
@@ -142,7 +148,6 @@ export default function AddProduct() {
 		}
 	};
 
-
 		//for selecting category
 	const [category, setCategory] = useState([
 			"TV", "Smart-Phone" , "Smart-Watch" , "PS" , "Moniter" , "Computer"
@@ -174,6 +179,18 @@ export default function AddProduct() {
 			console.log(productData);
 			console.log(fileList);
 			dispatch(createProduct(productData));
+			setProductData({
+				productName: "",
+				productBrand: "",
+				productCategory: "",
+				productImg: "",
+				productPrice: 0,
+				productSKU: '',
+				productCostPrice: 0,
+				amount: '',
+				productDetail: ""
+			})
+			setImgPreview('https://img.icons8.com/color/344/gallery.png')
 		}else {
 			console.log('no photo');
 		}
@@ -286,6 +303,41 @@ export default function AddProduct() {
 						
 						<div className="productBrand_holder">
 							<div className="productBrand_container">
+								<p>Category</p> 
+								{/* <input type="text" 
+									className='product_chategory'
+									placeholder='Chategory'
+									value={productData.productCategory}
+									onChange = {(e) => {
+										setProductData({
+											...productData, 
+												productCategory: e.target.value
+											}
+										)
+								  }} /> */}
+								
+								<Select
+                value={productData.productCategory}
+                onChange={(e) => {
+									setProductData({
+										...productData, 
+											productCategory: e.target.value
+										} ) 
+								}}
+								// defaultValue={categories[0].ctgr_title}
+								label="Category"
+								labelId="demo-simple-select-label"
+                // inputProps={{ 'aria-label': 'Without label' }}
+								>
+                  {categories?.map((item) => {
+                    return(
+                      <MenuItem value={item.ctgr_value}>{item.ctgr_title}</MenuItem>
+                  )}) }
+                </Select> 
+
+							</div>
+
+							<div className="productBrand_container">
 								<h3>Brand</h3> 
 								<input type="text" 
 										className='product_brand'
@@ -298,20 +350,6 @@ export default function AddProduct() {
 												}
 											)
 										}} />
-							</div>
-							<div className="productBrand_container">
-								<p>Category</p> 
-								<input type="text" 
-									className='product_chategory'
-									placeholder='Chategory'
-									value={productData.productCategory}
-									onChange = {(e) => {
-										setProductData({
-											...productData, 
-												productCategory: e.target.value
-											}
-										)
-								  }} />
 							</div>
 						</div>
 

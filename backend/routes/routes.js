@@ -16,7 +16,7 @@ const {addOrder, getOrders, getInprogressOrders, getOrdersbyId, changeStatus, ge
 const { addOrderDetail, getOrderDetails, getTopProductByQuan, getTopProductByTotalSale } =  require('../controller/orderDetailController');
 const { getOrderReports, getLastWeekOrderReports, getTotalOrder, addOrderReport , updateReports, getMonthsOrderReports, getMonthOrderReports, getWeeksOrderReports} = 
   require('../controller/orderReportController');
-const { getOrderLogs, addOrderLog ,getUserLogs, getUserLogInHour, getDeviceType, getUserByHistory} = 
+const { getOrderLogs, addOrderLog ,getUserLogs, getUserLogInHour, getDeviceType,getUserByActivity, getUserByHistory} = 
   require('../controller/orderLogController')
 const {loginWithPhone , adminRegister } = 
   require('../controller/loginController')
@@ -52,6 +52,7 @@ router.post('/getUserLogs', getOrderLogs);
 router.post('/getUserLogCount', getUserLogs);
 router.post('/getUserLogCountInDay', getUserLogInHour);
 router.post('/getUserLogHistory', getUserByHistory);
+router.post('/getUserLogActivity', getUserByActivity);
 
 
 

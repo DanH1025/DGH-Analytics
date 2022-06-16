@@ -74,123 +74,66 @@ export default function Checkout() {
       .then(data => printIt(data.results));
     }
 
-    const handleConfirm = () => {
-      console.log(cartItems[0])
+    const handleDOubleConfirm = (event) => {
+      event.preventDefault();
+      console.log("PURCHASE");
+    }
+
+    const handleConfirm = (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      console.log("In handle confirm")
       const date = new Date();
 
       if(cartItems?.length !== 0){
-            if(cookies.uid){
-              try{
-                let costTotal = 0;
-                let no_item = 0;
-                cartItems.map((item)=>{
-                  const pro = product.find(x => x.id === item.product).cost;
-                  costTotal += pro*item.qtyCounter;
-                  no_item += Number(item.qtyCounter);
-                });
-                console.log(costTotal); 
-                console.log(no_item);
-                dispatch(createOrders(date, cookies.uid, getTotalProductPrice(), marker.latitude,marker.longitude, phoneNumber, costTotal, no_item ))
-              }catch(e){
-                console.log(e);
-              }
-      
-            
-      
-              cartItems.map((item)=>{
-                // const pro = product.find(x => x.id === item.product).cost;
-                // console.log(pro*item.qtyCounter);
-                dispatch(createOrderDetails(date, item.product , item.qtyCounter, item.price))
-              });
-              sessionStorage.setItem('purchased', true);
-              console.log(phoneNumber)
-              dispatch(clearCart());
-              message.success("Order Placed");
-      
-              let purchased = false;
-              let reachCheck = false;
-              if (sessionStorage.getItem('purchased') === null) {
-                console.log('purchased found');
-                purchased = sessionStorage.getItem('purchased');
-              }else{
-                console.log('purchased not found');
-                console.log(sessionStorage.getItem('purchased'));
-                purchased = false;
-              }
-              if (sessionStorage.getItem('user') === null) {
-                reachCheck = sessionStorage.getItem('reachedCheckout');
-                console.log('userr found');
-              }else{
-                console.log('user not found');
-                reachCheck = false;
-              }
-      
-              navigate('/');
-            }
-            else{
-              message.error("Order Place Failed: Check if you are logged in");
-            }
-      
+        if(cookies.uid){
+          try{
+            let costTotal = 0;
+            let no_item = 0;
+            cartItems.map((item)=>{
+              const pro = product.find(x => x.id === item.product).cost;
+              costTotal += pro*item.qtyCounter;
+              no_item += Number(item.qtyCounter);
+            });
+            // console.log(costTotal); 
+            console.log("befour dispatch");
+            dispatch(createOrders(date, cookies.uid, getTotalProductPrice(), marker.latitude,marker.longitude, phoneNumber, costTotal, no_item ))
+          }catch(e){
+            console.log(e);
+          }
+          cartItems.map((item)=>{
+            dispatch(createOrderDetails(date, item.product , item.qtyCounter, item.price))
+          });
+          sessionStorage.setItem('purchased', true);
+          // console.log(phoneNumber)
 
-
+          // dispatch(clearCart());
+          message.success("Order Placed");
+  
+          let purchased = false;
+          let reachCheck = false;
+          if (sessionStorage.getItem('purchased') === null) {
+            // console.log('purchased found');
+            purchased = sessionStorage.getItem('purchased');
+          }else{
+            purchased = false;
+          }
+          if (sessionStorage.getItem('user') === null) {
+            reachCheck = sessionStorage.getItem('reachedCheckout');
+            // console.log('userr found');
+          }else{
+            // console.log('user not found');
+            reachCheck = false;
+          }
+          navigate('/');
+        }
+        else{
+          message.error("Order Place Failed: Check if you are logged in");
+        }
       }else{
         navigate('/');
         message.error("Your cart is empty")
       }
-
-      if(cookies.uid){
-        try{
-          let costTotal = 0;
-          let no_item = 0;
-          cartItems.map((item)=>{
-            const pro = product.find(x => x.id === item.product).cost;
-            costTotal += pro*item.qtyCounter;
-            no_item += Number(item.qtyCounter);
-          });
-          console.log(costTotal); 
-          console.log(date);
-          dispatch(createOrders(date, cookies.uid, getTotalProductPrice(), marker.latitude,marker.longitude, phoneNumber, costTotal, no_item))
-        }catch(e){
-          console.log(e);
-        }
-
-      
-
-        cartItems.map((item)=>{
-          // const pro = product.find(x => x.id === item.product).cost;
-          console.log(date);
-          dispatch(createOrderDetails(date, item.product , item.qtyCounter, item.price))
-        });
-        message.success("Order Placed");
-        sessionStorage.setItem('purchased', true);
-        console.log(phoneNumber)
-
-        let purchased = false;
-        let reachCheck = false;
-        if (sessionStorage.getItem('purchased') === null) {
-          console.log('purchased found');
-          purchased = sessionStorage.getItem('purchased');
-        }else{
-          console.log('purchased not found');
-          console.log(sessionStorage.getItem('purchased'));
-          purchased = false;
-        }
-        if (sessionStorage.getItem('user') === null) {
-          reachCheck = sessionStorage.getItem('reachedCheckout');
-          console.log('userr found');
-        }else{
-          console.log('user not found');
-          reachCheck = false;
-        }
-
-        navigate('/');
-      }
-      else{
-        message.error("Order Place Failed: Check if you are logged in");
-      }
-
-
-   
    
     }
 
@@ -229,147 +172,147 @@ export default function Checkout() {
            <h1 className='checkout_titleContent'>Checkout</h1>
          </div> */}
 
-         <div className="checkoutSteps">
-           <div className="stepTitle">
-              <p>Step 1 - Delivery Details</p>
-           </div>
-           <div className="stepOneContainer">
-              <div className="mapHolder">
-                 <ReactMapGL {...viewPort} 
-                 mapboxAccessToken="pk.eyJ1IjoiZGFuaGdiIiwiYSI6ImNsMXVnNDIxbzAwMmYzcXBiMXB0ZWVjcWMifQ.nC63RhWneFhiZ4k4XJim9A" 
-                 onMove={(viewPort)=> { setViewPort(viewPort)}}
-                 mapStyle="mapbox://styles/mapbox/streets-v11"
-                 onClick={(viewPort)=> { 
-                        setMarker({
-                          latitude: viewPort.lngLat.lat,
-                          longitude: viewPort.lngLat.lng
-                        }) 
-                  console.log(viewPort);
-                  setMapLocation()
-                   }}
-                  
+        <div className="checkoutSteps">
+          <div className="stepTitle">
+            <p>Step 1 - Delivery Details</p>
+          </div>
+          <div className="stepOneContainer">
+            <div className="mapHolder">
+                <ReactMapGL {...viewPort} 
+                mapboxAccessToken="pk.eyJ1IjoiZGFuaGdiIiwiYSI6ImNsMXVnNDIxbzAwMmYzcXBiMXB0ZWVjcWMifQ.nC63RhWneFhiZ4k4XJim9A" 
+                onMove={(viewPort)=> { setViewPort(viewPort)}}
+                mapStyle="mapbox://styles/mapbox/streets-v11"
+                onClick={(viewPort)=> { 
+                      setMarker({
+                        latitude: viewPort.lngLat.lat,
+                        longitude: viewPort.lngLat.lng
+                      }) 
+                console.log(viewPort);
+                setMapLocation()
+                  }}
                 
-                 
-                 >
-                 
-                  <Marker latitude={marker.latitude} longitude={marker.longitude} />
-                 </ReactMapGL>   
-             
-             
-              </div>
-              <div className="stepOneInfo">
-                <div className="infoHolder">
-                      <div className="lngLat">
-                        <div className="latHolder"> <Input prefix="Lat" value={marker.latitude}  disabled /></div>
-                        <div className="lngHolder"><Input prefix="Lng" value={marker.longitude} disabled /></div>
+              
+                
+                >
+                
+                <Marker latitude={marker.latitude} longitude={marker.longitude} />
+                </ReactMapGL>   
+            
+            
+            </div>
+            <div className="stepOneInfo">
+              <div className="infoHolder">
+                    <div className="lngLat">
+                      <div className="latHolder"> <Input prefix="Lat" value={marker.latitude}  disabled /></div>
+                      <div className="lngHolder"><Input prefix="Lng" value={marker.longitude} disabled /></div>
+                      
                         
-                         
-                      </div>
-                      <div className="locationName">
-                        <Input prefix={<LocationOnIcon />} placeholder='Location ' 
-                        value={mapLocation} 
-                        
-                        disabled  />
-                      </div>
-                      <div className="phoneNumber">
-                          <Input type="number" 
-                            prefix="(+251)" placeholder='Phone Number'
-                            value={phoneNumber}
-                            className='phone_number_input'
-                            onChange={(e)=> setPhoneNumber(e.target.value) } 
-                            
-                            />
-                      </div>
-                </div>
+                    </div>
+                    <div className="locationName">
+                      <Input prefix={<LocationOnIcon />} placeholder='Location ' 
+                      value={mapLocation} 
+                      
+                      disabled  />
+                    </div>
+                    <div className="phoneNumber">
+                        <Input type="number" 
+                          prefix="(+251)" placeholder='Phone Number'
+                          value={phoneNumber}
+                          className='phone_number_input'
+                          onChange={(e)=> setPhoneNumber(e.target.value) } 
+                          
+                          />
+                    </div>
               </div>
-           </div>
+            </div>
+          </div>
 
-           <div className="stepTitle">
-              <p>Step 2 - Confirm Shopping Cart</p>
-           </div>
-           <div className="cartConfirm">
-                    {cartItems.length === 0?(
-                       <p className='cartEmpty'>  Your Cart Is Empty:  <span> <SentimentVeryDissatisfiedIcon /></span>  </p>
-                    ): cartItems.map((item)=>
-                         <CartItem item={item} 
-                                    qtyChangeHandler={qtyChangeHandler} 
-                                    removeFromCartHandler={removeFromCartHandler}    
-                        /> )}
+          <div className="stepTitle">
+            <p>Step 2 - Confirm Shopping Cart</p>
+          </div>
+          <div className="cartConfirm">
+                  {cartItems.length === 0?(
+                      <p className='cartEmpty'>  Your Cart Is Empty:  <span> <SentimentVeryDissatisfiedIcon /></span>  </p>
+                  ): cartItems.map((item)=>
+                        <CartItem item={item} 
+                                  qtyChangeHandler={qtyChangeHandler} 
+                                  removeFromCartHandler={removeFromCartHandler}    
+                      /> )}
+
+          
+            <div className="checkoutInfo" >
+              <div className="checkoutInfoWrapper">
+                  <div className="infoBox">
+                      <div className="selectedItems">
+                          <div className="tag">
+                              <p>Selected Items:</p> 
+                          </div>
+                          <div className="amount">
+                              <p className='itemCountNumber'> {getCartCount()} </p>
+                          </div>
+                      </div>
+                      <div className="total">
+                          <div className="tag">
+                              <p>Total Price:</p> 
+                          </div>
+                          <div className="amount">
+                            <p className='totalPriceNumber'>${getTotalProductPrice().toFixed(2)} </p>
+                          </div>
+                      </div>
+                      <div className="total">
+                          <div className="tag">
+                              <p>Delivery Charges:</p> 
+                          </div>
+                          <div className="amount">
+                            <p className='totalPriceNumber'>$50 </p>
+                          </div>
+                      </div>
+                      <div className="total"  style={{background: '#c3ffc0'}} >
+                          <div className="tag">
+                              <p>SubTotal Price:</p> 
+                          </div>
+                          <div className="amount">
+                            <p className='totalPriceNumber'>${getTotalProductPrice().toFixed(2)} </p>
+                          </div>
+                      </div>
+                      
+                  </div>
+              </div>
+            </div>
+
 
             
-              <div className="checkoutInfo" >
-                <div className="checkoutInfoWrapper">
-                    <div className="infoBox">
-                        <div className="selectedItems">
-                            <div className="tag">
-                                <p>Selected Items:</p> 
-                            </div>
-                            <div className="amount">
-                               <p className='itemCountNumber'> {getCartCount()} </p>
-                            </div>
+          </div>
+
+
+
+          <div className="stepTitle">
+            <p>Step 3 - Payment Methods</p>
+          </div>
+
+          <div className="payment_methods">
+            <div className="featuredInfo">
+              <div className="featuredInfoWrapper">
+                <div className="content">
+                  <div className="contentWrapper" style={{justifyContent:"left"}}>                          
+                    <div className="memberDisountContent">
+                      <div className="memberDiscount">
+                          <MonetizationOnOutlined  className='contentIcon'/>
+                        <div className='memberDiscountInfo'>
+                            <p className='contentTitle'>Cash on Delivery</p>
+                            <p className='contentDetail'>Pay with cash after</p>
                         </div>
-                        <div className="total">
-                            <div className="tag">
-                                <p>Total Price:</p> 
-                            </div>
-                            <div className="amount">
-                              <p className='totalPriceNumber'>${getTotalProductPrice().toFixed(2)} </p>
-                            </div>
-                        </div>
-                        <div className="total">
-                            <div className="tag">
-                                <p>Delivery Charges:</p> 
-                            </div>
-                            <div className="amount">
-                              <p className='totalPriceNumber'>$50 </p>
-                            </div>
-                        </div>
-                        <div className="total"  style={{background: '#c3ffc0'}} >
-                            <div className="tag">
-                                <p>SubTotal Price:</p> 
-                            </div>
-                            <div className="amount">
-                              <p className='totalPriceNumber'>${getTotalProductPrice().toFixed(2)} </p>
-                            </div>
-                        </div>
-                        
-                    </div>
+                      </div>
+                    </div>                 
+                  </div>
                 </div>
               </div>
-
-
-              
-           </div>
-
-
-
-           <div className="stepTitle">
-              <p>Step 3 - Payment Methods</p>
-           </div>
-           <div className="payment_methods">
-              <div className="featuredInfo">
-                <div className="featuredInfoWrapper">
-                    <div className="content">
-                        <div className="contentWrapper" style={{justifyContent:"left"}}>                
-                    
-                            <div className="memberDisountContent">
-                                <div className="memberDiscount">
-                                    <MonetizationOnOutlined  className='contentIcon'/>
-                                    <div className='memberDiscountInfo'>
-                                        <p className='contentTitle'>Cash on Delivery</p>
-                                        <p className='contentDetail'>Pay with cash after</p>
-                                    </div>
-                                </div>
-                            </div>                 
-                        </div>
-                    </div>
-                </div>
             </div>
-           </div>
+          </div>
 
-           <div className="confirmOrder">
-               <Button onClick={handleConfirm} type="primary" contained> Order </Button>
-           </div>
+          <div className="confirmOrder">
+            <Button onClick={handleConfirm} type="primary" contained> Order </Button>
+          </div>
 
 
 

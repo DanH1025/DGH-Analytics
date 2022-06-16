@@ -30,7 +30,17 @@ const getUserByHistory = async(req,res) => {
   const day = req.body.day;
 
   const [logs, metaData] = await OrderLogModel.fetchByUserHistory(date, day);
-  console.log(logs);
+  // console.log(logs);
+  res.send(logs);
+}
+
+const getUserByActivity = async(req,res) => {
+  // const date = req.body.date;
+  const day = req.body.days;
+  const date = new Date().toISOString().slice(0, 10);
+  console.log(date);
+  const [logs, metaData] = await OrderLogModel.fetchUserByActivity(date, day);
+  // console.log(logs);
   res.send(logs);
 }
 
@@ -129,5 +139,6 @@ module.exports = {
   getUserLogs,
   getUserLogInHour,
   getUserByHistory,
-  getDeviceType
+  getDeviceType,
+  getUserByActivity
 };

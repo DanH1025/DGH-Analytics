@@ -264,6 +264,13 @@ body{
     margin-top: 5px;
 
 }
+
+.productBrand_container{
+    width: 50%;
+    float: left;
+    padding-right: 1rem;
+}
+
 .productPricingCalculator_holder{
     display: flex;
     width: 100%;
