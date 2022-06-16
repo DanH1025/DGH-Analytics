@@ -12,6 +12,7 @@ module.exports = class Request {
     this.no_item = no_item;
   }
 
+  
   save() {
     console.log('in order modle');
     console.log('userId');
@@ -34,6 +35,7 @@ module.exports = class Request {
       ])
     }catch(e){
       console.log("order save error: " + e);
+      return e;
     }
   }
 
@@ -64,13 +66,8 @@ module.exports = class Request {
     }
   }
 
-  static fetchAllbyUser(id) {
-    try{
-       const result =db.execute('SELECT orders.orderId, user.fname, user.lname, user.email, user.phone_number, orders.total , orders.latitude,orders.longitude,orders.contact , orders.status, orders.cost, orders.no_item FROM orders INNER JOIN user ON orders.userId = user.id WHERE user.id = ?', [id]);
-       return result;
-    }catch(err){
-      console.log(err);
-    }
+  static  fetchAllbyUser = (id) => {
+    return db.execute('SELECT orders.orderId, user.fname, user.lname, user.email, user.phone_number, orders.total , orders.latitude,orders.longitude,orders.contact , orders.status, orders.cost, orders.no_item FROM orders INNER JOIN user ON orders.userId = user.id WHERE user.id = ?', [id]);   
   }
 
   static totalSum(date) {
