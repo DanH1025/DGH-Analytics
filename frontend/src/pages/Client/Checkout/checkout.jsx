@@ -20,6 +20,7 @@ import { clearCart } from '../../../redux/actions/cartActions';
 import { useNavigate } from 'react-router-dom';
 
 import { useCookies } from 'react-cookie';
+import axios from 'axios';
 
 export default function Checkout() {
 
@@ -57,8 +58,8 @@ export default function Checkout() {
       latitude: 9.022875,
       longitude: 38.752261
     });
-    const [mapLocation, setMapLocation] = useState("");
-    const [phoneNumber , setPhoneNumber] = useState("");
+    
+    const [phoneNumber , setPhoneNumber] = useState('');
 
     let printIt = (data) => {
       console.log(data);
@@ -67,130 +68,97 @@ export default function Checkout() {
       setMapLocation(val.formatted);
       })
     }
+    const [selectedLocation , setSelectedLocation] = useState({
+      country: '',
+      city:'',
+      road:''
+    })
+    const [mapLocation, setMapLocation] = useState("");
 
     const handleLocation = async () => {
-      await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${marker.latitude}+${marker.longitude}&key=018d9986cb5c483380337c7f6526c2fe`)
-      .then(response => response.json())
-      .then(data => printIt(data.results));
+      const resp = await axios.get(`https://api.opencagedata.com/geocode/v1/json?q=${marker.latitude}+${marker.longitude}&key=018d9986cb5c483380337c7f6526c2fe`)
+      console.log("this is my local")
+
+      setSelectedLocation({...selectedLocation , country: resp.data.results[0].components.country , city: resp.data.results[0].components.state , road: resp.data.results[0].components.road})
+
+      console.log(resp)
+      console.log(selectedLocation)
+
     }
 
     const handleConfirm = () => {
       console.log(cartItems[0])
       const date = new Date();
+      console.log("this is the ordered phone number")
+      console.log(phoneNumber)
 
       if(cartItems?.length !== 0){
-            if(cookies.uid){
-              try{
-                let costTotal = 0;
-                let no_item = 0;
-                cartItems.map((item)=>{
-                  const pro = product.find(x => x.id === item.product).cost;
-                  costTotal += pro*item.qtyCounter;
-                  no_item += Number(item.qtyCounter);
-                });
-                console.log(costTotal); 
-                console.log(no_item);
-                dispatch(createOrders(date, cookies.uid, getTotalProductPrice(), marker.latitude,marker.longitude, phoneNumber, costTotal, no_item ))
-              }catch(e){
-                console.log(e);
-              }
-      
-            
-      
+
+        if(phoneNumber === ''  || !/(\+\s*2\s*5\s*1\s*9\s*(([0-9]\s*){8}\s*))|(0\s*9\s*(([0-9]\s*){8}))/.test(phoneNumber) ){
+          message.error("Phone Number Is Invalid")
+        }else{
+          if(cookies.uid){
+            try{
+              let costTotal = 0;
+              let no_item = 0;
               cartItems.map((item)=>{
-                // const pro = product.find(x => x.id === item.product).cost;
-                // console.log(pro*item.qtyCounter);
-                dispatch(createOrderDetails(date, item.product , item.qtyCounter, item.price))
+                const pro = product.find(x => x.id === item.product).cost;
+                costTotal += pro*item.qtyCounter;
+                no_item += Number(item.qtyCounter);
               });
-              sessionStorage.setItem('purchased', true);
-              console.log(phoneNumber)
-              dispatch(clearCart());
-              message.success("Order Placed");
-      
-              let purchased = false;
-              let reachCheck = false;
-              if (sessionStorage.getItem('purchased') === null) {
-                console.log('purchased found');
-                purchased = sessionStorage.getItem('purchased');
-              }else{
-                console.log('purchased not found');
-                console.log(sessionStorage.getItem('purchased'));
-                purchased = false;
-              }
-              if (sessionStorage.getItem('user') === null) {
-                reachCheck = sessionStorage.getItem('reachedCheckout');
-                console.log('userr found');
-              }else{
-                console.log('user not found');
-                reachCheck = false;
-              }
-      
-              navigate('/');
+              
+              console.log(costTotal); 
+              console.log(no_item);
+              dispatch(createOrders(date, cookies.uid, getTotalProductPrice(), marker.latitude,marker.longitude, phoneNumber, costTotal, no_item ))
+            }catch(e){
+              console.log(e);
             }
-            else{
-              message.error("Order Place Failed: Check if you are logged in");
+    
+          
+    
+            cartItems.map((item)=>{
+              // const pro = product.find(x => x.id === item.product).cost;
+              // console.log(pro*item.qtyCounter);
+              dispatch(createOrderDetails(date, item.product , item.qtyCounter, item.price))
+            });
+            sessionStorage.setItem('purchased', true);
+            console.log(phoneNumber)
+            dispatch(clearCart());
+            message.success("Order Placed");
+    
+            let purchased = false;
+            let reachCheck = false;
+            if (sessionStorage.getItem('purchased') === null) {
+              console.log('purchased found');
+              purchased = sessionStorage.getItem('purchased');
+            }else{
+              console.log('purchased not found');
+              console.log(sessionStorage.getItem('purchased'));
+              purchased = false;
             }
-      
+            if (sessionStorage.getItem('user') === null) {
+              reachCheck = sessionStorage.getItem('reachedCheckout');
+              console.log('userr found');
+            }else{
+              console.log('user not found');
+              reachCheck = false;
+            }
+    
+            navigate('/');
+          }
+          else{
+            message.error("Order Place Failed: Check if you are logged in");
+          }
+    
+
+        }
+           
 
 
       }else{
         navigate('/');
         message.error("Your cart is empty")
-      }
-
-      if(cookies.uid){
-        try{
-          let costTotal = 0;
-          let no_item = 0;
-          cartItems.map((item)=>{
-            const pro = product.find(x => x.id === item.product).cost;
-            costTotal += pro*item.qtyCounter;
-            no_item += Number(item.qtyCounter);
-          });
-          console.log(costTotal); 
-          console.log(date);
-          dispatch(createOrders(date, cookies.uid, getTotalProductPrice(), marker.latitude,marker.longitude, phoneNumber, costTotal, no_item))
-        }catch(e){
-          console.log(e);
-        }
-
-      
-
-        cartItems.map((item)=>{
-          // const pro = product.find(x => x.id === item.product).cost;
-          console.log(date);
-          dispatch(createOrderDetails(date, item.product , item.qtyCounter, item.price))
-        });
-        message.success("Order Placed");
-        sessionStorage.setItem('purchased', true);
-        console.log(phoneNumber)
-
-        let purchased = false;
-        let reachCheck = false;
-        if (sessionStorage.getItem('purchased') === null) {
-          console.log('purchased found');
-          purchased = sessionStorage.getItem('purchased');
-        }else{
-          console.log('purchased not found');
-          console.log(sessionStorage.getItem('purchased'));
-          purchased = false;
-        }
-        if (sessionStorage.getItem('user') === null) {
-          reachCheck = sessionStorage.getItem('reachedCheckout');
-          console.log('userr found');
-        }else{
-          console.log('user not found');
-          reachCheck = false;
-        }
-
-        navigate('/');
-      }
-      else{
-        message.error("Order Place Failed: Check if you are logged in");
-      }
-
-
-   
+      }   
    
     }
 
@@ -245,7 +213,8 @@ export default function Checkout() {
                           longitude: viewPort.lngLat.lng
                         }) 
                   console.log(viewPort);
-                  setMapLocation()
+                  //setMapLocation()
+                  handleLocation()
                    }}
                   
                 
@@ -266,17 +235,18 @@ export default function Checkout() {
                          
                       </div>
                       <div className="locationName">
-                        <Input prefix={<LocationOnIcon />} placeholder='Location ' 
+                        <Input prefix={<LocationOnIcon />} placeholder={selectedLocation.country + " " + selectedLocation.state + " " + selectedLocation.road} 
                         value={mapLocation} 
                         
                         disabled  />
                       </div>
                       <div className="phoneNumber">
                           <Input type="number" 
-                            prefix="(+251)" placeholder='Phone Number'
+                            placeholder='Phone Number'
                             value={phoneNumber}
                             className='phone_number_input'
                             onChange={(e)=> setPhoneNumber(e.target.value) } 
+                            required
                             
                             />
                       </div>

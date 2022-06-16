@@ -187,7 +187,7 @@ const getUser = async(req,res) => {
   }
 }
 
-const checkUser = async(req,res) => {
+const checkUser = async(req,res) => {  
   console.log('in appi get user');
   const phone = req.body.phone;
 
@@ -200,7 +200,7 @@ const checkUser = async(req,res) => {
     console.log('no luck');
     res.send(false);
   }
-}
+}  
 
 const checkEmail = async(req,res) => {
   console.log('in appi get user');
@@ -234,16 +234,18 @@ const getAdminUser = async (req,res)=>{
     const da = user[0];
     if(user.length >= 1){
       if(isCorrect){
+        console.log("im in  correctly")
         const accessToken = generateAccessToken(da);
         const refreshToken = generateRefreshToken(da);
         refreshTokens.push(refreshToken);
         
-        res.send({data: user[0], accessToken: accessToken});
+        res.json({data: user[0], accessToken: accessToken , status: 200});
       }else{
+        console.log("its not correct");
         res.send({
           header: "Error",
           message:"Password Invalid",
-          status: 1,
+          status: 401,
           
         })
       }

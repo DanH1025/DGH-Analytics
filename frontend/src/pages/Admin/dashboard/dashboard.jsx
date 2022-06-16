@@ -262,7 +262,7 @@ export default function PM_Dashboard() {
         </div>
         <Divider />
         <List>
-          {['Dashboard', 'Profile', 'Product List', 'Add Products', 'WishList','Users', 'Order List','Hiring', 'Analysis', 'Profile'].map((text, index) => (
+          {['Dashboard', 'Profile', 'Product List', 'Add Products', 'WishList','Users', 'Order List','Hiring'].map((text, index) => (
             <>
             <ListItem button  onClick={()=>{
               setCompCounter(index)
