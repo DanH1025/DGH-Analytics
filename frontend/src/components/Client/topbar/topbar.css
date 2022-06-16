@@ -52,6 +52,37 @@
     flex: 2;
     width: 100%;
     height: 100%;
+  
+}
+.trackorderHolder{
+    display: flex;
+    flex: 4;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+   
+}
+.trackorderHolder p{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-left: 7px;
+    font-size: 12px;
+    font-family: 'Times New Roman', Times, serif;
+    cursor: pointer;
+    color: blue
+    ;
+}
+
+.leftSide p{
+    font-size: 12px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: lighter;
 }
 .leftSide svg{
     margin: 0px 3px;

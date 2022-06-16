@@ -16,7 +16,7 @@ const cookieParser = require('cookie-parser');
 var schedule = require('node-schedule');  
 const {addOrderReport} = require('./controller/orderReportController');
 
- 
+   
 const app = express();
 app.use(express.json()); // allows to recieve data with json format from our request variables at the frontend
 app.use(bodyParser.urlencoded({extended: true})); 

@@ -135,7 +135,7 @@ module.exports = class Request {
       return result;
     } catch (error) {
       console.log(error)
-    }
+    } 
   }
 
   static fetchTopFive (){

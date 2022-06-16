@@ -3,6 +3,21 @@ import * as actionTypes from '../constants/userConstant';
 
 export const getUserReducer = (state = {user: [] }, action)=>{
     switch(action.type){
+        case actionTypes.GET_ADMIN_NAME_REQUEST:
+            return {
+                loading: true,
+                user: []
+            }
+        case actionTypes.GET_ADMIN_NAME_SUCCESS:
+            return{
+                loading: false,
+                user: action.payload
+            }
+        case actionTypes.GET_ADMIN_NAME_FAIL:
+            return{
+                loading: false,
+                error: action.payload
+            }
         case actionTypes.GET_ALL_USER_REQUEST:
             return{
                 loading: true,
@@ -18,6 +33,21 @@ export const getUserReducer = (state = {user: [] }, action)=>{
                 loading:false,
                 error: action.payload,
                 // products: []
+            }
+        case actionTypes.CREATE_ADMIN_ACCOUNT:
+            return{
+                loading: true,
+                user:[]
+            }
+        case actionTypes.CREATE_ADMIN_ACCOUNT_SUCCESS:
+            return{
+                loading: false,
+                user: action.payload
+            }
+        case actionTypes.CREATE_ADMIN_ACCOUNT_FAIL:
+            return{
+                loading: false,
+                user: action.payload
             }
         // case actionTypes.CREATE_USER_BY_PHONE_REQUEST:
         //     return{

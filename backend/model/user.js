@@ -72,7 +72,7 @@ module.exports = class Request {
        return result;
     }catch(err){
       console.log(err);
-    }
+    } 
   }
   
   static checkUser(phone) {
@@ -85,7 +85,7 @@ module.exports = class Request {
   }
   
   static checkEmail(email) {
-    try{
+    try{    
        const result =db.execute('SELECT EXISTS(SELECT * from user WHERE email=?)', [email]);
        return result;
     }catch(err){
@@ -95,10 +95,18 @@ module.exports = class Request {
 
   static createAdminUser (userName , email ,date, password,key ){
     try{
-      const result =db.execute('INSERT INTO `administrator_user`(`user_name`, `email`, `user_role`, `sign_up_date`, `password` , `access_key`) VALUES (?,?,?,?,?,?)', [userName , email , "product_manager" , date, password,key])
+      const result =db.execute('INSERT INTO `administrator_user`(`user_name`, `email`, `user_role`, `sign_up_date`, `password` , `access_key`) VALUES (?,?,?,?,?,?)', [userName , email , "manager" , date, password,key])
       return result;
     }catch(error){
    
+      console.log(error)
+    }
+  }
+  static addAdministratorAccount (name , email, user_role ,date, password , access_key){
+    try {
+       const result = db.execute('INSERT INTO administrator_user (user_name , email , user_role , sign_up_date , password, access_key, status) VALUES (?,?,?,?,?,?,?)',[name,email,user_role,date,password, access_key, 'Active']);
+       return result;
+    } catch (error) {
       console.log(error)
     }
   }
@@ -113,7 +121,7 @@ module.exports = class Request {
   }
 
   static activatePM( email ,activation){
-    try {
+    try { 
       const result = db.execute("UPDATE administrator_user SET status = ?   WHERE email = ? ", [activation, email]);
       return result;
     } catch (error) {
@@ -127,6 +135,22 @@ module.exports = class Request {
       return result;
     } catch (error) {
       return error
+    }
+  }
+  static changeAdminName (name , email){
+    try {
+      const result = db.execute('UPDATE administrator_user SET user_name = ?  WHERE email = ?' ,[name, email]);
+      return result;
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  static adminPasswordChange (email , hashPass){
+    try {
+      const result = db.execute('UPDATE administrator_user SET password = ? WHERE email = ?', [hashPass , email])
+      return result;
+    } catch (error) {
+      console.log(error)
     }
   }
 

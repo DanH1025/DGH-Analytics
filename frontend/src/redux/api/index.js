@@ -73,6 +73,10 @@ const adminSignupUrl = 'http://localhost:5000/api/adminRegister'
 const addReviewUrl = 'http://localhost:5000/api/addComment'
 const fetchCommentsUrl = 'http://localhost:5000/api/getComment'
 const fetchFiveProductsUrl = 'http://localhost:5000/api/getTopProducts'
+const fetchAdminUserNameUrl = 'http://localhost:5000/api/getAdminUserName'
+const changeAdminNameUrl = 'http://localhost:5000/api/changeAdminUserName'
+const changeAdminPasswordUrl = 'http://localhost:5000/api/changeAdminPassword'
+const addAdminAccountUrl = 'http://localhost:5000/api/createAdminAccount'
 
 //admin signup
 export const admin_signup = (userName, email, password, accessKey)=>{
@@ -306,5 +310,27 @@ export const getComments = ()=>{
 export const fetchFiveProducts = ()=>{
   return axios.post(fetchFiveProductsUrl)
 }
+export const fetchAdminUserName = (email)=>{
+  return axios.post (fetchAdminUserNameUrl , {email:email})
+}
 
+export const changeAdminName = (email, userName) =>{
+    axios.post(changeAdminNameUrl , {email, userName})
+}
 
+export const changeAdminPassword = (email, oldPassword , newPassword)=>{
+   return axios.post (changeAdminPasswordUrl , {
+    email:email,
+    oldPassword:oldPassword,
+    newPasswor: newPassword
+   })
+}
+
+export const addAdminAccount =(userName  , email , password)=>{
+  return axios.post(addAdminAccountUrl , {
+    name: userName,
+    email: email,
+    password: password
+
+  })
+}

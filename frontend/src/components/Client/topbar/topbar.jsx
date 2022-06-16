@@ -265,12 +265,24 @@ export default function Topbar() {
             <div className="topSide">
               <div className="topSideWrapper">
                 <div className="leftSide">
-                  <p>Follow Us  </p>
+
                     <InstagramIcon style={{color:"red"}} />
                     <FacebookIcon  style={{color:"#3b3b8f"}} />
                     <TwitterIcon   style={{color:"#00a9ff"}} />
                 </div>
+
                 <div className="rightSide">
+                {
+                  cookies.uid ?
+                     <div className="trackorderHolder">
+                      <Link to='/orderlist'>
+                        <p>Track your Order</p>
+                      </Link>                    
+                    </div>           
+                      
+                 : '' 
+                }
+                
                   {cookies.fname ?                      
                     <div className='isLoggedIn'>
                       <div className="profilePic"> 
@@ -408,14 +420,7 @@ export default function Topbar() {
 
             <div className="stickyRight">
               <div className='orderlist'>
-                {
-                  cookies.uid ?
-                  <Link to='/orderlist'>
-                    <HistorySharp className='infosIcons' label="orderlist"/>
-                      <span>{getWishlistCount()}</span>
-                  </Link>
-                 : '' 
-                }
+               
               </div>
               <div className='wishlist'>
                 <Link to='/wishlist'>

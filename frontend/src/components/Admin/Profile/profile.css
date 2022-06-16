@@ -1,0 +1,151 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    box-sizing: border-box;
+}
+
+body{
+    padding: 0;
+    margin: 0;
+}
+
+.profilePage{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.profileWrapper{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    marign:0;
+
+}
+.upperSide ,
+.lowerSide{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+.profileInfoSide{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+   
+}
+.profileInformation{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
+    padding: 4px;
+    margin: 5px 0px;
+    border-bottom: 1px black solid;
+    border-top: 1px black solid;
+}
+.profileInformation h2 ,
+.addAdminWrapper h2,
+.editProfileInformation h2{
+    width: 100%;
+    height: 40px;
+    margin: 5px 5px;
+    font-size: 16px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 300;
+
+}
+.profileInformation p{
+    font-size: 12px;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: lighter;
+    width: 100%;
+    padding: 0;
+    margin: 1px;
+    margin-left: 5px;
+    margin-bottom: 6px;
+}
+
+
+.editProfileSide{
+    display: flex;
+    flex: 2;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    
+}
+.editProfileInformation{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;   
+    padding: 4px;
+    margin:0;
+    
+}
+
+.changeUserNameSide,
+.changePasswords{
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 5px 10px;
+
+}
+.changeUserNameSide h3,
+.changePasswords h3{
+    width: 100%;
+    height: 20px;
+    font-size: 13px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 300;
+}
+.changeUserNameSide input,
+.changePasswords input,
+.addAdminWrapper input{
+    display: flex;
+    width: 50%;
+    height: 40px;
+    border: 1px solid black;
+    padding: 5px;
+    margin: 0;
+    margin-bottom: 4px;
+    border-radius: 2px;
+}
+
+.userNameChangeBtn,
+.passwordChangeConfirm,
+.addAnotherAccountBtn{
+    display: flex;
+    width: fit-content;
+    padding: 5px;
+    margin: 0px;
+    margin-top: 1px;
+    cursor: pointer;
+
+}
+
+.addAdminWrapper{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
