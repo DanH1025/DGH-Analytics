@@ -130,6 +130,7 @@ export default function Hiring() {
           dispatch(saveAccessKey(inputEmail , tokenKey))
           setInputEmail('');
           setTokenKey('');
+          window.location.reload(false);
         }else{
           message.error("Email or Key is missing"); 
         }

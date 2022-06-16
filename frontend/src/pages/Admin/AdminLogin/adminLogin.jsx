@@ -83,8 +83,9 @@ export default function AdminLogin() {
 						password: password
 					}
 				)
-				console.log(response.data);
-				if(response.data.data){
+				console.log("this is just the respnse" + response)
+				console.log(response.data.status === 'success');
+				if(response.status === 200){
 					console.log(response);
 					console.log('admin');
 					const accessToken = response.data.accessToken;
@@ -107,10 +108,10 @@ export default function AdminLogin() {
 				}else{
 					console.log('slave');
 					// navigate('/productManagerDashboard')
-					setErrMsg('Some error');
+					setErrMsg('Login Failed');
 				}
     	}catch (err) {
-    	  console.log(err.response.status); 
+    	  console.log(err.response.status); 	 
           if (!err?.response) {
             setErrMsg('No Server Response');
           } else if (err.response?.status === 400) {
@@ -138,8 +139,10 @@ export default function AdminLogin() {
 					setErrMsg("Passwords dont match")
 				}else if (regVal.password.length < 6){
 					setErrMsg("Password must be more than 6 characters")
-				}else if(regVal.access_key.length > 5 || regVal.access_key.length < 5){
+				}else if(regVal.access_key.length !== 6){
+					console.log(regVal.access_key.length)
 					setErrMsg("Invalid Access Key")
+					
 				}else{
 					const response = await axios.post('http://localhost:5000/api/adminRegister',{
 						userName: regVal.userName,

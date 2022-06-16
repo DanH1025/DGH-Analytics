@@ -96,7 +96,7 @@ export default function Home() {
       dispatch(createUserLog(user.href,user.referrer,user.screenWidth,user.screenHeight,addedToCart,reachCheck,purchased,date,time, user.city, user.state, cookies.uid));
     }else{
       console.log('In not loged user');
-      dispatch(createUserLog(user.href,user.referrer,user.screenWidth,user.screenHeight,addedToCart,reachCheck,purchased,date,time, user.city, user.state, null));
+      dispatch(createUserLog(user.href,user.referrer,user.screenWidth,user.screenHeight,addedToCart,reachCheck,purchased,date,time, user.city, user.state, ''));
     }
 
     // dispatch(createUserLog(user.href,user.referrer,user.screenWidth,user.screenHeight,addedToCart,reachCheck,purchased,date,time, user.city, user.state, cookies.uid));

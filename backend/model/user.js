@@ -72,7 +72,7 @@ module.exports = class Request {
        return result;
     }catch(err){
       console.log(err);
-    }
+    } 
   }
   
   static checkUser(phone) {
@@ -85,7 +85,7 @@ module.exports = class Request {
   }
   
   static checkEmail(email) {
-    try{
+    try{    
        const result =db.execute('SELECT EXISTS(SELECT * from user WHERE email=?)', [email]);
        return result;
     }catch(err){
@@ -95,7 +95,7 @@ module.exports = class Request {
 
   static createAdminUser (userName , email ,date, password,key ){
     try{
-      const result =db.execute('INSERT INTO `administrator_user`(`user_name`, `email`, `user_role`, `sign_up_date`, `password` , `access_key`) VALUES (?,?,?,?,?,?)', [userName , email , "product_manager" , date, password,key])
+      const result =db.execute('INSERT INTO `administrator_user`(`user_name`, `email`, `user_role`, `sign_up_date`, `password` , `access_key`) VALUES (?,?,?,?,?,?)', [userName , email , "manager" , date, password,key])
       return result;
     }catch(error){
    
