@@ -139,9 +139,9 @@ export default function Topbar() {
         message.warn("Here are the Categories we found")
       }
       
-      else{
-        
-           dispatch(getProductsBySearch(searchValue, searchCategory));
+      else{  
+          console.log(searchValue )      
+           dispatch(getProductsBySearch(searchValue.searchValue, searchCategory));
           // dispatch(recordProductSearch(searchValue, searchCategory))
 
       }
