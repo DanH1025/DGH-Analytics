@@ -51,8 +51,10 @@ export default function Login(){
 
     // for error mesaage
     const [errMsg, setErrMsg] = useState('');
+    const [signUpErr , setSignUpErr] = useState('');
     const userRef = useRef();
     const errRef = useRef();
+    
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -91,14 +93,29 @@ export default function Login(){
          if(inputState.name === "phone_number"){
              const existNumber = await checkuser(values.phone_number);
              console.log('exsnum:' + existNumber);
-             if(values.password !== values.confirm_password){
-                 message.error("Passwords dont match")
+             if(!/^(?=.{4})[a-z]([_]?[a-z\d]+)*$/i.test(values.FirstName) || !/^(?=.{4})[a-z]([_]?[a-z\d]+)*$/i.test(values.LastName)){
+                setSignUpErr("Invalid Name")
+             }
+             else if(values.password !== values.confirm_password){
+                // message.error("Passwords dont match")
+                 setSignUpErr("Passwords dont match")
              }
              else if(values.password.length < 6){
-                 message.error("Password must be more than 6 characters")
+               //  message.error("Password must be more than 6 characters")
+                 setSignUpErr("Password must be more than 6 characters");
+                 console.log(signUpErr)
              }
              else if(existNumber){
-                 message.error("Phone number already in use")
+                // message.error("Phone number already in use")
+                 setSignUpErr("Phone number already in use")
+                 console.log(signUpErr)
+             }
+             else if(values.phone_number.length !== 10){
+              //  message.error("Invalid Phone Number")
+                //setErrMsg("Invalid Phone Number")
+                setSignUpErr("Invalid Phone Number")
+                console.log(signUpErr)
+               // setInputRule({...inputRule , Pmessage: "Invalid Phone Number"})
              }
              else{
                  dispatch(createUserByPhone(values.FirstName, values.LastName, values.phone_number, values.password));
@@ -228,24 +245,6 @@ export default function Login(){
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     return(
         <>       
 
@@ -267,7 +266,7 @@ export default function Login(){
                         <Switch style={{fontSize: "10px"}}  onChange={switchHanlder} /> <label htmlFor="">Login With Phone Number</label>
                     </div>
                     <div className="loginForm">
-                        <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">
+                        <p ref={errRef} className={errMsg ? "loginErrMsg" : "login_offscreen"} aria-live="assertive">
                         {errMsg}</p>
                         <Form
                             name="normal_login"
@@ -330,6 +329,10 @@ export default function Login(){
                     <div className="loginTypeSwitch">
                         <Switch onChange={switchHanlder} /> <label htmlFor="">SignUp With Phone Number</label>
                     </div>
+
+                    <p ref={errRef} className={signUpErr ? "signUpErrMsg" : "signUpoffscreen"} aria-live="assertive">
+                        {signUpErr}</p>
+
                     <div className="SignupForm">          
                
             
@@ -401,9 +404,9 @@ export default function Login(){
                     </div>
                 </div>
                 ) }
-                <div className="introSide">
+                {/* <div className="introSide">
                     <h2>Welcome To DGH Analytics Shop</h2>
-                </div>
+                </div> */}
             </div>
         </div>
         </div>
