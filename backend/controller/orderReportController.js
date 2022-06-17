@@ -7,7 +7,7 @@ const addOrderReport = async (req, res) => {
   let date = new Date().toISOString().slice(0, 10);
   console.log('now date: ');
   // console.log(date); 
-  // date = '2022-06-11';
+  // date = '2022-06-12';
   const sum = await OrderModle.totalSum(date);
   console.log('sum:');
   console.log(sum[0][0]["SUM(total)"]);

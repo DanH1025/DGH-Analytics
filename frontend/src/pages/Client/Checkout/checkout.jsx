@@ -86,8 +86,15 @@ export default function Checkout() {
 
     }
 
-    const handleConfirm = () => {
-      console.log(cartItems[0])
+    const handleDOubleConfirm = (event) => {
+      event.preventDefault();
+      console.log("PURCHASE");
+    }
+
+    const handleConfirm = (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      console.log("In handle confirm")
       const date = new Date();
       console.log("this is the ordered phone number")
       console.log(phoneNumber)
@@ -159,6 +166,7 @@ export default function Checkout() {
         navigate('/');
         message.error("Your cart is empty")
       }   
+
    
     }
 
@@ -197,6 +205,7 @@ export default function Checkout() {
            <h1 className='checkout_titleContent'>Checkout</h1>
          </div> */}
 
+
          <div className="checkoutSteps">
            <div className="stepTitle">
               <p>Step 1 - Delivery Details</p>
@@ -216,24 +225,65 @@ export default function Checkout() {
                   //setMapLocation()
                   handleLocation()
                    }}
-                  
+                >
                 
-                 
-                 >
-                 
-                  <Marker latitude={marker.latitude} longitude={marker.longitude} />
-                 </ReactMapGL>   
-             
-             
-              </div>
-              <div className="stepOneInfo">
-                <div className="infoHolder">
-                      <div className="lngLat">
-                        <div className="latHolder"> <Input prefix="Lat" value={marker.latitude}  disabled /></div>
-                        <div className="lngHolder"><Input prefix="Lng" value={marker.longitude} disabled /></div>
+                <Marker latitude={marker.latitude} longitude={marker.longitude} />
+                </ReactMapGL>   
+            
+            
+            </div>
+            <div className="stepOneInfo">
+              <div className="infoHolder">
+                    <div className="lngLat">
+                      <div className="latHolder"> <Input prefix="Lat" value={marker.latitude}  disabled /></div>
+                      <div className="lngHolder"><Input prefix="Lng" value={marker.longitude} disabled /></div>
+                      
                         
-                         
+                    </div>
+                    <div className="locationName">
+                      <Input prefix={<LocationOnIcon />} placeholder='Location ' 
+                      value={mapLocation} 
+                      
+                      disabled  />
+                    </div>
+                    <div className="phoneNumber">
+                        <Input type="number" 
+                          prefix="(+251)" placeholder='Phone Number'
+                          value={phoneNumber}
+                          className='phone_number_input'
+                          onChange={(e)=> setPhoneNumber(e.target.value) } 
+                          
+                          />
+                    </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="stepTitle">
+            <p>Step 2 - Confirm Shopping Cart</p>
+          </div>
+          <div className="cartConfirm">
+                  {cartItems.length === 0?(
+                      <p className='cartEmpty'>  Your Cart Is Empty:  <span> <SentimentVeryDissatisfiedIcon /></span>  </p>
+                  ): cartItems.map((item)=>
+                        <CartItem item={item} 
+                                  qtyChangeHandler={qtyChangeHandler} 
+                                  removeFromCartHandler={removeFromCartHandler}    
+                      /> )}
+
+          
+            <div className="checkoutInfo" >
+              <div className="checkoutInfoWrapper">
+                  <div className="infoBox">
+                      <div className="selectedItems">
+                          <div className="tag">
+                              <p>Selected Items:</p> 
+                          </div>
+                          <div className="amount">
+                              <p className='itemCountNumber'> {getCartCount()} </p>
+                          </div>
                       </div>
+
                       <div className="locationName">
                         <Input prefix={<LocationOnIcon />} placeholder={selectedLocation.country + " " + selectedLocation.state + " " + selectedLocation.road} 
                         value={mapLocation} 
@@ -249,97 +299,54 @@ export default function Checkout() {
                             required
                             
                             />
-                      </div>
-                </div>
-              </div>
-           </div>
 
-           <div className="stepTitle">
-              <p>Step 2 - Confirm Shopping Cart</p>
-           </div>
-           <div className="cartConfirm">
-                    {cartItems.length === 0?(
-                       <p className='cartEmpty'>  Your Cart Is Empty:  <span> <SentimentVeryDissatisfiedIcon /></span>  </p>
-                    ): cartItems.map((item)=>
-                         <CartItem item={item} 
-                                    qtyChangeHandler={qtyChangeHandler} 
-                                    removeFromCartHandler={removeFromCartHandler}    
-                        /> )}
+                      </div>
+                      <div className="total"  style={{background: '#c3ffc0'}} >
+                          <div className="tag">
+                              <p>SubTotal Price:</p> 
+                          </div>
+                          <div className="amount">
+                            <p className='totalPriceNumber'>${getTotalProductPrice().toFixed(2)} </p>
+                          </div>
+                      </div>
+                      
+                  </div>
+              </div>
+            </div>
+
 
             
-              <div className="checkoutInfo" >
-                <div className="checkoutInfoWrapper">
-                    <div className="infoBox">
-                        <div className="selectedItems">
-                            <div className="tag">
-                                <p>Selected Items:</p> 
-                            </div>
-                            <div className="amount">
-                               <p className='itemCountNumber'> {getCartCount()} </p>
-                            </div>
+          </div>
+
+
+
+          <div className="stepTitle">
+            <p>Step 3 - Payment Methods</p>
+          </div>
+
+          <div className="payment_methods">
+            <div className="featuredInfo">
+              <div className="featuredInfoWrapper">
+                <div className="content">
+                  <div className="contentWrapper" style={{justifyContent:"left"}}>                          
+                    <div className="memberDisountContent">
+                      <div className="memberDiscount">
+                          <MonetizationOnOutlined  className='contentIcon'/>
+                        <div className='memberDiscountInfo'>
+                            <p className='contentTitle'>Cash on Delivery</p>
+                            <p className='contentDetail'>Pay with cash after</p>
                         </div>
-                        <div className="total">
-                            <div className="tag">
-                                <p>Total Price:</p> 
-                            </div>
-                            <div className="amount">
-                              <p className='totalPriceNumber'>${getTotalProductPrice().toFixed(2)} </p>
-                            </div>
-                        </div>
-                        <div className="total">
-                            <div className="tag">
-                                <p>Delivery Charges:</p> 
-                            </div>
-                            <div className="amount">
-                              <p className='totalPriceNumber'>$50 </p>
-                            </div>
-                        </div>
-                        <div className="total"  style={{background: '#c3ffc0'}} >
-                            <div className="tag">
-                                <p>SubTotal Price:</p> 
-                            </div>
-                            <div className="amount">
-                              <p className='totalPriceNumber'>${getTotalProductPrice().toFixed(2)} </p>
-                            </div>
-                        </div>
-                        
-                    </div>
+                      </div>
+                    </div>                 
+                  </div>
                 </div>
               </div>
-
-
-              
-           </div>
-
-
-
-           <div className="stepTitle">
-              <p>Step 3 - Payment Methods</p>
-           </div>
-           <div className="payment_methods">
-              <div className="featuredInfo">
-                <div className="featuredInfoWrapper">
-                    <div className="content">
-                        <div className="contentWrapper" style={{justifyContent:"left"}}>                
-                    
-                            <div className="memberDisountContent">
-                                <div className="memberDiscount">
-                                    <MonetizationOnOutlined  className='contentIcon'/>
-                                    <div className='memberDiscountInfo'>
-                                        <p className='contentTitle'>Cash on Delivery</p>
-                                        <p className='contentDetail'>Pay with cash after</p>
-                                    </div>
-                                </div>
-                            </div>                 
-                        </div>
-                    </div>
-                </div>
             </div>
-           </div>
+          </div>
 
-           <div className="confirmOrder">
-               <Button onClick={handleConfirm} type="primary" contained> Order </Button>
-           </div>
+          <div className="confirmOrder">
+            <Button onClick={handleConfirm} type="primary" contained> Order </Button>
+          </div>
 
 
 

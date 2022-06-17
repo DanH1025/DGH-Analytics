@@ -150,6 +150,15 @@ module.exports = class Request {
     }
   }
 
+  static fetchUserByActivity(date, days) {
+    try{
+       const result =db.execute("SELECT user_log.userId, user.fname, user.lname, user.signUpDate, COUNT(user_log.userId), COUNT(case user_log.purchased when 1 then 1 else null end) AS purchase FROM user_log INNER JOIN user ON user_log.userId = user.id WHERE date > DATE_SUB(?, INTERVAL ? DAY) AND userId != 0 GROUP BY userId ORDER BY COUNT(userId) DESC",[date, days]);
+       return result;
+    }catch(err){
+      console.log(err);
+    }
+  }
+
   static fetchByUserHistory(date, day) {
     try{
        const result =db.execute("SELECT user_log.userId, user.fname, user.lname, user.signUpDate, COUNT(user_log.userId), COUNT(case user_log.purchased when 1 then 1 else null end) AS purchase FROM user_log INNER JOIN user ON user_log.userId = user.id WHERE date > DATE_SUB(?, INTERVAL ? DAY) AND userId != 0 GROUP BY userId ORDER BY COUNT(userId) DESC", [date, day]);
