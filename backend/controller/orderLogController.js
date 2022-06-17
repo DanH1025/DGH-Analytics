@@ -26,8 +26,8 @@ const getDeviceType = async(req,res) => {
 }
 
 const getUserByHistory = async(req,res) => {
-  const date = req.body.date;
-  const day = req.body.day;
+  const date = new Date().toISOString().slice(0, 10);
+  const day = req.body.days;
 
   const [logs, metaData] = await OrderLogModel.fetchByUserHistory(date, day);
   // console.log(logs);
