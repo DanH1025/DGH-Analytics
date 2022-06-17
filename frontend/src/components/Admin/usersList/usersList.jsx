@@ -81,7 +81,8 @@ function createData(name, calories, fat, carbs, protein) {
 export default function UsersList() {
 
   const classes = useStyles();
-    const [users ,setUsers] = useState([]);
+  const [users ,setUsers] = useState([]);
+  const [categoryValue, setCategoryValue] = useState('all');
 
     useEffect(()=>{
       const fetchProducts = async ()=>{
@@ -100,6 +101,39 @@ export default function UsersList() {
       setUsers(response.data)
     }
 
+    const handleChange = async (event) => {
+      setCategoryValue(event.target.value);
+      if(event.target.value === "tcal"){
+        const res = await axios.post('http://127.0.0.1:5000/api/getUserLogActivity', {days: 1000});
+        console.log(res.data);
+        setUsers(res.data);
+      }else if(event.target.value === "tcty"){
+        const res = await axios.post('http://127.0.0.1:5000/api/getUserLogActivity', {days: 365});
+        console.log(res.data);
+        setUsers(res.data);
+      }else if(event.target.value === "tctm"){
+        const res = await axios.post('http://127.0.0.1:5000/api/getUserLogActivity', {days: 30});
+        console.log(res.data);
+        setUsers(res.data);
+      }else if(event.target.value === "acal"){
+        const res = await axios.post('http://127.0.0.1:5000/api/getUserLogHistory', {days: 1000});
+        console.log(res.data);
+        setUsers(res.data);
+      }else if(event.target.value === "acty"){
+        const res = await axios.post('http://127.0.0.1:5000/api/getUserLogHistory', {days: 365});
+        console.log(res.data);
+        setUsers(res.data);
+      }else if(event.target.value === "actm"){
+        const res = await axios.post('http://127.0.0.1:5000/api/getUserLogHistory', {days: 30});
+        console.log(res.data);
+        setUsers(res.data);
+      }else {
+        const res = await axios.post('http://localhost:5000/api/getAllUsers');
+        console.log(res.data);
+        setUsers(res.data);
+      }
+      
+    }
 
     // for the dialog box
     const [open, setOpen] = React.useState(false);
@@ -125,7 +159,6 @@ export default function UsersList() {
 
   const [checkoutRate , setCheckoutRate]= useState([]);
   const [recentCart , setRecentCart]= useState([]);
-
    
      const calcChechoutRate =  async (userId)=>{
         const resp = await axios.post('http://localhost:5000/api/getUserCheckoutRate', {userId: userId})
@@ -140,7 +173,6 @@ export default function UsersList() {
      }
 
       console.log(checkoutRate);
-
 
      const stat = {  
 
@@ -173,49 +205,61 @@ export default function UsersList() {
     <div className="productListPageHolder">
       
       <Select
-        // value={dateOption ?? " "}
-        // onChange={handleChange}
+        value={categoryValue ?? " "}
+        onChange={handleChange}
         inputProps={{ 'aria-label': 'Without label' }}
         defaultValue='all'
         >
           <MenuItem value="all">All user</MenuItem>
           <MenuItem value="tcal">Top customer all time</MenuItem>
           <MenuItem value="tcty">Top customer this year</MenuItem>
-          <MenuItem value="tctm">Top customer this month</MenuItem>
+          <MenuItem value="tctm">Top customer last 30 days</MenuItem>
           <MenuItem value="acal">Active customer all time</MenuItem>
           <MenuItem value="acty">Active customer this year</MenuItem>
-          <MenuItem value="actm">Active customer this month</MenuItem>
-          <MenuItem value="icat">Inactive customer all time</MenuItem>
+          <MenuItem value="actm">Active customer last 30 days</MenuItem>
+          {/* <MenuItem value="icat">Inactive customer all time</MenuItem>
           <MenuItem value="icty">Inactive customer this year</MenuItem>
-          <MenuItem value="ictm">Inactive customer this month</MenuItem>     
+          <MenuItem value="ictm">Inactive customer this month</MenuItem>      */}
       </Select>
 
       <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="caption table">
         <caption>All Users table</caption>
         <TableHead>
-          <TableRow>
-            <TableCell>UserID</TableCell>
-            <TableCell align="right">First Name</TableCell>
-            <TableCell align="right">Last Name</TableCell>
-            <TableCell align="right">Contact</TableCell>
-            <TableCell align="right">SignUp Date</TableCell>
-            <TableCell align='right'>Status</TableCell>
-          </TableRow>
+          {categoryValue === "all" ?
+            <TableRow>
+              <TableCell>UserID</TableCell>
+              <TableCell align="right">First Name</TableCell>
+              <TableCell align="right">Last Name</TableCell>
+              <TableCell align="right">Contact</TableCell>
+              <TableCell align="right">SignUp Date</TableCell>
+              <TableCell align='right'>Status</TableCell>
+            </TableRow>
+           : 
+            <TableRow>
+              <TableCell>UserID</TableCell>
+              <TableCell align="right">First Name</TableCell>
+              <TableCell align="right">Last Name</TableCell>
+              <TableCell align="right">Visit</TableCell>
+              <TableCell align="right">Conversion rate</TableCell>
+              <TableCell align="right">SignUp Date</TableCell>
+              <TableCell align='right'>Status</TableCell>
+            </TableRow>
+          }
         </TableHead>
         <TableBody>
           {
-            !users?.length ? <div>Empty</div>:
-
-            users.map((val,key)=>{
+            !users?.length ? <div>Empty</div> :
+            categoryValue === "all" ? 
+              users.map((val,key)=>{
                 return (
                   <>
-                     <TableRow key={val.id}  style={{cursor:'pointer'}} onClick={()=>{ 
-                       setUserInfo({...userInfo, id:val.id ,fname:val.fname, lname:val.lname,email:val.email,phone_number:val.phone_number, signUpDate:val.signUpDate, status:val.status }); 
-                       calcChechoutRate(val.id);
-                       handleClickOpen();
-                       
-                       }} > 
+                      <TableRow key={val.id}  style={{cursor:'pointer'}} onClick={()=>{ 
+                        setUserInfo({...userInfo, id:val.id ,fname:val.fname, lname:val.lname,email:val.email,phone_number:val.phone_number, signUpDate:val.signUpDate, status:val.status }); 
+                        calcChechoutRate(val.id);
+                        handleClickOpen();
+
+                        }} > 
                     <TableCell component="th" scope="val">
                       {val.id}
                     </TableCell>
@@ -227,8 +271,30 @@ export default function UsersList() {
                   </TableRow>
                   </>
                 )
-            })
-
+              })
+            :
+              users.map((val,key)=>{
+                  return (
+                    <>
+                      <TableRow key={val.id}  style={{cursor:'pointer'}} onClick={()=>{ 
+                        setUserInfo({...userInfo, id:val.id ,fname:val.fname, lname:val.lname,email:val.email,phone_number:val.phone_number, signUpDate:val.signUpDate, status:val.status }); 
+                        calcChechoutRate(val.id);
+                        handleClickOpen();
+                        
+                        }} > 
+                      <TableCell component="th" scope="val">
+                        {val.id}
+                      </TableCell>
+                      <TableCell align="right">{val.fname}</TableCell>
+                      <TableCell align="right">{val.lname}</TableCell>
+                      <TableCell align="right">{val.visit}</TableCell>
+                      <TableCell align="right">{((val.purchase/val.visit)*100).toFixed(2) + '%'}</TableCell>
+                      <TableCell align="right">{val.signUpDate}</TableCell>
+                      <TableCell align='center'>{ val.status === "active"? <p className='active_status'>{val.status}</p> : <p className="de-active_status">{val.status}</p>}</TableCell>
+                    </TableRow>
+                    </>
+                  )
+              })
           }
         </TableBody>
       </Table>

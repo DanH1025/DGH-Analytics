@@ -152,7 +152,7 @@ module.exports = class Request {
 
   static fetchUserByActivity(date, days) {
     try{
-       const result =db.execute("SELECT user_log.userId, user.fname, user.lname, user.signUpDate, COUNT(user_log.userId), COUNT(case user_log.purchased when 1 then 1 else null end) AS purchase FROM user_log INNER JOIN user ON user_log.userId = user.id WHERE date > DATE_SUB(?, INTERVAL ? DAY) AND userId != 0 GROUP BY userId ORDER BY COUNT(userId) DESC",[date, days]);
+       const result =db.execute("SELECT user.id,user_log.userId, user.fname, user.lname, user.phone_number, user.email, user.signUpDate, COUNT(user_log.userId) as visit, COUNT(case user_log.purchased when 1 then 1 else null end) AS purchase FROM user_log INNER JOIN user ON user_log.userId = user.id WHERE date > DATE_SUB(?, INTERVAL ? DAY) AND userId != 0 GROUP BY userId ORDER BY purchase DESC",[date, days]);
        return result;
     }catch(err){
       console.log(err);
@@ -161,7 +161,7 @@ module.exports = class Request {
 
   static fetchByUserHistory(date, day) {
     try{
-       const result =db.execute("SELECT user_log.userId, user.fname, user.lname, user.signUpDate, COUNT(user_log.userId), COUNT(case user_log.purchased when 1 then 1 else null end) AS purchase FROM user_log INNER JOIN user ON user_log.userId = user.id WHERE date > DATE_SUB(?, INTERVAL ? DAY) AND userId != 0 GROUP BY userId ORDER BY COUNT(userId) DESC", [date, day]);
+       const result =db.execute("SELECT user.id,user_log.userId, user.fname, user.lname,user.phone_number, user.email, user.signUpDate, COUNT(user_log.userId)  as visit, COUNT(case user_log.purchased when 1 then 1 else null end) AS purchase FROM user_log INNER JOIN user ON user_log.userId = user.id WHERE date > DATE_SUB(?, INTERVAL ? DAY) AND userId != 0 GROUP BY userId ORDER BY COUNT(userId) DESC", [date, day]);
        return result;
     }catch(err){
       console.log(err);
@@ -183,3 +183,11 @@ module.exports = class Request {
 // SELECT user_log.userId, user.fname, user.lname, user.signUpDate, COUNT(user_log.userId), COUNT(case user_log.purchased when 1 then 1 else null end) AS purchase FROM user_log INNER JOIN user ON user_log.userId = user.id WHERE date > DATE_SUB('2022-06-03', INTERVAL 100 DAY) AND userId != 0 GROUP BY userId ORDER BY COUNT(userId) DESC
 
 // SELECT SUM(id),COUNT(date), date, SUM(total), SUM(average), SUM(orders), SUM(cost), SUM(no_item) ,SUM(session), SUM(addToCart), SUM(reachedCheckout), SUM(converted) FROM `orderreport` GROUP BY MONTH(date) ORDER BY date
+
+
+// count total
+// SELECT user.id,user_log.userId, user.fname, user.lname, user.phone_number, user.email, user.signUpDate, COUNT(user_log.userId) AS visits, COUNT(case user_log.purchased when 1 then 1 else null end) AS purchase, SUM(orders.no_Item) ,SUM(orders.total) AS total 
+// FROM user_log 
+// INNER JOIN user ON user_log.userId = user.id 
+// INNER JOIN orders ON user.id = orders.userId
+// WHERE user_log.date > DATE_SUB("2022-06-17", INTERVAL 30 DAY) AND user_log.userId != 0 GROUP BY user_log.userId ORDER BY purchase DESC
