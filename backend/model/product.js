@@ -108,7 +108,12 @@ module.exports = class Request {
   }
 
   static findByNameCategory(name, category) {
-    return db.execute('SELECT * FROM product WHERE productCategory = ? AND product.productName LIKE ? AND product.status =?', [category, "%"+name+"%", '1']);
+    try {
+     const result = db.execute('SELECT * FROM product WHERE productCategory = ? AND productName LIKE ? AND status =?', [category, "%"+name+"%", '1']);
+      return result
+    } catch (error) {
+       return error
+    }
   }
 
   //record search 

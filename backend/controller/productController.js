@@ -181,7 +181,9 @@ const getProductsBySearch = async(req,res) => {
       res.send(product.filter(pro=> pro.productName.toLowerCase().includes(name)))
     }else{
       console.log("i know both are not empty")
+      console.log("this is what im searching for" + name + " " + category)
       const [product, metaData] =  await ProductModel.findByNameCategory(name, category);
+      console.log(product)
       res.send(product);
       
     }  
