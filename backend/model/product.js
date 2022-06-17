@@ -44,7 +44,7 @@ module.exports = class Request {
       const result = db.execute('SELECT * FROM category');
       return result;
     } catch (error) {
-        console.log(err)
+        console.log(err)  
     }
   }
 
@@ -68,7 +68,7 @@ module.exports = class Request {
 
   static fetchByCategory(name) {
     try{
-       const result =db.execute('SELECT * FROM product WHERE product.productCategory = ? AND product.status =?', [name, '1']);
+       const result =db.execute('SELECT * FROM product WHERE productCategory = ? AND status =?', [name, '1']);
        return result;
     }catch(err){
       console.log(err);
@@ -80,6 +80,14 @@ module.exports = class Request {
        return result;
     } catch (error) {
       console.log(error)
+    }
+  }
+  static fetchByName (name){
+    try {
+       const result = db.execute('SELECT * FROM product WHERE productName= ? AND status = ?',[name,'1'])
+       return result
+    } catch (error) {
+       console.log(error)
     }
   }
   

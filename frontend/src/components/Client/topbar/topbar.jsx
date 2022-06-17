@@ -54,9 +54,9 @@ import { Avatar } from 'antd';
 export default function Topbar() {
 
     const [Allcategory, setAllCategory] = React.useState(''); // for all the categories
-    const [searchCategory , setSearchCategory]= React.useState(''); // search category selection
+    const [searchCategory , setSearchCategory]= useState(''); // search category selection
     const [searchValue , setSearchValue]= useState(''); // search category selection
-    const [open_category ,  setOpen_category] = React.useState(false);//open and close the select option for search 
+    const [open_category ,  setOpen_category] = useState(false);//open and close the select option for search 
     const [open_allCategories, setOpen_allCategories] = React.useState(false);//open and close the select option for all
 
     const userRef = useRef();
@@ -125,16 +125,28 @@ export default function Topbar() {
     };
 
     const handleSearch = () => {
-      // console.log('search handler');
-      // console.log(searchValue.searchValue);
-      // console.log('category' + searchCategory);
-      if(searchValue === ''){
-        message.error("Noting to search ")
-      }else{
-        dispatch(getProductsBySearch(searchValue.searchValue, searchCategory));
-        dispatch(recordProductSearch(searchValue.searchValue, searchCategory))
+      console.log('search handler');
+      console.log(searchValue + "this is wat i searched for");
+      console.log('category' + searchCategory);
+
+      if(searchValue === '' && searchCategory === ''){
+        dispatch(getProductsBySearch("", ""))
+       // dispatch(recordProductSearch("",""))
+        message.warn("Here are Random Items we found")
+      }else if(searchValue === '' && searchCategory !== ''){
+        dispatch(getProductsBySearch("", searchCategory))
+       // dispatch(recordProductSearch("",searchCategory))
+        message.warn("Here are the Categories we found")
+      }
+      
+      else{
+        
+           dispatch(getProductsBySearch(searchValue, searchCategory));
+          // dispatch(recordProductSearch(searchValue, searchCategory))
 
       }
+
+      
       
     }
 
@@ -365,9 +377,9 @@ export default function Topbar() {
                         <PhoneAndroidIcon className='menuItemIcons' /> 	Smart Phone </MenuItem>
                         <MenuItem  className='allCategoryMenuItem' value={"smart watch"}>
                           <WatchIcon className='menuItemIcons' /> Smart Watch </MenuItem>
-                        <MenuItem  className='allCategoryMenuItem' value={"PC"}>
+                        <MenuItem  className='allCategoryMenuItem' value={"laptop"}>
                         <ComputerIcon className='menuItemIcons' /> Computer </MenuItem>
-                        <MenuItem  className='allCategoryMenuItem' value={"Moniter"}>
+                        <MenuItem  className='allCategoryMenuItem' value={"moniter"}>
                         <DesktopMacIcon className='menuItemIcons' /> Moniter</MenuItem>
                         <MenuItem  className='allCategoryMenuItem' value={"play station"}>
                         <SportsEsportsIcon className='menuItemIcons'/>PS</MenuItem>

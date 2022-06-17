@@ -100,7 +100,8 @@ export default function Checkout() {
       console.log(phoneNumber)
 
       if(cartItems?.length !== 0){
-        if(phoneNumber === ''  || !/(\+\s*2\s*5\s*1\s*9\s*(([0-9]\s*){8}\s*))|(0\s*9\s*(([0-9]\s*){8}))/.test(phoneNumber) ){
+
+        if(phoneNumber === ''  || !/(\+\s*2\s*5\s*1\s*9\s*(([0-9]\s*){8}\s*))|(0\s*9\s*(([0-9]\s*){8}))/.test(phoneNumber) || phoneNumber.length !== 10 ){
           message.error("Phone Number Is Invalid")
         }else{
           if(cookies.uid){

@@ -75,12 +75,12 @@ module.exports = class Request {
     } 
   }
   
-  static checkUser(phone) {
+  static checkUser(phone) { 
     try{
        const result =db.execute('SELECT EXISTS(SELECT * from user WHERE phone_number=?)', [phone]);
        return result;
     }catch(err){
-      console.log(err);
+      console.log(err); 
     }
   }
   

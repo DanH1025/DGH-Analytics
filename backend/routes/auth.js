@@ -19,7 +19,10 @@ router.get('/login/success',(req,res)=>{
         //     //cookies: req.cookies
         // });
         res.send(req.user);
+        console.log(req.user)
         console.log(req.user.displayName);
+    }else{
+        console.log("Login With Google has failed")
     }
 });
 

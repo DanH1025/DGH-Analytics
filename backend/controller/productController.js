@@ -99,7 +99,7 @@ const getAllProducts = async(req,res) => {
   
   const {sq} = req.query;
   console.log(sq);
-  res.json(product.filter(pro=> pro.productName.toLowerCase().includes(sq)).splice(0,9)) 
+  res.json(product.filter(pro=> pro.productName.toLowerCase().includes(sq.toLowerCase())).splice(0,9)) 
 
  // res.send(product.filter(product=> product.productName.toLowerCase().includes(sq)).splice(0,10));
 }
@@ -141,13 +141,13 @@ const editProductValues = async(req,res)=>{
   await ProductModel.updateProduct(id,name,price,brand,category,detail,image,count_in_stock,status);
 
 
+ 
+}  
 
-}
-
-
+ 
 const getProductsBySearch = async(req,res) => {
   console.log('in get product by search');
-  const name= req.body.name;
+  const name= req.body.name; 
   const category= req.body.category;
   console.log('cat: ' + name);
 
@@ -163,20 +163,32 @@ const getProductsBySearch = async(req,res) => {
     else{    
       console.log("i know txt is empty byt category is not")
       console.log('in search with  catagory');
-      const [product, metaData] = await ProductModel.findByNameCategory(name, category);
+      const [product, metaData] =await ProductModel.fetchByCategory(category);
       console.log(product);
         res.send(product);
     }
-    console.log("i know both are not empty")
-    const [product, metaData] = await ProductModel.fetchByCategory(category);
-    res.send(product);
-
     
 
+       
+
+  }else{
+    if(category === ''){
+      console.log("i know name is not empty but category is")
+      const [product , metaData] = await ProductModel.fetchAll()
+
+      console.log(name);
+      console.log(product) 
+      res.send(product.filter(pro=> pro.productName.toLowerCase().includes(name.toLowerCase())))
+    }else{
+      console.log("i know both are not empty")
+      const [product, metaData] =  await ProductModel.findByNameCategory(name, category);
+      res.send(product);
+      
+    }  
   }
 
-
-
+   
+ 
  
 }
 
