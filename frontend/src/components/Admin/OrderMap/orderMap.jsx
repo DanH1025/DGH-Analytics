@@ -1,4 +1,5 @@
 import React , {useState} from 'react';
+
 import './orderMap.css'
 import ReactMapGL , {Marker, Popup} from 'react-map-gl';
 import {  useSelector } from 'react-redux';
@@ -10,6 +11,7 @@ export default function OrderMap(){
     
     const Order = useSelector(state => state.getOrder);
     const {orders} = Order;
+    console.log(orders.length + "this is teh number of orders there is")
 
     const [viewPort , setViewPort] = useState({
         latitude:9.022875,
@@ -32,10 +34,11 @@ export default function OrderMap(){
         </div>
         <div className="order_map_container">
             <ReactMapGL {...viewPort} 
-                    mapboxAccessToken="pk.eyJ1IjoiZGFuaGdiIiwiYSI6ImNsMXVnNDIxbzAwMmYzcXBiMXB0ZWVjcWMifQ.nC63RhWneFhiZ4k4XJim9A" 
+                    mapboxAccessToken= "pk.eyJ1IjoiZGFuaGdiIiwiYSI6ImNsMXVnNDIxbzAwMmYzcXBiMXB0ZWVjcWMifQ.nC63RhWneFhiZ4k4XJim9A"
                     onMove={(viewPort)=> { setViewPort(viewPort)}}
                     mapStyle="mapbox://styles/mapbox/streets-v11">
-                        {orders.map(order =>(
+                        {orders.map(order => order.status === 'inProgress' ?  (
+
                             <Marker 
                               key={order.orderId}
                               latitude={order.latitude}
@@ -52,9 +55,13 @@ export default function OrderMap(){
                                 />                            
                             
                             </Marker>
+                            
 
                             
-                        ))}
+                        ): <></>
+                        
+                        )                      
+                        }
 
                    
 

@@ -6,8 +6,11 @@ import { changeAdminUserName } from '../../../redux/actions/userActions'
 import { changeAdminPassword} from '../../../redux/actions/userActions';
 import { createAdminAccount } from '../../../redux/actions/userActions';
 import {message} from 'antd'
+
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+
 import axios from 'axios'
-import { idID } from '@mui/material/locale';
+
 
 
 
@@ -124,6 +127,23 @@ export default function Profile({userName,email, role , signUpDate}) {
   return (
     <div className='profilePage'>
         <div className="profileWrapper">
+
+                <div className="profileInformation_container">
+                    <div className="profileInfoCircle">
+                        <div className="profileCircleIconHolder">
+                                <AccountCircleIcon/>
+                        </div>
+                        <div className="profileCircleBody">
+                            <p>UserName : {userInfoState.userName ? userInfoState.userName: "Unavailable"}</p>
+                            <p>Email :  {userInfoState.email ? userInfoState.email : "Unavailable"}</p>
+                            <p>Role : {userInfoState.role === 'admin'? "Administration" : "Product Manager"}</p>
+                            <p>SignUp Date  : {userInfoState.SignUpDate? userInfoState.SignUpDate: "Unavailable"}</p>
+                        </div>
+
+                    </div>
+                </div>
+
+
             <div className="upperSide">
                 <div className="profileInfoSide">
                     <div className="profileInformation">

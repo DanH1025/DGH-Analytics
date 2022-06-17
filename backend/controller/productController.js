@@ -153,7 +153,7 @@ const getProductsBySearch = async(req,res) => {
 
   console.log('in appi get product id');
   
-  if(name === ''){
+  if(name === ''){ 
     console.log("i know txt is empty")
     if(category === ''){
       console.log("i know both the txt and category are empty")
@@ -167,18 +167,18 @@ const getProductsBySearch = async(req,res) => {
       console.log(product);
         res.send(product);
     }
-    
+                    
 
        
-
+ 
   }else{
     if(category === ''){
       console.log("i know name is not empty but category is")
       const [product , metaData] = await ProductModel.fetchAll()
 
-      console.log(name);
+      console.log(name); 
       console.log(product) 
-      res.send(product.filter(pro=> pro.productName.toLowerCase().includes(name.toLowerCase())))
+      res.send(product.filter(pro=> pro.productName.toLowerCase().includes(name)))
     }else{
       console.log("i know both are not empty")
       const [product, metaData] =  await ProductModel.findByNameCategory(name, category);
