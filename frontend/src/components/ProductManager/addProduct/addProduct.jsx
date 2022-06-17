@@ -5,7 +5,7 @@ import { v4 } from 'uuid';
 //imports for image uploader
 
 import { useState } from 'react';
-import { Upload } from 'antd';
+import { message, Upload } from 'antd';
 
 import { Input,Button } from 'antd';
 
@@ -44,7 +44,6 @@ export default function AddProduct() {
 			productCategory: "",
 			productImg: "",
 			productPrice: 0,
-			productSKU: '',
 			productCostPrice: 0,
 			amount: '',
 			productDetail: ""
@@ -127,26 +126,26 @@ export default function AddProduct() {
 
 	//for selecting brand
 	
-	const [brands, setBrands] = useState([
-			"Samsung","Apple" ,"LG" , "TCL" , "Nokia" , "Oppo" , "Techno"
-	]);
+	// const [brands, setBrands] = useState([
+	// 		"Samsung","Apple" ,"LG" , "TCL" , "Nokia" , "Oppo" , "Techno"
+	// ]);
 	const [newBrand, setNewBrand] = useState('');
 
 	const onBrandChange = event => {
 		setNewBrand(event.target.value);
 	};
 
-	const addBrandItem = e => {
-			//reloads only the brand list view so checkout when api is done
-		e.preventDefault();
-		if(newBrand === ""){
-				alert("No Brand inserted");
-		}
-		else{
-				setBrands([...brands, newBrand]);
-				setNewBrand('');
-		}
-	};
+	// const addBrandItem = e => {
+	// 		//reloads only the brand list view so checkout when api is done
+	// 	e.preventDefault();
+	// 	if(newBrand === ""){
+	// 			alert("No Brand inserted");
+	// 	}
+	// 	else{
+	// 			setBrands([...brands, newBrand]);
+	// 			setNewBrand('');
+	// 	}
+	// };
 
 		//for selecting category
 	const [category, setCategory] = useState([
@@ -175,25 +174,59 @@ export default function AddProduct() {
     //add product button loading state
   
 	const handleSubmit = () => {
-		if(fileList?.length){
+			console.log("validating all the product inputs")
 			console.log(productData);
-			console.log(fileList);
-			dispatch(createProduct(productData));
-			setProductData({
-				productName: "",
-				productBrand: "",
-				productCategory: "",
-				productImg: "",
-				productPrice: 0,
-				productSKU: '',
-				productCostPrice: 0,
-				amount: '',
-				productDetail: ""
-			})
-			setImgPreview('https://img.icons8.com/color/344/gallery.png')
-		}else {
-			console.log('no photo');
-		}
+
+			if(productData.productName === ''){
+				message.error("Product Name is missing")
+			}else if(productData.productBrand === ''){
+				message.error("Select Product Brand")
+			}else if(productData.productCategory === ''){
+				message.error("A Product Requires Category")
+			}else if(productData.productImg === ''){
+				message.error("Product Image is missing")
+			}else if(productData.productPrice === ''){
+				message.error("Product Price is missing")
+			}else if(productData.amount === ''){
+				message.error("Product Amount missing")
+			}else if(productData.productDetail === ''){
+				message.error("Product Details is required")
+			}else if(! /(?=.*[A-Za-z]).{2,}/.test(productData.productName)){
+				message.error("Invalid product Name")
+			}else if(! /(?=.*[A-Za-z]).{2,}/.test(productData.productBrand)){
+				message.error("Invalid Product Brand")
+			}else if(! /(?=.*[A-Za-z]).{15,}/.test(productData.productDetail)){
+				message.error("Invalid product Detail ")
+			}else if(fileList?.length){
+				console.log("this is the product data so far")
+				console.log(productData)
+				dispatch(createProduct(productData))
+				window.location.reload(true)
+				message.success("New Product Created")
+			}
+			
+
+
+
+
+		// if(fileList?.length){
+		// 	console.log(productData);
+		// 	console.log(fileList);
+		// 	dispatch(createProduct(productData));
+		// 	setProductData({
+		// 		productName: "",
+		// 		productBrand: "",
+		// 		productCategory: "",
+		// 		productImg: "",
+		// 		productPrice: 0,
+		// 		productCostPrice: 0,
+		// 		amount: '',
+		// 		productDetail: ""
+		// 	})
+		// 	setImgPreview('https://img.icons8.com/color/344/gallery.png')
+		// }else {
+		// 	console.log('no photo');
+		// }
 	}
 
   return (
@@ -317,23 +350,23 @@ export default function AddProduct() {
 								  }} /> */}
 								
 								<Select
-                value={productData.productCategory}
-                onChange={(e) => {
-									setProductData({
-										...productData, 
-											productCategory: e.target.value
-										} ) 
-								}}
+									value={productData.productCategory}
+									onChange={(e) => {
+														setProductData({
+															...productData, 
+																productCategory: e.target.value
+															} ) 
+													}}
 								// defaultValue={categories[0].ctgr_title}
-								label="Category"
-								labelId="demo-simple-select-label"
-                // inputProps={{ 'aria-label': 'Without label' }}
-								>
-                  {categories?.map((item) => {
-                    return(
-                      <MenuItem value={item.ctgr_value}>{item.ctgr_title}</MenuItem>
-                  )}) }
-                </Select> 
+									label="Category"
+									labelId="demo-simple-select-label"
+									// inputProps={{ 'aria-label': 'Without label' }}
+													>
+									{categories?.map((item) => {
+										return(
+										<MenuItem value={item.ctgr_value}>{item.ctgr_title}</MenuItem>
+									)}) }
+								</Select> 
 
 							</div>
 
@@ -377,23 +410,9 @@ export default function AddProduct() {
 					</div>
 				</div>
 
-				{/* <div className="image_side item">
-					<div className="image_side_wrapper">
-						<div className='row'>
-							<input type="file" onChange={onChange} />
-						</div>
-						<div className="row">
-						<img src={imgPreview}  />
-
-						</div>
-					</div>
-				</div> */}
+			
 			</div>
 
-			{/* <div className="buttonHolder">
-				<button className='add_product_btn' onClick={handleSubmit} >Add Product</button>
-				<button className='add_product_cancel_btn'>Cancel</button>
-			</div> */}
 			
 		</div>
     </div>
@@ -404,163 +423,3 @@ export default function AddProduct() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-// <div className="add_product_wrapper">
-// 				<div className="upload_img">
-// 					<input type="file" onChange={onChange} />
-// 					{/* <Upload
-// 						action=""
-// 						listType="picture-card"
-// 						fileList={fileList}
-// 						onChange={onChange}
-// 						onPreview={onPreview}>
-// 						{fileList.length < 5 && '+ Upload'}
-// 					</Upload> */}
-// 				</div>
-// 				<div className="upload_info">
-// 					<div className='pName'>
-// 						<Input 
-// 							className='product_name_input' 
-// 							type='text' 
-// 							placeholder="Product Name"
-// 							value={productData.name}
-// 							onChange = {(e) => {
-// 									setProductData({
-// 											...productData, 
-// 											productName: e.target.value
-// 										}
-// 									)
-// 							}} />
-// 					</div>   
-
-// 					<Select
-// 						className='product_brand_select'
-// 						placeholder="Product Brand"
-// 						value={productData.productBrand}
-// 						onChange = {(e) => {
-// 							setProductData({
-// 								...productData, 
-// 								productBrand: e
-// 								}
-// 							)
-// 						}}
-// 						dropdownRender={menu => (
-// 							<>
-// 								{menu}
-// 									<Divider style={{ margin: '8px 0' }} />
-// 									<Space align="center" style={{ padding: '0 8px 4px' }}>
-// 											<Input placeholder="Insert New Brand" value={newBrand} onChange={onBrandChange} />
-// 											<Typography.Link onClick={addBrandItem} style={{ whiteSpace: 'nowrap' }}>
-// 											<PlusOutlined /> Add Brand
-// 											</Typography.Link>
-// 									</Space>
-//               </>
-//             )}>
-// 						{brands.map(item => (
-// 								<Option key={item}>{item}</Option>
-// 						))}
-// 					</Select>
-             
-// 					<Select
-// 						className='product_category_select'
-// 						placeholder="Product Category"
-// 						value={productData.productCategory}
-// 						onChange = {(e) => {
-// 								setProductData({
-// 										...productData, 
-// 										productCategory: e
-// 								}
-// 							)
-// 						}}
-// 						dropdownRender={menu => (
-// 							<>
-// 								{menu}
-// 								<Divider style={{ margin: '8px 0' }} />
-// 								<Space align="center" style={{ padding: '0 8px 4px' }}>
-// 										<Input placeholder="Insert New Product Category" value={newCategory} onChange={onCategoryChange} />
-// 										<Typography.Link onClick={addCategoryItem} style={{ whiteSpace: 'nowrap' }}>
-// 										<PlusOutlined /> Add Category
-// 										</Typography.Link>
-// 								</Space>
-// 							</>
-// 						)}>
-// 						{
-// 							category.map(item => (
-// 								<Option key={item}>{item}</Option>
-// 							))
-// 						}
-// 					</Select>
-              
-// 					<div className='pPrice'>
-// 							<Input 
-// 								className='product_price_input' 
-// 								prefix="$"  
-// 								type='number' 
-// 								placeholder="Price" 
-// 								value={productData.productPrice}
-// 								onChange = {(e) => {
-// 									setProductData({
-// 											...productData, 
-// 											productPrice: e.target.value
-// 										}
-// 									)
-// 							}}/>
-// 					</div>
-
-// 					<div className='pAmount'>
-// 							<Input 
-// 								className='product_amount_input' 
-// 								prefix="#"  
-// 								type='number' 
-// 								placeholder="Amount in Stock"
-// 								value={productData.amount}
-// 								onChange = {(e) => {
-// 										setProductData({
-// 												...productData, 
-// 												amount: e.target.value
-// 											}
-// 										)
-// 								}} 
-// 							/>
-// 					</div>
-
-// 					<div className='pDetail'>
-// 						<TextArea 
-// 							className='product_detail_input' 
-// 							placeholder='Product Description'  
-// 							rows={8}
-// 							value={productData.productDetail}
-// 							onChange = {(e) => {
-// 									setProductData({
-// 											...productData, 
-// 											productDetail: e.target.value
-// 										}
-// 									)
-// 							}} />
-// 					</div>  
-
-//         </div>
-//       </div>
-
-// 			<div className="buttonHolder">
-// 					<Button
-// 							className='add_product_btn'   
-// 							icon={<AddCircleOutlineOutlinedIcon />}
-// 							onClick={handleSubmit}>
-// 							Add to Stock
-// 					</Button>
-// 					<Button
-// 							className='add_product_cancel_btn'
-// 							type='primary'  >
-// 							Cancel
-// 					</Button>
-// 			</div>

@@ -213,7 +213,7 @@ export default function PM_Dashboard() {
                 (
                   <div className="profileInfoHolder">
                   <div className='profileInfWrapper' >
-                       <div className="profileIconHolder"  onClick={()=>alert("show profile")}>
+                       <div className="profileIconHolder"  onClick={()=>setCompCounter(1)}>
                           <AccountCircleIcon/>
                        </div>
                        <div className="profileInfo">
@@ -262,7 +262,7 @@ export default function PM_Dashboard() {
         </div>
         <Divider />
         <List>
-          {['Dashboard', 'Profile', 'Product List', 'Add Products', 'WishList','Users', 'Order List','Hiring'].map((text, index) => (
+          {['Dashboard', 'Profile', 'Product List', 'Add Products','Users', 'Order List','Hiring'].map((text, index) => (
             <>
             <ListItem button  onClick={()=>{
               setCompCounter(index)
@@ -298,17 +298,16 @@ export default function PM_Dashboard() {
             {compCounter === 0 ? <Home onMorePage={setCompCounter}/> : 
              compCounter === 1 ? <Profile userName={user.user_name}  email={user.email} role={user.user_role} signUpDate={user.sign_up_date} />:
              compCounter === 2 ? <ProductList /> : 
-             compCounter === 3 ? <AddProduct/> :
-             compCounter === 4 ? <WishList/> :
-             compCounter === 5 ? <UsersList/>:
-             compCounter === 6 ? <Orders />: 
-             compCounter === 7 ? <Hiring />:
-             compCounter === 8 ? <DetailSalesAnalysis onMorePage={setCompCounter} />:
-             compCounter === 9 ? <DetailAverage onMorePage={setCompCounter}/>:
-             compCounter === 10 ? <DetailSessionAnalysis onMorePage={setCompCounter}/>:
-             compCounter === 11 ? <DetailDeviceAnalysis onMorePage={setCompCounter}/>:
-             compCounter === 12 ? <DetailLocationAnalysis onMorePage={setCompCounter}/>:
-             compCounter === 13 ? <DetailTopProductAnalysis onMorePage={setCompCounter}/>:
+             compCounter === 3 ? <AddProduct/> :             
+             compCounter === 4 ? <UsersList/>:
+             compCounter === 5 ? <Orders />: 
+             compCounter === 6 ? <Hiring />:
+             compCounter === 7 ? <DetailSalesAnalysis onMorePage={setCompCounter} />:
+             compCounter === 8 ? <DetailAverage onMorePage={setCompCounter}/>:
+             compCounter === 9 ? <DetailSessionAnalysis onMorePage={setCompCounter}/>:
+             compCounter === 10 ? <DetailDeviceAnalysis onMorePage={setCompCounter}/>:
+             compCounter === 11 ? <DetailLocationAnalysis onMorePage={setCompCounter}/>:
+             compCounter === 12 ? <DetailTopProductAnalysis onMorePage={setCompCounter}/>:
              "others"   
             }
 
@@ -322,103 +321,3 @@ export default function PM_Dashboard() {
 
 
 
-
-
-
-
-
-
-
-
-
-// <Layout style={{ minHeight: '100vh' }}>
-    //   <Sider 
-    //   collapsible collapsed={sidebarCollapsed} 
-    //   onCollapse={handlerSidebarCollapse} width='220' >
-      
-    //     <div className="pm_dash_logo" > 
-    //       <h1>LOGO</h1> 
-    //     </div>
-    //     <Menu theme="dark" 
-    //       defaultSelectedKeys={['sub_dashboard']}     
-    //       mode="inline">
-         
-    //       <Menu.Item key="sub_dashboard" 
-    //           onClick={()=> setCompCounter("0")}                           
-    //           icon={<UserOutlined />}>           
-    //             Dashboard           
-    //       </Menu.Item>
-    //       <SubMenu 
-    //         key="sub_products" 
-    //         icon={<ShopOutlinedIcon />} 
-    //         title="Products">
-    //         <Menu.Item key="menu_product_list" 
-    //           onClick={()=>setCompCounter("2")} 
-    //           icon={<ListAltOutlinedIcon/>}>
-    //             Product List
-    //         </Menu.Item>      
-    //         <SubMenu key="sub_product_manager"  
-    //           icon={<TuneOutlinedIcon/>} 
-    //           title="Product Manager">
-    //             <Menu.Item key="menu_add_products"  
-    //               onClick={()=>setCompCounter("3")}  
-    //               icon={<AddCircleOutlineOutlinedIcon/>} >
-    //                 Add Products
-    //             </Menu.Item>               
-    //         </SubMenu>  
-    //       </SubMenu>
-
-    //       <Menu.Item key="menu_wishlist" 
-    //         icon={<PieChartOutlined />}>
-    //           WishList
-    //       </Menu.Item>
-    //       <Menu.Item key="menu_advertisment" 
-    //         icon={<PieChartOutlined />}>
-    //           Advertisment
-    //       </Menu.Item>
-    //       <Menu.Item key="menu_updates" 
-    //         icon={<PieChartOutlined />}>
-    //           Updates
-    //       </Menu.Item>
-    //       <SubMenu key="sub_orders" 
-    //       icon={<TeamOutlined />} 
-    //       title="Orders">
-    //         <Menu.Item key="mennu_order_list" 
-    //           onClick={()=>setCompCounter("4")} >
-    //           Order List
-    //         </Menu.Item>
-    //         <Menu.Item key="menu_order_details">
-    //           Order Details
-    //         </Menu.Item>
-    //       </SubMenu>
-       
-    //   </Menu>
-    // </Sider>
-
-    //   <Layout className="site-layout">
-    //   <Header className='pm_dash_header' />
-    //     <Content style={{ margin: '0 16px' }}>
-    //       <Breadcrumb style={{ margin: '16px 0' }}>
-    //         <Breadcrumb.Item>
-    //           {compCounter === "0" ? "Dashbord" :
-    //            compCounter === "1" ? "Profile" : 
-    //            compCounter === "2"? "Product List" : 
-    //            compCounter === "3" ? "Add Product" : 
-    //            compCounter === "4"? "Others" : "" }
-    //         </Breadcrumb.Item>
-    //       </Breadcrumb>
-    //       <div className="site-layout-background" 
-    //         style={{ padding: 0, minHeight: 360 }}>
-    //           {compCounter === "0" ? <Home /> : 
-    //            compCounter === "1" ? <WishList />:
-    //            compCounter === "2" ? <ProductList/>:
-    //            compCounter === "3" ? <AddProduct/>:
-    //            compCounter === "4" ? <Orders/> : "others"
-    //           }               
-    //       </div>
-    //     </Content>
-    //     <Footer style={{ textAlign: 'center' }}>
-
-    //     </Footer>
-    //   </Layout>
-    // </Layout>

@@ -154,147 +154,89 @@ export default function Home({onMorePage}) {
     <>
       <div className="dashboardChartHolder">
         <div className="chartWrapper">
+              <h2>Todays Status</h2>
+            <div className="todaysCharts">
               <div className="chart">
-                <Charts 
-                  title='Total Sales'
-                  middleTotal={ totalPrice + ' ETB'   }
-                  dates={dates.reverse()}
-                  persent = {2}
-                  chartData={prices.reverse()}
-                  chartType="area"
-                  index={8}
-                  onPageChange={onMorePage}
-                  />
-              </div>
-              <div className="chart">
-                <Charts 
-                  title='Total Orders'
-                  middleTotal={orderNo}
-                  dates={days.reverse()}
-                  persent = {2}
-                  chartData={orders.reverse()}
-                  chartType="area"
-                  index={8}
-                  onPageChange={onMorePage}
-                  />
-              </div>        
-              <div className="chart">
-                <Charts 
-                  title='Averages'
-                  middleTotal={average}
-                  persent = {2}
-                  dates={days.reverse()}
-                  chartData={priceAverage.reverse()}
-                  chartType="area"
-                  index={9}
-                  onPageChange={onMorePage}
-                  />
-              </div>  
-
-              <div className="chart">
-                <Charts 
-                  title='Total online store visitor'
-                  middleTotal={totalUserNoToday}
-                  persent = {(orderNo/totalUserNoToday*100).toFixed(0)}
-                  dates={Object.keys(userByHour).reverse()}
-                  chartData={Object.values(userByHour).reverse()}
-                  chartType="bar"
-                  index={10}
-                  onPageChange={onMorePage}
-                  />
-              </div>
-
-              <div className="chart">
-                <div className="conversion_rate_holder">
-                  <div className="cr_title">
-                    <p className="cr_title_content" >Store Conversion Rate</p>
-                    <span className="cr_title_more">
-                      <Button onClick={() => {
-                        onMorePage(10)
-                        }}>More</Button> 
-                    </span>
-                  </div>
-                  <div className="price_conversion_rate">
-                    <p>{(totalOrderNo/totalUserNo*100).toFixed(2)} %</p>
-                  </div>
-                  <div className="cart_cr">
-                    <p className="cart_cr_title">Add To Cart Rate</p>
-                    <p className="cart_cr_content">{addCartCount} %</p>
-                  </div>
-                  <div className="checkout_cr">
-                    <p className="checkout_cr_title">Reaching Checkout Rate</p>
-                    <p className="checkout_cr_content">{reachedCheckout} %</p>
-                  </div>
-                  <div className="purchase_cr">
-                    <p className="purchase_cr_title">Purchase</p>
-                    <p className="purchase_cr_content">{purchaseCount} %</p>
-                  </div>
-
-                </div>                
-              </div> 
-
-              <div className="chart">
-                {/* <h3 className="unit_sell_title">Top product by unit sold</h3> */}
-
-                <div className="cr_title">
-                  <p className="cr_title_content" >Top product by unit sold</p>
-                  <span className="cr_title_more">
-                    <Button onClick={() => {
-                      onMorePage(13)
-                      }}>More</Button> 
-                  </span>
+                  <Charts 
+                    title='Total Sales'
+                    middleTotal={ totalPrice + ' ETB'   }
+                    dates={dates.reverse()}
+                    persent = {2}
+                    chartData={prices.reverse()}
+                    chartType="area"
+                    index={8}
+                    onPageChange={onMorePage}
+                    />
                 </div>
-
-                <TableContainer component={Paper}>
-                  <Table className="unit_sell_table" aria-label="simple table">
-                    <TableBody>
-                      {topProdByQun?.map((row, index) => (
-                        index <5 && (
-                        <TableRow
-                          key={row.id}
-                          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        >
-                          <TableCell className="product_name" align="left">  {row.productName}
-                          </TableCell>
-                          <TableCell className="total_sold" align="right">{row.quantity}</TableCell>
-                        </TableRow>)
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </div> 
-            
+                <div className="chart">
+                  <Charts 
+                    title='Total Orders'
+                    middleTotal={orderNo}
+                    dates={days.reverse()}
+                    persent = {2}
+                    chartData={orders.reverse()}
+                    chartType="area"
+                    index={8}
+                    onPageChange={onMorePage}
+                    />
+                </div>        
+                <div className="chart">
+                  <Charts 
+                    title='Averages'
+                    middleTotal={average}
+                    persent = {2}
+                    dates={days.reverse()}
+                    chartData={priceAverage.reverse()}
+                    chartType="area"
+                    index={9}
+                    onPageChange={onMorePage}
+                    />
+                </div>  
+            </div>
+            <h2>Website Status</h2>
+            <div className="webStatus">
               <div className="chart">
-                
-                <div className="cr_title">
-                  <h3 className="product_price_sold_title">
-                    Top product by price sold</h3>
-                  <span className="cr_title_more">
-                    <Button onClick={() => {
-                      onMorePage(13)
-                      }}>More</Button> 
-                  </span>
+                  <Charts 
+                    title='Total online store visitor'
+                    middleTotal={totalUserNoToday}
+                    persent = {(orderNo/totalUserNoToday*100).toFixed(0)}
+                    dates={Object.keys(userByHour).reverse()}
+                    chartData={Object.values(userByHour).reverse()}
+                    chartType="bar"
+                    index={10}
+                    onPageChange={onMorePage}
+                    />
                 </div>
+                  <div className="chart">
+                  <div className="conversion_rate_holder">
+                    <div className="cr_title">
+                      <p className="cr_title_content" >Store Conversion Rate</p>
+                      <span className="cr_title_more">
+                        <Button onClick={() => {
+                          onMorePage(10)
+                          }}>More</Button> 
+                      </span>
+                    </div>
+                    <div className="price_conversion_rate">
+                      <p>{(totalOrderNo/totalUserNo*100).toFixed(2)} %</p>
+                    </div>
+                    <div className="cart_cr">
+                      <p className="cart_cr_title">Add To Cart Rate</p>
+                      <p className="cart_cr_content">{addCartCount} %</p>
+                    </div>
+                    <div className="checkout_cr">
+                      <p className="checkout_cr_title">Reaching Checkout Rate</p>
+                      <p className="checkout_cr_content">{reachedCheckout} %</p>
+                    </div>
+                    <div className="purchase_cr">
+                      <p className="purchase_cr_title">Purchase</p>
+                      <p className="purchase_cr_content">{purchaseCount} %</p>
+                    </div>
 
-                <TableContainer component={Paper}>
-                  <Table aria-label="simple table">
-                    <TableBody>
-                      {topProdByPrice?.map((row, index) => (
-                        index <5 && (
-                        <TableRow
-                          key={row.id}
-                          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        >
-                          <TableCell align="left">{row.productName}</TableCell>
-                          <TableCell align="right">{row.totalSale} ETB</TableCell>
-                        </TableRow>)
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </div>
-
-              <div className="chart">  
+                  </div>                
+                </div>
+                <div className="chart">
+                <div className="chart">  
 
                 <div className="cr_title">
                   <p className="cr_title_content" >device type</p>
@@ -305,33 +247,103 @@ export default function Home({onMorePage}) {
                   </span>
                 </div>
 
-                <TableContainer component={Paper}>
-                  <Table className="unit_sell_table" aria-label="simple table">
-                    <TableBody>
-                      {deviceType?.map((row, index) => (
-                        index <5 && (
-                        <div className="conversion_rate_holder">
-                          <div className="cart_cr">
-                            <p className="cart_cr_title">Phone</p>
-                            <p className="cart_cr_content">{((row.phone/totalUserNo)*100).toFixed(2) } % </p>
-                          </div>
-                          <div className="checkout_cr">
-                            <p className="checkout_cr_title">Tablet</p>
-                            <p className="checkout_cr_content">{((row.tablet/totalUserNo)*100).toFixed(2) } %</p>
-                          </div>
-                          <div className="purchase_cr">
-                            <p className="purchase_cr_title">Desktop</p>
-                            <p className="purchase_cr_content">{((row.desktop/totalUserNo)*100).toFixed(2) } %</p>
-                          </div>
-        
-                        </div> 
-                      )))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </div> 
 
-              <div className="chart">
+                </div> 
+
+                  <TableContainer component={Paper}>
+                    <Table className="unit_sell_table" aria-label="simple table">
+                      <TableBody>
+                        {deviceType?.map((row, index) => (
+                          index <5 && (
+                          <div className="conversion_rate_holder">
+                            <div className="cart_cr">
+                              <p className="cart_cr_title">Phone</p>
+                              <p className="cart_cr_content">{((row.phone/totalUserNo)*100).toFixed(2) } % </p>
+                            </div>
+                            <div className="checkout_cr">
+                              <p className="checkout_cr_title">Tablet</p>
+                              <p className="checkout_cr_content">{((row.tablet/totalUserNo)*100).toFixed(2) } %</p>
+                            </div>
+                            <div className="purchase_cr">
+                              <p className="purchase_cr_title">Desktop</p>
+                              <p className="purchase_cr_content">{((row.desktop/totalUserNo)*100).toFixed(2) } %</p>
+                            </div>
+          
+                          </div> 
+                        )))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                </div>
+
+            </div>
+            
+            <h2>About Products</h2>
+
+            <div className="aboutProducts">
+                <div className="chart">
+                    {/* <h3 className="unit_sell_title">Top product by unit sold</h3> */}
+
+                    <div className="cr_title">
+                      <p className="cr_title_content" >Top product by unit sold</p>
+                      <span className="cr_title_more">
+                        <Button onClick={() => {
+                          onMorePage(13)
+                          }}>More</Button> 
+                      </span>
+                    </div>
+
+                    <TableContainer component={Paper}>
+                      <Table className="unit_sell_table" aria-label="simple table">
+                        <TableBody>
+                          {topProdByQun?.map((row, index) => (
+                            index <5 && (
+                            <TableRow
+                              key={row.id}
+                              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            >
+                              <TableCell className="product_name" align="left">  {row.productName}
+                              </TableCell>
+                              <TableCell className="total_sold" align="right">{row.quantity}</TableCell>
+                            </TableRow>)
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
+                  </div> 
+
+                    <div className="chart">
+                  
+                  <div className="cr_title">
+                    <h3 className="product_price_sold_title">
+                      Top product by price sold</h3>
+                    <span className="cr_title_more">
+                      <Button onClick={() => {
+                        onMorePage(13)
+                        }}>More</Button> 
+                    </span>
+                  </div>
+
+                  <TableContainer component={Paper}>
+                    <Table aria-label="simple table">
+                      <TableBody>
+                        {topProdByPrice?.map((row, index) => (
+                          index <5 && (
+                          <TableRow
+                            key={row.id}
+                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                          >
+                            <TableCell align="left">{row.productName}</TableCell>
+                            <TableCell align="right">{row.totalSale} ETB</TableCell>
+                          </TableRow>)
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                </div>
+
+                
+                <div className="chart">
                 {/* <h3 className="unit_sell_title">Top product by unit sold</h3> */}
 
                 <div className="cr_title">
@@ -364,30 +376,51 @@ export default function Home({onMorePage}) {
               </div> 
 
             </div>
-          
-            <div className="lineGraphHolder">  
-              <p>Orders</p>
-              <div className="orders_container">
-                <Chart
-                  className="order_barChart"
-                  title='Orders'
-                  options={stat.options}
-                  series={stat.series}
-                  type="bar"
-                  height="200%"
-                  width="320%" />
+            <h2>Order Information</h2>
+
+            <div className="orderInfo">
+              <div className="lineGraphHolder">  
+                <p>Orders</p>
+                <div className="orders_container">
+                  <Chart
+                    className="order_barChart"
+                    title='Orders'
+                    options={stat.options}
+                    series={stat.series}
+                    type="bar"
+                    height='200%'
+                    width='325%' />
+                </div>
               </div>
             </div>
+              
+
+             
+
+               
+
+              
+            
+           
+
+              
+
+             
+
+            </div>
+          
+            
 
             <div>
               <Button onClick={() => {
                 onMorePage(8);
               }}>Change more</Button>
             </div>
+      
+             <OrderMap/>
       </div>
 
     
-    <OrderMap/>
     </>
   )
 }
