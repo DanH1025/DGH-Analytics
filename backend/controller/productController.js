@@ -167,7 +167,7 @@ const getProductsBySearch = async(req,res) => {
       console.log(product);
         res.send(product);
     }
-                    
+                     
 
        
  
