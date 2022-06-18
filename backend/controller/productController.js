@@ -167,13 +167,13 @@ const getProductsBySearch = async(req,res) => {
       console.log(product);
         res.send(product);
     }
-                     
+                      
 
-       
- 
+        
+  
   }else{
     if(category === ''){
-      console.log("i know name is not empty but category is")
+      console.log("i know name is not empty but cat egory is")
       const [product , metaData] = await ProductModel.fetchAll()
 
       console.log(name); 
