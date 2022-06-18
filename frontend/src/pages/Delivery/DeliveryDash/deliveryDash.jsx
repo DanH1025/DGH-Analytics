@@ -55,6 +55,7 @@ import { ListAltOutlined } from '@material-ui/icons';
 import Orders from '../../../pages/ProductManager/orders/orders';
 import Order_list from '../../../components/Delivery/order_list'
 import UsersList from '../../../components/Admin/usersList/usersList';
+import OrderHistory from '../../../components/Delivery/orderHistory/orderHistoy';
 
 const drawerWidth = 240;
 
@@ -230,7 +231,7 @@ export default function Delivery_Dashboard() {
         <div className={classes.toolbar} />
           {
            compCounter === 0 ? <Order_list /> :
-           compCounter === 1 ? <UsersList/>:
+           compCounter === 1 ? <OrderHistory/>:
            compCounter === 2 ? <Orders />: 
            "others"
           }

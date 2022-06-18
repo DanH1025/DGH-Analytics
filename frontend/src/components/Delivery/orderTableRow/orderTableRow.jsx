@@ -18,12 +18,15 @@ import Label from '@material-ui/core/InputLabel';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrderDetails } from '../../../redux/actions/orderDetailAction';
 import { changeOrderStatus } from '../../../redux/actions/orderActions'
+import axios from 'axios';
 
-
+import { useCookies } from 'react-cookie';
 
 export default function Row(props) {
   // const { row } = props;
   const [open, setOpen] = React.useState(false);
+  
+  const [cookies, setCookie] = useCookies(['user']);
 
   const dispatch = useDispatch();
   const handleClick = () => {
@@ -32,11 +35,46 @@ export default function Row(props) {
     dispatch(getOrderDetails(props.id));
   }
   
-  const handleCancelOrder = () => {
+  const handleAcceptOrder = async() => {
     console.log(props.id);
-    dispatch(changeOrderStatus(props.id, 'complete'))
-    window.location.reload(false);
+    //dispatch(changeOrderStatus(props.id, 'complete'))
+    if(cookies?.ADid){
+      const respond = await axios.post('http://localhost:5000/api/changeStatusAccept', {id: props.id, deliveryID: cookies.ADid});
+      if(respond.status === 200){
+        window.location.reload(false);
+      }
+    }else{
+      console.log('not logged in');
+    }
   }
+  
+  const handleCompleteOrder = async() => {
+    console.log(props.id);
+    //dispatch(changeOrderStatus(props.id, 'complete'))
+    if(cookies?.ADid){
+      const respond = await axios.post('http://localhost:5000/api/changeStatusComplete', {id: props.id, status: "complete"});
+      if(respond.status === 200){
+        window.location.reload(false);
+      }
+    }else{
+      console.log('not logged in');
+    }
+  }
+  
+  const handleCancelOrder = async() => {
+    console.log(props.id);
+    //dispatch(changeOrderStatus(props.id, 'complete'))
+    if(cookies?.ADid){
+      const respond = await axios.post('http://localhost:5000/api/changeStatusComplete', {id: props.id, status: "pending"});
+      if(respond.status === 200){
+        window.location.reload(false);
+      }
+    }else{
+      console.log('not logged in');
+    }
+  }
+
+
 
   const orders = useSelector((state) => state.getOrderDetail.orderDetails);
   console.log('inside row');
@@ -65,7 +103,7 @@ export default function Row(props) {
         
         { props.status === 'pending' ? (
           <TableCell align="right">
-            <Button className='btn' onClick={handleCancelOrder} style={{border: '1px solid black'}}>Accept</Button>
+            <Button className='btn' onClick={handleAcceptOrder} style={{border: '1px solid black'}}>Accept</Button>
           </TableCell>
         ): props.status === 'inProgress' ? (
         <TableCell align="right">
@@ -137,6 +175,18 @@ export default function Row(props) {
           </Collapse>
         </TableCell>
       </TableRow>
+            
+      { props.status === 'inProgress' ? (
+        <>
+          <TableCell align="left">
+            <Button className='btn' onClick={handleCompleteOrder} style={{border: '1px solid black'}}>Complete</Button>
+          </TableCell>
+          <TableCell align="left">
+            <Button className='btn' onClick={handleCancelOrder} style={{border: '1px solid black'}}>Cancel</Button>
+          </TableCell>
+        </>
+      ) : '' }
+
     </React.Fragment>
   );
 }
