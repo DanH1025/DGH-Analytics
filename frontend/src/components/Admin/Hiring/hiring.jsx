@@ -24,11 +24,9 @@ import axios from 'axios';
 
 import { saveAccessKey } from '../../../redux/actions/userActions';
 
+import {MenuItem, Select} from '@mui/material';
+
 import EmployeeCard from '../employeeCard/employeeCard'
-
-
-
-
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -66,17 +64,13 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-
-
-
-
 export default function Hiring() {
 
     const dispatch = useDispatch()
     const [employee , setEmployee] = useState([]);
     const [tokenKey , setTokenKey] = useState('')
     const [inputEmail, setInputEmail] = useState('');
-
+    const [role, setRole] = useState('manager');
 
     const [errMsg, setErrMsg] = useState('');
 	  const [successMsg , setSuccessMsg] = useState(''); 
@@ -115,28 +109,27 @@ export default function Hiring() {
             setErrMsg('')
             setTokenKey(response.data.access_key);
           }
-
-          
         }
-      
-        
-
     }
+
     const handleSave = () =>{
-        console.log("saving the data");
+      console.log("saving the data");
 
-        if( inputEmail !== "" && tokenKey !== "" && errMsg === "" ){
-          message.success("Access Key saved successfully");
-          dispatch(saveAccessKey(inputEmail , tokenKey))
-          setInputEmail('');
-          setTokenKey('');
-          window.location.reload(false);
-        }else{
-          message.error("Email or Key is missing"); 
-        }
+      if( inputEmail !== "" && tokenKey !== "" && errMsg === "" ){
+        message.success("Access Key saved successfully");
+        dispatch(saveAccessKey(inputEmail , tokenKey, role))
+        setInputEmail('');
+        setTokenKey('');
+        window.location.reload(false);
+      }else{
+        message.error("Email or Key is missing"); 
+      }   
+    }
 
-
-        
+    const handleChange = (event) => {
+      event.preventDefault();
+      console.log(event.target.value);
+      setRole(event.target.value);
     }
 
   return (
@@ -158,14 +151,25 @@ export default function Hiring() {
             <input  value={inputEmail} onChange={(e)=> setInputEmail(e.target.value)} type="email" className="access_key_email" placeholder='Email Address' />
        
           <div className={clsx(classes.column, classes.helper)}>
+          
+            
+              <Select
+                value={role ?? " "}
+                onChange={handleChange}
+                inputProps={{ 'aria-label': 'Without label' }}
+                defaultValue= {role}>
+                  <MenuItem value="manager">Product Manager</MenuItem>
+                  <MenuItem value="delivery">Delivery</MenuItem>
+              </Select>
+
             <Typography variant="caption">
               Generated Access Key
               <br />
               <p ref={errRef} 
-									className={errMsg ? "errmsg" : "offscreen"} 
-									aria-live="assertive">
-                    					{errMsg? errMsg: ""}
-									</p>
+              className={errMsg ? "errmsg" : "offscreen"} 
+              aria-live="assertive">
+                {errMsg? errMsg: ""}
+              </p>
               <label className="generated_access_key">{tokenKey}</label>            
             </Typography>
           </div>
@@ -200,7 +204,8 @@ export default function Hiring() {
                          user_name={val.user_name}
                          accessKey={val.access_key}
                          email={val.email}
-                         status={val.status}  
+                         status={val.status} 
+                         role={val.user_role} 
                          date={val.sign_up_date}                    
                       />
                     )

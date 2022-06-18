@@ -166,8 +166,8 @@ const getProductsBySearch = async(req,res) => {
       const [product, metaData] =await ProductModel.fetchByCategory(category);
       console.log(product);
         res.send(product);
-    }
-                      
+    } 
+                    
 
         
   

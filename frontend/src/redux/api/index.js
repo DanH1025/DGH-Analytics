@@ -178,6 +178,9 @@ export const fetchOrdersInprogress = () =>
   axios.post("http://localhost:5000/api/getInprogressOrders");
 export const fetchOrdersById = (id) =>
   axios.post(fetchOrdersByIdUrl, {id: id});
+export const fetchOrdersByDeliveryId = (id) =>
+  axios.post("http://127.0.0.1:5000/api/getOrdersbyDeliveryId", {id: id});
+  
 export const createOrders = (date, userId, total, lat,lng ,contact, cost, no_item) => 
   axios.post(createOrdersUrl, {
     date: date,
@@ -286,10 +289,11 @@ export const productVisitRecord = (id)=>
 
 
 // save email and access key for product manager
-export const savingAK = (email , accessKey)=>
+export const savingAK = (email , accessKey, role)=>
     axios.post(savingAKUrl, {
       email: email,
-      AK: accessKey
+      AK: accessKey,
+      role: role
     })
 
 

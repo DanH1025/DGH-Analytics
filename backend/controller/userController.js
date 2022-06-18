@@ -251,21 +251,10 @@ const getAdminUser = async (req,res)=>{
       }
       
     }else{
-      // res.send({
-      //   header: "Error",
-      //   message: "User Not Found",
-      //   status: 1
-      // })
       console.log("Login failed")
           res.status(401).send("password error")
     }
   }catch(error){
-    // console.log(error);
-    // res.send({
-    //   header: "Error",
-    //   message: "User Not Found",
-    //   status: 1
-    // })
     console.log("Login failed")
       res.status(400).send("Error")
   }

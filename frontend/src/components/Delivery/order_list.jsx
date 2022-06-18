@@ -159,12 +159,15 @@ export default function Order_list() {
                       orders.map((val, key) => {
                         // console.log(val);
                         return (
-                          <Row    
+                          <TableRows 
                           key = {val.orderId}   
                           id = {val.orderId}
-                          fname = {val.fname}
-                          lname = {val.lname} 
+                          date = {val.date}
+                          contact = {val.contact} 
                           total = {val.total}
+                          admin = {true}
+                          fname = {val.fname}
+                          lname = {val.lname}
                           status = {val.status} />
                         )
                       }
@@ -174,7 +177,6 @@ export default function Order_list() {
               </Table>
             </TableContainer>
           </TabPanel>
-
           
         </div>
       </main>

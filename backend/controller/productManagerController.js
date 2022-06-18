@@ -26,12 +26,12 @@ const accessKeyGenerator = async (req,res)=>{
 
 const saveAccessKey = async(req,res)=>{
 
-    const {email, AK} = req.body;
+    const {email, AK, role} = req.body;
     console.log("saving my access key" + email + " " + AK);
     
     const date = new Date()
 
-    const [savedAccessKey, metaData] = await UserModel.addAccessKey(email , date , AK);
+    const [savedAccessKey, metaData] = await UserModel.addAccessKey(email , date, role, AK);
 
     
     res.json(savedAccessKey)
@@ -44,11 +44,11 @@ const getNewProductManager = async (req,res)=>{
     console.log("inside getting new product manager controller")
 
     res.send(newProductManager)
-
-}
+ 
+}  
 
 const activatePM = async (req,res)=>{
-    console.log("inside activation");
+    console.log("inside activation"); 
 
     const {email} = req.body
     const activation = "Active";

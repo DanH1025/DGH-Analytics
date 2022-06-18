@@ -93,12 +93,12 @@ export const createAdminAccount = (userName, email , password)=> async (dispatch
 
 
 
-export const saveAccessKey = (email, accessKey) => async (dispatch)=>{
+export const saveAccessKey = (email, accessKey, role) => async (dispatch)=>{
     try {
         dispatch({
             type: actionType.SAVING_ACCESS_KEY_REQUEST,
         })
-        const {data} = await api.savingAK(email,accessKey);
+        const {data} = await api.savingAK(email,accessKey, role);
         dispatch({
             type: actionType.SAVING_ACCESS_KEY_SUCCESS,
             payload: data,

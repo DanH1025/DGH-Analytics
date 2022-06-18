@@ -36,7 +36,8 @@ export default function AdminLogin() {
 
 		// for error mesaage
     const [errMsg, setErrMsg] = useState('');
-	const [successMsg , setSuccessMsg] = useState('');
+	const [warnInfo , setWarnInfo] = useState('')
+		const [successMsg , setSuccessMsg] = useState('');
     const userRef = useRef();
     const errRef = useRef();
 
@@ -60,16 +61,13 @@ export default function AdminLogin() {
         confirm_password: ''
     })
 
-
     // useEffect(()=>{
     //     userRef.current.focus();
     // },[])
 
     // useEffect(()=>{
     //     setErrMsg('')
-    // } , [user, pwd])
- 
-   
+    // } , [user, pwd])  
 
     const onFinish = async (values) =>{
         //  console.log('Success:', values);    
@@ -90,19 +88,41 @@ export default function AdminLogin() {
 					console.log('admin');
 					const accessToken = response.data.accessToken;
 					const role = response.data.data.user_role;
+					const id = response.data.data.id;
+					const status = response.data.data.status
 					console.log(role);
 					let expires = new Date();
           expires.setTime(expires.getTime() + (2 * 60 * 60 * 1000));
           
           setCookie('ADemail', email, {path: '/', expires});
           setCookie('ADrole', role, {path: '/', expires});
+          setCookie('ADid', id, {path: '/', expires});
           setCookie('ADaccess_token', accessToken, { path: '/',  expires});
 
 					setAuth({email, password, accessToken});
 					if(role === 'admin'){
 						navigate('/adminDash')
 					}else if(role === 'manager'){
-						navigate('/productManagerDashboard')
+						if(status === 'pending'){
+							setWarnInfo("Account Has not been Activated, Please wait For Response")
+						}else if(status === 'Diactive'){
+							setErrMsg("Account Has been Diactivated")
+						}else if(status === 'Active'){
+							navigate('/productManagerDashboard')
+							message.success("login Successful")
+						}
+
+					}else if(role === 'delivery'){
+						if(status === 'pending'){
+							setWarnInfo("Account Has not been Activated, Please wait For Response")
+						}else if(status === 'Diactive'){
+							setErrMsg("Account Has been Diactivated")
+						}else if(status === 'Active'){
+							navigate('/deliveryDashboard')
+							message.success("login Successful")
+						}
+
+
 					}
 					// navigate(from, { replace: true })
 				}else{
@@ -157,6 +177,7 @@ export default function AdminLogin() {
 						setSuccessMsg("SignUp Successful");
 						setRegVal({...regVal , userName:'' , email:'',confirm_email:'', access_key:'', password:'', confirm_password:''});
 						setSignupOrLogin(false);
+						setErrMsg("");
 						message.success("SignUp Successful");
 					}
 				}
@@ -197,6 +218,12 @@ export default function AdminLogin() {
 									aria-live="assertive">
                     					{successMsg}
 									</p>
+									<p ref={errRef}
+										className={warnInfo? "warnInfo" : "offscreen"}
+										arial-live='assertive'>
+											{warnInfo}
+									</p>
+
 						{
 							signupOrLogin? (
 							<>
@@ -313,6 +340,8 @@ export default function AdminLogin() {
 									<div className="al_header">
 										<h4>Administration Login</h4>  
 									</div>
+
+
 									<div className="al_body">
 										<Form
 										name="normal_login"

@@ -58,6 +58,43 @@ const getOrdersbyId = async (req,res) => {
   }
 }
 
+const getOrdersbyDeliveryId = async (req,res) => {
+  const id = req.body.id;
+  const [order, metaData] = await OrderModle.fetchOrdersCompleteByDeliveryId(id)
+  
+  // console.log(order);
+  try{
+    res.send(order);
+  }catch(e){
+    res.status(401).send(e)
+    console.log(e);
+  }
+}
+
+const changeStatusAccept = async(req, res) => {
+  const id = req.body.id;
+  const status = "inProgress";
+  const deliveryID = req.body.deliveryID;
+  try{
+    const [order, metaData] = await OrderModle.changeStatusAccept(id, status, deliveryID);
+  } catch(e){
+    console.log(e);
+  }
+  res.sendStatus(200);  
+}
+
+const changeStatusComplete = async(req, res) => {
+  const id = req.body.id;
+  const status = req.body.status;
+  const deliveredDate = new Date().toISOString().slice(0, 10);
+  try{
+    const [order, metaData] = await OrderModle.changeStatusComplete(id, status, deliveredDate);
+  } catch(e){
+    console.log(e);
+  }
+  res.sendStatus(200);  
+}
+
 const changeStatus = async(req, res) => {
   const id = req.body.id;
   const status = req.body.status;
@@ -76,5 +113,8 @@ module.exports = {
   getInprogressOrders,
   getOrdersbyId,
   changeStatus,
-  getPendingOrders
+  getPendingOrders,
+  changeStatusComplete,
+  changeStatusAccept,
+  getOrdersbyDeliveryId
 };

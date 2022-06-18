@@ -66,6 +66,15 @@ module.exports = class Request {
     }
   }
 
+  static fetchOrdersCompleteByDeliveryId(id) {
+    try{
+       const result = db.execute('SELECT * FROM orders WHERE orders.status = "complete" AND orders.deliveryPerson = ? ORDER BY deliveredDate', [id]);
+       return result;
+    }catch(err){
+      console.log(err);
+    }
+  }
+
   static  fetchAllbyUser = (id) => {
     return db.execute('SELECT orders.orderId, user.fname, user.lname, user.email, user.phone_number, orders.total , orders.latitude,orders.longitude,orders.contact , orders.status, orders.cost, orders.no_item FROM orders INNER JOIN user ON orders.userId = user.id WHERE user.id = ?', [id]);   
   }
@@ -113,6 +122,26 @@ module.exports = class Request {
   static completeOrderComplete(date) {
     try{
        const result =db.execute("SELECT COUNT(status) FROM orders WHERE status = 'complete' AND date=?", [date]);
+      //  console.log(result);
+       return result;
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+  static changeStatusAccept(id, status, deliveryID) {
+    try{
+       const result =db.execute("UPDATE orders SET status = ?, deliveryPerson = ? WHERE orderId = ?", [status, deliveryID, id]);
+      //  console.log(result);
+       return result;
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+  static changeStatusComplete(id, status, deliveredDate) {
+    try{
+       const result =db.execute("UPDATE orders SET status = ?, deliveredDate = ? WHERE orderId = ?", [status, deliveredDate, id]);
       //  console.log(result);
        return result;
     }catch(err){
