@@ -12,6 +12,7 @@ import CartItem from '../../../components/Client/cartItem/cartItem';
 import { createOrders } from '../../../redux/actions/orderActions';
 import { createOrderDetails } from '../../../redux/actions/orderDetailAction'
 import { addToCart, removeFromCart } from '../../../redux/actions/cartActions'
+import { sellProduct } from '../../../redux/actions/productActions';
 import {LocalShippingOutlined,LocalPhoneOutlined,MonetizationOnOutlined,RedeemOutlined} from '@material-ui/icons';
 
 import { clearCart } from '../../../redux/actions/cartActions';
@@ -127,6 +128,7 @@ export default function Checkout() {
               // const pro = product.find(x => x.id === item.product).cost;
               // console.log(pro*item.qtyCounter);
               dispatch(createOrderDetails(date, item.product , item.qtyCounter, item.price))
+              dispatch(sellProduct(item.product , item.qtyCounter))
             });
             sessionStorage.setItem('purchased', true);
             console.log(phoneNumber)
