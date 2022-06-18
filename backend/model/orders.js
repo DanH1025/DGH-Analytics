@@ -48,9 +48,18 @@ module.exports = class Request {
     }
   }
 
+  static fetchComplete() {
+    try{
+       const result =db.execute('SELECT orders.orderId, user.fname, user.lname, user.email, orders.total , orders.latitude,orders.longitude,orders.contact , orders.status, orders.cost, orders.date, orders.no_item FROM user INNER JOIN orders ON orders.userId = user.id WHERE orders.status = ? ORDER BY orders.date DESC LIMIT 20', ["complete"]);
+       return result;
+    }catch(err){
+      console.log(err);
+    }
+  }
+
   static fetchInprogress() {
     try{
-       const result =db.execute('SELECT orders.orderId, user.fname, user.lname, user.email, orders.total , orders.latitude,orders.longitude,orders.contact , orders.status, orders.cost, orders.no_item FROM user INNER JOIN orders ON orders.userId = user.id WHERE orders.status = ?' , ["inProgress"]);
+       const result =db.execute('SELECT orders.orderId, user.fname, user.lname, user.email, orders.total , orders.latitude,orders.longitude,orders.contact , orders.status, orders.date, orders.cost, orders.no_item FROM user INNER JOIN orders ON orders.userId = user.id WHERE orders.status = ?' , ["inProgress"]);
        return result;
     }catch(err){
       console.log(err);

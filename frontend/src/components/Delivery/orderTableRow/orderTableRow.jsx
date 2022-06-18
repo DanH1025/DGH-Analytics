@@ -98,7 +98,7 @@ export default function Row(props) {
           {props.id}
         </TableCell>
         <TableCell align="right">{props.date}</TableCell>
-        <TableCell align="right">{props.total}</TableCell>
+        <TableCell align="right">{props.total} BIRR</TableCell>
         <TableCell align="right">location</TableCell>
         
         { props.status === 'pending' ? (
@@ -108,7 +108,12 @@ export default function Row(props) {
         ): props.status === 'inProgress' ? (
         <TableCell align="right">
           <Label className='btn'>In progress</Label>
-        </TableCell>) : ''
+        </TableCell>) : 
+        props.status === 'inProgress' ? 
+          <TableCell align="right">
+            <Label className='btn'>Complete</Label>
+          </TableCell>
+        :''
         }
       </TableRow>
 

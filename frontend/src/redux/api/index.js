@@ -176,6 +176,8 @@ export const fetchOrders = () =>
   axios.post(fetchOrdersUrl);
 export const fetchOrdersInprogress = () =>
   axios.post("http://localhost:5000/api/getInprogressOrders");
+export const fetchOrdersComplete = () =>
+  axios.post("http://localhost:5000/api/getCompleteOrders");
 export const fetchOrdersById = (id) =>
   axios.post(fetchOrdersByIdUrl, {id: id});
 export const fetchOrdersByDeliveryId = (id) =>

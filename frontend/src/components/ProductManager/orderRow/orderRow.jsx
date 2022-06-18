@@ -45,7 +45,7 @@ export default function Row(props) {
       <TableRow 
       sx={{ '& > *': { borderBottom: 'unset' } }}
       className={ props.status === 'complete' ? 'comRow' 
-      : props.status === 'canceled' ? 'canRow' 
+      : props.status === 'cancel' ? 'canRow' 
       : props.status === 'pending' ? 'penRow' : 'inProg'}>
         <TableCell>
           <IconButton
@@ -62,14 +62,19 @@ export default function Row(props) {
 
         { props.admin === true ? ( 
             <TableCell align="left">
-              {props.id}</TableCell>)
+              {props.date}</TableCell>)
           : (
             <>
-            <TableCell align="right">{props.fname}</TableCell>
-            <TableCell align="right">{props.lname}</TableCell>
-            <TableCell align="right">{props.email}</TableCell></>
-          )
-          
+            {props?.role === 'user'? 
+                <TableCell align="right">{props.email}</TableCell>
+            : 
+              <>
+                <TableCell align="right">{props.fname}</TableCell>
+                <TableCell align="right">{props.lname}</TableCell>
+                <TableCell align="right">{props.email}</TableCell>
+              </>
+            }
+          </>)
         }
         
 
