@@ -241,14 +241,14 @@ export default function Checkout() {
                         
                     </div>
                     <div className="locationName">
-                      <Input prefix={<LocationOnIcon />} placeholder='Location ' 
+                      <Input prefix={<LocationOnIcon />} placeholder={selectedLocation.country + "-" + selectedLocation.city + "-"+ selectedLocation.road} 
                       value={mapLocation} 
                       
                       disabled  />
                     </div>
                     <div className="phoneNumber">
                         <Input type="number" 
-                          prefix="(+251)" placeholder='Phone Number'
+                          placeholder='09########'
                           value={phoneNumber}
                           className='phone_number_input'
                           onChange={(e)=> setPhoneNumber(e.target.value) } 
@@ -284,7 +284,7 @@ export default function Checkout() {
                           </div>
                       </div>
 
-                      <div className="locationName">
+                      {/* <div className="locationName">
                         <Input prefix={<LocationOnIcon />} placeholder={selectedLocation.country + " " + selectedLocation.state + " " + selectedLocation.road} 
                         value={mapLocation} 
                         
@@ -300,7 +300,7 @@ export default function Checkout() {
                             
                             />
 
-                      </div>
+                      </div> */}
                       <div className="total"  style={{background: '#c3ffc0'}} >
                           <div className="tag">
                               <p>SubTotal Price:</p> 

@@ -45,7 +45,7 @@ export default function Row(props) {
       <TableRow 
       sx={{ '& > *': { borderBottom: 'unset' } }}
       className={ props.status === 'complete' ? 'comRow' 
-      : props.status === 'canceled' ? 'canRow' 
+      : props.status === 'cancel' ? 'canRow' 
       : props.status === 'pending' ? 'penRow' : 'inProg'}>
         <TableCell>
           <IconButton

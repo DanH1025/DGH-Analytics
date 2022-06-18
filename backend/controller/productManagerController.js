@@ -44,11 +44,11 @@ const getNewProductManager = async (req,res)=>{
     console.log("inside getting new product manager controller")
 
     res.send(newProductManager)
-
-}
+ 
+}  
 
 const activatePM = async (req,res)=>{
-    console.log("inside activation");
+    console.log("inside activation"); 
 
     const {email} = req.body
     const activation = "Active";
