@@ -9,6 +9,7 @@ import { Box, Collapse, IconButton,
 
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import { useNavigate } from 'react-router-dom';
 
 import { Link } from 'react-router-dom'
 
@@ -19,12 +20,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getOrderDetails } from '../../../redux/actions/orderDetailAction';
 import { changeOrderStatus } from '../../../redux/actions/orderActions'
 
+import { styled } from '@mui/material/styles';
+import Stack from '@mui/material/Stack';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+import Check from '@mui/icons-material/Check';
+import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector';
+import { StepIconProps } from '@mui/material/StepIcon';
+import { addToCart }  from '../../../redux/actions/cartActions';
+const steps = ['Processing', 'Shipped', 'Delivered'];
 
 
 export default function Row(props) {
   // const { row } = props;
   const [open, setOpen] = React.useState(false);
-
+  const navigator = useNavigate();
   const dispatch = useDispatch();
   const handleClick = () => {
     setOpen(!open);
@@ -36,6 +47,13 @@ export default function Row(props) {
     console.log(props.id);
     dispatch(changeOrderStatus(props.id, 'cancel'))
     window.location.reload(false);
+  }
+
+  const handleReorder = () => {
+    orders?.map((order) => {
+      dispatch(addToCart(order.id , order.productQuantity));
+    })
+    navigator('/cart')
   }
 
   const orders = useSelector((state) => state.getOrderDetail.orderDetails);
@@ -66,27 +84,35 @@ export default function Row(props) {
           : (
             <>
             {props?.role === 'user'? 
-                <TableCell align="right">{props.email}</TableCell>
+                ''
             : 
               <>
                 <TableCell align="right">{props.fname}</TableCell>
                 <TableCell align="right">{props.lname}</TableCell>
-                <TableCell align="right">{props.email}</TableCell>
+                
               </>
             }
           </>)
         }
         
 
-        <TableCell align="right">{props.total}</TableCell>
+        <TableCell align="right">{props.total} Birr</TableCell>
         
         { props.status === 'pending' ? (
           <TableCell align="right">
             <Button className='btn' onClick={handleCancelOrder} style={{border: '1px solid black'}}>Cancel</Button>
           </TableCell>
         ): props.status === 'inProgress' ? (
-        <TableCell align="right">
-          <Label className='btn'>In progress</Label>
+            <TableCell align="right">
+              <Label className='btn'>In progress</Label>
+            </TableCell>
+        ): props.status === 'complete' ? (
+            <TableCell align="right">
+              <Label className='btn'>Complete</Label>
+        </TableCell>
+        ) : props.status === 'cancel' ? (
+            <TableCell align="right">
+              <Label className='btn'>Canceled</Label>
         </TableCell>) : ''
         }
       </TableRow>
@@ -96,35 +122,94 @@ export default function Row(props) {
         style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div">
-                Detail
-              </Typography>
 
-              <Table size="small" aria-label="purchases">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Name</TableCell>
-                    <TableCell>Price</TableCell>
-                    <TableCell align="right">Catagory</TableCell>
-                    <TableCell align="right">Quantity</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {orders?.map((order) => (
-                    <TableRow key={order.id}>
-                      <TableCell component="th" scope="row">
-                        {order.productName}
-                      </TableCell>
-                      <TableCell>{order.productPrice}</TableCell>
-                      <TableCell align="right">{order.productCategory}</TableCell>
-                      <TableCell align="right">
-                        {order.productQuantity}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+              <div className='ordersInfo'>
+                <Typography variant="h6" gutterBottom component="div">
+                  Detail
+                </Typography>
 
+                <div className="topInfo">
+                  <table border="0" cellPadding="10" size="20px">
+                    <tr>
+                      <td>Order number: </td>
+                      <td>{props.id}</td>
+                    </tr>
+                    <tr>
+                      <td>Order placed: </td>
+                      <td>{props.date}</td>
+                    </tr>
+                    <tr>
+                      <td>Status: </td>
+                      <td>{props.status === "pending" ? "Processing" : props.status === "inProgress" ? "In Progress" : "Complete" }</td>
+                    </tr>
+                    <tr>
+                      <td>Order placed by: </td>
+                      <td>{props.fname} {props.lname}</td>
+                    </tr>
+                  </table>
+                </div>
+
+                <div className="middleInfo">
+                  <div className='infoItem'>
+                    <p>Status</p>
+                    <Box sx={{ width: '200%'}}>
+                      <Stepper activeStep={props.status === "pending" ? 0 : props.status === "inProgress" ? 1 : 2 } alternativeLabel>
+                        {steps.map((label) => (
+                          <Step key={label}>
+                            <StepLabel>{label}</StepLabel>
+                          </Step>
+                        ))}
+                      </Stepper>
+                    </Box>
+                  </div>
+                  <div className='infoItem'>
+                    <p>Shiping Informaion</p>
+                    <h2>location</h2>
+                  </div>
+                  <div className='infoItem'>
+                    <p>Payment Info</p>
+                    <h2>Cash on delivey</h2>
+                  </div>
+                </div>
+
+                <div className='itemsInfo'>
+                  <p>Items</p>
+                  <Table size="small" aria-label="purchases">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Name</TableCell>
+                        <TableCell>Price</TableCell>
+                        <TableCell align="right">Catagory</TableCell>
+                        <TableCell align="right">Quantity</TableCell>
+                        <TableCell align="right">Reorder</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {orders?.map((order) => (
+                        <TableRow key={order.id}>
+                          <TableCell component="th" scope="row">
+                            {order.productName}
+                          </TableCell>
+                          <TableCell>{order.productPrice} Birr</TableCell>
+                          <TableCell align="right">{order.productCategory}</TableCell>
+                          <TableCell align="right">
+                            {order.productQuantity}
+                          </TableCell>
+                          <TableCell align="right">
+                            <Button className='btn' onClick={(e) => {
+                              navigator('/productDetails/' + (order.id))
+                            }} style={{border: '1px solid black'}}>View Product</Button>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+
+                  <p className='totalInfo'>Total:     {props.total} Birr</p>
+
+                  <Button className='btn' onClick={handleReorder} style={{border: '1px solid black', justifyItems: 'right '}}>Reorder Items</Button>
+                </div>
+              </div>
               {/* {orders.map((order) => ( 
               <div className='cartItem'>
                 <div className="cartItemHolder">

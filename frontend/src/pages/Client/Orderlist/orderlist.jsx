@@ -127,8 +127,6 @@ export default function Orderlist() {
                       <TableCell align="right">
                         LastName</TableCell> */}
                       <TableCell align="right">
-                        Email</TableCell>
-                      <TableCell align="right">
                         Total</TableCell>
                       <TableCell align="right">
                         Status</TableCell>
@@ -142,14 +140,15 @@ export default function Orderlist() {
                           if(val.status === 'pending' || val.status === 'inProgress'){
                             return (
                               <Row 
-                              key = {val.orderId}   
-                              id = {val.orderId}
-                              role = "user"
-                              // fname = {val.fname}
-                              // lname = {val.lname}
-                              email = {val.phone_number}  
-                              total = {val.total}
-                              status = {val.status} />
+                                key = {val.orderId}   
+                                id = {val.orderId}
+                                role = "user"
+                                fname = {val.fname}
+                                lname = {val.lname}
+                                date = {val.date}
+                                email = {val.phone_number}  
+                                total = {val.total}
+                                status = {val.status} />
                             )
                           }
                         }
@@ -168,13 +167,9 @@ export default function Orderlist() {
                       <TableCell />
                       <TableCell>Id</TableCell>
                       <TableCell align="right">
-                        Fullname</TableCell>
-                      <TableCell align="right">
-                        LastName</TableCell>
-                      <TableCell align="right">
-                        Email</TableCell>
-                      <TableCell align="right">
                         Total</TableCell>
+                      <TableCell align="right">
+                        Status</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -185,13 +180,15 @@ export default function Orderlist() {
                           if(val.status != 'pending' && val.status != 'inProgress' ){
                             return (
                               <Row 
-                              key = {val.orderId}   
-                              id = {val.orderId}
-                              fname = {val.fname}
-                              lname = {val.lname}
-                              email = {val.phone_number} 
-                              total = {val.total}
-                              status = {val.status} />
+                                key = {val.orderId}   
+                                id = {val.orderId}
+                                role = "user"
+                                fname = {val.fname}
+                                lname = {val.lname}
+                                date = {val.date}
+                                email = {val.phone_number}  
+                                total = {val.total}
+                                status = {val.status} />
                             )
                           }
                         }

@@ -113,8 +113,21 @@ const changeStatus = async(req, res) => {
   res.sendStatus(200);  
 }
 
+const countOrderById = async(req, res) => {
+  const id = req.body.id;
+  const [order, metaData] = await OrderModle.countOrderById(id);
+  const noOrders = order[0];
+  console.log(noOrders);
+  try{
+    res.send(noOrders);  
+  } catch(e){
+    console.log(e);
+  }
+}
+
 module.exports = {
 	addOrder,
+  countOrderById,
 	getOrders,
   getInprogressOrders,
   getOrdersbyId,
