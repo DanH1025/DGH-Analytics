@@ -39,9 +39,17 @@ export default function Row(props) {
     console.log(props.id);
     //dispatch(changeOrderStatus(props.id, 'complete'))
     if(cookies?.ADid){
-      const respond = await axios.post('http://localhost:5000/api/changeStatusAccept', {id: props.id, deliveryID: cookies.ADid});
-      if(respond.status === 200){
-        window.location.reload(false);
+      const orderNo = await axios.post('http://127.0.0.1:5000/api/countOrderById', {id: cookies.ADid});
+
+      console.log(orderNo.data.orderNo);
+
+      if(orderNo.data.orderNo < 1){
+        const respond = await axios.post('http://localhost:5000/api/changeStatusAccept', {id: props.id, deliveryID: cookies.ADid});
+        if(respond.status === 200){
+          window.location.reload(false);
+        }
+      }else{
+        console.log("Finish your order first");
       }
     }else{
       console.log('not logged in');
@@ -98,7 +106,7 @@ export default function Row(props) {
           {props.id}
         </TableCell>
         <TableCell align="right">{props.date}</TableCell>
-        <TableCell align="right">{props.total}</TableCell>
+        <TableCell align="right">{props.total} BIRR</TableCell>
         <TableCell align="right">location</TableCell>
         
         { props.status === 'pending' ? (
@@ -108,7 +116,12 @@ export default function Row(props) {
         ): props.status === 'inProgress' ? (
         <TableCell align="right">
           <Label className='btn'>In progress</Label>
-        </TableCell>) : ''
+        </TableCell>) : 
+        props.status === 'inProgress' ? 
+          <TableCell align="right">
+            <Label className='btn'>Complete</Label>
+          </TableCell>
+        :''
         }
       </TableRow>
 

@@ -38,6 +38,13 @@ const getInprogressOrders = async(req,res) => {
   }
 }
 
+const getCompleteOrders = async(req,res) => {
+  const [order, metaData] = await OrderModle.fetchComplete();
+  console.log(order);
+ // res.send(order.splice(0,4));
+  res.send(order);
+}
+
 const getPendingOrders = async(req,res) => {
   const [order, metaData] = await OrderModle.fetchOrdersPending();
   console.log(order);
@@ -106,9 +113,21 @@ const changeStatus = async(req, res) => {
   res.sendStatus(200);  
 }
 
+const countOrderById = async(req, res) => {
+  const id = req.body.id;
+  const [order, metaData] = await OrderModle.countOrderById(id);
+  const noOrders = order[0];
+  console.log(noOrders);
+  try{
+    res.send(noOrders);  
+  } catch(e){
+    console.log(e);
+  }
+}
 
 module.exports = {
 	addOrder,
+  countOrderById,
 	getOrders,
   getInprogressOrders,
   getOrdersbyId,
@@ -116,5 +135,6 @@ module.exports = {
   getPendingOrders,
   changeStatusComplete,
   changeStatusAccept,
-  getOrdersbyDeliveryId
+  getOrdersbyDeliveryId,
+  getCompleteOrders
 };

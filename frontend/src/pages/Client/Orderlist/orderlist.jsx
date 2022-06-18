@@ -4,7 +4,7 @@ import Topbar from "../../../components/Client/topbar/topbar";
 import Footer from "../../../components/Client/footer/footer";
 
 import { useDispatch , useSelector } from "react-redux";
-import { getOrdersById } from '../../../redux/actions/orderActions'
+import { getOrdersById, getOrdersPending } from '../../../redux/actions/orderActions'
 
 import { useCookies } from 'react-cookie';
 import { makeStyles } from '@material-ui/core/styles';
@@ -97,7 +97,7 @@ export default function Orderlist() {
             </div> 
 
 
-            <div className="bottomTabContainer">       
+        <div className="bottomTabContainer">       
 					
           <div className={classes.root}>
             <AppBar position="static" color="default">
@@ -122,12 +122,10 @@ export default function Orderlist() {
                     <TableRow>
                       <TableCell />
                       <TableCell>Id</TableCell>
-                      <TableCell align="right">
+                      {/* <TableCell align="right">
                         Fullname</TableCell>
                       <TableCell align="right">
-                        LastName</TableCell>
-                      <TableCell align="right">
-                        Email</TableCell>
+                        LastName</TableCell> */}
                       <TableCell align="right">
                         Total</TableCell>
                       <TableCell align="right">
@@ -142,13 +140,15 @@ export default function Orderlist() {
                           if(val.status === 'pending' || val.status === 'inProgress'){
                             return (
                               <Row 
-                              key = {val.orderId}   
-                              id = {val.orderId}
-                              fname = {val.fname}
-                              lname = {val.lname}
-                              email = {val.phone_number}  
-                              total = {val.total}
-                              status = {val.status} />
+                                key = {val.orderId}   
+                                id = {val.orderId}
+                                role = "user"
+                                fname = {val.fname}
+                                lname = {val.lname}
+                                date = {val.date}
+                                email = {val.phone_number}  
+                                total = {val.total}
+                                status = {val.status} />
                             )
                           }
                         }
@@ -167,13 +167,9 @@ export default function Orderlist() {
                       <TableCell />
                       <TableCell>Id</TableCell>
                       <TableCell align="right">
-                        Fullname</TableCell>
-                      <TableCell align="right">
-                        LastName</TableCell>
-                      <TableCell align="right">
-                        Email</TableCell>
-                      <TableCell align="right">
                         Total</TableCell>
+                      <TableCell align="right">
+                        Status</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -184,13 +180,15 @@ export default function Orderlist() {
                           if(val.status != 'pending' && val.status != 'inProgress' ){
                             return (
                               <Row 
-                              key = {val.orderId}   
-                              id = {val.orderId}
-                              fname = {val.fname}
-                              lname = {val.lname}
-                              email = {val.phone_number} 
-                              total = {val.total}
-                              status = {val.status} />
+                                key = {val.orderId}   
+                                id = {val.orderId}
+                                role = "user"
+                                fname = {val.fname}
+                                lname = {val.lname}
+                                date = {val.date}
+                                email = {val.phone_number}  
+                                total = {val.total}
+                                status = {val.status} />
                             )
                           }
                         }

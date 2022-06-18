@@ -66,6 +66,27 @@ export const getOrdersPending = () => async (dispatch)=>{
     }
 };
 
+export const getOrdersComplete = () => async (dispatch)=>{
+    try {
+        dispatch({
+            type: actionType.GET_ORDERS_PENDING_REQUEST,
+        });
+        const {data} = await api.fetchOrdersComplete();
+        
+        dispatch({
+            type: actionType.GET_ORDERS_PENDING_SUCCESS,
+            payload: data,
+        });
+    } catch (error) {
+        dispatch({
+            type:actionType.GET_ORDERS_PENDING_FAIL,
+            payload: 
+                error.response && error.response.data.message 
+                ?error.response.data.message:error.message,
+        });
+    }
+};
+
 export const getOrdersById = (id) => async (dispatch)=>{
     try {
         dispatch({
