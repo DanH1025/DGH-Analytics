@@ -30,9 +30,9 @@ module.exports = class Request {
     }
   }
 
-  static addAccessKey(email,date, AK){
+  static addAccessKey(email,date,role, AK){
     try {
-      const result = db.execute('INSERT INTO `administrator_user`(`email`, `user_role`, `sign_up_date`, `access_key`, `status`) VALUES (?,?,?,?,?)', [email, "product_manager", date , AK , "pending"]);
+      const result = db.execute('INSERT INTO `administrator_user`(`email`, `user_role`, `sign_up_date`, `access_key`, `status`) VALUES (?,?,?,?,?)', [email, role, date , AK , "pending"]);
       return result
     } catch (error) {
       console.log(error)

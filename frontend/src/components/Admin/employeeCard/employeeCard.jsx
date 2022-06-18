@@ -19,7 +19,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
   })
 
-export default function EmployeeCard({key, user_name, email, accessKey, status , date}) {
+export default function EmployeeCard({key, user_name, email, accessKey, status, role , date}) {
 
     const [open, setOpen] = React.useState(false);
 
@@ -28,6 +28,7 @@ export default function EmployeeCard({key, user_name, email, accessKey, status ,
     Email: email,
     AccessKey: accessKey,
     Status: status,
+    Role: role,
     Date: date
   })
 
@@ -100,6 +101,9 @@ export default function EmployeeCard({key, user_name, email, accessKey, status ,
             </div>
             <div className="emp_email_holder">
                 <p>{email}</p>
+            </div>
+            <div className="emp_accessKey_holder">
+                <p>{role}</p>
             </div>
             <div className="emp_accessKey_holder">
                 <p>{date}</p>

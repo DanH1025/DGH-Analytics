@@ -36,7 +36,7 @@ export default function AdminLogin() {
 
 		// for error mesaage
     const [errMsg, setErrMsg] = useState('');
-	const [successMsg , setSuccessMsg] = useState('');
+		const [successMsg , setSuccessMsg] = useState('');
     const userRef = useRef();
     const errRef = useRef();
 
@@ -60,16 +60,13 @@ export default function AdminLogin() {
         confirm_password: ''
     })
 
-
     // useEffect(()=>{
     //     userRef.current.focus();
     // },[])
 
     // useEffect(()=>{
     //     setErrMsg('')
-    // } , [user, pwd])
- 
-   
+    // } , [user, pwd])  
 
     const onFinish = async (values) =>{
         //  console.log('Success:', values);    
@@ -90,12 +87,14 @@ export default function AdminLogin() {
 					console.log('admin');
 					const accessToken = response.data.accessToken;
 					const role = response.data.data.user_role;
+					const id = response.data.data.id;
 					console.log(role);
 					let expires = new Date();
           expires.setTime(expires.getTime() + (2 * 60 * 60 * 1000));
           
           setCookie('ADemail', email, {path: '/', expires});
           setCookie('ADrole', role, {path: '/', expires});
+          setCookie('ADid', id, {path: '/', expires});
           setCookie('ADaccess_token', accessToken, { path: '/',  expires});
 
 					setAuth({email, password, accessToken});
@@ -103,6 +102,8 @@ export default function AdminLogin() {
 						navigate('/adminDash')
 					}else if(role === 'manager'){
 						navigate('/productManagerDashboard')
+					}else if(role === 'delivery'){
+						navigate('/deliveryDashboard')
 					}
 					// navigate(from, { replace: true })
 				}else{
