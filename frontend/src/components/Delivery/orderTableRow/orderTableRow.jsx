@@ -7,6 +7,8 @@ import { Box, Collapse, IconButton,
    TableRow, Typography,
     Paper} from '@material-ui/core';
 
+import ReactMapGL , {Marker} from 'react-map-gl';
+
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 
@@ -27,7 +29,6 @@ export default function Row(props) {
   const [open, setOpen] = React.useState(false);
   
   const [cookies, setCookie] = useCookies(['user']);
-
   const dispatch = useDispatch();
   const handleClick = () => {
     setOpen(!open);
@@ -82,10 +83,20 @@ export default function Row(props) {
     }
   }
 
+  const [viewPort , setViewPort] = useState({
+    latitude: Number(props.latitude),
+    longitude: Number(props.longitude),
+    zoom:13,
+    width: '100vw',
+    height: '100vh'
+  })
 
+  const [marker,setMarker] = useState({
+    latitude: Number(props.latitude),
+    longitude: Number(props.longitude)
+  });
 
   const orders = useSelector((state) => state.getOrderDetail.orderDetails);
-  console.log('inside row');
   return (
     <React.Fragment>
       <TableRow 
@@ -107,7 +118,7 @@ export default function Row(props) {
         </TableCell>
         <TableCell align="right">{props.date}</TableCell>
         <TableCell align="right">{props.total} BIRR</TableCell>
-        <TableCell align="right">location</TableCell>
+        <TableCell align="right">{props.address}</TableCell>
         
         { props.status === 'pending' ? (
           <TableCell align="right">
@@ -134,6 +145,38 @@ export default function Row(props) {
                 Detail
               </Typography>
 
+                <div className="topInfo">
+                  <table border="0" cellPadding="10" size="20px">
+                    <tr>
+                      <td>Order number: </td>
+                      <td>{props.id}</td>
+                    </tr>
+                    <tr>
+                      <td>Order placed: </td>
+                      <td>{props.date}</td>
+                    </tr>
+                    <tr>
+                      <td>Status: </td>
+                      <td>{props.status === "pending" ? "Processing" : props.status === "inProgress" ? "In Progress" : "Complete" }</td>
+                    </tr>
+                    <tr>
+                      <td>Order placed by: </td>
+                      <td>{props.fname} {props.lname}</td>
+                    </tr>
+                  </table>
+                </div>
+
+              <div className='mapDelivery'>
+                <div className="mapHolder">
+                  <ReactMapGL {...viewPort} 
+                  mapboxAccessToken="pk.eyJ1IjoiZGFuaGdiIiwiYSI6ImNsMXVnNDIxbzAwMmYzcXBiMXB0ZWVjcWMifQ.nC63RhWneFhiZ4k4XJim9A" 
+                  onMove={(viewPort)=> { setViewPort(viewPort)}}
+                  mapStyle="mapbox://styles/mapbox/streets-v11"> 
+                    <Marker latitude={marker.latitude} longitude={marker.longitude} />
+                  </ReactMapGL>  
+                </div>
+              </div>
+
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
@@ -158,6 +201,7 @@ export default function Row(props) {
                   ))}
                 </TableBody>
               </Table>
+              <p className='totalInfo'>Total:     {props.total} Birr</p>
 
               {/* {orders.map((order) => ( 
               <div className='cartItem'>

@@ -13,3 +13,31 @@
 .inProg .btn{
   background-color: rgb(115, 241, 255);;
 }
+
+.mapDelivery{
+  padding: 1.5rem 0;
+}
+td {
+  padding: 0 15px;
+  font-size: 15px;
+}
+
+.ordersInfo{
+  padding: 2rem 1rem;
+}
+
+.topInfo{
+  font-size: 40px;
+}
+
+.middleInfo{
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem 0;
+}
+
+.itemsInfo .totalInfo{
+  align-items: left;
+  text-align: right;
+  padding: 15px;
+}
