@@ -164,12 +164,12 @@ const getProductsBySearch = async(req,res) => {
       console.log("i know txt is empty byt category is not")
       console.log('in search with  catagory');
       const [product, metaData] =await ProductModel.fetchByCategory(category);
-      console.log(product);
-        res.send(product);
-    } 
+      console.log(product)
+        res.send(product);  
+    }   
                     
 
-        
+         
   
   }else{
     if(category === ''){
@@ -268,7 +268,7 @@ const sellProduct = async(req,res)=>{
 
 module.exports = {
 	getProducts,
-  getAllProducts,
+  getAllProducts, 
   getActiveProducts,
   getDiactiveProducts,
 	addProduct,
