@@ -247,7 +247,7 @@ const sellProduct = async(req,res)=>{
            }else{
             res.status(300).json({
               message: "Invalid Input",
-              status: 3
+              status: 3  
             })
            }
         }else {
@@ -258,13 +258,37 @@ const sellProduct = async(req,res)=>{
         }
      }
 
-    // res.status(200).json({
-    //   id,
-    //   qty
-    // })
   
 }
+const returnProduct = async (req , res)=>{
+  const {id , qty} = req.body;
 
+  if(id === '' || qty === ''){
+    res.status(401).json({
+      message: "Server Error",
+      status: 1
+    })
+  }else{
+     const [product, metaData]= await ProductModel.findById(id)
+     //res.status(200).json({product})
+      console.log(product) 
+      if(product.length === 1){
+         console.log("i got the product , increasing the product quantity now")       
+           const newStock = (product[0].countInStock + qty)
+            await ProductModel.returnToStock(id , newStock) 
+           res.status(200).json({
+              message: "Item has been returned to stock successfully",
+              status: 0
+           })
+
+      }else {
+        res.status(401).json({
+          message: "Server Error",   
+          status: 2 
+        })
+      }
+   }
+}
 
 module.exports = {
 	getProducts,
@@ -274,6 +298,7 @@ module.exports = {
 	addProduct,
   getTopFive,
   sellProduct,
+  returnProduct,
   
   
   getProductsByCatagory,

@@ -5,7 +5,7 @@ const router = express.Router();
 const {getProducts, getAllProducts,addProduct, getProductsByCatagory, getProductsById,
          getProductsBySearch ,deleteProduct ,editProductValues ,recordSearchHistory ,
          recordAddToCartHistory,changeVisits,getActiveProducts ,getDiactiveProducts,
-         commentHandler ,getComments,getTopFive,sellProduct} =  
+         commentHandler ,getComments,getTopFive,sellProduct,returnProduct} =  
   require('../controller/productController');
 
 
@@ -171,9 +171,9 @@ router.post('/createAdminAccount' , createAdminAccount)
 
 
 //selling products
-
 router.post('/sellProduct' , sellProduct)
-
+// returning product
+router.post('/returnProduct' , returnProduct)
 
 module.exports = router;
  

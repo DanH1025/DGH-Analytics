@@ -318,6 +318,26 @@ export const sellProduct = (id , qty) => async (dispatch)=>{
     }
 }
 
+export const returnProduct = (id, qty) => async (dispatch)=>{
+    try {
+        dispatch(({
+            type: actionType.RETURN_PRODUCT_REQUEST
+        }))
+        const {data} = await api.retruningProduct(id, qty);
+        dispatch({
+            type: actionType.RETURN_PRODUCT_SUCCESS,
+            payload: data
+        })
+    } catch (error) {
+        dispatch({
+            type:actionType.RETURN_PRODUCT_FAIL,
+            payload: 
+                error.response && error.response.data.message 
+                ?error.response.data.message:error.message,
+        });
+    }
+}
+
 
 // export const getProductsDetails = (id) => async (dispatch)=>{
 //     try {
