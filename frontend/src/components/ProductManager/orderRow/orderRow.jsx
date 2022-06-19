@@ -29,10 +29,10 @@ import Check from '@mui/icons-material/Check';
 import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector';
 import { StepIconProps } from '@mui/material/StepIcon';
 import { addToCart }  from '../../../redux/actions/cartActions';
-const steps = ['Processing', 'Shipped', 'Delivered'];
 
 
 export default function Row(props) {
+  const steps = ['Processing', 'Shipped', props?.status === 'cancel' ? 'Canceled' :'Delivered'];
   // const { row } = props;
   const [open, setOpen] = React.useState(false);
   const navigator = useNavigate();
