@@ -1,4 +1,4 @@
-import React , {useState, useEffect} from 'react'
+import React , {useState, useEffect,useRef} from 'react'
 import './profile.css'
 
 import { useDispatch, useSelector, useSelectore } from 'react-redux'
@@ -39,8 +39,10 @@ export default function Profile({userName,email, role , signUpDate}) {
     const classes = useStyles();
 
     const dispatch = useDispatch();
+    const errRef = useRef();
 
-
+    //error message
+    const [errMsg ,setErrMsg]  = useState('')
   
     // state to get the account information
     const [userInfoState , setUserInfoState] = useState({
@@ -66,6 +68,11 @@ export default function Profile({userName,email, role , signUpDate}) {
         confirm_password:''
     })
 
+    const data = useSelector((state)=> state.getUser);
+    const {user , loading , error} = data
+
+
+    console.log(user)
 
   
     
@@ -83,6 +90,7 @@ export default function Profile({userName,email, role , signUpDate}) {
             message.error("sorry user name change faild")
         }
     }
+
     const passwordChangeHandler = async ()=>{
 
 
@@ -92,27 +100,51 @@ export default function Profile({userName,email, role , signUpDate}) {
         }else if(passwordChange.newPassword.length < 6){
             message.error("Password too Short")
         }else{
-            if(window.confirm("Are you sure you want to change Password")){
-                // dispatch(changeAdminPassword(userInfoState.email , passwordChange.oldPassword , passwordChange.newPassword))
-                  axios.post('http://localhost:5000/api/changeAdminPassword' , {
-                     email: userInfoState.email,
-                     oldPassword: passwordChange.oldPassword,
-                     newPassword: passwordChange.newPassword
-                 })
+            try {
+                const response = await axios.post('http://localhost:5000/api/changeAdminPassword' , {
+                    email: userInfoState.email,
+                    oldPassword: passwordChange.oldPassword,
+                    newPassword: passwordChange.newPassword
+                })
 
-                 message.success("Password Changed Successfully")
-                 window.location.reload(false);
-            }else{
-                message.error("Password Change Failed")
+                console.log(response)
+                if(response.data.status === 402){
+                    setErrMsg("Invalid Old Password")
+                    console.log("im getting the error msg here " + errMsg)
+                }else if( response.data.status === 404){
+                    setErrMsg("User Not Found")
+                }else if(response.data.status === 200){
+                    window.location.reload(true)
+                    
+                    message.success("Password Changed Successfully")
+
+                }
+
+                
+            } catch (err) {
+                    console.log(err);
+                if (!err?.response) {
+                    setErrMsg('No Server Response');
+                } else if (err.response?.status === 404) {
+                    setErrMsg('User Not Found');
+                } else if (err.response?.status === 402) {
+                    setErrMsg('Password Change Failed');
+                }
             }
+
+
+            // if(window.confirm("Are you sure you want to change Password")){
+            //     // dispatch(changeAdminPassword(userInfoState.email , passwordChange.oldPassword , passwordChange.newPassword))
+                
+
+            //      message.success("Password Changed Successfully")
+            //      window.location.reload(false);
+            // }else{
+            //     message.error("Password Change Failed")
+            // }
         }
     }
 
-    const data = useSelector((state)=> state.getUser);
-    const {user , loading , error} = data
-
-
-    console.log(user)
 
     const handleAccountCreate = async () =>{
         if(newAccount.userName === '' || newAccount.email === '' || newAccount.confirm_email=== '' || newAccount.password === '' || newAccount.confirm_password===''){
@@ -175,6 +207,7 @@ export default function Profile({userName,email, role , signUpDate}) {
                         <AccordionDetails>
                         <Typography>
                             <div className="changeUserNameSide">
+                            
                              <input type="text" placeholder={userInfoState.userName} 
                                 className='userNameInput' value={userInfoState.userName} 
                                 onChange={(e)=>setUserInfoState({...userInfoState , userName: e.target.value})}  />
@@ -203,6 +236,8 @@ export default function Profile({userName,email, role , signUpDate}) {
                         </AccordionSummary>
                         <AccordionDetails>
                         <Typography>
+                        <p ref={errRef} className={errMsg ? "loginErrMsg" : "login_offscreen"} aria-live="assertive">
+                            {errMsg}</p>
                             <div className="changePasswordSide">
                                 <input type="password" placeholder='Old password' 
                                     className='old_password_input' value={passwordChange.oldPassword}

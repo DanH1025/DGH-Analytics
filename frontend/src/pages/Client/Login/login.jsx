@@ -175,6 +175,9 @@ export default function Login(){
                     password: loginInfo.password
                 })
             }
+          
+            
+
             console.log(response.data[0].id);
             if(response.data[0].id){
                 console.log('sucess');

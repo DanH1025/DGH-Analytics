@@ -32,23 +32,23 @@ const changeAdminPassword = async (req,res)=>{
   const [user , userData] = await UserModel.fetchAdminUser(email);
   if(user.length === 0){
     res.json({
-      status: "404",
+      status: 404,
       message: "user Not found"
     })
   }else{ 
-     if( await bcrypt.compare(oldPassword , user[0].password)){
+     if(await bcrypt.compare(oldPassword , user[0].password)){
        const hashPass = await bcrypt.hash(newPassword , 8)
        const [data, metaData] = await UserModel.adminPasswordChange(email, hashPass);
 
       res.json({
-        status: '200',
+        status: 200,
         message:'admin password change successful'
       })
 
 
      }else{
        res.json({
-        status: '402',
+        status: 402,
         message: "Invalid old password"
        })
      }
