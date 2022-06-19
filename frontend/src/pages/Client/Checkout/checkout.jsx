@@ -12,6 +12,7 @@ import CartItem from '../../../components/Client/cartItem/cartItem';
 import { createOrders } from '../../../redux/actions/orderActions';
 import { createOrderDetails } from '../../../redux/actions/orderDetailAction'
 import { addToCart, removeFromCart } from '../../../redux/actions/cartActions'
+import { sellProduct } from '../../../redux/actions/productActions';
 import {LocalShippingOutlined,LocalPhoneOutlined,MonetizationOnOutlined,RedeemOutlined} from '@material-ui/icons';
 
 import { clearCart } from '../../../redux/actions/cartActions';
@@ -127,6 +128,7 @@ export default function Checkout() {
               // const pro = product.find(x => x.id === item.product).cost;
               // console.log(pro*item.qtyCounter);
               dispatch(createOrderDetails(date, item.product , item.qtyCounter, item.price))
+              dispatch(sellProduct(item.product , item.qtyCounter))
             });
             sessionStorage.setItem('purchased', true);
             console.log(phoneNumber)
@@ -241,14 +243,14 @@ export default function Checkout() {
                         
                     </div>
                     <div className="locationName">
-                      <Input prefix={<LocationOnIcon />} placeholder='Location ' 
+                      <Input prefix={<LocationOnIcon />} placeholder={selectedLocation.country + "-" + selectedLocation.city + "-"+ selectedLocation.road} 
                       value={mapLocation} 
                       
                       disabled  />
                     </div>
                     <div className="phoneNumber">
                         <Input type="number" 
-                          prefix="(+251)" placeholder='Phone Number'
+                          placeholder='09########'
                           value={phoneNumber}
                           className='phone_number_input'
                           onChange={(e)=> setPhoneNumber(e.target.value) } 
@@ -284,7 +286,7 @@ export default function Checkout() {
                           </div>
                       </div>
 
-                      <div className="locationName">
+                      {/* <div className="locationName">
                         <Input prefix={<LocationOnIcon />} placeholder={selectedLocation.country + " " + selectedLocation.state + " " + selectedLocation.road} 
                         value={mapLocation} 
                         
@@ -300,7 +302,7 @@ export default function Checkout() {
                             
                             />
 
-                      </div>
+                      </div> */}
                       <div className="total"  style={{background: '#c3ffc0'}} >
                           <div className="tag">
                               <p>SubTotal Price:</p> 

@@ -29,6 +29,73 @@ body{
 
 }
 
+.profileInfo_Holder{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    height: 235px;
+}
+
+.profileIconContainer{
+    display: flex;
+    width: 100%;
+    height: 70px;
+    align-items: left;
+    justify-content: left;
+}
+.profileIconContainer svg{
+    width: fit-content;
+    height: 100%;
+    align-items: center;
+    justify-content: left;
+    font-weight: bolder;
+    color: rgb(15, 153, 212);
+}
+.profileBodyContainer {
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: left;
+    width: 100%;
+
+}
+.profileBodyContainer p{
+    font-size: 12px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: lighter;
+    width: -moz-fit-content;
+    width: 100%;
+    height: -moz-fit-content;
+    height: fit-content;
+    padding: 5px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4px;
+    border: none;
+    border-radius: 3px;
+    background-color: #e6e6e6;
+}
+
+.changeUserNameHolder
+,.changePasswordHolder
+,.addNewAdminHolder{
+    width: 100%;
+    padding: 6px;
+    margin: 1px;
+   
+}
+.MuiAccordion-rounded:last-child{
+   
+}
+
+
+
+
+/* 
+
+
+
 .profileInformation_container{
     display: flex;
     width: 100%;
@@ -68,7 +135,7 @@ body{
     color: rgb(12, 138, 255);
     
 
-
+   
 }
 .profileCircleBody{
     display: flex;
@@ -80,10 +147,10 @@ body{
     align-items: center;
     justify-content: center;
 }
+ */
 
 
-
-.upperSide ,
+/* .upperSide ,
 .lowerSide{
     display: flex;
     flex-direction: column;
@@ -91,8 +158,8 @@ body{
     height: 100%;
     padding: 0;
     margin: 0;
-}
-.profileInfoSide{
+} */
+/* .profileInfoSide{
     display: flex;
     flex: 1;
     flex-direction: column;
@@ -101,8 +168,8 @@ body{
     width: 100%;
     height: 100%;
    
-}
-.profileInformation{
+} */
+/* .profileInformation{
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -111,8 +178,8 @@ body{
     margin: 5px 0px;
     border-bottom: 1px black solid;
     border-top: 1px black solid;
-}
-.profileInformation h2 ,
+} */
+/* .profileInformation h2 ,
 .addAdminWrapper h2,
 .editProfileInformation h2{
     width: 100%;
@@ -122,8 +189,8 @@ body{
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-weight: 300;
 
-}
-.profileInformation p{
+} */
+/* .profileInformation p{
     font-size: 12px;
     font-family: 'Times New Roman', Times, serif;
     font-weight: lighter;
@@ -132,10 +199,10 @@ body{
     margin: 1px;
     margin-left: 5px;
     margin-bottom: 6px;
-}
+} */
 
 
-.editProfileSide{
+/* .editProfileSide{
     display: flex;
     flex: 2;
     flex-direction: column;
@@ -144,8 +211,8 @@ body{
     width: 100%;
     height: 100%;
     
-}
-.editProfileInformation{
+} */
+/* .editProfileInformation{
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -153,16 +220,16 @@ body{
     padding: 4px;
     margin:0;
     
-}
+} */
 
-.changeUserNameSide,
+/* .changeUserNameSide,
 .changePasswords{
     display: flex;
     flex-direction: column;
     padding: 0;
     margin: 5px 10px;
 
-}
+} */
 .changeUserNameSide h3,
 .changePasswords h3{
     width: 100%;
@@ -172,12 +239,12 @@ body{
     font-weight: 300;
 }
 .changeUserNameSide input,
-.changePasswords input,
+.changePasswordSide input,
 .addAdminWrapper input{
     display: flex;
-    width: 50%;
+    width: 200%;
     height: 40px;
-    border: 1px solid black;
+    border: 1px solid rgb(193, 181, 181);
     padding: 5px;
     margin: 0;
     margin-bottom: 4px;

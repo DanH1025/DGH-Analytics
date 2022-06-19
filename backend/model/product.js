@@ -95,6 +95,16 @@ module.exports = class Request {
     return db.execute('SELECT * FROM product WHERE product.id = ?', [id]);
   }
 
+  //reduct count in stock
+  static reduceStock( id , qty){
+    try {
+      const result = db.execute('UPDATE product SET countInStock = ? WHERE  id = ?' , [qty, id]);
+      return result
+    } catch (error) {
+       console.log(error)
+    }
+  }
+
   static deleteProductById(id){
     return db.execute('UPDATE `product` SET `status`= 0 WHERE product.id=?' , [id])
   }

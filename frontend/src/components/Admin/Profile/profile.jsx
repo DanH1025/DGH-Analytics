@@ -7,15 +7,36 @@ import { changeAdminPassword} from '../../../redux/actions/userActions';
 import { createAdminAccount } from '../../../redux/actions/userActions';
 import {message} from 'antd'
 
+// for the input hider
+import { makeStyles } from '@material-ui/core/styles';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
+
+
+
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 import axios from 'axios'
 
 
+//for the input hider
+const useStyles = makeStyles((theme) => ({
+    root: {
+      width: '100%',
+    },
+    heading: {
+      fontSize: theme.typography.pxToRem(15),
+      fontWeight: theme.typography.fontWeightRegular,
+    },
+  }));
 
 
 export default function Profile({userName,email, role , signUpDate}) {
-   
+    const classes = useStyles();
 
     const dispatch = useDispatch();
 
@@ -127,53 +148,63 @@ export default function Profile({userName,email, role , signUpDate}) {
   return (
     <div className='profilePage'>
         <div className="profileWrapper">
-
-                <div className="profileInformation_container">
-                    <div className="profileInfoCircle">
-                        <div className="profileCircleIconHolder">
-                                <AccountCircleIcon/>
-                        </div>
-                        <div className="profileCircleBody">
-                            <p>UserName : {userInfoState.userName ? userInfoState.userName: "Unavailable"}</p>
-                            <p>Email :  {userInfoState.email ? userInfoState.email : "Unavailable"}</p>
-                            <p>Role : {userInfoState.role === 'admin'? "Administration" : "Product Manager"}</p>
-                            <p>SignUp Date  : {userInfoState.SignUpDate? userInfoState.SignUpDate: "Unavailable"}</p>
-                        </div>
-
-                    </div>
+            <div className="profileInfo_Holder">
+                <div className="profileIconContainer">
+                    <AccountCircleIcon/>
                 </div>
-
-
-            <div className="upperSide">
-                <div className="profileInfoSide">
-                    <div className="profileInformation">
-                            <h2>My Account</h2>
-
-                            <p>UserName : {userInfoState.userName ? userInfoState.userName: "Unavailable"}</p>
-                            <p>Email :  {userInfoState.email ? userInfoState.email : "Unavailable"}</p>
-                            <p>Role : {userInfoState.role === 'admin'? "Administration" : "Product Manager"}</p>
-                            <p>SignUp Date  : {userInfoState.SignUpDate? userInfoState.SignUpDate: "Unavailable"}</p>
-                        
-                    </div>
+                <div className="profileBodyContainer">
+                    <p>UserName : {userInfoState.userName ? userInfoState.userName: "Unavailable"}</p>
+                    <p>Email :  {userInfoState.email ? userInfoState.email : "Unavailable"}</p>
+                    <p>Role : {userInfoState.role === 'admin'? "Administration" : "Product Manager"}</p>
+                    <p>SignUp Date  : {userInfoState.SignUpDate? userInfoState.SignUpDate: "Unavailable"}</p>
                 </div>
-                <div className="editProfileSide">
-                    <div className="editProfileInformation">
-                        <h2>Manage my Account</h2>
+            </div>
 
-                        <div className="changeUserNameSide">
-                            <h3>Change UserName</h3>
-                            <input type="text" placeholder={userInfoState.userName} 
-                                    className='userName' value={userInfoState.userName} 
-                                    onChange={(e)=>setUserInfoState({...userInfoState , userName: e.target.value})}  />
+            <div className="changeUserNameHolder">
+                <div className={classes.root}>
+                    <Accordion>
+                        <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel1a-content"
+                        id="panel1a-header"
+                        >
+                        <Typography className={classes.heading}>
+                            <h3>Edit UserName</h3>
+                        </Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                        <Typography>
+                            <div className="changeUserNameSide">
+                             <input type="text" placeholder={userInfoState.userName} 
+                                className='userNameInput' value={userInfoState.userName} 
+                                onChange={(e)=>setUserInfoState({...userInfoState , userName: e.target.value})}  />
 
-                            <button className='userNameChangeBtn' onClick={userNameChangeHandler} >Change</button>
-                        
-                        </div>
+                                 <button className='userNameChangeBtn' onClick={userNameChangeHandler} >Change</button>
+                            </div>
+                        </Typography>
 
-                        <div className="changePasswords">
+                        </AccordionDetails>
+                    </Accordion>
+                    
+                </div>
+            </div>
+            
+            <div className="changePasswordHolder">
+                <div className={classes.root}>
+                    <Accordion>
+                        <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel1a-content"
+                        id="panel1a-header"
+                        >
+                        <Typography className={classes.heading}>
                             <h3>Change Password</h3>
-
-                            <input type="password" placeholder='Old password' 
+                        </Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                        <Typography>
+                            <div className="changePasswordSide">
+                                <input type="password" placeholder='Old password' 
                                     className='old_password_input' value={passwordChange.oldPassword}
                                     onChange={(e)=> setPasswordChange({...passwordChange , oldPassword: e.target.value})}
                                     />
@@ -187,46 +218,61 @@ export default function Profile({userName,email, role , signUpDate}) {
                                     />
 
                             <button className='passwordChangeConfirm' onClick={passwordChangeHandler} >Confirm</button>
+                            </div>
+                        </Typography>
 
-                        </div>
-
-
-                       
-                    </div>
-                        
+                        </AccordionDetails>
+                    </Accordion>
+                    
                 </div>
             </div>
-            <div className="lowerSide">               
-                        <div className="addAdminWrapper">
-                            <h2>Add Another Account</h2>
-                            
-                            <input type="text" placeholder='UserName' 
-                                    className='another_account_userName_input' value={newAccount.userName}
-                                    onChange={(e)=> setNewAccount({...newAccount , userName: e.target.value})}
-                            />
-                            <input type="email" placeholder='Email Address'
-                                    className='another_account_email_input' value={newAccount.email}
-                                    onChange={(e)=> setNewAccount({...newAccount , email: e.target.value})}
-                            
-                            />
-                            <input type="email" placeholder='Confirm Email'
-                                    className='another_account_confirm_email_input' value={newAccount.confirm_email}
-                                    onChange={(e)=> setNewAccount({...newAccount , confirm_email: e.target.value})}
 
-                            />
-                            <input type="password"  placeholder='Password' 
-                                    className='another_account_password_input' value={newAccount.password}
-                                    onChange={(e)=> setNewAccount({...newAccount , password: e.target.value})}
-                            
-                            />
-                            <input type="password"  placeholder='Confirm password' 
-                                    className='another_account_confirm_password_input' value={newAccount.confirm_password}
-                                    onChange={(e)=> setNewAccount({...newAccount , confirm_password: e.target.value})}
-                            />
-                            <button className='addAnotherAccountBtn' onClick={handleAccountCreate}>Create Account</button>
-                        </div>
-               
+            <div className="addNewAdminHolder">
+                <Accordion>
+                    <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel1a-content"
+                        id="panel1a-header"
+                        >
+                        <Typography className={classes.heading}>
+                            <h3>Add new Admin Account</h3>
+                        </Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                        <Typography>
+                            <div className="addAdminWrapper">
+                                <input type="text" placeholder='UserName' 
+                                        className='another_account_userName_input' value={newAccount.userName}
+                                        onChange={(e)=> setNewAccount({...newAccount , userName: e.target.value})}
+                                />
+                                <input type="email" placeholder='Email Address'
+                                        className='another_account_email_input' value={newAccount.email}
+                                        onChange={(e)=> setNewAccount({...newAccount , email: e.target.value})}
+                                
+                                />
+                                <input type="email" placeholder='Confirm Email'
+                                        className='another_account_confirm_email_input' value={newAccount.confirm_email}
+                                        onChange={(e)=> setNewAccount({...newAccount , confirm_email: e.target.value})}
+
+                                />
+                                <input type="password"  placeholder='Password' 
+                                        className='another_account_password_input' value={newAccount.password}
+                                        onChange={(e)=> setNewAccount({...newAccount , password: e.target.value})}
+                                
+                                />
+                                <input type="password"  placeholder='Confirm password' 
+                                        className='another_account_confirm_password_input' value={newAccount.confirm_password}
+                                        onChange={(e)=> setNewAccount({...newAccount , confirm_password: e.target.value})}
+                                />
+                                <button className='addAnotherAccountBtn' onClick={handleAccountCreate}>Create Account</button>
+                            </div>
+                        </Typography>
+
+                    </AccordionDetails>
+                </Accordion>
             </div>
+
+               
             
         </div>
 
@@ -234,3 +280,107 @@ export default function Profile({userName,email, role , signUpDate}) {
     </div>
   )
 }
+
+
+
+
+
+// <div className="profileInformation_container">
+// <div className="profileInfoCircle">
+//     <div className="profileCircleIconHolder">
+//             <AccountCircleIcon/>
+//     </div>
+//     <div className="profileCircleBody">
+//         <p>UserName : {userInfoState.userName ? userInfoState.userName: "Unavailable"}</p>
+//         <p>Email :  {userInfoState.email ? userInfoState.email : "Unavailable"}</p>
+//         <p>Role : {userInfoState.role === 'admin'? "Administration" : "Product Manager"}</p>
+//         <p>SignUp Date  : {userInfoState.SignUpDate? userInfoState.SignUpDate: "Unavailable"}</p>
+//     </div>
+
+// </div>
+// </div>
+
+
+// <div className="upperSide">
+// <div className="profileInfoSide">
+// <div className="profileInformation">
+//         <h2>My Account</h2>
+
+//         <p>UserName : {userInfoState.userName ? userInfoState.userName: "Unavailable"}</p>
+//         <p>Email :  {userInfoState.email ? userInfoState.email : "Unavailable"}</p>
+//         <p>Role : {userInfoState.role === 'admin'? "Administration" : "Product Manager"}</p>
+//         <p>SignUp Date  : {userInfoState.SignUpDate? userInfoState.SignUpDate: "Unavailable"}</p>
+    
+// </div>
+// </div>
+// <div className="editProfileSide">
+// <div className="editProfileInformation">
+//     <h2>Manage my Account</h2>
+
+//     <div className="changeUserNameSide">
+//         <h3>Change UserName</h3>
+//         <input type="text" placeholder={userInfoState.userName} 
+//                 className='userName' value={userInfoState.userName} 
+//                 onChange={(e)=>setUserInfoState({...userInfoState , userName: e.target.value})}  />
+
+//         <button className='userNameChangeBtn' onClick={userNameChangeHandler} >Change</button>
+    
+//     </div>
+
+//     <div className="changePasswords">
+//         <h3>Change Password</h3>
+
+//         <input type="password" placeholder='Old password' 
+//                 className='old_password_input' value={passwordChange.oldPassword}
+//                 onChange={(e)=> setPasswordChange({...passwordChange , oldPassword: e.target.value})}
+//                 />
+//         <input type="password" placeholder='New Password' 
+//                 className='new_password_input' value={passwordChange.newPassword}
+//                 onChange={(e)=> setPasswordChange({...passwordChange , newPassword: e.target.value})}
+//                 />
+//         <input type="password" placeholder='Confirm new Password'
+//                 className= 'confirm_new_password_input' value={passwordChange.confirmNewPassword}
+//                 onChange={(e)=> setPasswordChange({...passwordChange, confirmNewPassword: e.target.value})}
+//                 />
+
+//         <button className='passwordChangeConfirm' onClick={passwordChangeHandler} >Confirm</button>
+
+//     </div>
+
+
+   
+// </div>
+    
+// </div>
+// </div>
+// <div className="lowerSide">               
+//     <div className="addAdminWrapper">
+//         <h2>Add Another Account</h2>
+        
+//         <input type="text" placeholder='UserName' 
+//                 className='another_account_userName_input' value={newAccount.userName}
+//                 onChange={(e)=> setNewAccount({...newAccount , userName: e.target.value})}
+//         />
+//         <input type="email" placeholder='Email Address'
+//                 className='another_account_email_input' value={newAccount.email}
+//                 onChange={(e)=> setNewAccount({...newAccount , email: e.target.value})}
+        
+//         />
+//         <input type="email" placeholder='Confirm Email'
+//                 className='another_account_confirm_email_input' value={newAccount.confirm_email}
+//                 onChange={(e)=> setNewAccount({...newAccount , confirm_email: e.target.value})}
+
+//         />
+//         <input type="password"  placeholder='Password' 
+//                 className='another_account_password_input' value={newAccount.password}
+//                 onChange={(e)=> setNewAccount({...newAccount , password: e.target.value})}
+        
+//         />
+//         <input type="password"  placeholder='Confirm password' 
+//                 className='another_account_confirm_password_input' value={newAccount.confirm_password}
+//                 onChange={(e)=> setNewAccount({...newAccount , confirm_password: e.target.value})}
+//         />
+//         <button className='addAnotherAccountBtn' onClick={handleAccountCreate}>Create Account</button>
+//     </div>
+
+// </div>
