@@ -296,7 +296,27 @@ export const createProduct = (product) => async (dispatch) => {
                 ?error.response.data.message:error.message,
         });
 	}
-};
+}
+
+export const sellProduct = (id , qty) => async (dispatch)=>{
+    try {
+        dispatch({
+            type: actionType.SELL_PRODUCT_REQUEST,
+        })
+        const {data} = await api.sellingProduct(id , qty)
+        dispatch({
+            type: actionType.SELL_PRODUCT_SUCCESS,
+            payload: data
+        })
+    } catch (error) {
+        dispatch({
+            type:actionType.SELL_PRODUCT_FAIL,
+            payload: 
+                error.response && error.response.data.message 
+                ?error.response.data.message:error.message,
+        });
+    }
+}
 
 
 // export const getProductsDetails = (id) => async (dispatch)=>{

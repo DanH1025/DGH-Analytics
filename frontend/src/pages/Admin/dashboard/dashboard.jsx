@@ -180,7 +180,7 @@ export default function PM_Dashboard() {
       removeCookie('ADemail', {path: '/'});
       removeCookie('ADrole', {path: '/'});
       removeCookie('ADaccess_token', {path: '/'});
-      navigate('/');
+      navigate('/adminstrationLogin');
     }
 
   return (  

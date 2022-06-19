@@ -77,6 +77,7 @@ const fetchAdminUserNameUrl = 'http://localhost:5000/api/getAdminUserName'
 const changeAdminNameUrl = 'http://localhost:5000/api/changeAdminUserName'
 const changeAdminPasswordUrl = 'http://localhost:5000/api/changeAdminPassword'
 const addAdminAccountUrl = 'http://localhost:5000/api/createAdminAccount'
+const sellProductUrl = 'http://localhost:5000/api/sellProduct'
 
 //admin signup
 export const admin_signup = (userName, email, password, accessKey)=>{
@@ -338,5 +339,12 @@ export const addAdminAccount =(userName  , email , password)=>{
     email: email,
     password: password
 
+  })
+}
+
+export const sellingProduct = (id, qty)=>{
+  return axios.post(sellProductUrl , {
+    id: id,
+    qty: qty
   })
 }

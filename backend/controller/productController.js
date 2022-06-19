@@ -166,14 +166,14 @@ const getProductsBySearch = async(req,res) => {
       const [product, metaData] =await ProductModel.fetchByCategory(category);
       console.log(product);
         res.send(product);
-    }
+    } 
                     
 
-       
- 
+        
+  
   }else{
     if(category === ''){
-      console.log("i know name is not empty but category is")
+      console.log("i know name is not empty but cat egory is")
       const [product , metaData] = await ProductModel.fetchAll()
 
       console.log(name); 
@@ -222,7 +222,48 @@ const getTopFive = async(req,res)=>{
 
     res.json(data.splice(0,5))
 }
+const sellProduct = async(req,res)=>{
+    const {id , qty} = req.body;
 
+    if(id === '' || qty === ''){
+      res.status(401).json({
+        message: "Server Error",
+        status: 1
+      })
+    }else{
+       const [product, metaData]= await ProductModel.findById(id)
+       //res.status(200).json({product})
+        console.log(product)
+        if(product.length === 1){
+           console.log("i got the product , decreasing the product quantity now")
+           if(product[0].countInStock >= qty  ){
+             const newStock = product[0].countInStock - qty
+             const [stock , stockInfo] = await ProductModel.reduceStock(id , newStock)
+             res.status(200).json({
+                message: "Count in stock has been reduced",
+                status: 0
+             })
+
+           }else{
+            res.status(300).json({
+              message: "Invalid Input",
+              status: 3
+            })
+           }
+        }else {
+          res.status(401).json({
+            message: "Server Error",
+            status: 2
+          })
+        }
+     }
+
+    // res.status(200).json({
+    //   id,
+    //   qty
+    // })
+  
+}
 
 
 module.exports = {
@@ -232,6 +273,7 @@ module.exports = {
   getDiactiveProducts,
 	addProduct,
   getTopFive,
+  sellProduct,
   
   
   getProductsByCatagory,
