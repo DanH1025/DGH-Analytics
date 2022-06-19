@@ -9,8 +9,9 @@ const addOrder = (req, res) => {
   const contact = req.body.contact;
   const cost = req.body.cost;
   const no_item  = req.body.no_item;
+  const address  = req.body.address;
   
-  const orders = new OrderModle(date,userId,total, latitude,longitude, contact, cost, no_item);
+  const orders = new OrderModle(date,userId,total, latitude, longitude, contact, cost, no_item, address);
   // console.log(orders);
   try{
     orders.save();
