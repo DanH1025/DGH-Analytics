@@ -83,7 +83,15 @@ export default function AdminLogin() {
 				)
 				console.log("this is just the respnse" + response)
 				console.log(response.data.status === 'success');
-				if(response.status === 200){
+
+				console.log(response.data.status + "this is it")
+				if(response.data.status === 401){
+					setErrMsg(response.data.message)
+					console.log("im getting the error messgae  "+ errMsg)
+				}else if(response.data.status === 400){
+					setErrMsg(response.data.message)
+				}else if(response.status === 200){
+					setErrMsg('')
 					console.log(response);
 					console.log('admin');
 					const accessToken = response.data.accessToken;
