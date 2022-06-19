@@ -1,7 +1,7 @@
 const db = require('../database/dbConn')
 
 module.exports = class Request {
-  constructor(date, userId, total, latitude, longitude , contact, cost, no_item){
+  constructor(date, userId, total, latitude, longitude , contact, cost, no_item, address){
     this.orderId = date;
     this.userId = userId;
     this.total = total;
@@ -10,6 +10,7 @@ module.exports = class Request {
     this.contact = contact;
     this.cost = cost;
     this.no_item = no_item;
+    this.address = address;
   }
 
   
@@ -20,7 +21,7 @@ module.exports = class Request {
     // const fullDate = new Date();
     const date = new Date().toISOString().slice(0, 10);
     try{
-      db.execute('INSERT INTO orders (orderId, userId, total, date,status, latitude,longitude, contact, cost, no_item) VALUES (?,?,?,?,?,?,?,?,?,?)', 
+      db.execute('INSERT INTO orders (orderId, userId, total, date,status, latitude,longitude, contact, cost, no_item, address) VALUES (?,?,?,?,?,?,?,?,?,?,?)', 
       [ 
         this.orderId,
         this.userId, 
@@ -31,7 +32,8 @@ module.exports = class Request {
         this.longitude,
         this.contact,
         this.cost,
-        this.no_item
+        this.no_item,
+        this.address
       ])
     }catch(e){
       console.log("order save error: " + e);
@@ -41,7 +43,7 @@ module.exports = class Request {
 
   static fetchAll() {
     try{
-       const result =db.execute('SELECT orders.orderId, user.fname, user.lname, user.email, orders.total ,orders.latitude, orders.no_Item, orders.longitude,orders.contact , orders.status, orders.cost, orders.no_item FROM user INNER JOIN orders ON orders.userId = user.id');
+       const result =db.execute('SELECT orders.orderId, user.fname, user.lname, user.email, orders.total ,orders.latitude, orders.no_Item, orders.longitude, orders.address, orders.contact , orders.status, orders.cost, orders.no_item FROM user INNER JOIN orders ON orders.userId = user.id');
        return result;
     }catch(err){
       console.log(err);
@@ -50,7 +52,7 @@ module.exports = class Request {
 
   static fetchComplete() {
     try{
-       const result =db.execute('SELECT orders.orderId, user.fname, user.lname, user.email, orders.total , orders.latitude,orders.longitude,orders.contact ,orders.no_Item, orders.status, orders.cost, orders.date, orders.no_item FROM user INNER JOIN orders ON orders.userId = user.id WHERE orders.status = ? OR orders.status = ? ORDER BY orders.date DESC LIMIT 20', ["complete", "cancel"]);
+       const result =db.execute('SELECT orders.orderId, user.fname, user.lname, user.email, orders.total , orders.latitude, orders.longitude,orders.contact ,orders.no_Item, orders.status, orders.cost, orders.date, orders.address, orders.no_item FROM user INNER JOIN orders ON orders.userId = user.id WHERE orders.status = ? OR orders.status = ? ORDER BY orders.date DESC LIMIT 20', ["complete", "cancel"]);
        return result;
     }catch(err){
       console.log(err);
@@ -59,7 +61,7 @@ module.exports = class Request {
 
   static fetchInprogress() {
     try{
-       const result =db.execute('SELECT orders.orderId, user.fname, user.lname, user.email, orders.total , orders.latitude,orders.longitude,orders.contact , orders.status,orders.no_Item, orders.date, orders.cost, orders.no_item FROM user INNER JOIN orders ON orders.userId = user.id WHERE orders.status = ?' , ["inProgress"]);
+       const result =db.execute('SELECT orders.orderId, user.fname, user.lname, user.email, orders.total , orders.latitude,orders.longitude,orders.contact , orders.status,orders.address, orders.no_Item, orders.date, orders.cost, orders.no_item FROM user INNER JOIN orders ON orders.userId = user.id WHERE orders.status = ?' , ["inProgress"]);
        return result;
     }catch(err){
       console.log(err);
@@ -85,7 +87,7 @@ module.exports = class Request {
   }
 
   static  fetchAllbyUser = (id) => {
-    return db.execute('SELECT orders.orderId, user.fname, user.lname, user.email, user.phone_number, orders.total, orders.date, orders.no_Item , orders.latitude,orders.longitude,orders.contact , orders.status, orders.cost, orders.no_item FROM orders INNER JOIN user ON orders.userId = user.id WHERE user.id = ?', [id]);   
+    return db.execute('SELECT orders.orderId, user.fname, user.lname, user.email, user.phone_number, orders.total, orders.date, orders.no_Item , orders.latitude,orders.longitude, orders.address, orders.contact , orders.status, orders.cost, orders.no_item FROM orders INNER JOIN user ON orders.userId = user.id WHERE user.id = ?', [id]);   
   }
 
   static totalSum(date) {

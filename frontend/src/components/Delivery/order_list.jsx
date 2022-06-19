@@ -123,6 +123,8 @@ export default function Order_list() {
                           id = {val.orderId}
                           date = {val.date}
                           contact = {val.contact} 
+                          longitude = {val.longitude}
+                          latitude = {val.latitude} 
                           total = {val.total}
                           status = {val.status}
                           admin = {true}
@@ -144,26 +146,29 @@ export default function Order_list() {
                     <TableCell />
                     <TableCell>Id</TableCell>
                     <TableCell align="right">
-                      Fullname</TableCell>
-                    <TableCell align="right">
-                      LastName</TableCell>
-                    <TableCell align="right">
-                      Email</TableCell>
+                      Date</TableCell>
                     <TableCell align="right">
                       Total</TableCell>
+                    <TableCell align="right">
+                      Address</TableCell>
+                    <TableCell align="right">
+                      Status</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                 {
                     !orders?.length ? <div>no order</div> : (
                       orders.map((val, key) => {
-                        // console.log(val);
+                        console.log(val.longitude);
                         return (
                           <TableRows 
                           key = {val.orderId}   
                           id = {val.orderId}
                           date = {val.date}
-                          contact = {val.contact} 
+                          contact = {val.contact}
+                          address = {val.address}
+                          longitude = {val.longitude}
+                          latitude = {val.latitude} 
                           total = {val.total}
                           admin = {true}
                           fname = {val.fname}

@@ -146,6 +146,7 @@ export default function Orderlist() {
                                 fname = {val.fname}
                                 lname = {val.lname}
                                 date = {val.date}
+                                address = {val.address}
                                 email = {val.phone_number}  
                                 total = {val.total}
                                 status = {val.status} />

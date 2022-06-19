@@ -163,8 +163,8 @@ export default function Row(props) {
                     </Box>
                   </div>
                   <div className='infoItem'>
-                    <p>Shiping Informaion</p>
-                    <h2>location</h2>
+                    <p>Shiping Address</p>
+                    <h2>{props.address}</h2>
                   </div>
                   <div className='infoItem'>
                     <p>Payment Info</p>

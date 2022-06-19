@@ -72,7 +72,10 @@ export default function Checkout() {
     const [selectedLocation , setSelectedLocation] = useState({
       country: '',
       city:'',
-      road:''
+      county:'',
+      suburb:'',
+      road:'',
+      formatted: ''
     })
     const [mapLocation, setMapLocation] = useState("");
 
@@ -80,7 +83,13 @@ export default function Checkout() {
       const resp = await axios.get(`https://api.opencagedata.com/geocode/v1/json?q=${marker.latitude}+${marker.longitude}&key=018d9986cb5c483380337c7f6526c2fe`)
       console.log("this is my local")
 
-      setSelectedLocation({...selectedLocation , country: resp.data.results[0].components.country , city: resp.data.results[0].components.state , road: resp.data.results[0].components.road})
+      console.log(resp.data);
+      setSelectedLocation({...selectedLocation , 
+        country: resp.data.results[0].components.country , city: resp.data.results[0].components.state ,
+        county: resp.data.results[0]?.components?.county , 
+        suburb: resp.data.results[0]?.components?.suburb , 
+        road: resp.data.results[0].components.road,
+        formatted: resp.data.results[0].formatted})
 
       console.log(resp)
       console.log(selectedLocation)
@@ -117,13 +126,11 @@ export default function Checkout() {
               
               console.log(costTotal); 
               console.log(no_item);
-              dispatch(createOrders(date, cookies.uid, getTotalProductPrice(), marker.latitude,marker.longitude, phoneNumber, costTotal, no_item ))
+              dispatch(createOrders(date, cookies.uid, getTotalProductPrice(), marker.latitude,marker.longitude, phoneNumber, costTotal, no_item, selectedLocation.formatted))
             }catch(e){
               console.log(e);
             }
-    
-          
-    
+
             cartItems.map((item)=>{
               // const pro = product.find(x => x.id === item.product).cost;
               // console.log(pro*item.qtyCounter);
@@ -172,8 +179,8 @@ export default function Checkout() {
    
     }
 
-      const qtyChangeHandler = (id,qty) =>{
-        dispatch(addToCart(id,qty))
+    const qtyChangeHandler = (id,qty) =>{
+      dispatch(addToCart(id,qty))
     }
 
   const removeFromCartHandler=(id) =>{
@@ -243,10 +250,11 @@ export default function Checkout() {
                         
                     </div>
                     <div className="locationName">
-                      <Input prefix={<LocationOnIcon />} placeholder={selectedLocation.country + "-" + selectedLocation.city + "-"+ selectedLocation.road} 
+                      <Input prefix={<LocationOnIcon />} placeholder={selectedLocation.formatted} 
+                      // <Input prefix={<LocationOnIcon />} placeholder={selectedLocation.city + "  -  " + selectedLocation.county + "  -  " + selectedLocation.suburb +  "  -  " + selectedLocation.road} 
                       value={mapLocation} 
-                      
                       disabled  />
+        
                     </div>
                     <div className="phoneNumber">
                         <Input type="number" 

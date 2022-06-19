@@ -184,7 +184,7 @@ export const fetchOrdersById = (id) =>
 export const fetchOrdersByDeliveryId = (id) =>
   axios.post("http://127.0.0.1:5000/api/getOrdersbyDeliveryId", {id: id});
   
-export const createOrders = (date, userId, total, lat,lng ,contact, cost, no_item) => 
+export const createOrders = (date, userId, total, lat,lng ,contact, cost, no_item, address) => 
   axios.post(createOrdersUrl, {
     date: date,
     userId: userId,
@@ -193,7 +193,8 @@ export const createOrders = (date, userId, total, lat,lng ,contact, cost, no_ite
     longitude: lng,
     contact: contact,
     cost: cost,
-    no_item: no_item
+    no_item: no_item,
+    address: address
   });
 
 // users
