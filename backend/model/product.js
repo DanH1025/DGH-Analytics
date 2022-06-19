@@ -1,4 +1,5 @@
 
+const { restart } = require('nodemon');
 const db = require('../database/dbConn')
 
 module.exports = class Request { 
@@ -102,6 +103,15 @@ module.exports = class Request {
       return result
     } catch (error) {
        console.log(error)
+    }
+  }
+  //return product to stock
+  static returnToStock (id,qty){
+    try {
+      const result = db.execute('UPDATE product SET countInStock = ? WHERE id=?' , [qty, id])
+      return result
+    } catch (error) {
+      console.log(error)
     }
   }
 
