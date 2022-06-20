@@ -4,6 +4,7 @@ import './detailTopProductAnalysis.css'
 
 import { Table , Switch , message, Button} from 'antd';
 
+import {ArrowBack} from '@material-ui/icons';
 import Chart from "react-apexcharts";
 import {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
@@ -28,9 +29,7 @@ export default function DetailTopProductAnalysis({onMorePage}) {
 
  	useEffect(() => {
     dispatch(getOrderTotal());
- 	
-  }, [searchInput])
-   
+  }, [searchInput])   
   
   const orderTotal = useSelector((state) => state.getOrderTotal.total);
   // const product = JSON.stringify(orderTotal[0]);
@@ -45,8 +44,6 @@ export default function DetailTopProductAnalysis({onMorePage}) {
     })
   } 
 
-  const days = ['Mon','Tue','Wen','Thu','Fri','Sat','Sun'];
-  
   const stat = {
     options: {
       chart: {
@@ -89,22 +86,34 @@ export default function DetailTopProductAnalysis({onMorePage}) {
       key: 'age',
     },
     {
-      title: 'Quantity sold',
-      dataIndex: 'quantity',
+      title: 'Product visit',
+      dataIndex: 'visits',
       key: 'address',
       // render: (text) => <span>ETB {text.toFixed(2)} </span>,
+    },
+    {
+      title: 'Quantity sold',
+      dataIndex: 'sold',
+      key: 'address',
+      // render: (text) => <span>ETB {text.toFixed(2)} </span>,
+    },
+    {
+      title: 'Conversion rate',
+      dataIndex: 'conversion',
+      key: 'address',
+      render: (text) => <span> {text} % </span>,
     },
     {
       title: 'Gross sales',
       dataIndex: 'totalSale',
       key: 'address',
-      // render: (text) => <span>ETB {text.toFixed(2)} </span>,
+      render: (text) => <span>ETB {text} </span>,
     },
     {
       title: 'Profit',
       key: 'tags',
       dataIndex: 'profit',
-      // render: (text) => <span>ETB {text.toFixed(2)} </span>,
+      render: (text) => <span>ETB {text}  </span>,
     },
     
   ];
@@ -112,26 +121,11 @@ export default function DetailTopProductAnalysis({onMorePage}) {
   return (
     <>
       <div className="tops">
-        <Button style={{display: 'inline'}} onClick={() => {
+        <Button onClick={() => {
           onMorePage(0);
-        }}> Go Back </Button> 
-        Sales by product
+        }}> <ArrowBack fontSize='large'/> </Button>
+        <h3>Sales by product</h3>
       </div>
-
-      {/* <div className="cha">
-          <h3>Average order value</h3>
-          <Chart
-            className="order_barChart"
-            title='Orders'
-            options={stat.options}
-            series={stat.series}
-            type="area"
-            height="200%"
-            width="100%"
-             />
-      </div> */}
-
-      <br /><br /><br />
 
       <div>
         <Table columns={colum} dataSource={topProdByQun} />

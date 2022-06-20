@@ -4,6 +4,7 @@ import './detailLocationAnalysis.css'
 // import { Table , Switch , message, Button} from 'antd';
 import { Button} from 'antd';
 
+import {ArrowBack} from '@material-ui/icons';
 import Chart from "react-apexcharts";
 import ReactApexChart from 'react-apexcharts';
 import {useState, useEffect} from 'react'
@@ -56,10 +57,10 @@ export default function DetailLocationAnalysis({onMorePage}) {
   return (
     <>
       <div className="tops">
-        <Button style={{display: 'inline'}} onClick={() => {
+        <Button onClick={() => {
           onMorePage(0);
-        }}> Go Back </Button> 
-        Session by Location type
+        }}> <ArrowBack fontSize='large'/> </Button>
+        <h3>Session by Location type</h3>
       </div>
       <div>
         {/* <Table columns={colum} dataSource={deviceType} /> */}

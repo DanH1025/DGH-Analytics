@@ -5,6 +5,8 @@ import './detailDeviceAnalysis.css'
 import { Button} from 'antd';
 
 import Chart from "react-apexcharts";
+
+import {ArrowBack} from '@material-ui/icons';
 import ReactApexChart from 'react-apexcharts';
 import {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
@@ -94,10 +96,10 @@ export default function DetailDeviceAnalysis({onMorePage}) {
   return (
     <>
       <div className="tops">
-        <Button style={{display: 'inline'}} onClick={() => {
+        <Button onClick={() => {
           onMorePage(0);
-        }}> Go Back </Button> 
-        Session by device type
+        }}> <ArrowBack fontSize='large'/> </Button>
+        <h3>Session by Device type</h3>
       </div>
       <div>
         {/* <Table columns={colum} dataSource={deviceType} /> */}
@@ -159,23 +161,14 @@ export default function DetailDeviceAnalysis({onMorePage}) {
       <br /><br /><br />
 
       <div className="cha">
-        <h3>Average order value</h3>
-        {/* <Chart
-          // className="order_barChart"
-          // title='Orders'
-          options={stat.options}
-          series={stat.series}
-          type="pie"
-          height="100%"
-          width="100%"
-          /> */}
-        <ReactApexChart 
-          options={stat.options} 
-          series={stat.series} 
-          type="donut" 
-          width="600px"
-          height="600px" />
-
+        <h3>Session by device type</h3>
+          <ReactApexChart 
+            options={stat.options} 
+            series={stat.series} 
+            className="pieChart"
+            type="donut" 
+            width="600px"
+            height="600px" />
       </div>
     </>  
   )

@@ -92,7 +92,7 @@ module.exports = class Request {
 
   static totalSum(date) {
     try{
-       const result =db.execute("SELECT SUM(total) FROM orders WHERE status = 'complete' AND date=?", [date]);
+       const result =db.execute("SELECT SUM(total) FROM orders WHERE status = 'complete' AND deliveredDate = ?", [date]);
        return result;
       //  console.log(result);
     }catch(err){
@@ -112,7 +112,7 @@ module.exports = class Request {
 
   static totalCost(date) {
     try{
-       const result =db.execute("SELECT SUM(cost) FROM orders WHERE status = 'complete' AND date=?", [date]);
+       const result =db.execute("SELECT SUM(cost) FROM orders WHERE status = 'complete' AND deliveredDate=?", [date]);
        return result;
       //  console.log(result);
     }catch(err){
@@ -122,7 +122,7 @@ module.exports = class Request {
 
   static totalItem(date) {
     try{
-       const result =db.execute("SELECT SUM(no_item) FROM orders WHERE status = 'complete' AND date=?", [date]);
+       const result =db.execute("SELECT SUM(no_item) FROM orders WHERE status = 'complete' AND deliveredDate=?", [date]);
        return result;
       //  console.log(result);
     }catch(err){
@@ -142,7 +142,7 @@ module.exports = class Request {
 
   static completeOrderComplete(date) {
     try{
-       const result =db.execute("SELECT COUNT(status) FROM orders WHERE status = 'complete' AND date=?", [date]);
+       const result =db.execute("SELECT COUNT(status) FROM orders WHERE status = 'complete' AND deliveredDate=?", [date]);
       //  console.log(result);
        return result;
     }catch(err){

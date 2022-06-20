@@ -1,27 +1,43 @@
 import React from 'react'
 import './detailSessionAnalysis.css'
-
+  
+import {ArrowBack} from '@material-ui/icons';
 
 import { Table , Switch , message, Button} from 'antd';
 
 import Chart from "react-apexcharts";
 import {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllProducts ,deleteProductById ,editProduct } from '../../../redux/actions/productActions';
 
 // import { Button } from "@material-ui/core";
 
 import axios from 'axios';
 
 import { getOrders } from '../../../redux/actions/orderActions';
-import { getOrderReports, getOrderTotal, getOrderReportByMonth, getOrderReportByYear } from "../../../redux/actions/orderReportAction";
+import { getOrderReports, getOrderTotal, getOrderReportByMonth, getOrderReportByYear, getOrderReportByWeek, getOrderReportOfLastWeek } from "../../../redux/actions/orderReportAction";
 import { getUserLogDetail } from "../../../redux/actions/userLogActions";
 
 import {InputLabel, MenuItem,Option, FormHelperText, FormControl, Select} from '@mui/material';
 
 
 export default function DetailSessionAnalysis({onMorePage}) {
-
+  
+  const  months = [
+    {id: 1, name: "January"}, 
+    {id: 2, name: "February"}, 
+    {id: 3, name: "March"}, 
+    {id: 4, name: "April"}, 
+    {id: 5, name: "May"}, 
+    {id: 6, name: "June"}, 
+    {id: 7, name: "July"}, 
+    {id: 8, name: "August"}, 
+    {id: 9, name: "September"}, 
+    {id: 10, name: "October"}, 
+    {id: 11, name: "November"}, 
+    {id: 12, name: "December"}
+  ];
+  const days = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29, 30];
+  const years = [2022,2021,2020,2019,2018];
   const dispatch = useDispatch();
   
   const currentday = new Date().getMonth() + 1;
@@ -30,7 +46,7 @@ export default function DetailSessionAnalysis({onMorePage}) {
   const [selectedOption, setSelectedOption] = useState(currentMonth);
   const [selectedYear, setSelectedYear] = useState(currentYear);
   const [searchInput , setSearchInput] = useState('');
-  const [dateOption, setDateOption] = useState('month');
+  const [dateOption, setDateOption] = useState('week');
 
 
  	useEffect(() => {
@@ -38,7 +54,7 @@ export default function DetailSessionAnalysis({onMorePage}) {
  	  dispatch(getOrderReports());
     dispatch(getOrders());
     dispatch(getUserLogDetail());
-    dispatch(getOrderReportByMonth(currentMonth))
+    dispatch(getOrderReportOfLastWeek())
   }, [searchInput])
    
   const handleChange = (event) => {
@@ -50,6 +66,9 @@ export default function DetailSessionAnalysis({onMorePage}) {
     }else if(event.target.value === 'year'){
       console.log('inside year');
       dispatch(getOrderReportByYear(event.target.value))
+    }else if(event.target.value === 'week'){
+      console.log('inside year');
+      dispatch(getOrderReportOfLastWeek())
     }
   };
 
@@ -82,13 +101,18 @@ export default function DetailSessionAnalysis({onMorePage}) {
         title: "Order"
       },
       xaxis: {
-        categories: orderReports.map(a => a.date.slice(5) + '')
-      }
+        categories: dateOption === 'year' ? 
+        (orderReports?.map(a => a.date + '').reverse()) : 
+        dateOption === 'week' ? (orderReports?.map(a => a.date.slice(5) + '').reverse()) : 
+        orderReports?.map(a => a.date.slice(5) + '')
+      } 
     },
     series: [
       {
         name: "order",
-        data: orderReports.map(a => a.session)
+        data: dateOption === 'year' ? 
+        (orderReports?.map(a => a.session).reverse()) : 
+        dateOption === 'week' ? (orderReports?.map(a => a.session).reverse()) : orderReports?.map(a => a.session)
       }
     ],
     tooltip: {
@@ -144,46 +168,28 @@ export default function DetailSessionAnalysis({onMorePage}) {
     
   ];
 
-  const  months = [
-    {id: 1, name: "January"}, 
-    {id: 2, name: "February"}, 
-    {id: 3, name: "March"}, 
-    {id: 4, name: "April"}, 
-    {id: 5, name: "May"}, 
-    {id: 6, name: "June"}, 
-    {id: 7, name: "July"}, 
-    {id: 8, name: "August"}, 
-    {id: 9, name: "September"}, 
-    {id: 10, name: "October"}, 
-    {id: 11, name: "November"}, 
-    {id: 12, name: "December"}
-  ];
-  const days = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29, 30];
-  const years = [2022,2021,2020,2019,2018];
 
 
   return (
     <>
       <div className="tops">
-        <Button style={{display: 'inline'}} onClick={() => {
+        <Button onClick={() => {
           onMorePage(0);
-        }}> Go Back </Button> 
-        Average sales value over time
+        }}> <ArrowBack fontSize='large'/> </Button>
+        <h3>Session </h3>
       </div>
       <div className="cha">
-          <h3>Average order value</h3>
+          <h3>Number of visits</h3>
           <Chart
             className="order_barChart"
             title='Orders'
             options={stat.options}
             series={stat.series}
-            type="area"
+            type="bar"
             height="200%"
             width="100%"
              />
       </div>
-
-      <br /><br /><br />
 
       <div>
 
@@ -193,7 +199,7 @@ export default function DetailSessionAnalysis({onMorePage}) {
           onChange={handleChange}
           inputProps={{ 'aria-label': 'Without label' }}
           defaultValue={dateOption}>
-            <MenuItem value="days">Daily</MenuItem>
+            <MenuItem value="week">This week</MenuItem>
             <MenuItem value="month">Monthly</MenuItem>
             <MenuItem value="year">Yearly</MenuItem>
         </Select>
@@ -225,7 +231,7 @@ export default function DetailSessionAnalysis({onMorePage}) {
                   <MenuItem value={item}>{item}</MenuItem>
               )}) }
             </Select> 
-            : <MenuItem value="0">"no item"</MenuItem>
+            : ""
           }
           
         </div>
