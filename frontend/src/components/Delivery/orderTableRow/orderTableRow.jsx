@@ -22,14 +22,18 @@ import { getOrderDetails } from '../../../redux/actions/orderDetailAction';
 import { changeOrderStatus } from '../../../redux/actions/orderActions'
 import axios from 'axios';
 
+import { useNavigate } from 'react-router-dom';
+import {MenuItem, Select} from '@mui/material';
 import { useCookies } from 'react-cookie';
 
 export default function Row(props) {
   // const { row } = props;
   const [open, setOpen] = React.useState(false);
-  
   const [cookies, setCookie] = useCookies(['user']);
+  
   const dispatch = useDispatch();
+  const navigator = useNavigate();
+
   const handleClick = () => {
     setOpen(!open);
     const id = props.Order_id;
@@ -54,6 +58,7 @@ export default function Row(props) {
       }
     }else{
       console.log('not logged in');
+      navigator('/adminstrationLogin');
     }
   }
   
@@ -67,6 +72,7 @@ export default function Row(props) {
       }
     }else{
       console.log('not logged in');
+      navigator('/adminstrationLogin');
     }
   }
   
@@ -80,6 +86,7 @@ export default function Row(props) {
       }
     }else{
       console.log('not logged in');
+      navigator('/adminstrationLogin');
     }
   }
 
@@ -97,8 +104,10 @@ export default function Row(props) {
   });
 
   const orders = useSelector((state) => state.getOrderDetail.orderDetails);
+
   return (
     <React.Fragment>
+
       <TableRow 
       sx={{ '& > *': { borderBottom: 'unset' } }}
       className={ props.status === 'complete' ? 'comRow' 
@@ -120,19 +129,20 @@ export default function Row(props) {
         <TableCell align="right">{props.total} BIRR</TableCell>
         <TableCell align="right">{props.address}</TableCell>
         
-        { props.status === 'pending' ? (
+        { 
+        props.status === 'pending' ? (
           <TableCell align="right">
             <Button className='btn' onClick={handleAcceptOrder} style={{border: '1px solid black'}}>Accept</Button>
           </TableCell>
         ): props.status === 'inProgress' ? (
-        <TableCell align="right">
-          <Label className='btn'>In progress</Label>
-        </TableCell>) : 
-        props.status === 'inProgress' ? 
+          <TableCell align="right">
+            <Label className='btn'>In progress</Label>
+          </TableCell>
+        ) : props.status === 'inProgress' ? 
           <TableCell align="right">
             <Label className='btn'>Complete</Label>
           </TableCell>
-        :''
+        : ''
         }
       </TableRow>
 
