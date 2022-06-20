@@ -48,7 +48,7 @@ let printIt = (data) => {
       lat: lat,
       lng:lng,
       city: val.components.state,
-      state: val.components.county
+      state: val.components.county? val.components.county : ''
     };
     console.log(user);
 

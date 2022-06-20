@@ -51,34 +51,39 @@ export default function DetailSalesAnalysis({onMorePage}) {
 
   const [displayOrders, setDisplayedOrders] = useState(orderReports);
   // const days = ['Mon','Tue','Wen','Thu','Fri','Sat','Sun'];
-    const stat = {
-      options: {
-        chart: {
-          id: "basic-bar",
-          title: "Order"
-        },
-        xaxis: {
-          categories: orderReports?.map(a => a.date.slice(5) + '')
-        }
+  const stat = {
+    options: {
+      chart: {
+        id: "basic-bar",
+        title: "Order"
       },
-      series: [
-        {
-          name: "order",
-          data: orderReports?.map(a => a.total)
-        }
-      ],
-      tooltip: {
-        theme: 'dark'
-      },
-      grid: {
-        borderColor: "#535A6C",
-        xaxis: {
-          lines: {
-            show: true
-          }
+    xaxis: {
+      categories: dateOption === 'year' ? 
+      (orderReports?.map(a => a.date + '').reverse()) : 
+      dateOption === 'week' ? (orderReports?.map(a => a.date.slice(5) + '').reverse()) : 
+      orderReports?.map(a => a.date.slice(5) + '')
+      }        
+    },
+    series: [
+      {
+        name: "order",
+        data: dateOption === 'year' ? 
+        (orderReports?.map(a => a.total).reverse()) : 
+        dateOption === 'week' ? (orderReports?.map(a => a.total).reverse()) : orderReports?.map(a => a.total)
+      }
+    ],
+    tooltip: {
+      theme: 'dark'
+    },
+    grid: {
+      borderColor: "#535A6C",
+      xaxis: {
+        lines: {
+          show: true
         }
       }
     }
+  }
 
   const colum = [
     {
@@ -216,8 +221,7 @@ export default function DetailSalesAnalysis({onMorePage}) {
           series={stat.series}
           type="area"
           height="200%"
-          width="100%"
-            />
+          width="100%"/>
       </div>
 
       <br /><br /><br />
@@ -231,15 +235,12 @@ export default function DetailSalesAnalysis({onMorePage}) {
             inputProps={{ 'aria-label': 'Without label' }}
             defaultValue={dateOption}>
               <MenuItem value="week">This week</MenuItem>
-              <MenuItem value="weekly">By Weeks</MenuItem>
+              {/* <MenuItem value="weekly">By Weeks</MenuItem> */}
               <MenuItem value="month">By Month</MenuItem>
               <MenuItem value="year">By Year</MenuItem>
-          </Select>
-          
+          </Select>  
             {     
-              dateOption === 'weekly' ? days.map((item) => { 
-                return("")
-              }) : dateOption === 'month' ?
+              dateOption === 'month' ?
                 <Select
                 value={selectedOption ?? " "}
                 onChange={handleSelectChange}
@@ -262,8 +263,7 @@ export default function DetailSalesAnalysis({onMorePage}) {
                   )}) }
                 </Select> 
               : ""
-            }
-          
+            }       
         </div>
 
         <DataGrid

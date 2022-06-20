@@ -1,0 +1,49 @@
+.cha, .productListPageHolders{
+  width: 100%;
+  /* height: 300px; */
+}
+
+*{
+  font-family: sans-serif;
+}
+
+.cha{
+  /* border: 1px solid black; */
+  padding: 15px;
+  margin: 15px 0;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.tops{
+  display: flex;
+}
+
+.tops h3{
+  padding-left: 2rem;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+}
+
+#SvgjsSvg78727{
+  align-items: center;
+}
+
+.cha{
+  align-items: center;
+}
+
+.cha h3{
+  font-size: 25px;
+  text-align: center;
+}
+
+.pieChart{
+  align-items: center;
+  justify-content: center;
+}
+
+.table{
+  background-color: white;
+  padding: 15px;
+}

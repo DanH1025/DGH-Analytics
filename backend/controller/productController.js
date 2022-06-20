@@ -217,6 +217,7 @@ const changeVisits = async(req, res) => {
   await ProductModel.addVisits(id);
   res.sendStatus(200);
 }
+
 const getTopFive = async(req,res)=>{
     const [data, metaData] = await ProductModel.fetchTopFive();
 

@@ -175,7 +175,8 @@ const getMonth = (month) => {
 const getTotalOrder = async(req,res) => {
   const date = new Date().toISOString().slice(0, 10);
   const sum = await OrderModle.totalSum(date);
-  console.log('sum:');
+
+  console.log('sum:' + date);
   console.log(sum[0][0]["SUM(total)"]);
   let total = sum[0][0]["SUM(total)"];
 
@@ -184,7 +185,7 @@ const getTotalOrder = async(req,res) => {
   console.log(no_orders[0][0]["COUNT(status)"]);
   const orderNo = no_orders[0][0]["COUNT(status)"];
 
-  const ave = total/orderNo;
+  const ave = (total/orderNo).toFixed(2);
 
   const topProd = await OrderDetailModel.topProductByQuantityLIM10();
   console.log('top product');

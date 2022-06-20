@@ -164,7 +164,7 @@ export default function Home({onMorePage}) {
                     persent = {2}
                     chartData={prices.reverse()}
                     chartType="area"
-                    index={8}
+                    index={7}
                     onPageChange={onMorePage}
                     />
                 </div>
@@ -176,7 +176,7 @@ export default function Home({onMorePage}) {
                     persent = {2}
                     chartData={orders.reverse()}
                     chartType="area"
-                    index={8}
+                    index={7}
                     onPageChange={onMorePage}
                     />
                 </div>        
@@ -188,7 +188,7 @@ export default function Home({onMorePage}) {
                     dates={days.reverse()}
                     chartData={priceAverage.reverse()}
                     chartType="area"
-                    index={9}
+                    index={8}
                     onPageChange={onMorePage}
                     />
                 </div>  
@@ -203,7 +203,7 @@ export default function Home({onMorePage}) {
                     dates={Object.keys(userByHour).reverse()}
                     chartData={Object.values(userByHour).reverse()}
                     chartType="bar"
-                    index={10}
+                    index={9}
                     onPageChange={onMorePage}
                     />
                 </div>
@@ -213,7 +213,7 @@ export default function Home({onMorePage}) {
                       <p className="cr_title_content" >Store Conversion Rate</p>
                       <span className="cr_title_more">
                         <Button onClick={() => {
-                          onMorePage(10)
+                          onMorePage(9)
                           }}>More</Button> 
                       </span>
                     </div>
@@ -237,19 +237,15 @@ export default function Home({onMorePage}) {
                 </div>
                 <div className="chart">
                 <div className="chart">  
-
-                <div className="cr_title">
-                  <p className="cr_title_content" >device type</p>
-                  <span className="cr_title_more">
-                    <Button onClick={() => {
-                      onMorePage(11)
-                      }}>More</Button> 
-                  </span>
-                </div>
-
-
+                  <div className="cr_title">
+                    <p className="cr_title_content" >device type</p>
+                    <span className="cr_title_more">
+                      <Button onClick={() => {
+                        onMorePage(10)
+                        }}>More</Button> 
+                    </span>
+                  </div>
                 </div> 
-
                   <TableContainer component={Paper}>
                     <Table className="unit_sell_table" aria-label="simple table">
                       <TableBody>
@@ -275,7 +271,6 @@ export default function Home({onMorePage}) {
                     </Table>
                   </TableContainer>
                 </div>
-
             </div>
             
             <h2>About Products</h2>
@@ -288,7 +283,7 @@ export default function Home({onMorePage}) {
                       <p className="cr_title_content" >Top product by unit sold</p>
                       <span className="cr_title_more">
                         <Button onClick={() => {
-                          onMorePage(13)
+                          onMorePage(12)
                           }}>More</Button> 
                       </span>
                     </div>
@@ -319,7 +314,7 @@ export default function Home({onMorePage}) {
                       Top product by price sold</h3>
                     <span className="cr_title_more">
                       <Button onClick={() => {
-                        onMorePage(13)
+                        onMorePage(12)
                         }}>More</Button> 
                     </span>
                   </div>
@@ -350,7 +345,7 @@ export default function Home({onMorePage}) {
                   <p className="cr_title_content" >Top location</p>
                   <span className="cr_title_more">
                     <Button onClick={() => {
-                      onMorePage(12)
+                      onMorePage(11)
                       }}>More</Button> 
                   </span>
                 </div>

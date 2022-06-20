@@ -55,24 +55,11 @@ export default function ProductList() {
       fetchProducts()
     }, [searchInput])
 
-  //       useEffect(() => {
-  //         dispatch(getAllProducts(searchInput));
-  //       }, [dispatch]);
-      
-      
-  //  const products = useSelector((state) => state.getProduct.products);
-  
-   
-  //  console.log(products);
-
-
-
     const getActive = async()=>{
       setCategory(1);
       const res = await axios.get('http://localhost:5000/api/getActiveProducts');
       setProducts(res.data);
-      
-  }
+    }
 
   const getAll = async ()=>{
     setCategory(0);
@@ -84,10 +71,6 @@ export default function ProductList() {
     const res = await axios.get('http://localhost:5000/api/getDiactiveProducts');
     setProducts(res.data)
   }
-
-    
-
-
 
     // rowSelection objects indicates the need for row selection
     const rowSelection = {
@@ -160,8 +143,6 @@ export default function ProductList() {
   })
   // state for product list search bar
 
- 
-
   const EditProduct = (record) =>{
    
     setEditValues({ ...editValues,
@@ -198,7 +179,6 @@ export default function ProductList() {
     setSortedInfo(sorter)
   }
 
-
   const columns = [
       {
         title: 'ID',
@@ -212,10 +192,7 @@ export default function ProductList() {
         dataIndex: 'name',
         key: 'name',
         width:110,       
-      
-        
       },
-
       {
           title: 'Price',
           dataIndex: 'price',
@@ -223,8 +200,6 @@ export default function ProductList() {
           width:70,
           ellipsis: true,
           sorter: (a, b) => a.price - b.price
-          
-          
       },
       {
           title: 'Count In Stock',
@@ -232,7 +207,6 @@ export default function ProductList() {
           key: 'count_in_stock',
           width:80,
           sorter: (a, b) => a.count_in_stock - b.count_in_stock
-
       },
       {
         title: 'Category',
@@ -244,14 +218,12 @@ export default function ProductList() {
           title:'Status',
           dataIndex: 'status',
           key: "status",
-          width:60,
-          
+          width:60,          
       },
       {
         title: "Action",
         key: "deleteAndEdit",
-        width: 70,
-        
+        width: 70,      
         render: (record) => {
           return(
             <>
@@ -286,8 +258,6 @@ export default function ProductList() {
         setProducts(response.data);  
     }
   };
-
-    
 
   //  const keys =["productName", "productBrand", "productCategory","productPrice"];
       
@@ -360,7 +330,9 @@ export default function ProductList() {
             <Table.Summary.Cell   index={2} colSpan={8}>
               
             </Table.Summary.Cell>
-            <Table.Summary.Cell index={10}></Table.Summary.Cell>
+            <Table.Summary.Cell index={10}>
+
+            </Table.Summary.Cell>
           </Table.Summary.Row>
         </Table.Summary>
       )}

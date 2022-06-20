@@ -54,7 +54,7 @@ module.exports = class Request {
 
   static topProductByQuantityLIM10() {
     try{
-       const result =db.execute('SELECT orderdetails.id, orderdetails.productId, product.productName, product.productCategory,product.productPrice, product.cost ,SUM(orderdetails.productQuantity) AS quantity, SUM(orderdetails.productQuantity*product.productPrice) AS totalSale, SUM(orderdetails.productQuantity*(product.productPrice-product.cost)) AS profit FROM orderdetails INNER JOIN product ON orderdetails.productId = product.id GROUP BY productId ORDER BY SUM(orderdetails.productQuantity) DESC LIMIT 10');
+       const result =db.execute('SELECT orderdetails.id, orderdetails.productId, product.productName, product.productCategory,product.productPrice, product.cost ,product.visits, SUM(orderdetails.productQuantity) AS sold, SUM((orderdetails.productQuantity/product.visits)*100) AS conversion ,  SUM(orderdetails.productQuantity*product.productPrice) AS totalSale, SUM(orderdetails.productQuantity*(product.productPrice-product.cost)) AS profit FROM orderdetails INNER JOIN product ON orderdetails.productId = product.id GROUP BY productId ORDER BY SUM(orderdetails.productQuantity) DESC LIMIT 10');
        return result;
     }catch(err){
       console.log(err);
