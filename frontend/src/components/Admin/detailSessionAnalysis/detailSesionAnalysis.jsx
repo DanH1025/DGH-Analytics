@@ -138,32 +138,39 @@ export default function DetailSessionAnalysis({onMorePage}) {
     {
       title: 'Session',
       dataIndex: 'session',
-      key: 'age',
+      key: 'session',
+      sorter: (a, b) => a.session - b.session
     },
     {
       title: 'Added to cart',
       dataIndex: 'addToCart',
-      key: 'address',
+      key: 'addToCart',
+      sorter: (a, b) => a.addToCart - b.addToCart
       // render: (text) => <span>ETB {text.toFixed(2)} </span>,
     },
     {
       title: 'Reached checkout',
       dataIndex: 'reachedCheckout',
-      key: 'address',
+      key: 'reachedCheckout',
+      sorter: (a, b) => a.reachedCheckout - b.reachedCheckout
       // render: (text) => <span>ETB {text.toFixed(2)} </span>,
     },
     {
       title: 'Session converted',
       dataIndex: 'converted',
-      key: 'address',
+      key: 'converted',
+      sorter: (a, b) => a.converted - b.converted
       // render: (text) => <span>ETB {text.toFixed(2)} </span>,
     },
     {
       title: 'Conversion Rate',
       key: 'tags',
       dataIndex: 'average',
-  
-      render: (text) => <span>{text != null ? text.toFixed(2) : text} %</span>,
+      render: (a) => {return(
+          (Number(a.session) / Number(a.converted))
+        ) 
+      },
+      // render: (text) => <span>{text != null ? text.toFixed(2) : text} %</span>,
     },
     
   ];
@@ -236,7 +243,9 @@ export default function DetailSessionAnalysis({onMorePage}) {
           
         </div>
 
-        <Table columns={colum} dataSource={displayOrders} />
+        <Table 
+          columns={colum} 
+          dataSource={displayOrders} />
       </div>
     </>  
   )

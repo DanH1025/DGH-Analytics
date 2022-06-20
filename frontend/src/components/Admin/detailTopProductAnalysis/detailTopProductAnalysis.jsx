@@ -79,6 +79,7 @@ export default function DetailTopProductAnalysis({onMorePage}) {
       dataIndex: 'productName',
       key: 'name',
       render: (text) => <a>{text}</a>,
+
     },
     {
       title: 'Product category',
@@ -88,25 +89,29 @@ export default function DetailTopProductAnalysis({onMorePage}) {
     {
       title: 'Product visit',
       dataIndex: 'visits',
-      key: 'address',
+      key: 'visits',
+      sorter: (a, b) => a.visits - b.visits
       // render: (text) => <span>ETB {text.toFixed(2)} </span>,
     },
     {
       title: 'Quantity sold',
       dataIndex: 'sold',
-      key: 'address',
+      key: 'sold',
+      sorter: (a, b) => a.sold - b.sold
       // render: (text) => <span>ETB {text.toFixed(2)} </span>,
     },
     {
       title: 'Conversion rate',
       dataIndex: 'conversion',
-      key: 'address',
+      key: 'conversion',
       render: (text) => <span> {text} % </span>,
+      sorter: (a, b) => a.conversion - b.conversion
     },
     {
       title: 'Gross sales',
       dataIndex: 'totalSale',
-      key: 'address',
+      key: 'totalSale',
+      sorter: (a, b) => a.totalSale - b.totalSale,
       render: (text) => <span>ETB {text} </span>,
     },
     {
