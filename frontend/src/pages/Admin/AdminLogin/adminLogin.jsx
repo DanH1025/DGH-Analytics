@@ -239,7 +239,6 @@ export default function AdminLogin() {
 									<h4>Administration SignUp</h4>                                    
 								</div>
 								<div className="al_body">
-
 									<Form 
 										name="normal_signup"
 										className="admin_register_form"      onFinish={onSignUpFinish}>

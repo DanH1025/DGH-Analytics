@@ -56,8 +56,6 @@ router.post('/getUserLogCountInDay', getUserLogInHour);
 router.post('/getUserLogHistory', getUserByHistory);
 router.post('/getUserLogActivity', getUserByActivity);
 
-
-
 // test user api
 router.post('/app', users);
 router.post('/appUser', userEmails);

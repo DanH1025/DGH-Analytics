@@ -153,8 +153,7 @@ export default function Home() {
 
   return (
     <>
-      <Topbar />
-      
+      <Topbar />      
       <FeaturedInfo />
           <div className="categoryListTitle">
               <h2>All Categories</h2>
@@ -179,21 +178,12 @@ export default function Home() {
                           })
                         )
 
-                      }
-
-                        {/* <CategoryCard/>
-                        <CategoryCard/> 
-                        <CategoryCard/>
-                        <CategoryCard/>
-                        <CategoryCard/> */}
-                        
+                      }                     
                                          
                     </div>
-                </div>
-                
+                </div>                
               </div>
           </div>
-
           <div className="addsAndShow">
             <div className="addsAndShowContainer">
               <div className="imageSliderSide">

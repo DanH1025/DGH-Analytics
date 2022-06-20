@@ -64,10 +64,6 @@ if(process.env.NODE_ENV === "production"){
   })
 
 }
-
-
-
-
 //to deploy the project on heroku
 if(process.env.NODE_ENV === "developer"){
   app.use(express.static('frontend/build'));
