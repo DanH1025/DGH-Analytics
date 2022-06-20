@@ -102,9 +102,9 @@ module.exports = class Request {
       console.log(error)
     }
   }
-  static addAdministratorAccount (name , email, user_role ,date, password , access_key){
+  static addAdministratorAccount (name , email, user_role , access_key, hashPass, date){
     try {
-       const result = db.execute('INSERT INTO administrator_user (user_name , email , user_role , sign_up_date , password, access_key, status) VALUES (?,?,?,?,?,?,?)',[name,email,user_role,date,password, access_key, 'Active']);
+       const result = db.execute('INSERT INTO administrator_user (user_name , email , user_role , sign_up_date , password, access_key, status) VALUES (?,?,?,?,?,?,?)',[name,email,user_role,date,hashPass, access_key, 'Active']);
        return result;
     } catch (error) {
       console.log(error)

@@ -43,6 +43,8 @@ export default function Profile({userName,email, role , signUpDate}) {
 
     //error message
     const [errMsg ,setErrMsg]  = useState('')
+    const [addAccErr , setAddAccErr] = useState('')
+
   
     // state to get the account information
     const [userInfoState , setUserInfoState] = useState({
@@ -148,30 +150,54 @@ export default function Profile({userName,email, role , signUpDate}) {
 
     const handleAccountCreate = async () =>{
         if(newAccount.userName === '' || newAccount.email === '' || newAccount.confirm_email=== '' || newAccount.password === '' || newAccount.confirm_password===''){
-            message.error("Missing inputs , check you input")
-        }else if(! /^(?=.{4})[a-z]([_]?[a-z\d]+)*$/i.test(newAccount.userName)){
-            message.error("Invalid UserName")
+            //message.error("Missing inputs , check you input")
+            setAddAccErr("Missing Inputs")
+        }else if(! /^(?=.{4})[a-z]([_]?[a-z\d]+)*$/i.test(newAccount.userName)){           
+            setAddAccErr("Invalid UserName, must contain more than 3 characters (_)")
         }else if(newAccount.email !== newAccount.confirm_email){
-            message.error("Emails dont match");
-
+            setAddAccErr("Emails Dont Match")
         }else if(! /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(newAccount.email)){
-            message.error('Invalid email');
+            setAddAccErr("Invalid Email")
         }        
         else if(newAccount.password !== newAccount.confirm_password){
-            message.error("Password dont match!")
-            
-        }else if(newAccount.password.length < 6){
-            message.error("Password must be greater than 6 characters")
+            setAddAccErr("Passwords Dont Match")            
+        }else if(newAccount.password.length < 6){            
+            setAddAccErr("Password Must Be Greater Than 6 Characters")
         }else{
-            dispatch(createAdminAccount(newAccount.userName, newAccount.email , newAccount.password))
-            if(user.status === 400){
-                message.error(user.message)
-            }else if(user.status ===401){
-                message.error(user.message) 
-            }else if(user.status === 200){
-                window.location.reload(true);            
-                message.success("Account Created");
+
+            try {
+                const response = await axios.post('http://localhost:5000/api/createAdminAccount', {
+                    name: newAccount.userName,
+                    email: newAccount.email,
+                    password: newAccount.password
+                })
+                console.log(response)
+               // dispatch(createAdminAccount(newAccount.userName, newAccount.email , newAccount.password))
+                if(response.data.status === 400){
+                    // message.error(user.message)
+                    setAddAccErr(response.data.message);
+                }else if(response.data.status === 401){
+                   // message.error(user.message) 
+                    setAddAccErr(response.data.message);
+                }else if(response.data.status === 200){
+                    window.location.reload(false);            
+                    message.success("Account Created");
+                }
+                
+                
+            } catch (err) {
+                console.log(err);
+                if (!err?.response) {
+                    setAddAccErr('No Server Response');
+                } else if (err.response?.status === 401) {
+                    setAddAccErr("Error while creating Account");
+                } else if (err.response?.status === 400) {
+                    setAddAccErr('Email Already In Use');
+                }
             }
+
+            
+          
            
         }
     }
@@ -275,6 +301,8 @@ export default function Profile({userName,email, role , signUpDate}) {
                         </AccordionSummary>
                         <AccordionDetails>
                         <Typography>
+                        <p ref={errRef} className={addAccErr ? "loginErrMsg" : "login_offscreen"} aria-live="assertive">
+                            {addAccErr}</p>
                             <div className="addAdminWrapper">
                                 <input type="text" placeholder='UserName' 
                                         className='another_account_userName_input' value={newAccount.userName}
