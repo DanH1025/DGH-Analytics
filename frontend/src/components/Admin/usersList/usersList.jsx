@@ -352,9 +352,9 @@ export default function UsersList() {
              <div className="visitPage" onClick={()=> setDialogPage(1)}  style={dialogPage === 1? {backgroundColor: "#574c7f", color:'white'} : {}}   >
                <p>Recent Order Locations</p>
              </div>
-             <div className="recentPerchases" onClick={()=> setDialogPage(3)}  style={dialogPage === 3? {backgroundColor: "#574c7f", color:'white'} : {}} >
+             {/* <div className="recentPerchases" onClick={()=> setDialogPage(3)}  style={dialogPage === 3? {backgroundColor: "#574c7f", color:'white'} : {}} >
                 <p>Perchase Info</p>
-             </div>
+             </div> */}
           </div>
         <DialogContent dividers>
           
@@ -391,7 +391,7 @@ export default function UsersList() {
                             mapStyle="mapbox://styles/mapbox/streets-v11">
                             {
                               loading ? <p>Loading ...</p> : error ? <>{error}</>: (
-                                recentOrders.map(order=> order.staus === 'complete'?  (
+                                recentOrders.map(order=> order.status === 'complete'?  (
                                   <>
                                     <Marker 
                                       key={order.orderId}
@@ -440,9 +440,7 @@ export default function UsersList() {
                       
                   </ReactMapGL> 
                   </div>
-                ): (
-                  "purchase histroy"
-                )
+                ):""
                 }
 
               
