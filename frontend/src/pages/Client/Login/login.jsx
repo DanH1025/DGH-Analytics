@@ -174,7 +174,7 @@ export default function Login(){
                     email: loginInfo.email,
                     password: loginInfo.password
                 })
-            }
+            }       
             console.log(response.data[0].id);
             if(response.data[0].id){
                 console.log('sucess');
@@ -251,9 +251,7 @@ export default function Login(){
 
 
         <div className='UserloginHolder'>
-            <div className="dimBackground">
-
-            
+            <div className="dimBackground">            
             <div className="UserloginContainer">
 
                 {isLogin? (

@@ -27,6 +27,8 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 import DashboardOutlinedIcon from '@material-ui/icons/DashboardOutlined';
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
@@ -47,6 +49,30 @@ import DetailSalesAnalysis from '../../../components/Admin/detailSalesAnalysis/d
 import DetailAverage from '../../../components/Admin/detailAverageAnalysis/detailAverage';
 import DetailSessionAnalysis from '../../../components/Admin/detailSessionAnalysis/detailSesionAnalysis';
 
+
+
+//new ui for delivery boi
+import { alpha } from '@material-ui/core/styles';
+//import AppBar from '@material-ui/core/AppBar';
+//import Toolbar from '@material-ui/core/Toolbar';
+//import IconButton from '@material-ui/core/IconButton';
+//import Typography from '@material-ui/core/Typography';
+import InputBase from '@material-ui/core/InputBase';
+import Badge from '@material-ui/core/Badge';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
+//import MenuIcon from '@material-ui/icons/Menu';
+import SearchIcon from '@material-ui/icons/Search';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+//import MailIcon from '@material-ui/icons/Mail';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import MoreIcon from '@material-ui/icons/MoreVert';
+
+
+
+
+
+
 import { Button } from '@material-ui/core'
 //material ui menu navigation drawer things
 import { useCookies } from 'react-cookie';
@@ -56,75 +82,93 @@ import Orders from '../../../pages/ProductManager/orders/orders';
 import Order_list from '../../../components/Delivery/order_list'
 import UsersList from '../../../components/Admin/usersList/usersList';
 import OrderHistory from '../../../components/Delivery/orderHistory/orderHistoy';
+import { getAdminUserName } from '../../../redux/actions/userActions';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import Profile from '../../../components/Admin/Profile/profile';
+import axios from 'axios';
 
-const drawerWidth = 240;
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
+
+
+//new UI for delivery boi
+const useStyles = makeStyles((theme) => ({
+  grow: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    display: 'none',
+    [theme.breakpoints.up('sm')]: {
+      display: 'block',
+    },
+  },
+  search: {
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: alpha(theme.palette.common.white, 0.25),
+    },
+    marginRight: theme.spacing(2),
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(3),
+      width: 'auto',
+    },
+  },
+  searchIcon: {
+    padding: theme.spacing(0, 2),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  inputRoot: {
+    color: 'inherit',
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      width: '20ch',
+    },
+  },
+  sectionDesktop: {
+    display: 'none',
+    [theme.breakpoints.up('md')]: {
       display: 'flex',
     },
-    appBar: {
-      zIndex: theme.zIndex.drawer + 1,
-      transition: theme.transitions.create(['width', 'margin'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-    },
-    appBarShift: {
-      marginLeft: drawerWidth,
-      width: `calc(100% - ${drawerWidth}px)`,
-      transition: theme.transitions.create(['width', 'margin'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    },
-    menuButton: {
-      marginRight: 36,
-    },
-    hide: {
+  },
+  sectionMobile: {
+    display: 'flex',
+    [theme.breakpoints.up('md')]: {
       display: 'none',
     },
-    drawer: {
-      width: drawerWidth,
-      flexShrink: 0,
-      whiteSpace: 'nowrap',
-    },
-    drawerOpen: {
-      width: drawerWidth,
-      transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    },
-    drawerClose: {
-      transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      overflowX: 'hidden',
-      width: theme.spacing(7) + 1,
-      [theme.breakpoints.up('sm')]: {
-        width: theme.spacing(9) + 1,
-      },
-    },
-    toolbar: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'flex-end',
-      padding: theme.spacing(0, 1),
-      // necessary for content to be below app bar
-      ...theme.mixins.toolbar,
-    },
-    content: {
-      flexGrow: 1,
-      padding: theme.spacing(3),
-    },
-  }),
-);
+  },
+}));
+
+
+
+
+
+
+
+
+
+
 
 export default function Delivery_Dashboard() {
-    
+  const dispatch = useDispatch();
     const [cookies, setCookie, removeCookie] = useCookies(['user']);
 
     //material ui menu navigation
@@ -133,110 +177,281 @@ export default function Delivery_Dashboard() {
     const [open, setOpen] = React.useState(true);
     const navigate = useNavigate();
 
-    const handleDrawerOpen = () => {
-      setOpen(true);
-    };
-  
-    const handleDrawerClose = () => {
-      setOpen(false);
-    };
-    //track index of the components clicked
-    const [compCounter , setCompCounter] = useState(0); 
-
+ 
     const handleLogout = (e) => {
       e.preventDefault();
       removeCookie('ADemail', {path: '/'});
       removeCookie('ADrole', {path: '/'});
       removeCookie('ADaccess_token', {path: '/'});
-      navigate('/');
+      navigate('/adminstrationLogin');
     }
+
+      useEffect(()=>{
+          dispatch(getAdminUserName(cookies.ADemail));
+      },[])
+
+      const data = useSelector((state) => state.getUser)
+      const {user , loading , error} = data;
+
+
+      console.log(user);
+
+
+      const [orderNotification , setOrderNotification] = useState(0)
+      
+
+      const Order = useSelector(state => state.getOrder);
+      const {badge_loading , orders, badge_error} = Order;
+
+
+      useEffect(()=>{
+        const getPendingOrderCount = async () =>{
+           try {
+              const response = await axios.get('http://localhost:5000/api/getPendingOrderCount')
+              setOrderNotification(response.data)
+           } catch (error) {
+              setOrderNotification('...')
+           }
+        } 
+        getPendingOrderCount();
+      }, [dispatch])
+
+      
+
+      
+    // new ui for delivery boi
+    //const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorOption , setAnchorOption] = React.useState(null)
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+   //track index of the components clicked
+   const [compCounter , setCompCounter] = useState(0); 
+
+
+  const isMenuOpen = Boolean(anchorEl);
+  const isMenuOptionOpen = Boolean(anchorOption);
+  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const handleProfileMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleMenuOptionOpen = (event)=>{
+    setAnchorOption(event.currentTarget);
+  }
+
+  const handleMobileMenuClose = () => {
+    setMobileMoreAnchorEl(null);
+  };
+
+  const handleGoToProfile = () => {
+    setCompCounter(2);
+    setAnchorEl(null);
+    setAnchorOption(null)
+    handleMobileMenuClose();
+  };
+  const handleGoToOrdeers = ()=>{
+    setCompCounter(0);
+    setAnchorEl(null);
+    setAnchorOption(null)
+    handleMobileMenuClose();
+  }
+  const handleGoToOrderHistory = ()=>{
+    setCompCounter(1);
+    setAnchorEl(null);
+    setAnchorOption(null)
+    handleMobileMenuClose();
+  }
+
+  const handleMenuClose = ()=>{
+    
+    setAnchorEl(null);
+    setAnchorOption(null)
+    handleMobileMenuClose();
+  }
+
+  const handleMobileMenuOpen = (event) => {
+    setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+  const menuId = 'primary-search-account-menu';
+  const renderMenu = (
+    <Menu
+      anchorEl={anchorEl}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      id={menuId}
+      keepMounted
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      open={isMenuOpen}
+      onClose={handleMenuClose}
+    >
+      <MenuItem >
+      {
+                  loading? <p>Loading...</p> : error? <p>{error}</p>:
+                  (
+                    <div className="profileInfoHolder">
+                    <div className='profileInfWrapper' >
+                        <div className="profileIconHolder"  onClick={()=>setCompCounter(2)}>
+                            <AccountCircleIcon/>
+                        </div>
+                        <div className="profileInfo">
+                                <p>{user.user_name}</p>  
+                                <span>{cookies.ADemail}</span> 
+                        </div>
+                        
+                    </div>
+                </div>
+                  )
+            }
+      
+      
+      </MenuItem>
+      <MenuItem onClick={handleGoToProfile}>My account</MenuItem>
+      <MenuItem onClick={handleLogout}>Logout</MenuItem>
+    </Menu>
+  );
+
+  const renderOption = (
+    <Menu
+        anchorEl={anchorOption}
+        anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+        id={menuId}
+        keepMounted
+        transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+        open={isMenuOptionOpen}
+        onClose={handleMenuClose}
+    >
+      <MenuItem onClick={handleGoToOrdeers} >Orders</MenuItem>
+      <MenuItem onClick={handleGoToOrderHistory} >Order History</MenuItem>
+      
+    </Menu>
+  )
+
+  const mobileMenuId = 'primary-search-account-menu-mobile';
+  const renderMobileMenu = (
+    <Menu
+      anchorEl={mobileMoreAnchorEl}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      id={mobileMenuId}
+      keepMounted
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      open={isMobileMenuOpen}
+      onClose={handleMobileMenuClose}
+    >
+    
+      <MenuItem>
+        <IconButton aria-label="show 11 new notifications" color="inherit">
+          <Badge badgeContent={orderNotification} color="secondary">
+            <NotificationsIcon />
+          </Badge>
+        </IconButton>
+        <p>Notifications</p>
+      </MenuItem>
+      <MenuItem onClick={handleProfileMenuOpen}>
+        <IconButton
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="inherit"
+        >
+          <AccountCircle />
+        </IconButton>
+        <p>Profile</p>
+      </MenuItem>
+    </Menu>
+  );
+
+
+
+
+
+
+
+
+
+
+
 
   return (  
     <>
-      <div className={classes.root}>
-      <CssBaseline />
-      <AppBar
-        position="fixed"
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
-        })}>
+    <div className={classes.grow}>
+      <AppBar position="static">
         <Toolbar>
           <IconButton
+            edge="start"
+            className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            className={clsx(classes.menuButton, {
-              [classes.hide]: open,
-            })}>
-              <MenuIcon />
+            onClick={handleMenuOptionOpen}
+          >
+            <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
-            profile Info
-          </Typography>
+          
+          {/* <div className={classes.search}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
+            </div>
+            <InputBase
+              placeholder="Search…"
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+              inputProps={{ 'aria-label': 'search' }}
+            />
+          </div> */}
+          <div className={classes.grow} />
+          <div className={classes.sectionDesktop}>
+            {/* <IconButton aria-label="show 4 new mails" color="inherit">
+              <Badge badgeContent={4} color="secondary">
+                <MailIcon />
+              </Badge>
+            </IconButton> */}
+            <IconButton aria-label="show new Order notifications" color="inherit">
+              <Badge badgeContent={orderNotification} color="secondary">
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
+            <IconButton
+              edge="end"
+              aria-label="account of current user"
+              aria-controls={menuId}
+              aria-haspopup="true"
+              onClick={handleProfileMenuOpen}
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+          </div>
+          <div className={classes.sectionMobile}>
+            <IconButton
+              aria-label="show more"
+              aria-controls={mobileMenuId}
+              aria-haspopup="true"
+              onClick={handleMobileMenuOpen}
+              color="inherit"
+            >
+              <MoreIcon />
+            </IconButton>
+          </div>
         </Toolbar>
       </AppBar>
-      <Drawer
-        variant="permanent"
-        className={clsx(classes.drawer, {
-          [classes.drawerOpen]: open,
-          [classes.drawerClose]: !open,
-        })}
-        classes={{
-          paper: clsx({
-            [classes.drawerOpen]: open,
-            [classes.drawerClose]: !open,
-          }),
-        }}>
-        <div className={classes.toolbar}>
-          <div className="imgHolder">
-            <img className='admin_logo_img' src="https://cdn-icons-png.flaticon.com/512/732/732204.png" alt="Logo" />
-            <span>DELIVERY</span>
-          </div>
-
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-          </IconButton>
-        </div>
-        <Divider />
-        <List>
-          {['Order List', 'History', 'Profile'].map((text, index) => (
-            <>
-            <ListItem button  onClick={()=>{
-              setCompCounter(index)
-              console.log(index)
-              }}   key={text}>
-              <ListItemIcon>
-                {
-                index ===0? <TrackChangesIcon/> :
-                index === 1 ? <ListAltOutlinedIcon />:
-                index === 2 ? <AddCircleOutlineOutlinedIcon />:
-                index === 3 ? <FavoriteBorderOutlinedIcon/> : 
-                index === 4 ? <GroupOutlinedIcon/> :
-                index === 5 ? <ListAltOutlined/> :
-                ""
-                }
-              </ListItemIcon>
-              <ListItemText primary={text} />   
-            </ListItem>
-            <Divider />
-            </> 
-          ))}
-           
-        </List>
-      
-      <Button onClick={handleLogout}>Logout</Button>
-      </Drawer>
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
-          {
-           compCounter === 0 ? <Order_list /> :
-           compCounter === 1 ? <OrderHistory/>:
-           compCounter === 2 ? <Orders />: 
-           "others"
-          }
-      </main>
+      {renderMobileMenu}
+      {renderMenu}
+      {renderOption}
     </div>
+
+      <div className="deliveryWrapper">
+            {
+              compCounter === 0? <Order_list />:
+              compCounter === 1? <OrderHistory /> :
+              compCounter === 2? <Profile userName={user.user_name}  email={user.email} role={user.user_role} signUpDate={user.sign_up_date} /> : ""
+
+            }
+      </div>
+
+
+
+  
 
     </>
   )

@@ -1,5 +1,6 @@
 import React from "react";
 import './wishlist.css'
+import '../Cart/cart.css'
 import Topbar from "../../../components/Client/topbar/topbar";
 import Footer from "../../../components/Client/footer/footer";
 import WishlistItem from "../../../components/Client/wishlistItem/wishlistItem";

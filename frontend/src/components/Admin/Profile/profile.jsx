@@ -1,4 +1,4 @@
-import React , {useState, useEffect} from 'react'
+import React , {useState, useEffect,useRef} from 'react'
 import './profile.css'
 
 import { useDispatch, useSelector, useSelectore } from 'react-redux'
@@ -39,7 +39,11 @@ export default function Profile({userName,email, role , signUpDate}) {
     const classes = useStyles();
 
     const dispatch = useDispatch();
+    const errRef = useRef();
 
+    //error message
+    const [errMsg ,setErrMsg]  = useState('')
+    const [addAccErr , setAddAccErr] = useState('')
 
   
     // state to get the account information
@@ -66,6 +70,11 @@ export default function Profile({userName,email, role , signUpDate}) {
         confirm_password:''
     })
 
+    const data = useSelector((state)=> state.getUser);
+    const {user , loading , error} = data
+
+
+    console.log(user)
 
   
     
@@ -83,6 +92,7 @@ export default function Profile({userName,email, role , signUpDate}) {
             message.error("sorry user name change faild")
         }
     }
+
     const passwordChangeHandler = async ()=>{
 
 
@@ -92,54 +102,102 @@ export default function Profile({userName,email, role , signUpDate}) {
         }else if(passwordChange.newPassword.length < 6){
             message.error("Password too Short")
         }else{
-            if(window.confirm("Are you sure you want to change Password")){
-                // dispatch(changeAdminPassword(userInfoState.email , passwordChange.oldPassword , passwordChange.newPassword))
-                  axios.post('http://localhost:5000/api/changeAdminPassword' , {
-                     email: userInfoState.email,
-                     oldPassword: passwordChange.oldPassword,
-                     newPassword: passwordChange.newPassword
-                 })
+            try {
+                const response = await axios.post('http://localhost:5000/api/changeAdminPassword' , {
+                    email: userInfoState.email,
+                    oldPassword: passwordChange.oldPassword,
+                    newPassword: passwordChange.newPassword
+                })
 
-                 message.success("Password Changed Successfully")
-                 window.location.reload(false);
-            }else{
-                message.error("Password Change Failed")
+                console.log(response)
+                if(response.data.status === 402){
+                    setErrMsg("Invalid Old Password")
+                    console.log("im getting the error msg here " + errMsg)
+                }else if( response.data.status === 404){
+                    setErrMsg("User Not Found")
+                }else if(response.data.status === 200){
+                    window.location.reload(true)
+                    
+                    message.success("Password Changed Successfully")
+
+                }
+
+                
+            } catch (err) {
+                    console.log(err);
+                if (!err?.response) {
+                    setErrMsg('No Server Response');
+                } else if (err.response?.status === 404) {
+                    setErrMsg('User Not Found');
+                } else if (err.response?.status === 402) {
+                    setErrMsg('Password Change Failed');
+                }
             }
+
+
+            // if(window.confirm("Are you sure you want to change Password")){
+            //     // dispatch(changeAdminPassword(userInfoState.email , passwordChange.oldPassword , passwordChange.newPassword))
+                
+
+            //      message.success("Password Changed Successfully")
+            //      window.location.reload(false);
+            // }else{
+            //     message.error("Password Change Failed")
+            // }
         }
     }
 
-    const data = useSelector((state)=> state.getUser);
-    const {user , loading , error} = data
-
-
-    console.log(user)
 
     const handleAccountCreate = async () =>{
         if(newAccount.userName === '' || newAccount.email === '' || newAccount.confirm_email=== '' || newAccount.password === '' || newAccount.confirm_password===''){
-            message.error("Missing inputs , check you input")
-        }else if(! /^(?=.{4})[a-z]([_]?[a-z\d]+)*$/i.test(newAccount.userName)){
-            message.error("Invalid UserName")
+            //message.error("Missing inputs , check you input")
+            setAddAccErr("Missing Inputs")
+        }else if(! /^(?=.{4})[a-z]([_]?[a-z\d]+)*$/i.test(newAccount.userName)){           
+            setAddAccErr("Invalid UserName, must contain more than 3 characters (_)")
         }else if(newAccount.email !== newAccount.confirm_email){
-            message.error("Emails dont match");
-
+            setAddAccErr("Emails Dont Match")
         }else if(! /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(newAccount.email)){
-            message.error('Invalid email');
+            setAddAccErr("Invalid Email")
         }        
         else if(newAccount.password !== newAccount.confirm_password){
-            message.error("Password dont match!")
-            
-        }else if(newAccount.password.length < 6){
-            message.error("Password must be greater than 6 characters")
+            setAddAccErr("Passwords Dont Match")            
+        }else if(newAccount.password.length < 6){            
+            setAddAccErr("Password Must Be Greater Than 6 Characters")
         }else{
-            dispatch(createAdminAccount(newAccount.userName, newAccount.email , newAccount.password))
-            if(user.status === 400){
-                message.error(user.message)
-            }else if(user.status ===401){
-                message.error(user.message) 
-            }else if(user.status === 200){
-                window.location.reload(true);            
-                message.success("Account Created");
+
+            try {
+                const response = await axios.post('http://localhost:5000/api/createAdminAccount', {
+                    name: newAccount.userName,
+                    email: newAccount.email,
+                    password: newAccount.password
+                })
+                console.log(response)
+               // dispatch(createAdminAccount(newAccount.userName, newAccount.email , newAccount.password))
+                if(response.data.status === 400){
+                    // message.error(user.message)
+                    setAddAccErr(response.data.message);
+                }else if(response.data.status === 401){
+                   // message.error(user.message) 
+                    setAddAccErr(response.data.message);
+                }else if(response.data.status === 200){
+                    window.location.reload(false);            
+                    message.success("Account Created");
+                }
+                
+                
+            } catch (err) {
+                console.log(err);
+                if (!err?.response) {
+                    setAddAccErr('No Server Response');
+                } else if (err.response?.status === 401) {
+                    setAddAccErr("Error while creating Account");
+                } else if (err.response?.status === 400) {
+                    setAddAccErr('Email Already In Use');
+                }
             }
+
+            
+          
            
         }
     }
@@ -175,6 +233,7 @@ export default function Profile({userName,email, role , signUpDate}) {
                         <AccordionDetails>
                         <Typography>
                             <div className="changeUserNameSide">
+                            
                              <input type="text" placeholder={userInfoState.userName} 
                                 className='userNameInput' value={userInfoState.userName} 
                                 onChange={(e)=>setUserInfoState({...userInfoState , userName: e.target.value})}  />
@@ -203,6 +262,8 @@ export default function Profile({userName,email, role , signUpDate}) {
                         </AccordionSummary>
                         <AccordionDetails>
                         <Typography>
+                        <p ref={errRef} className={errMsg ? "loginErrMsg" : "login_offscreen"} aria-live="assertive">
+                            {errMsg}</p>
                             <div className="changePasswordSide">
                                 <input type="password" placeholder='Old password' 
                                     className='old_password_input' value={passwordChange.oldPassword}
@@ -227,50 +288,59 @@ export default function Profile({userName,email, role , signUpDate}) {
                 </div>
             </div>
 
-            <div className="addNewAdminHolder">
-                <Accordion>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel1a-content"
-                        id="panel1a-header"
-                        >
-                        <Typography className={classes.heading}>
-                            <h3>Add new Admin Account</h3>
-                        </Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                        <Typography>
-                            <div className="addAdminWrapper">
-                                <input type="text" placeholder='UserName' 
-                                        className='another_account_userName_input' value={newAccount.userName}
-                                        onChange={(e)=> setNewAccount({...newAccount , userName: e.target.value})}
-                                />
-                                <input type="email" placeholder='Email Address'
-                                        className='another_account_email_input' value={newAccount.email}
-                                        onChange={(e)=> setNewAccount({...newAccount , email: e.target.value})}
-                                
-                                />
-                                <input type="email" placeholder='Confirm Email'
-                                        className='another_account_confirm_email_input' value={newAccount.confirm_email}
-                                        onChange={(e)=> setNewAccount({...newAccount , confirm_email: e.target.value})}
+            {
+                userInfoState.role === 'admin' ? (
+                <div className="addNewAdminHolder">
+                        <Accordion>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel1a-content"
+                                id="panel1a-header"
+                                >
+                                <Typography className={classes.heading}>
+                                    <h3>Add new Admin Account</h3>
+                                </Typography>
+                                </AccordionSummary>
+                                <AccordionDetails>
+                                <Typography>
+                                <p ref={errRef} className={addAccErr ? "loginErrMsg" : "login_offscreen"} aria-live="assertive">
+                                    {addAccErr}</p>
+                                    <div className="addAdminWrapper">
+                                        <input type="text" placeholder='UserName' 
+                                                className='another_account_userName_input' value={newAccount.userName}
+                                                onChange={(e)=> setNewAccount({...newAccount , userName: e.target.value})}
+                                        />
+                                        <input type="email" placeholder='Email Address'
+                                                className='another_account_email_input' value={newAccount.email}
+                                                onChange={(e)=> setNewAccount({...newAccount , email: e.target.value})}
+                                        
+                                        />
+                                        <input type="email" placeholder='Confirm Email'
+                                                className='another_account_confirm_email_input' value={newAccount.confirm_email}
+                                                onChange={(e)=> setNewAccount({...newAccount , confirm_email: e.target.value})}
 
-                                />
-                                <input type="password"  placeholder='Password' 
-                                        className='another_account_password_input' value={newAccount.password}
-                                        onChange={(e)=> setNewAccount({...newAccount , password: e.target.value})}
-                                
-                                />
-                                <input type="password"  placeholder='Confirm password' 
-                                        className='another_account_confirm_password_input' value={newAccount.confirm_password}
-                                        onChange={(e)=> setNewAccount({...newAccount , confirm_password: e.target.value})}
-                                />
-                                <button className='addAnotherAccountBtn' onClick={handleAccountCreate}>Create Account</button>
-                            </div>
-                        </Typography>
+                                        />
+                                        <input type="password"  placeholder='Password' 
+                                                className='another_account_password_input' value={newAccount.password}
+                                                onChange={(e)=> setNewAccount({...newAccount , password: e.target.value})}
+                                        
+                                        />
+                                        <input type="password"  placeholder='Confirm password' 
+                                                className='another_account_confirm_password_input' value={newAccount.confirm_password}
+                                                onChange={(e)=> setNewAccount({...newAccount , confirm_password: e.target.value})}
+                                        />
+                                        <button className='addAnotherAccountBtn' onClick={handleAccountCreate}>Create Account</button>
+                                    </div>
+                                </Typography>
 
-                    </AccordionDetails>
-                </Accordion>
-            </div>
+                            </AccordionDetails>
+                        </Accordion>
+                    </div>
+                ):""
+            }
+
+
+            
 
                
             

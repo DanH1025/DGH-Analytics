@@ -29,6 +29,8 @@ import Check from '@mui/icons-material/Check';
 import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector';
 import { StepIconProps } from '@mui/material/StepIcon';
 import { addToCart }  from '../../../redux/actions/cartActions';
+import { returnProduct } from '../../../redux/actions/productActions';
+const steps = ['Processing', 'Shipped', 'Delivered'];
 
 
 export default function Row(props) {
@@ -40,14 +42,23 @@ export default function Row(props) {
   const handleClick = () => {
     setOpen(!open);
     const id = props.Order_id;
-    dispatch(getOrderDetails(props.id));
+    dispatch(getOrderDetails(props.id)); 
   }
+
+  const orders = useSelector((state) => state.getOrderDetail.orderDetails);
+  console.log("this are the props")
+  console.log(props)  
   
   const handleCancelOrder = () => {
     console.log(props.id);
     dispatch(changeOrderStatus(props.id, 'cancel'))
-    window.location.reload(false);
-  }
+    orders.map((order)=> {
+      console.log(order.id , order.productQuantity)
+        // dispatch to increase the number of count in stock for the item ordered
+        dispatch(returnProduct(order.id , order.productQuantity))
+      }) 
+    window.location.reload(true);
+  } 
 
   const handleReorder = () => {
     orders?.map((order) => {
@@ -56,7 +67,8 @@ export default function Row(props) {
     navigator('/cart')
   }
 
-  const orders = useSelector((state) => state.getOrderDetail.orderDetails);
+  
+  console.log(orders)
   console.log('inside row');
   return (
     <React.Fragment>
@@ -140,7 +152,7 @@ export default function Row(props) {
                     </tr>
                     <tr>
                       <td>Status: </td>
-                      <td>{props.status === "pending" ? "Processing" : props.status === "inProgress" ? "In Progress" : "Complete" }</td>
+                      <td>{props.status === "pending" ? <p>Processing</p> : props.status === "inProgress" ?<p>In Progress</p> : <p>Completed</p> }</td>
                     </tr>
                     <tr>
                       <td>Order placed by: </td>

@@ -41,11 +41,7 @@ export default function Home() {
   //   });
   // }
 
-  window.addEventListener('beforeunload', (event) => {
-    console.log('want to leave');
-    event.returnValue = `Are you sure you want to leave?`;
-    setCook();
-  });
+ 
   
   // window.onbeforeunload = function(){
   //   console.log('want to leave');
@@ -93,7 +89,13 @@ export default function Home() {
     
     if(cookies.uid){
       console.log('In loged user');
-      dispatch(createUserLog(user.href,user.referrer,user.screenWidth,user.screenHeight,addedToCart,reachCheck,purchased,date,time, user.city, user.state, cookies.uid));
+      if(user.state == undefined){
+        dispatch(createUserLog(user.href,user.referrer,user.screenWidth,user.screenHeight,addedToCart,reachCheck,purchased,date,time, user.city, '', cookies.uid));
+
+      }else{
+        dispatch(createUserLog(user.href,user.referrer,user.screenWidth,user.screenHeight,addedToCart,reachCheck,purchased,date,time, user.city, user.state, cookies.uid));
+
+      }
     }else{
       console.log('In not loged user');
       dispatch(createUserLog(user.href,user.referrer,user.screenWidth,user.screenHeight,addedToCart,reachCheck,purchased,date,time, user.city, user.state, ''));
@@ -112,6 +114,12 @@ export default function Home() {
     })
     sessionStorage.removeItem('productVisit');
   }
+
+  window.addEventListener('beforeunload', (event) => {
+    console.log('want to leave');
+    event.returnValue = `Are you sure you want to leave?`;
+    setCook();
+  });
   // const dispatch = useDispatch();
   // const getProducts = useSelector(state=>state.getProducts);
 
@@ -145,8 +153,7 @@ export default function Home() {
 
   return (
     <>
-      <Topbar />
-      
+      <Topbar />      
       <FeaturedInfo />
           <div className="categoryListTitle">
               <h2>All Categories</h2>
@@ -171,21 +178,12 @@ export default function Home() {
                           })
                         )
 
-                      }
-
-                        {/* <CategoryCard/>
-                        <CategoryCard/> 
-                        <CategoryCard/>
-                        <CategoryCard/>
-                        <CategoryCard/> */}
-                        
+                      }                     
                                          
                     </div>
-                </div>
-                
+                </div>                
               </div>
           </div>
-
           <div className="addsAndShow">
             <div className="addsAndShowContainer">
               <div className="imageSliderSide">

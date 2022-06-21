@@ -27,13 +27,15 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 import ShopOutlinedIcon from '@material-ui/icons/ShopOutlined';
 import ListAltOutlinedIcon from '@material-ui/icons/ListAltOutlined';
 import TuneOutlinedIcon from '@material-ui/icons/TuneOutlined';
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
-import WishList from '../../ProductManager/wishlist/wishlist';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+
 import ProductList from '../../../components/ProductManager/productList/productList';
 import AddProduct from '../../../components/ProductManager/addProduct/addProduct'
 
@@ -43,7 +45,11 @@ import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import { ListAltOutlined } from '@material-ui/icons';
 import Orders from '../../../pages/ProductManager/orders/orders';
-
+import Profile from '../../../components/Admin/Profile/profile'
+import { getAdminUserName } from '../../../redux/actions/userActions';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 
 const drawerWidth = 240;
@@ -121,7 +127,7 @@ export default function PM_Dashboard() {
 
 
 
-  
+  const dispatch = useDispatch();
 
 const [cookies, setCookie, removeCookie] = useCookies(['user']);
 
@@ -147,8 +153,16 @@ const handleLogout = (e) => {
   removeCookie('ADemail', {path: '/'});
   removeCookie('ADrole', {path: '/'});
   removeCookie('ADaccess_token', {path: '/'});
-  navigate('/');
+  navigate('/adminstrationLogin');
 }
+
+useEffect(()=>{
+  dispatch(getAdminUserName(cookies.ADemail));
+},[])
+
+const data = useSelector((state) => state.getUser)
+const {user , loading , error} = data;
+
 
 
  
@@ -176,7 +190,25 @@ const handleLogout = (e) => {
          <MenuIcon />
        </IconButton>
        <Typography variant="h6" noWrap>
-         profile Info
+         {
+                loading? <p>Loading...</p> : error? <p>{error}</p>:
+                (
+                  <div className="profileInfoHolder">
+                  <div className='profileInfWrapper' >
+                       <div className="profileIconHolder"  onClick={()=>setCompCounter(1)}>
+                          <AccountCircleIcon/>
+                       </div>
+                       <div className="profileInfo">
+                              <p>{user.user_name}</p>  
+                              <span>{cookies.ADemail}</span> 
+                       </div>
+                       <div className="logoutButtonHolder">
+                          <ExitToAppIcon   onClick={handleLogout} />
+                       </div>
+                  </div>
+              </div>
+                )
+          }
        </Typography>
      </Toolbar>
    </AppBar>
@@ -206,15 +238,15 @@ const handleLogout = (e) => {
      </div>
      <Divider />
      <List>
-       {['Product List', 'Add Products', 'WishList', 'Order List'].map((text, index) => (
+       {['Product List','Profile', 'Add Products', 'Order List'].map((text, index) => (
          <>
          <ListItem button  onClick={()=>{
            setCompCounter(index)
            console.log(index)
            }}   key={text}>
            <ListItemIcon>{index === 0 ? <ListAltOutlinedIcon /> :
-               index === 1 ? <AddCircleOutlineOutlinedIcon />:
-               index === 2 ? <FavoriteBorderOutlinedIcon />:
+               index === 1 ? <AccountCircleIcon />:
+               index === 2 ? <AddCircleOutlineOutlinedIcon />:
                index === 3 ? <ListAltOutlined/> : 
                 ""
                           
@@ -231,14 +263,14 @@ const handleLogout = (e) => {
         
      </List>
    
-   <Button onClick={handleLogout}>Logout</Button>
+   
    </Drawer>
    <main className={classes.content}>
      <div className={classes.toolbar} />
 
          {compCounter === 0 ? <ProductList /> : 
-          compCounter === 1 ? <AddProduct /> : 
-          compCounter === 2 ? <WishList/> :
+          compCounter === 1 ? <Profile userName={user.user_name}  email={user.email} role={user.user_role} signUpDate={user.sign_up_date} />:
+          compCounter === 2 ? <AddProduct /> :         
           compCounter === 3 ? <Orders/> :
           "others"   
          }

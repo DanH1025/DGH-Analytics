@@ -158,20 +158,20 @@ export default function Row(props) {
                 <div className="topInfo">
                   <table border="0" cellPadding="10" size="20px">
                     <tr>
-                      <td>Order number: </td>
-                      <td>{props.id}</td>
+                      <td  className='detailInfoTitle' >  Order number: </td>
+                      <td className='detailInfos' >{props.id}</td>
                     </tr>
                     <tr>
-                      <td>Order placed: </td>
-                      <td>{props.date}</td>
+                      <td  className='detailInfoTitle'>Order placed: </td>
+                      <td className='detailInfos'>{props.date}</td>
                     </tr>
                     <tr>
-                      <td>Status: </td>
-                      <td>{props.status === "pending" ? "Processing" : props.status === "inProgress" ? "In Progress" : "Complete" }</td>
+                      <td  className='detailInfoTitle'>Status: </td>
+                      <td className='detailInfos'>{props.status === "pending" ? "Processing" : props.status === "inProgress" ? "In Progress" : "Complete" }</td>
                     </tr>
                     <tr>
-                      <td>Order placed by: </td>
-                      <td>{props.fname} {props.lname}</td>
+                      <td  className='detailInfoTitle'>Order placed by: </td>
+                      <td className='detailInfos'>{props.fname} {props.lname}</td>
                     </tr>
                   </table>
                 </div>

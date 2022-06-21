@@ -5,7 +5,7 @@ const router = express.Router();
 const {getProducts, getAllProducts,addProduct, getProductsByCatagory, getProductsById,
          getProductsBySearch ,deleteProduct ,editProductValues ,recordSearchHistory ,
          recordAddToCartHistory,changeVisits,getActiveProducts ,getDiactiveProducts,
-         commentHandler ,getComments,getTopFive,sellProduct} =  
+         commentHandler ,getComments,getTopFive,sellProduct,returnProduct} =  
   require('../controller/productController');
 
 
@@ -14,12 +14,21 @@ const {getUser, getAllUser, addUserByPhone , getAdminUser, verifyAdmin,
         changeAdminPassword , createAdminAccount} =   require('../controller/userController')
 
 
-const {addOrder, getOrders, getInprogressOrders, getOrdersbyId, changeStatus, getPendingOrders, changeStatusAccept, changeStatusComplete, getOrdersbyDeliveryId, getCompleteOrders, countOrderById} =  require('../controller/ordersController')
-const { addOrderDetail, getOrderDetails, getTopProductByQuan, getTopProductByTotalSale } =  require('../controller/orderDetailController');
-const { getOrderReports, getLastWeekOrderReports, getTotalOrder, addOrderReport , updateReports, getMonthsOrderReports, getMonthOrderReports, getWeeksOrderReports} = 
+const {addOrder, getOrders, getInprogressOrders, getOrdersbyId, changeStatus,
+   getPendingOrders, changeStatusAccept, changeStatusComplete, getOrdersbyDeliveryId,
+    getCompleteOrders, countOrderById, getRecentOrderLocations, getPendingOrderCount} =  require('../controller/ordersController')
+
+
+const { addOrderDetail, getOrderDetails, getTopProductByQuan, 
+      getTopProductByTotalSale } =  require('../controller/orderDetailController');
+
+const { getOrderReports, getLastWeekOrderReports, getTotalOrder, addOrderReport ,
+   updateReports, getMonthsOrderReports, getMonthOrderReports, getWeeksOrderReports} = 
   require('../controller/orderReportController');
+
 const { getOrderLogs, addOrderLog ,getUserLogs, getUserLogInHour, getDeviceType,getUserByActivity, getUserByHistory} = 
   require('../controller/orderLogController')
+
 const {loginWithPhone , adminRegister } = 
   require('../controller/loginController')
 
@@ -55,8 +64,6 @@ router.post('/getUserLogCount', getUserLogs);
 router.post('/getUserLogCountInDay', getUserLogInHour);
 router.post('/getUserLogHistory', getUserByHistory);
 router.post('/getUserLogActivity', getUserByActivity);
-
-
 
 // test user api
 router.post('/app', users);
@@ -172,9 +179,15 @@ router.post('/createAdminAccount' , createAdminAccount)
 
 
 //selling products
-
 router.post('/sellProduct' , sellProduct)
+// returning product
+router.post('/returnProduct' , returnProduct)
 
 
+//get recent purchase location
+router.post('/purchasedFrom' , getRecentOrderLocations)
+
+
+router.get('/getPendingOrderCount' , getPendingOrderCount)
 module.exports = router;
  

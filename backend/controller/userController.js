@@ -32,23 +32,23 @@ const changeAdminPassword = async (req,res)=>{
   const [user , userData] = await UserModel.fetchAdminUser(email);
   if(user.length === 0){
     res.json({
-      status: "404",
+      status: 404,
       message: "user Not found"
     })
   }else{ 
-     if( await bcrypt.compare(oldPassword , user[0].password)){
+     if(await bcrypt.compare(oldPassword , user[0].password)){
        const hashPass = await bcrypt.hash(newPassword , 8)
        const [data, metaData] = await UserModel.adminPasswordChange(email, hashPass);
 
       res.json({
-        status: '200',
+        status: 200,
         message:'admin password change successful'
       })
 
 
      }else{
        res.json({
-        status: '402',
+        status: 402,
         message: "Invalid old password"
        })
      }
@@ -115,7 +115,7 @@ const addUserByEmail = async (req, res) => {
   
   const hashPass = await bcrypt.hash(password , 8 );
   // console.log(hashPass.encryptedData);
-
+ 
   const date = new Date();  
   
   try{    
@@ -252,7 +252,7 @@ const getAdminUser = async (req,res)=>{
       
     }else{
       console.log("Login failed")
-          res.status(401).send("password error")
+          res.status(401).send("password error") 
     }
   }catch(error){
     console.log("Login failed")
@@ -262,20 +262,20 @@ const getAdminUser = async (req,res)=>{
 } 
 
 const createAdminAccount = async (req,res)=>{
-  console.log("the dispatch is working , im here")
+  console.log("the dispatch is working , im here") 
   const {name, email , password} = req.body;
   const date = new Date();
   const user_role = 'admin'
-  const access_key = 'master'
+  const access_key = 'master' 
 
   const hashPass = await bcrypt.hash(password , 8);
 
   const [user, metaUser] = await UserModel.fetchAdminUser(email);
-
+ 
   if(user.length === 0){
     if(name === '' || email === '' || password === '' || hashPass ===''){
       res.json({
-        status: 401,
+        status: 401,  
         message: "Error while creating account"
       })
     }else{

@@ -193,8 +193,7 @@ export default function PM_Dashboard() {
           [classes.appBarShift]: open,
         })}
       >
-        <Toolbar>
-          
+        <Toolbar>          
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -207,7 +206,6 @@ export default function PM_Dashboard() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-
               {
                 loading? <p>Loading...</p> : error? <p>{error}</p>:
                 (
@@ -226,13 +224,7 @@ export default function PM_Dashboard() {
                   </div>
               </div>
                 )
-              }
-
-
-
-
-             
-
+              }           
           </Typography>
         </Toolbar>
       </AppBar>

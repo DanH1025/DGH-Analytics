@@ -80,8 +80,8 @@ export default function Order_list() {
 
   return (
     <>
-      <main>  
-        <div className='orderTable_holder'>
+    
+        <div className='deliveryOrderTable'>
           <AppBar position="static" color="default">
             <Tabs
               value={value}
@@ -109,7 +109,7 @@ export default function Order_list() {
                       Sub-Total</TableCell>
                     <TableCell align="right">
                       Location</TableCell>
-                    <TableCell align="right">Status</TableCell>
+                    <TableCell align="center">Status</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -185,7 +185,7 @@ export default function Order_list() {
           </TabPanel>
           
         </div>
-      </main>
+      
     </>
     
   )

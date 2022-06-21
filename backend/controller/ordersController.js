@@ -1,5 +1,5 @@
 const OrderModle = require('../model/orders');
-
+const UserModel = require('../model/user');
 const addOrder = (req, res) => {
   const date = req.body.date;
   const userId = req.body.userId;
@@ -126,6 +126,35 @@ const countOrderById = async(req, res) => {
   }
 }
 
+const getRecentOrderLocations = async (req,res)=>{
+  const {id} = req.body;
+
+  if(id === ''){
+    res.json({
+      status: 404,
+      message: "User Not Found"
+    })
+  }else{
+     const [data, metaData] = await OrderModle.fetchCompleteById(id);
+     if(data.length === 0){
+       res.json({
+        status: 201,
+        message: "User Has no Recent Orders"
+       })
+     }else {   
+       res.send(data)
+
+     }
+  }
+
+
+}
+
+const getPendingOrderCount = async (req,res)=>{
+  const [data, metaData]= await OrderModle.fetchPendingCount();
+  res.json(data.length)
+}
+
 module.exports = {
 	addOrder,
   countOrderById,
@@ -137,5 +166,7 @@ module.exports = {
   changeStatusComplete,
   changeStatusAccept,
   getOrdersbyDeliveryId,
-  getCompleteOrders
+  getCompleteOrders,
+  getRecentOrderLocations,
+  getPendingOrderCount
 };
