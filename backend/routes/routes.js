@@ -16,7 +16,7 @@ const {getUser, getAllUser, addUserByPhone , getAdminUser, verifyAdmin,
 
 const {addOrder, getOrders, getInprogressOrders, getOrdersbyId, changeStatus,
    getPendingOrders, changeStatusAccept, changeStatusComplete, getOrdersbyDeliveryId,
-    getCompleteOrders, countOrderById, getRecentOrderLocations} =  require('../controller/ordersController')
+    getCompleteOrders, countOrderById, getRecentOrderLocations, getPendingOrderCount} =  require('../controller/ordersController')
 
 
 const { addOrderDetail, getOrderDetails, getTopProductByQuan, 
@@ -186,5 +186,7 @@ router.post('/returnProduct' , returnProduct)
 //get recent purchase location
 router.post('/purchasedFrom' , getRecentOrderLocations)
 
+
+router.get('/getPendingOrderCount' , getPendingOrderCount)
 module.exports = router;
  

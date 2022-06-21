@@ -51,7 +51,7 @@ function TabPanel(props) {
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 0,
-    width: '90%',
+    width: '100%',
     backgroundColor: theme.palette.background.paper,
   },
 }));
@@ -103,8 +103,8 @@ export default function Orders() {
 
   return (
     <>
-      <main>  
-        <div>
+      
+        <div className='orderPageContainer'>
           <div className='orderTable_holder'>
 
           <div className={classes.root}>
@@ -249,56 +249,10 @@ export default function Orders() {
                 
           </div>
 
-            {/* <Table striped bordered hover>
-              <thead>
-                <tr>
-                  <th className="uk-table-shrink" />
-                  <th className="uk-table-shrink" />
-                  <th>Id</th>
-                  <th>Fullname</th>
-                  <th>LastName</th>
-                  <th>email</th>
-                  <th>total</th>
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  !orders.length ? <div>empty</div> : (
-                    orders.map((val, key) => {
-                      console.log(val);
-                      return (
-                        <>
-                        <tr data-toggle="collapse"
-                            data-target=".multi-collapse1"
-                            aria-controls="multiCollapseExample1">
-                          <th className="uk-table-shrink" />
-                          <th className="uk-table-shrink" />
-                          <th>{val.orderId} </th>
-                          <th>{val.userFirstName}</th>
-                          <th>{val.userLastName}</th>
-                          <th>{val.userEmail} </th>
-                          <th>{val.total}</th>
-                        </tr>
-                        <tr class="collapse multi-collapse1" id="multiCollapseExample1">
-                          <td>Child col 1</td>
-                          <td>Child col 1</td>
-                          <td>Child col 1</td>
-                          <td>Child col 1</td>
-                          <td>Child col 1</td>
-                          <td>Child col 1</td>
-                          <td>Child col 1</td>
-                          <td>Child col 1</td>
-                        </tr>
-                        </>
-                      )
-                    }) 
-                  )
-                }
-              </tbody>
-            </Table> */}
+          
           </div>
         </div>
-      </main>
+     
     </>
     
   )

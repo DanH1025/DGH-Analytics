@@ -13,7 +13,7 @@ export default function Footer(){
 			<div className='footerWrapper'>
 				 <div className='footerView'>
 						<div className='footerItem footer'>
-							<p>Copyright © 2017 Plazathemes. All Rights Reserved.</p>
+							<p>Copyright © 2022 DGH Analytics. All Rights Reserved.</p>
 						</div>
 						<div className='footerItem footer'>
 							<Instagram/>

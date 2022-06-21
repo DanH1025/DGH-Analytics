@@ -152,7 +152,7 @@ export default function Row(props) {
                     </tr>
                     <tr>
                       <td>Status: </td>
-                      <td>{props.status === "pending" ? "Processing" : props.status === "inProgress" ? "In Progress" : "Complete" }</td>
+                      <td>{props.status === "pending" ? <p>Processing</p> : props.status === "inProgress" ?<p>In Progress</p> : <p>Completed</p> }</td>
                     </tr>
                     <tr>
                       <td>Order placed by: </td>

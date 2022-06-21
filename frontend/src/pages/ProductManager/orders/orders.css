@@ -16,9 +16,26 @@ body{
     font-weight: bold;
 }
 
+.orderPageContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
 .orderTable_holder{
     padding: 0;
+    display: flex;
     margin: 0;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
 
     
+}
+.makeStyles-root-10{
+    width: 100%;
+    padding: 0;
+    margin: 0;
 }
