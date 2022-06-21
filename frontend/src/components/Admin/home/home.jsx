@@ -299,7 +299,7 @@ export default function Home({onMorePage}) {
                             >
                               <TableCell className="product_name" align="left">  {row.productName}
                               </TableCell>
-                              <TableCell className="total_sold" align="right">{row.quantity}</TableCell>
+                              <TableCell className="total_sold" align="right">{row.sold}</TableCell>
                             </TableRow>)
                           ))}
                         </TableBody>

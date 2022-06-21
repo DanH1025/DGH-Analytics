@@ -134,7 +134,7 @@ export default function Orderlist() {
                   </TableHead>
                   <TableBody>
                   {
-                      !orders?.length ? <div>empty</div> : (
+                      !orders?.length ? <div>No Orders</div> : (
                         orders.map((val, key) => {
                           // console.log(val);
                           if(val.status === 'pending' || val.status === 'inProgress'){
@@ -177,7 +177,7 @@ export default function Orderlist() {
                   {
                       !orders?.length ? <div>no order</div> : (
                         orders.map((val, key) => {
-                          // console.log(val);
+                          console.log(val.address);
                           if(val.status != 'pending' && val.status != 'inProgress' ){
                             return (
                               <Row 
@@ -187,6 +187,7 @@ export default function Orderlist() {
                                 fname = {val.fname}
                                 lname = {val.lname}
                                 date = {val.date}
+                                address = {val.address}
                                 email = {val.phone_number}  
                                 total = {val.total}
                                 status = {val.status} />

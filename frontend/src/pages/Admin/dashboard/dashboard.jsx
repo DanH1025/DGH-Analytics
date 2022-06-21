@@ -290,7 +290,7 @@ export default function PM_Dashboard() {
             {compCounter === 0 ? <Home onMorePage={setCompCounter}/> : 
              compCounter === 1 ? <Profile userName={user.user_name}  email={user.email} role={user.user_role} signUpDate={user.sign_up_date} />:
              compCounter === 2 ? <ProductList /> : 
-             compCounter === 3 ? <AddProduct/> :             
+             compCounter === 3 ? <AddProduct onMorePage={setCompCounter}/> :             
              compCounter === 4 ? <UsersList/>:
              compCounter === 5 ? <Orders />: 
              compCounter === 6 ? <Hiring />:
