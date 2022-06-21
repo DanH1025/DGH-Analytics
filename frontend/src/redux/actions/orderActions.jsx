@@ -3,6 +3,30 @@ import * as api from '../api/index';
 import axios from 'axios';
 
 
+
+export const getRecentOrderLocation = (userId)=> async (dispatch)=>{
+    try {
+        dispatch({
+            type: actionType.GET_RECENT_ORDER_LOCATION,
+
+        })
+        const {data} = await api.getOrderLocation(userId);
+        dispatch({
+            type: actionType.GET_RECENT_ORDER_LOCATION_SUCCESS,
+            payload: data
+        })
+        
+    } catch (error) {
+        dispatch({
+            type:actionType.GET_RECENT_ORDER_LOCATION_FAIL,
+            payload: 
+                error.response && error.response.data.message 
+                ?error.response.data.message:error.message,
+        });
+    }
+}
+
+
 export const getOrders = () => async (dispatch)=>{
     try {
         dispatch({

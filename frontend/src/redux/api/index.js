@@ -79,6 +79,7 @@ const changeAdminPasswordUrl = 'http://localhost:5000/api/changeAdminPassword'
 const addAdminAccountUrl = 'http://localhost:5000/api/createAdminAccount'
 const sellProductUrl = 'http://localhost:5000/api/sellProduct'
 const returnProductUrl = 'http://localhost:5000/api/returnProduct'
+const getOrderLocationUrl = 'http://localhost:5000/api/purchasedFrom'
 //admin signup
 export const admin_signup = (userName, email, password, accessKey)=>{
   return axios.post(adminSignupUrl , {
@@ -354,5 +355,12 @@ export const retruningProduct = (id, qty)=>{
   return axios.post(returnProductUrl , {
     id: id,
     qty: qty
+  })
+}
+
+//get recent order location for a specific user
+export const getOrderLocation = (userId) =>{
+  return axios.post(getOrderLocationUrl, {
+    id:userId
   })
 }

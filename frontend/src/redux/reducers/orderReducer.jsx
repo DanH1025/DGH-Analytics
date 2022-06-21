@@ -1,5 +1,29 @@
 import * as actionTypes from '../constants/orderConstant';
 
+
+
+export const getRecentOrdersReducer = (state= {recentOrders: []}, action)=>{
+    switch(action.type){
+        case actionTypes.GET_RECENT_ORDER_LOCATION:
+            return {
+                loading: true,
+                recentOrders: []
+            }
+        case actionTypes.GET_RECENT_ORDER_LOCATION_SUCCESS:
+            return {
+                loading: false,
+                recentOrders: action.payload
+            }
+        case actionTypes.GET_RECENT_ORDER_LOCATION_FAIL:
+            return{
+                loading: false,
+                error: action.payload
+            }
+        default: 
+            return state
+    }
+}
+
 export const getOrdersReducer = (state = {orders: [] }, action)=>{
   switch(action.type){
     case actionTypes.GET_ORDERS_REQUEST:
