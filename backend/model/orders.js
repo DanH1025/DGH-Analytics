@@ -58,6 +58,14 @@ module.exports = class Request {
       console.log(err);
     }
   }
+  static fetchCompleteById (id){
+    try{
+      const result =db.execute('SELECT orders.orderId, user.fname, user.lname, user.email, orders.total , orders.latitude, orders.longitude,orders.contact ,orders.no_Item, orders.status, orders.cost, orders.date, orders.address, orders.no_item FROM user INNER JOIN orders ON orders.userId = user.id WHERE orders.status = ? AND orders.userId = ? ORDER BY orders.date DESC', ["complete", id]);
+      return result;
+   }catch(err){
+     console.log(err);
+   }
+  }
 
   static fetchInprogress() {
     try{

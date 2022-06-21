@@ -22,10 +22,15 @@ import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
+import ReactMapGL , {Marker, Popup} from 'react-map-gl';
+import PersonPinCircleIcon from '@material-ui/icons/PersonPinCircle';
 
 import Chart from "react-apexcharts";
 
 import {InputLabel, MenuItem,Option, FormHelperText, FormControl, Select} from '@mui/material';
+
+import { getRecentOrderLocation } from '../../../redux/actions/orderActions';
+import { useDispatch, useSelector } from 'react-redux';
 
 //user analysis dialog box content
 const styles = (theme) => ({
@@ -79,7 +84,8 @@ function createData(name, calories, fat, carbs, protein) {
 }
 
 export default function UsersList() {
-
+  const dispatch = useDispatch()
+  
   const classes = useStyles();
   const [users ,setUsers] = useState([]);
   const [categoryValue, setCategoryValue] = useState('all');
@@ -166,6 +172,12 @@ export default function UsersList() {
         setCheckoutRate(resp.data)
      }
 
+     const getOrderLocation = (userId)=>{
+      // dispatching the redux to get the recent order loccation for user id specified
+      console.log("dispatching order location getter");
+        dispatch(getRecentOrderLocation(userId));        
+     }
+
      const getRecetentCart = async(userId)=>{
        const resp = await axios.post('http://localhost:5000/api/getRecentCartHistory',{userId:userId})
        console.log(resp);
@@ -197,8 +209,19 @@ export default function UsersList() {
 
      
     }
+    const [viewPort , setViewPort] = useState({
+      latitude:9.022875,
+      longitude: 38.752261,
+      zoom:12,
+      width: '100vw',
+      height: '100vh'
+    })
 
     const [dialogPage , setDialogPage] = useState(0)
+    const recentOrder = useSelector((state)=> state.recentOrderLoc)
+    const {loading, recentOrders , error} = recentOrder;
+
+ 
     
   return (
     <>
@@ -257,6 +280,7 @@ export default function UsersList() {
                       <TableRow key={val.id}  style={{cursor:'pointer'}} onClick={()=>{ 
                         setUserInfo({...userInfo, id:val.id ,fname:val.fname, lname:val.lname,email:val.email,phone_number:val.phone_number, signUpDate:val.signUpDate, status:val.status }); 
                         calcChechoutRate(val.id);
+                        getOrderLocation(val.id)
                         handleClickOpen();
 
                         }} > 
@@ -267,7 +291,7 @@ export default function UsersList() {
                     <TableCell align="right">{val.lname}</TableCell>
                     <TableCell align="right">{val.email === null? val.phone_number : val.email}</TableCell>
                     <TableCell align="right">{val.signUpDate}</TableCell>
-                    <TableCell align='center'>{ val.status === "active"? <p className='active_status'>{val.status}</p> : <p className="de-active_status">{val.status}</p>}</TableCell>
+                    <TableCell align='center'>{ val.status === "active"? <p className='active_status'></p> : <p className="de-active_status"></p>}</TableCell>
                   </TableRow>
                   </>
                 )
@@ -279,6 +303,7 @@ export default function UsersList() {
                       <TableRow key={val.id}  style={{cursor:'pointer'}} onClick={()=>{ 
                         setUserInfo({...userInfo, id:val.id ,fname:val.fname, lname:val.lname,email:val.email,phone_number:val.phone_number, signUpDate:val.signUpDate, status:val.status }); 
                         calcChechoutRate(val.id);
+                        getOrderLocation(val.id)
                         handleClickOpen();
                         
                         }} > 
@@ -290,7 +315,7 @@ export default function UsersList() {
                       <TableCell align="right">{val.visit}</TableCell>
                       <TableCell align="right">{((val.purchase/val.visit)*100).toFixed(2) + '%'}</TableCell>
                       <TableCell align="right">{val.signUpDate}</TableCell>
-                      <TableCell align='center'>{ val.status === "active"? <p className='active_status'>{val.status}</p> : <p className="de-active_status">{val.status}</p>}</TableCell>
+                      <TableCell align='center'>{ val.status === "active"? <p className='active_status'></p> : <p className="de-active_status"></p>}</TableCell>
                     </TableRow>
                     </>
                   )
@@ -325,7 +350,7 @@ export default function UsersList() {
                 <p>Checkout Status</p>
              </div>
              <div className="visitPage" onClick={()=> setDialogPage(1)}  style={dialogPage === 1? {backgroundColor: "#574c7f", color:'white'} : {}}   >
-               <p>Ordered From</p>
+               <p>Recent Order Locations</p>
              </div>
              <div className="recentPerchases" onClick={()=> setDialogPage(3)}  style={dialogPage === 3? {backgroundColor: "#574c7f", color:'white'} : {}} >
                 <p>Perchase Info</p>
@@ -358,7 +383,63 @@ export default function UsersList() {
 
                   ):
                 dialogPage === 1 ? (
-                  " visited From"
+                  <div className="visitedFromMapHolder">                  
+
+                          <ReactMapGL {...viewPort} 
+                            mapboxAccessToken= "pk.eyJ1IjoiZGFuaGdiIiwiYSI6ImNsMXVnNDIxbzAwMmYzcXBiMXB0ZWVjcWMifQ.nC63RhWneFhiZ4k4XJim9A"
+                            onMove={(viewPort)=> { setViewPort(viewPort)}}
+                            mapStyle="mapbox://styles/mapbox/streets-v11">
+                            {
+                              loading ? <p>Loading ...</p> : error ? <>{error}</>: (
+                                recentOrders.map(order=> order.staus === 'complete'?  (
+                                  <>
+                                    <Marker 
+                                      key={order.orderId}
+                                      latitude={order.latitude}
+                                      longitude={order.longitude}                               
+                                    >                           
+                          
+                                      <PersonPinCircleIcon style={{fontSize: 35 , color: 'rgb(0, 97, 158)' , fontWeight:"bold"}}
+                                          className='orderLocationIcon'                                       
+                                      />                            
+                                  
+                                  </Marker>
+                                </>
+                                ): '')
+                              )
+                            }
+
+                              {/* {orders.map((order) => order.status === 'complete' ?  (
+                                    <>
+                                  <Marker 
+                                    key={order.orderId}
+                                    latitude={order.latitude}
+                                    longitude={order.longitude}                               
+                                    >                           
+                          
+                                      <PersonPinCircleIcon style={{fontSize: 35 , color: 'rgb(0, 97, 158)' , fontWeight:"bold"}}
+                                          className='orderLocationIcon'
+                                          onClick={()=>{
+                                              console.log(selectedOrder);
+                                              setSelectedOrder(order)}                               
+                                          }
+                                      />                            
+                                  
+                                  </Marker>
+                                  </>
+                                  
+
+                                  
+                              ): ""
+                              )                      
+                              } */}
+
+                        
+
+                            
+                      
+                  </ReactMapGL> 
+                  </div>
                 ): (
                   "purchase histroy"
                 )
