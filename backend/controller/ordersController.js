@@ -141,13 +141,18 @@ const getRecentOrderLocations = async (req,res)=>{
         status: 201,
         message: "User Has no Recent Orders"
        })
-     }else {
+     }else {   
        res.send(data)
 
      }
   }
 
 
+}
+
+const getPendingOrderCount = async (req,res)=>{
+  const [data, metaData]= await OrderModle.fetchPendingCount();
+  res.json(data.length)
 }
 
 module.exports = {
@@ -162,5 +167,6 @@ module.exports = {
   changeStatusAccept,
   getOrdersbyDeliveryId,
   getCompleteOrders,
-  getRecentOrderLocations
+  getRecentOrderLocations,
+  getPendingOrderCount
 };

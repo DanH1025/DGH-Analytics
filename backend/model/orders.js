@@ -187,6 +187,14 @@ module.exports = class Request {
       console.log(err);
     }
   }
+  static fetchPendingCount (){
+    try {
+       const result = db.execute('SELECT * FROM orders WHERE status=?' , ['pending'])
+       return result;
+    } catch (error) {
+        console.log(error)
+    }
+  }
 
 
 }

@@ -288,52 +288,59 @@ export default function Profile({userName,email, role , signUpDate}) {
                 </div>
             </div>
 
-            <div className="addNewAdminHolder">
-                <Accordion>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel1a-content"
-                        id="panel1a-header"
-                        >
-                        <Typography className={classes.heading}>
-                            <h3>Add new Admin Account</h3>
-                        </Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                        <Typography>
-                        <p ref={errRef} className={addAccErr ? "loginErrMsg" : "login_offscreen"} aria-live="assertive">
-                            {addAccErr}</p>
-                            <div className="addAdminWrapper">
-                                <input type="text" placeholder='UserName' 
-                                        className='another_account_userName_input' value={newAccount.userName}
-                                        onChange={(e)=> setNewAccount({...newAccount , userName: e.target.value})}
-                                />
-                                <input type="email" placeholder='Email Address'
-                                        className='another_account_email_input' value={newAccount.email}
-                                        onChange={(e)=> setNewAccount({...newAccount , email: e.target.value})}
-                                
-                                />
-                                <input type="email" placeholder='Confirm Email'
-                                        className='another_account_confirm_email_input' value={newAccount.confirm_email}
-                                        onChange={(e)=> setNewAccount({...newAccount , confirm_email: e.target.value})}
+            {
+                userInfoState.role === 'admin' ? (
+                <div className="addNewAdminHolder">
+                        <Accordion>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel1a-content"
+                                id="panel1a-header"
+                                >
+                                <Typography className={classes.heading}>
+                                    <h3>Add new Admin Account</h3>
+                                </Typography>
+                                </AccordionSummary>
+                                <AccordionDetails>
+                                <Typography>
+                                <p ref={errRef} className={addAccErr ? "loginErrMsg" : "login_offscreen"} aria-live="assertive">
+                                    {addAccErr}</p>
+                                    <div className="addAdminWrapper">
+                                        <input type="text" placeholder='UserName' 
+                                                className='another_account_userName_input' value={newAccount.userName}
+                                                onChange={(e)=> setNewAccount({...newAccount , userName: e.target.value})}
+                                        />
+                                        <input type="email" placeholder='Email Address'
+                                                className='another_account_email_input' value={newAccount.email}
+                                                onChange={(e)=> setNewAccount({...newAccount , email: e.target.value})}
+                                        
+                                        />
+                                        <input type="email" placeholder='Confirm Email'
+                                                className='another_account_confirm_email_input' value={newAccount.confirm_email}
+                                                onChange={(e)=> setNewAccount({...newAccount , confirm_email: e.target.value})}
 
-                                />
-                                <input type="password"  placeholder='Password' 
-                                        className='another_account_password_input' value={newAccount.password}
-                                        onChange={(e)=> setNewAccount({...newAccount , password: e.target.value})}
-                                
-                                />
-                                <input type="password"  placeholder='Confirm password' 
-                                        className='another_account_confirm_password_input' value={newAccount.confirm_password}
-                                        onChange={(e)=> setNewAccount({...newAccount , confirm_password: e.target.value})}
-                                />
-                                <button className='addAnotherAccountBtn' onClick={handleAccountCreate}>Create Account</button>
-                            </div>
-                        </Typography>
+                                        />
+                                        <input type="password"  placeholder='Password' 
+                                                className='another_account_password_input' value={newAccount.password}
+                                                onChange={(e)=> setNewAccount({...newAccount , password: e.target.value})}
+                                        
+                                        />
+                                        <input type="password"  placeholder='Confirm password' 
+                                                className='another_account_confirm_password_input' value={newAccount.confirm_password}
+                                                onChange={(e)=> setNewAccount({...newAccount , confirm_password: e.target.value})}
+                                        />
+                                        <button className='addAnotherAccountBtn' onClick={handleAccountCreate}>Create Account</button>
+                                    </div>
+                                </Typography>
 
-                    </AccordionDetails>
-                </Accordion>
-            </div>
+                            </AccordionDetails>
+                        </Accordion>
+                    </div>
+                ):""
+            }
+
+
+            
 
                
             

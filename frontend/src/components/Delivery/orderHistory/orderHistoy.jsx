@@ -117,9 +117,9 @@ export default function OrderHistory() {
   };
 
   return (
-    <>
-      <main>  
-        <div>
+    <div className='orderHistoryWrapper'>
+     
+        <div className='orderHistorySelectHolder' >
           <Select
             value={selectedYear ?? " "}
             onChange={handleSelectChange}
@@ -192,8 +192,8 @@ export default function OrderHistory() {
           </TableContainer>
         
         </div>
-      </main>
-    </>
+    
+    </div>
     
   )
 }

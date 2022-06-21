@@ -16,9 +16,13 @@ body{
   font-weight: bold;
 }
 
-.orderTable_holder{
+.deliveryOrderTable{
   padding: 0;
   margin: 0;
-
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
   
 }
+
