@@ -274,26 +274,26 @@ export default function UsersList() {
               })
             :
               users.map((val,key)=>{
-                  return (
-                    <>
-                      <TableRow key={val.id}  style={{cursor:'pointer'}} onClick={()=>{ 
-                        setUserInfo({...userInfo, id:val.id ,fname:val.fname, lname:val.lname,email:val.email,phone_number:val.phone_number, signUpDate:val.signUpDate, status:val.status }); 
-                        calcChechoutRate(val.id);
-                        handleClickOpen();
-                        
-                        }} > 
-                      <TableCell component="th" scope="val">
-                        {val.id}
-                      </TableCell>
-                      <TableCell align="right">{val.fname}</TableCell>
-                      <TableCell align="right">{val.lname}</TableCell>
-                      <TableCell align="right">{val.visit}</TableCell>
-                      <TableCell align="right">{((val.purchase/val.visit)*100).toFixed(2) + '%'}</TableCell>
-                      <TableCell align="right">{val.signUpDate}</TableCell>
-                      <TableCell align='center'>{ val.status === "active"? <p className='active_status'>{val.status}</p> : <p className="de-active_status">{val.status}</p>}</TableCell>
-                    </TableRow>
-                    </>
-                  )
+                return (
+                  <>
+                    <TableRow key={val.id}  style={{cursor:'pointer'}} onClick={()=>{ 
+                      setUserInfo({...userInfo, id:val.id ,fname:val.fname, lname:val.lname,email:val.email,phone_number:val.phone_number, signUpDate:val.signUpDate, status:val.status }); 
+                      calcChechoutRate(val.id);
+                      handleClickOpen();
+                      
+                      }} > 
+                    <TableCell component="th" scope="val">
+                      {val.id}
+                    </TableCell>
+                    <TableCell align="right">{val.fname}</TableCell>
+                    <TableCell align="right">{val.lname}</TableCell>
+                    <TableCell align="right">{val.visit}</TableCell>
+                    <TableCell align="right">{((val.purchase/val.visit)*100).toFixed(2) + '%'}</TableCell>
+                    <TableCell align="right">{val.signUpDate}</TableCell>
+                    <TableCell align='center'>{ val.status === "active"? <p className='active_status'>{val.status}</p> : <p className="de-active_status">{val.status}</p>}</TableCell>
+                  </TableRow>
+                  </>
+                )
               })
           }
         </TableBody>

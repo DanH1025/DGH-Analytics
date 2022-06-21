@@ -164,6 +164,13 @@ export const fetchOrdersPending = () =>
   axios.post("http://localhost:5000/api/getPendingOrders");
 
 
+export const createCategory = (categoryName, categoryValue, categoryImg) => 
+  axios.post("http://localhost:5000/api/addCategory", {
+    categoryName: categoryName,
+    categoryValue: categoryValue,
+    categoryImg: categoryImg 
+  });
+
 export const createOrderDetails = (orderId, productId, price, productQuantity) => 
   axios.post(createOrderDetailsUrl, {
     orderId: orderId,
