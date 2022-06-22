@@ -22,6 +22,8 @@ import { useDispatch } from 'react-redux';
 
 import { adminSignUp } from '../../../redux/actions/loginAction';
 
+import { CircularProgress} from '@mui/material';
+
 import { useContext } from "react";
 // import AuthContext from "../context/AuthProvider";
 import { useCookies } from 'react-cookie';
@@ -31,12 +33,12 @@ export default function AdminLogin() {
 		const dispatch = useDispatch()
 		const { setAuth } = useContext(AuthContext);
 		const navigate = useNavigate();
-
+		const [loader, setLoader] = useState(false);
 		const [cookie, setCookie] = useCookies(['user']);
 
 		// for error mesaage
     const [errMsg, setErrMsg] = useState('');
-	const [warnInfo , setWarnInfo] = useState('')
+		const [warnInfo , setWarnInfo] = useState('')
 		const [successMsg , setSuccessMsg] = useState('');
     const userRef = useRef();
     const errRef = useRef();
@@ -70,7 +72,8 @@ export default function AdminLogin() {
     // } , [user, pwd])  
 
     const onFinish = async (values) =>{
-        //  console.log('Success:', values);    
+        //  console.log('Success:', values);
+			setLoader(true);   
 			const email = values.email_log;
 			const password = values.password_log;    
 			console.log(email+ password + "from admin login")     
@@ -86,11 +89,14 @@ export default function AdminLogin() {
 
 				console.log(response.data.status + "this is it")
 				if(response.data.status === 401){
+					setLoader(false);
 					setErrMsg(response.data.message)
 					console.log("im getting the error messgae  "+ errMsg)
 				}else if(response.data.status === 400){
+					setLoader(false);
 					setErrMsg(response.data.message)
 				}else if(response.status === 200){
+					setLoader(false);
 					setErrMsg('')
 					console.log(response);
 					console.log('admin');
@@ -109,8 +115,10 @@ export default function AdminLogin() {
 
 					setAuth({email, password, accessToken});
 					if(role === 'admin'){
+						setLoader(false);
 						navigate('/adminDash')
 					}else if(role === 'manager'){
+						setLoader(false);
 						if(status === 'pending'){
 							setWarnInfo("Account Has not been Activated, Please wait For Response")
 						}else if(status === 'Diactive'){
@@ -121,6 +129,7 @@ export default function AdminLogin() {
 						}
 
 					}else if(role === 'delivery'){
+						setLoader(false);
 						if(status === 'pending'){
 							setWarnInfo("Account Has not been Activated, Please wait For Response")
 						}else if(status === 'Diactive'){
@@ -129,16 +138,16 @@ export default function AdminLogin() {
 							navigate('/deliveryDashboard')
 							message.success("login Successful")
 						}
-
-
 					}
 					// navigate(from, { replace: true })
 				}else{
-					console.log('slave');
+					setLoader(false);
+					// console.log('product');
 					// navigate('/productManagerDashboard')
 					setErrMsg('Login Failed');
 				}
     	}catch (err) {
+				setLoader(false);
     	  console.log(err.response.status); 	 
           if (!err?.response) {
             setErrMsg('No Server Response');
@@ -189,9 +198,6 @@ export default function AdminLogin() {
 						message.success("SignUp Successful");
 					}
 				}
-
-				
-
 			} catch (err) {
 				console.log(err.response.status); 
 				if (!err?.response) {
@@ -216,21 +222,21 @@ export default function AdminLogin() {
 			<div className="adminLoginWrapper">
 				<div className="al_container">
 					<div className="al_container_wrapper">
-									<p ref={errRef} 
-									className={errMsg ? "errmsg" : "offscreen"} 
-									aria-live="assertive">
-                    					{errMsg}
-									</p>
-									<p ref={errRef} 
-									className={successMsg ? "successFul" : "offscreen"} 
-									aria-live="assertive">
-                    					{successMsg}
-									</p>
-									<p ref={errRef}
-										className={warnInfo? "warnInfo" : "offscreen"}
-										arial-live='assertive'>
-											{warnInfo}
-									</p>
+						<p ref={errRef} 
+						className={errMsg ? "errmsg" : "offscreen"} 
+						aria-live="assertive">
+												{errMsg}
+						</p>
+						<p ref={errRef} 
+						className={successMsg ? "successFul" : "offscreen"} 
+						aria-live="assertive">
+												{successMsg}
+						</p>
+						<p ref={errRef}
+							className={warnInfo? "warnInfo" : "offscreen"}
+							arial-live='assertive'>
+								{warnInfo}
+						</p>
 
 						{
 							signupOrLogin? (
@@ -378,7 +384,13 @@ export default function AdminLogin() {
 												</Button>
 											</Form.Item>
 										</Form>   
-									</div>                              
+									</div>   
+									<div>
+										{ loader ?
+											<CircularProgress />
+											:""
+										}
+									</div>                        
 										
 									<p onClick={()=> {setSignupOrLogin(true)
 														 setErrMsg('');
