@@ -126,9 +126,9 @@ export default function Orderlist() {
                         Fullname</TableCell>
                       <TableCell align="right">
                         LastName</TableCell> */}
-                      <TableCell align="right">
+                      <TableCell align="center">
                         Total</TableCell>
-                      <TableCell align="right">
+                      <TableCell align="center">
                         Status</TableCell>
                     </TableRow>
                   </TableHead>
@@ -167,7 +167,7 @@ export default function Orderlist() {
                     <TableRow>
                       <TableCell />
                       <TableCell>Id</TableCell>
-                      <TableCell align="right">
+                      <TableCell align="center">
                         Total</TableCell>
                       <TableCell align="right">
                         Status</TableCell>

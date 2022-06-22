@@ -108,11 +108,11 @@ export default function Row(props) {
         }
         
 
-        <TableCell align="right">{props.total} Birr</TableCell>
+        <TableCell align="center">{props.total} Birr</TableCell>
         
         { props.status === 'pending' ? (
-          <TableCell align="right">
-            <Button className='btn' onClick={handleCancelOrder} style={{border: '1px solid black'}}>Cancel</Button>
+          <TableCell align="center">
+            <Button  onClick={handleCancelOrder} style={{border: '1px solid black'}}>Cancel</Button>
           </TableCell>
         ): props.status === 'inProgress' ? (
             <TableCell align="right">

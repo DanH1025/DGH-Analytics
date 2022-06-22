@@ -4,6 +4,7 @@ import {useEffect, useState} from 'react';
 import { Routes, Route, BrowserRouter , Navigate } from 'react-router-dom'
 import Home from './pages/Client/Home/home';
 import About from './pages/Client/About/about'
+import Contact from './pages/Client/Contact/contact'
 import Cart from './pages/Client/Cart/cart';
 import Wishlist from './pages/Client/Wishlist/wishlist';
 import Orderlist from './pages/Client/Orderlist/orderlist';
@@ -27,6 +28,7 @@ import AdminLogin from './pages/Admin/AdminLogin/adminLogin'
 
 import RequireAuth from './components/Admin/RequireAuth';
 import UserAuth from './components/Admin/UserAuth'
+
 
 function App() {
     const [user, setUser] = useState(null)
@@ -78,6 +80,7 @@ function App() {
             <Route exact path='/search' element={<SearchResult />} />
             <Route exact path='/productDetails/:id' element={<ProductDetails />} />
             <Route exact path='/about' element={<About/>} />
+            <Route exact path={'/contactUs'} element={<Contact />} />
 
             <Route element={<UserAuth />}>
               <Route exact path='/checking' element={<Checkout />}/>

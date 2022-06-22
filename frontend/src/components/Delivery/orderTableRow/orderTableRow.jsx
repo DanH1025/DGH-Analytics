@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import './orderTableRow.css'
+import { message } from 'antd';
 
 import { Box, Collapse, IconButton, 
   Table, TableBody, TableCell, 
@@ -47,14 +48,17 @@ export default function Row(props) {
       const orderNo = await axios.post('http://127.0.0.1:5000/api/countOrderById', {id: cookies.ADid});
 
       console.log(orderNo.data.orderNo);
+     
 
       if(orderNo.data.orderNo < 1){
+        message.success("Order Accepted")
         const respond = await axios.post('http://localhost:5000/api/changeStatusAccept', {id: props.id, deliveryID: cookies.ADid});
         if(respond.status === 200){
-          window.location.reload(false);
+          window.location.reload(false);          
         }
+      
       }else{
-        console.log("Finish your order first");
+        message.warn("Order still in Progress")
       }
     }else{
       console.log('not logged in');
@@ -67,7 +71,8 @@ export default function Row(props) {
     //dispatch(changeOrderStatus(props.id, 'complete'))
     if(cookies?.ADid){
       const respond = await axios.post('http://localhost:5000/api/changeStatusComplete', {id: props.id, status: "complete"});
-      if(respond.status === 200){
+      message.success("Order Complete")
+       if(respond.status === 200){
         window.location.reload(false);
       }
     }else{
@@ -79,10 +84,12 @@ export default function Row(props) {
   const handleCancelOrder = async() => {
     console.log(props.id);
     //dispatch(changeOrderStatus(props.id, 'complete'))
+    message.success("Order Has Been Canceled")
     if(cookies?.ADid){
       const respond = await axios.post('http://localhost:5000/api/changeStatusComplete', {id: props.id, status: "pending"});
       if(respond.status === 200){
         window.location.reload(false);
+       
       }
     }else{
       console.log('not logged in');
