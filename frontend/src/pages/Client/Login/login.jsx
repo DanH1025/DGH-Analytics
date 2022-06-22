@@ -81,54 +81,74 @@ export default function Login(){
         // finishing up registeration
     const onFinish = async (values) => {
         console.log(values.FirstName)
+        setLoader(true)
         if(inputState.name === "phone_number"){
             const existNumber = await checkuser(values.phone_number);
             console.log('exsnum:' + existNumber);
-            if(!/^(?=.{4})[a-z]([_]?[a-z\d]+)*$/i.test(values.FirstName) || !/^(?=.{4})[a-z]([_]?[a-z\d]+)*$/i.test(values.LastName)){
+            if(!/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/i.test(values.FirstName) || !/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/i.test(values.LastName)){
             setSignUpErr("Invalid Name")
+            setLoader(false)
             }
             else if(values.password !== values.confirm_password){
             // message.error("Passwords dont match")
                 setSignUpErr("Passwords dont match")
+                setLoader(false)
             }
             else if(values.password.length < 6){
             //  message.error("Password must be more than 6 characters")
                 setSignUpErr("Password must be more than 6 characters");
                 console.log(signUpErr)
+                setLoader(false)
             }
             else if(existNumber){
             // message.error("Phone number already in use")
                 setSignUpErr("Phone number already in use")
                 console.log(signUpErr)
+                setLoader(false)
             }
             else if(values.phone_number.length !== 10){
             //  message.error("Invalid Phone Number")
             //setErrMsg("Invalid Phone Number")
             setSignUpErr("Invalid Phone Number")
             console.log(signUpErr)
+            setLoader(false)
             // setInputRule({...inputRule , Pmessage: "Invalid Phone Number"})
             }
             else{
                 dispatch(createUserByPhone(values.FirstName, values.LastName, values.phone_number, values.password));
                     setIsLogin(true)
                     message.success("SignUp successfull"); 
+                    setLoader(false)
             }
         }  else{
             const existEmail = await checkemail(values.email);
             console.log('exsnum:' + existEmail);
-            if(values.password !== values.confirm_password){
-                message.error("Passwords dont match")
+            if(!/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/i.test(values.FirstName) || !/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/i.test(values.LastName)){
+                setSignUpErr("Invalid Name")
+                setLoader(false)
+                }
+            else if(values.password !== values.confirm_password){
+                //message.error("Passwords dont match")
+                setSignUpErr("Passwords Dont Match")
+                setLoader(false)
             }
             else if(values.password.length < 6){
-                message.error("Password must be more than 6 characters")
+               // message.error("Password must be more than 6 characters")
+               setSignUpErr("Password must be more than 6 characters")
+                setLoader(false)
             }
             else if(existEmail){
-                message.error("Email already in use")
+              //  message.error("Email already in use")
+              setSignUpErr("Email already in use")
+                setLoader(false)
             }
             else{
                 dispatch(createUserByEmail(values.FirstName, values.LastName, values.email, values.password));
                     setIsLogin(true);
                     message.success("SignUp successfull"); 
+                    setErrMsg('')
+                    setSignUpErr('')
+                    setLoader(false)
             }
         } 
         };
@@ -175,6 +195,8 @@ export default function Login(){
                 
                 setCookie('access_token', response.data[0].accessToken, { path: '/',  expires})
                 setLoader(false);
+                setErrMsg('')
+                setSignUpErr('')
                 // console.log(cookies.uid);
                 // return ( <Navigate to='/' /> )
                 console.log(from);
@@ -183,18 +205,23 @@ export default function Login(){
                 setLoader(false);
                 console.log('login failed');
                 console.log(cookies.uid);
+                setLoader(false)
             }
         }catch (err) {
             setLoader(false);
             console.log(err);
             if (!err?.response) {
                 setErrMsg('No Server Response');
+                setLoader(false)
             } else if (err.response?.status === 400) {
                 setErrMsg('Missing Username');
+                setLoader(false)
             } else if (err.response?.status === 401) {
                 setErrMsg('Unauthorized');
+                setLoader(false)
             } else {
                 setErrMsg('Login Failed');
+                setLoader(false)
             }
         }
     };
@@ -382,6 +409,14 @@ export default function Login(){
                                     <p>SignUp </p>
                             </Button>
                             <br />
+                            <div className="signUpWithGoogle"  >
+                                    {/* <img onClick={google} src="https://img.icons8.com/color/344/google-logo.png"  width={40} height={40} /> */}
+                                    {/* <GooglePlusOutlined className="googleIcon" /> <span>Google</span> */}
+                                    { loader ?
+                                    <CircularProgress style={{color: "white"}} />:
+                                        ""
+                                    }
+                            </div>
                             <p className='goToRegister'  onClick={()=>setIsLogin(!isLogin)} >Or register Now!</p>
                             {/* Or <Link to='/login'>have account! Login here?</Link> */}
                         </Form.Item>

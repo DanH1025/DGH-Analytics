@@ -120,7 +120,7 @@ module.exports = class Request {
   }
 
   static updateProduct(id,name,price,brand,category,detail,image,count_in_stock,status){
-    return db.execute("UPDATE `product` SET `productName`= ? ,`productDetail`= ?,`productPrice`=?,`productCategory`=?,`productBrand`=?,`countInStock`=?  WHERE id=?" , [name,detail,price,category,brand,count_in_stock,id])
+    return db.execute("UPDATE product SET productName= ? , productDetail= ?,productPrice=?,productCategory=?,productBrand=?,countInStock=?, status=?  WHERE id=?" , [name,detail,price,category,brand,count_in_stock,status,id])
   }
 
   static findByName(name) {

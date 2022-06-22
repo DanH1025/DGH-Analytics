@@ -158,10 +158,10 @@ export default function OrderHistory() {
                 <TableRow>
                   <TableCell />
                   <TableCell>Order Id</TableCell>
-                  <TableCell align='right'>Date</TableCell>
+                  <TableCell align='center'>Date</TableCell>
                   <TableCell align="right">
                     Sub-Total</TableCell>
-                  <TableCell align="right">
+                  <TableCell align="center">
                     Location</TableCell>
                 </TableRow>
               </TableHead>

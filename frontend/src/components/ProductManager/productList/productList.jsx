@@ -124,6 +124,7 @@ export default function ProductList() {
 
   const showDrawer = () => {
     setVisible(!visible);
+    console.log("this is the status of the product " + editValues.status)
   };
 
   const onClose = () => {
@@ -138,7 +139,7 @@ export default function ProductList() {
     name: '',
     brand: '',
     price: '',
-    status:'',
+    status: 0,
     count_in_stock: '',
   })
   // state for product list search bar
@@ -158,10 +159,14 @@ export default function ProductList() {
     })
 
   }
+
+  console.log("this are the edit values " + {...editValues})
+
   const handleEditChanges = () =>{
     console.log("handling edit changes");
       dispatch(editProduct(editValues))
       setVisible(false);
+      window.location.reload(0)
 
       if(editValues.status === 0){
          message.warning("Product is still inactive");
@@ -284,7 +289,7 @@ export default function ProductList() {
       })
     })
   };
-
+  
   console.log(searchInput);
   return (
     <>
@@ -368,6 +373,14 @@ export default function ProductList() {
 
         <Col span={12}>
           <Form.Item
+            name="product_status"
+            label="Product Status"
+            rules={[{ required:true , message: "Please Give Status for Product"}]}
+          >
+            <Switch checked={editValues.status === 1 ? true : false} onChange={()=> editValues.status === 1 ? setEditValues({...editValues , status: 0}) : setEditValues({...editValues, status: 1}) }  />
+
+          </Form.Item>
+          <Form.Item
             name="product_name"
             label="Product Name"
             rules={[{ required: true, message: 'Please enter product Name' }]}
@@ -380,10 +393,12 @@ export default function ProductList() {
             label="Category"
             rules={[{ required: true, message: 'Please select a category' }]}
           >
-            <Select placeholder={editValues.category} value={editValues.category} onChange={(e)=> setEditValues({...editValues, category: e.target.value})}  >
+            <Input value={editValues.category} onChange={(e)=> setEditValues({...editValues, category: e.target.value})}  placeholder={editValues.category} />
+
+            {/* <Select placeholder={editValues.category} value={editValues.category} onChange={(e)=> setEditValues({...editValues, category: e.target.value})}  >
               <Option value="xiao">Television</Option>
               <Option value="mao">Smart-Phone</Option>
-            </Select>
+            </Select> */}
           </Form.Item>
 
 
@@ -392,10 +407,12 @@ export default function ProductList() {
             label="Brand"
             rules={[{ required: true, message: 'Please choose the brand' }]}
           >
-            <Select placeholder={editValues.brand}   value={editValues.brand} onChange={(e)=> setEditValues({...editValues, brand: e.target.value})}     >
+           <Input value={editValues.brand} onChange={(e)=> setEditValues({...editValues, brand: e.target.value})}  placeholder={editValues.brand} />
+
+            {/* <Select placeholder={editValues.brand}   value={editValues.brand} onChange={(e)=> setEditValues({...editValues, brand: e.target.value})}     >
               <Option value="private">Samsung</Option>
               <Option value="public">Apple</Option>
-            </Select>
+            </Select> */}
           </Form.Item>
 
 
