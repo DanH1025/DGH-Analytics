@@ -194,7 +194,6 @@ const getTotalOrder = async(req,res) => {
 
   const topProd = await OrderDetailModel.topProductByQuantityLIM10();
   console.log('top product');
-  // console.log(topProd[0]);
 
   const topProdByPrice = await OrderDetailModel.topProductByPriceLIM10();
 

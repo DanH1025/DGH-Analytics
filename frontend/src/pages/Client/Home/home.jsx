@@ -21,6 +21,8 @@ import { createUserLog } from '../../../redux/actions/userLogActions';
 // import { getProducts as listProducts } from '../../redux/actions/productActions'
 import { useCookies } from 'react-cookie';
 
+import { CircularProgress} from '@mui/material';
+
 import StarsSharpIcon from '@material-ui/icons/StarsSharp';
 
 export default function Home() {
@@ -131,11 +133,7 @@ export default function Home() {
  	  dispatch(getProducts());
     dispatch(getCagegory())
     dispatch(getFiveProducts())
-
-    
     console.log(sessionStorage.getItem('user'));
-    
-
  	}, [dispatch]);
 
 	const products = useSelector((state) => state.getProduct.products);
@@ -159,30 +157,30 @@ export default function Home() {
               <h2>All Categories</h2>
           </div>
           <div className="categoryCardList">
-              <div className="categoryCardListHolder">
-                <div className="categoryCardListContent">                  
-                    <div className="categoryCardContentWrapper">
-                      { !categories?.length ? <div></div> :
-                        (
-                          categories.map((val,key)=>{
-                            return(
-                              <CategoryCard
-                                key={val.id}
-                                title={val.ctgr_title}
-                                rating={val.ctgr_rating}
-                                image={val.ctgr_img}
-                                value={val.ctgr_value}
-                              
-                              />
-                            )
-                          })
+            <div className="categoryCardListHolder">
+              <div className="categoryCardListContent">
+                <div className="categoryCardContentWrapper">
+                  { !categories?.length ? <div></div> :
+                    (
+                      categories.map((val,key)=>{
+                        return(
+                          <CategoryCard
+                            key={val.id}
+                            title={val.ctgr_title}
+                            rating={val.ctgr_rating}
+                            image={val.ctgr_img}
+                            value={val.ctgr_value}
+                          
+                          />
                         )
+                      })
+                    )
 
-                      }                     
-                                         
-                    </div>
-                </div>                
-              </div>
+                  }                     
+                                      
+                </div>
+              </div>                
+            </div>
           </div>
           <div className="addsAndShow">
             <div className="addsAndShowContainer">
@@ -216,49 +214,38 @@ export default function Home() {
                                 )
                               })
                             }
-                        </div>
-                         
+                        </div> 
                       </div>
-                      
-
                 </div>
               </div>
             </div>
           </div>
 
-
-
-
-       
-         
        <div className='homeScreen_products'>
         
         <h3 productCardTitle>Our Products</h3>
-
+        {loading?<h3>Loading...</h3>:""}
         <div className="productHolder">
-            {
-              !products?.length ? <div></div> : (
-                products.map((val, key) => {
-                  // console.log(val);
-                  return (
-                    <div className='productListItems' >
-                    
-                      <ProductCard 
-                        key = {val.id}
-                        productId={val.id} // this id is not the product id should be the random generated number for the product id
-                        name={val.productName}
-                        price={val.productPrice}
-                        imageUrl={val.productImg}
-                        brand={val.productBrand} 
-                        rating={val.rating}
-                        />
-
-                    </div>
-                    
-                  )
-                }) 
-              )
-            }
+          {
+            !products?.length ? <div></div> : (
+              products.map((val, key) => {
+                // console.log(val);
+                return (
+                  <div className='productListItems' >         
+                    <ProductCard 
+                      key = {val.id}
+                      productId={val.id} // this id is not the product id should be the random generated number for the product id
+                      name={val.productName}
+                      price={val.productPrice}
+                      imageUrl={val.productImg}
+                      brand={val.productBrand} 
+                      rating={val.rating}
+                      />
+                  </div>
+                )
+              })
+            )
+          }
         </div>
       </div> 
        {/* <ContactUs /> */}
