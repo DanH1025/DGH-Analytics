@@ -185,7 +185,12 @@ const getTotalOrder = async(req,res) => {
   console.log(no_orders[0][0]["COUNT(status)"]);
   const orderNo = no_orders[0][0]["COUNT(status)"];
 
-  const ave = (total/orderNo).toFixed(2);
+  let ave = 0;
+  if(total === 0 || orderNo === 0){
+    ave = 0;
+  }else{
+    ave = (total/orderNo).toFixed(2);
+  }
 
   const topProd = await OrderDetailModel.topProductByQuantityLIM10();
   console.log('top product');
