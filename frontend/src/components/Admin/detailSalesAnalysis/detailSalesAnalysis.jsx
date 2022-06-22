@@ -210,10 +210,10 @@ export default function DetailSalesAnalysis({onMorePage}) {
         <Button onClick={() => {
           onMorePage(0);
         }}> <ArrowBack fontSize='large'/> </Button>
-        <h3>Average sales value over time</h3>
+        <h3>Total Sales & Total Orders value over time</h3>
       </div>
       <div className="cha">
-        <h3>Average order value</h3>
+        <h3>Total Sale & Total Orders value</h3>
         <Chart
           className="order_barChart"
           title='Orders'

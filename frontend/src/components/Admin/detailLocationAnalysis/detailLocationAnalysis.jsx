@@ -71,8 +71,8 @@ export default function DetailLocationAnalysis({onMorePage}) {
                   <TableCell>County</TableCell>
                   <TableCell align="right">
                   Region</TableCell>
-                  <TableCell align="right">Visitors</TableCell>
                   <TableCell align="right">City</TableCell>
+                  <TableCell align="right">Visitors</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -84,7 +84,7 @@ export default function DetailLocationAnalysis({onMorePage}) {
                       <TableRow 
                       sx={{ '& > *': { borderBottom: 'unset' } }}>
                         <TableCell component="th" scope="row">
-                          {val.city}</TableCell>
+                          Ethiopia</TableCell>
                         <TableCell align="right">
                           {val.city}</TableCell>
                         <TableCell align="right">
