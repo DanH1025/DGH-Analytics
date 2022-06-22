@@ -191,6 +191,19 @@ export const fetchOrdersById = (id) =>
   axios.post(fetchOrdersByIdUrl, {id: id});
 export const fetchOrdersByDeliveryId = (id) =>
   axios.post("http://127.0.0.1:5000/api/getOrdersbyDeliveryId", {id: id});
+export const fetchOrdersByDeliveryIdAndDate = (id, date) =>
+  axios.post("http://127.0.0.1:5000/api/getOrdersbyDeliveryIdAndDate", {
+    id: id,
+    date: date
+  });
+export const fetchCompleteOrdersByDate = (date) =>
+  axios.post("http://127.0.0.1:5000/api/getCompleteOrdersByDate", { date: date });
+
+export const fetchOrdersbyIdDate = (id, date) =>
+  axios.post("http://127.0.0.1:5000/api/getOrdersbyIdDate", {
+    id: id,
+    date: date
+  });
   
 export const createOrders = (date, userId, total, lat,lng ,contact, cost, no_item, address) => 
   axios.post(createOrdersUrl, {

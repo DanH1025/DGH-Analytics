@@ -46,6 +46,14 @@ const getCompleteOrders = async(req,res) => {
   res.send(order);
 }
 
+const getCompleteOrdersByDate = async(req,res) => {
+  const date = req.body.date;
+  const [order, metaData] = await OrderModle.fetchCompleteByDate(date);
+  // console.log(order);
+ // res.send(order.splice(0,4));
+  res.send(order);
+}
+
 const getPendingOrders = async(req,res) => {
   const [order, metaData] = await OrderModle.fetchOrdersPending();
   console.log(order);
@@ -66,9 +74,37 @@ const getOrdersbyId = async (req,res) => {
   }
 }
 
+const getOrdersbyIdDate = async (req,res) => {
+  const id = req.body.id;
+  const date = req.body.date;
+  const [order, metaData] = await OrderModle.fetchAllbyUserDate(id, date)
+  
+  // console.log(order);
+  try{
+    res.send(order);
+  }catch(e){
+    res.status(401).send(e)
+    console.log(e);
+  }
+}
+
 const getOrdersbyDeliveryId = async (req,res) => {
   const id = req.body.id;
   const [order, metaData] = await OrderModle.fetchOrdersCompleteByDeliveryId(id)
+  
+  // console.log(order);
+  try{
+    res.send(order);
+  }catch(e){
+    res.status(401).send(e)
+    console.log(e);
+  }
+}
+
+const getOrdersbyDeliveryIdAndDate = async (req,res) => {
+  const id = req.body.id;
+  const date = req.body.date;
+  const [order, metaData] = await OrderModle.fetchOrdersCompleteByDeliveryIdAndDate(id, date)
   
   // console.log(order);
   try{
@@ -168,5 +204,8 @@ module.exports = {
   getOrdersbyDeliveryId,
   getCompleteOrders,
   getRecentOrderLocations,
-  getPendingOrderCount
+  getPendingOrderCount,
+  getOrdersbyDeliveryIdAndDate,
+  getOrdersbyIdDate,
+  getCompleteOrdersByDate
 };

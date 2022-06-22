@@ -132,12 +132,75 @@ export const getOrdersById = (id) => async (dispatch)=>{
     }
 };
 
+export const getCompleteOrdersByDate = (date) => async (dispatch)=>{
+    try {
+        dispatch({
+            type: actionType.GET_ORDERS_BY_ID_REQUEST,
+        });
+        const {data} = await api.fetchCompleteOrdersByDate(date);
+        
+        dispatch({
+            type: actionType.GET_ORDERS_BY_ID_SUCCESS,
+            payload: data,
+        });
+    } catch (error) {
+        dispatch({
+            type:actionType.GET_ORDERS_BY_ID_FAIL,
+            payload: 
+                error.response && error.response.data.message 
+                ?error.response.data.message:error.message,
+        });
+    }
+};
+
+export const getOrdersByIdDate = (id, date) => async (dispatch)=>{
+    try {
+        dispatch({
+            type: actionType.GET_ORDERS_BY_ID_REQUEST,
+        });
+        const {data} = await api.fetchOrdersbyIdDate(id, date);
+        
+        dispatch({
+            type: actionType.GET_ORDERS_BY_ID_SUCCESS,
+            payload: data,
+        });
+    } catch (error) {
+        dispatch({
+            type:actionType.GET_ORDERS_BY_ID_FAIL,
+            payload: 
+                error.response && error.response.data.message 
+                ?error.response.data.message:error.message,
+        });
+    }
+};
+
 export const getOrdersByDeliveryId = (id) => async (dispatch)=>{
     try {
         dispatch({
             type: actionType.GET_ORDERS_BY_ID_REQUEST,
         });
         const {data} = await api.fetchOrdersByDeliveryId(id);
+        
+        dispatch({
+            type: actionType.GET_ORDERS_BY_ID_SUCCESS,
+            payload: data,
+        });
+    } catch (error) {
+        dispatch({
+            type:actionType.GET_ORDERS_BY_ID_FAIL,
+            payload: 
+                error.response && error.response.data.message 
+                ?error.response.data.message:error.message,
+        });
+    }
+};
+
+export const getOrdersByDeliveryIdAndDate = (id, date) => async (dispatch)=>{
+    try {
+        dispatch({
+            type: actionType.GET_ORDERS_BY_ID_REQUEST,
+        });
+        const {data} = await api.fetchOrdersByDeliveryIdAndDate(id, date);
         
         dispatch({
             type: actionType.GET_ORDERS_BY_ID_SUCCESS,

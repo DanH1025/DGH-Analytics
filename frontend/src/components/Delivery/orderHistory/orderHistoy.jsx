@@ -13,7 +13,7 @@ import Button from '@material-ui/core/Button';
 import Label from '@material-ui/core/InputLabel';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getOrdersInprogress, getOrdersPending, getOrdersByDeliveryId } from '../../../redux/actions/orderActions';
+import { getOrdersInprogress, getOrdersPending, getOrdersByDeliveryId, getOrdersByDeliveryIdAndDate } from '../../../redux/actions/orderActions';
 import { getOrderDetails } from '../../../redux/actions/orderDetailAction';
 import { changeOrderStatus } from '../../../redux/actions/orderActions'
 
@@ -30,6 +30,15 @@ import axios from 'axios';
 import {MenuItem, Select} from '@mui/material';
 import { useCookies } from 'react-cookie';
 import { useState } from 'react';
+
+import {Stack, TextField} from '@mui/material';
+
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
+
 
 function a11yProps(index) {
   return {
@@ -60,10 +69,7 @@ function TabPanel(props) {
 
 export default function OrderHistory() {
 
-  // const [orders , setOrders] = useState([]);
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = useState(0);
-  
   const [cookies, setCookie] = useCookies(['user']);
   const dispatch = useDispatch();
 
@@ -71,127 +77,93 @@ export default function OrderHistory() {
     dispatch(getOrdersByDeliveryId(cookies?.ADid));
   },[])
   
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-    if(newValue){
-      dispatch(getOrdersInprogress());
-    }else{
-      dispatch(getOrdersPending());
-    }
-  };
-
   const orders = useSelector((state) => state.getOrder.orders);
+  
+  const [displayedOrders , setDisplayedOrders] = useState(orders);
 
-  const  months = [
-    {id: 1, name: "January"}, 
-    {id: 2, name: "February"}, 
-    {id: 3, name: "March"}, 
-    {id: 4, name: "April"}, 
-    {id: 5, name: "May"}, 
-    {id: 6, name: "June"}, 
-    {id: 7, name: "July"}, 
-    {id: 8, name: "August"}, 
-    {id: 9, name: "September"}, 
-    {id: 10, name: "October"}, 
-    {id: 11, name: "November"}, 
-    {id: 12, name: "December"}
-  ];
-  const days = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29, 30];
-  
-  const years = [2022,2021,2020,2019,2018];
-  
-  const currentMonth = new Date().getMonth();
-  const currentYear = new Date().getFullYear();
-  const [selectedMonth, setSelectedOption] = useState(currentMonth);
-  const [selectedYear, setSelectedYear] = useState(currentYear);
-  
-  const handleSelectChange = (event) => {
-    setSelectedOption(event.target.value);
-    console.log(event.target.value);
-    // console.log(selectedOption + ':' + dateOption);
-    // if(dateOption === 'month'){
-    //   console.log('inside mnth: ' + event.target.value);
-    // }else if(dateOption === 'year'){
-    //   console.log('inside year: ' + event.target.value);
-    // }
+  const date = new Date();
+  const [value, setValue] = React.useState( date );
+
+  const handleChange = (newValue) => {
+    setValue(newValue);
+    const year = newValue.getFullYear();
+    let months = newValue.getMonth()+1;
+    let days = newValue.getDate();
+    if(String(days).length < 2){
+      days = '0' + days;
+    }
+    if(String(months).length < 2){
+      months = '0' + months;
+    }
+    const selectedDate = year+'-'+months+'-'+days;
+    dispatch(getOrdersByDeliveryIdAndDate(cookies?.ADid, selectedDate))
   };
+
+  const handleViewAll = () => {
+    dispatch(getOrdersByDeliveryId(cookies?.ADid));
+  }
+ 
+  useEffect(() => {
+    setDisplayedOrders(orders);
+  }, [handleChange])
 
   return (
     <div className='orderHistoryWrapper'>
-     
-        <div className='orderHistorySelectHolder' >
-          <Select
-            value={selectedYear ?? " "}
-            onChange={handleSelectChange}
-            // inputProps={{ 'aria-label': 'Without label' }
-            displayEmpty>
-              {years.map((item) => {
-                return(
-                  <MenuItem value={item}>{item}</MenuItem>
-              )}) }
-          </Select> 
-          <Select
-          value={selectedMonth ?? " "}
-          onChange={handleSelectChange}
-          displayEmpty>
-            {months.map((item) => {
-              return(
-                <MenuItem value={item.id}>{item.name}</MenuItem>
-            )})}
-          </ Select>
-          <Select
-            //value={selectedYear ?? " "}
-            //onChange={handleSelectChange}
-            // inputProps={{ 'aria-label': 'Without label' }
-            displayEmpty>
-              {days.map((item) => {
-                return(
-                  <MenuItem value={item}>{item}</MenuItem>
-              )}) }
-          </Select> 
+      <div>
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          {/* <Stack spacing={3}> */}
+            <MobileDatePicker
+              label="Date mobile"
+              inputFormat="MM/dd/yyyy"
+              value={value}
+              onChange={handleChange}
+              renderInput={(params) => <TextField {...params} />}
+            />
+            <Button onClick={handleViewAll}>View All Orders</Button>
+          {/* </Stack> */}
+        </LocalizationProvider>
+      </div>
 
-        </div>
-        <div className='orderTable_holder'>
-          <TableContainer component={Paper}>
-            <Table aria-label="collapsible table">
-              <TableHead >
-                <TableRow>
-                  <TableCell />
-                  <TableCell>Order Id</TableCell>
-                  <TableCell align='center'>Date</TableCell>
-                  <TableCell align="right">
-                    Sub-Total</TableCell>
-                  <TableCell align="center">
-                    Location</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-              {
-                !orders?.length ? <div>empty</div> : (
-                  orders.map((val, key) => {
-                    console.log(val);
-                    return (
-                      <TableRows 
-                        key = {val.orderId}   
-                        id = {val.orderId}
-                        date = {val.date}
-                        latitude = {val.latitude} 
-                        longitude = {val.longitude} 
-                        contact = {val.contact} 
-                        address = {val.address}
-                        total = {val.total}
-                        status = {val.status}
-                        admin = {true}
-                        />
-                    )
-                  }
-                ))
-              }
-              </TableBody>
-            </Table>
-          </TableContainer>
-        
-        </div>
+      <div className='orderTable_holder'>
+        <TableContainer component={Paper}>
+          <Table aria-label="collapsible table">
+            <TableHead >
+              <TableRow>
+                <TableCell />
+                <TableCell>Order Id</TableCell>
+                <TableCell align='right'>Date</TableCell>
+                <TableCell align="right">
+                  Sub-Total</TableCell>
+                <TableCell align="right">
+                  Location</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+            {
+              !displayedOrders?.length ? <div>No Orders</div> : (
+                displayedOrders.map((val, key) => {
+                  // console.log(val);
+                  return (
+                    <TableRows 
+                      key = {val.orderId}   
+                      id = {val.orderId}
+                      date = {val.date}
+                      latitude = {val.latitude} 
+                      longitude = {val.longitude} 
+                      contact = {val.contact} 
+                      address = {val.address}
+                      total = {val.total}
+                      status = {val.status}
+                      admin = {true}
+                      />
+                  )
+                }
+              ))
+            }
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
     
     </div>
     

@@ -118,7 +118,7 @@ export default function Order_list() {
                 </TableHead>
                 <TableBody>
                 {
-                  !orders?.length ? <div>empty</div> : (
+                  !orders?.length ? <div>No Orders</div> : (
                     orders.map((val, key) => {
                       console.log(val);
                       return (
