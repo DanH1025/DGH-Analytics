@@ -209,12 +209,12 @@ export default function PM_Dashboard() {
               {
                 loading? <p>Loading...</p> : error? <p>{error}</p>:
                 (
-                  <div className="profileInfoHolder">
-                  <div className='profileInfWrapper' >
-                       <div className="profileIconHolder"  onClick={()=>setCompCounter(1)}>
+                  <div className="Admin_profileInfoHolder">
+                  <div className='Admin_profileInfWrapper' >
+                       <div className="Admin_profileIconHolder"  onClick={()=>setCompCounter(1)}>
                           <AccountCircleIcon/>
                        </div>
-                       <div className="profileInfo">
+                       <div className="Admin_profileInfo">
                               <p>{user.user_name}</p>  
                               <span>{cookies.ADemail}</span> 
                        </div>
