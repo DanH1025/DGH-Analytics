@@ -308,7 +308,7 @@ export default function Login(){
                                 <br />
     
                                 <div className="signUpWithGoogle"  >
-                                        <img onClick={google} src="https://img.icons8.com/color/344/google-logo.png"  width={40} height={40} />
+                                        {/* <img onClick={google} src="https://img.icons8.com/color/344/google-logo.png"  width={40} height={40} /> */}
                                      {/* <GooglePlusOutlined className="googleIcon" /> <span>Google</span> */}
                                 </div>
                                     <p className='goToRegister'  onClick={()=>setIsLogin(!isLogin)} >Or register Now!</p>

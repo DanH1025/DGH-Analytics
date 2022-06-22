@@ -153,7 +153,7 @@ router.post('/saveAccessKey' , saveAccessKey);
 //activate admin user
 
 router.post('/activation' , activatePM)
-router.post('/diactivation', diactivatePM)
+router.post('/deactivation', diactivatePM)
 
 
 //submitting comment
@@ -177,8 +177,8 @@ router.post('/changeAdminPassword', changeAdminPassword)
 
 router.post('/createAdminAccount' , createAdminAccount)
 
-
-//selling products
+ 
+//selling products  
 router.post('/sellProduct' , sellProduct)
 // returning product
 router.post('/returnProduct' , returnProduct)
