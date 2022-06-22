@@ -161,7 +161,7 @@ export default function Home({onMorePage}) {
                     title='Total Sales'
                     middleTotal={ totalPrice + ' ETB'   }
                     dates={dates.reverse()}
-                    persent = {2}
+                    // persent = {}
                     chartData={prices.reverse()}
                     chartType="area"
                     index={7}
@@ -173,7 +173,7 @@ export default function Home({onMorePage}) {
                     title='Total Orders'
                     middleTotal={orderNo}
                     dates={days.reverse()}
-                    persent = {2}
+                    // persent = {2}
                     chartData={orders.reverse()}
                     chartType="area"
                     index={7}
@@ -184,7 +184,7 @@ export default function Home({onMorePage}) {
                   <Charts 
                     title='Averages'
                     middleTotal={average}
-                    persent = {2}
+                    // persent = {2}
                     dates={days.reverse()}
                     chartData={priceAverage.reverse()}
                     chartType="area"

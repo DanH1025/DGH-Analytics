@@ -46,7 +46,7 @@ export default function Charts({title,middleTotal ,dates, chartData,chartType,in
         
         <div className="numeric_Information">
           <p className="price">{middleTotal}</p>
-          <p className='rate'>{persent}%</p>
+          {/* <p className='rate'>{persent}%</p> */}
         </div>
         <Chart
           options={stat.options}
