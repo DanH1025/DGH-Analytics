@@ -14,7 +14,7 @@ import { Box, Collapse, IconButton,
 // import { getOrders } from '../../../redux/actions/orderActions';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getOrdersInprogress, getOrdersPending, getOrders, getOrdersComplete } from '../../../redux/actions/orderActions';
+import { getOrdersInprogress, getOrdersPending, getOrders, getOrdersComplete, getCompleteOrdersByDate } from '../../../redux/actions/orderActions';
 
 
 import AppBar from '@material-ui/core/AppBar';
@@ -27,6 +27,18 @@ import Row from '../../../components/ProductManager/orderRow/orderRow';
 import axios from 'axios';
 import { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+
+
+import {Stack, TextField} from '@mui/material';
+
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
+
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -55,12 +67,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
   },
 }));
-
-// TabPanel.propTypes = {
-//   children: PropTypes.node,
-//   index: PropTypes.any.isRequired,
-//   value: PropTypes.any.isRequired,
-// };
 
 function a11yProps(index) {
   return {
@@ -101,6 +107,29 @@ export default function Orders() {
 
   const orders = useSelector((state) => state.getOrder.orders);
 
+  const date = new Date();
+  const [dateValue, setDateValue] = React.useState( date );
+
+  const handleChangeDate = (newValue) => {
+    setDateValue(newValue);
+    const year = newValue.getFullYear();
+    let months = newValue.getMonth()+1;
+    let days = newValue.getDate();
+    if(String(days).length < 2){
+      days = '0' + days;
+    }
+    if(String(months).length < 2){
+      months = '0' + months;
+    }
+    const selectedDate = year+'-'+months+'-'+days;
+    console.log(selectedDate);
+    dispatch(getCompleteOrdersByDate(selectedDate))
+  };
+
+  const handleViewAll = () => {
+    dispatch(getOrdersComplete());
+  }
+
   return (
     <>
       
@@ -136,29 +165,28 @@ export default function Orders() {
                       <TableCell align="right">
                         Sub-Total</TableCell>
                       <TableCell align="right">Status</TableCell>
-                    
                     </TableRow>
                   </TableHead>
                   <TableBody>
                   {
-                      !orders?.length ? <div>empty</div> : (
-                        orders.map((val, key) => {
-                          console.log(val);
-                          return (
-                            <Row 
-                              key = {val.orderId}   
-                              id = {val.orderId}
-                              fname = {val.fname}
-                              lname = {val.lname}
-                              contact = {val.contact === null ? val.contact : null} 
-                              total = {val.total}
-                              date = {val.date}
-                              status = {val.status}
-                              admin = {true}
-                              />
-                            )
-                        }
-                      ))
+                    !orders?.length ? <div>No Orders</div> : (
+                      orders.map((val, key) => {
+                        console.log(val);
+                        return (
+                          <Row 
+                            key = {val.orderId}   
+                            id = {val.orderId}
+                            fname = {val.fname}
+                            lname = {val.lname}
+                            contact = {val.contact === null ? val.contact : null} 
+                            total = {val.total}
+                            date = {val.date}
+                            status = {val.status}
+                            admin = {true}
+                            />
+                          )
+                      }
+                    ))
                   }
                   </TableBody>
                 </Table>
@@ -206,7 +234,21 @@ export default function Orders() {
               </TableContainer>
 						</TabPanel>
 
-						<TabPanel value={value} index={2}>          
+						<TabPanel value={value} index={2}>  
+              <div>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  {/* <Stack spacing={3}> */}
+                    <MobileDatePicker
+                      label="Date mobile"
+                      inputFormat="MM/dd/yyyy"
+                      value={dateValue}
+                      onChange={handleChangeDate}
+                      renderInput={(params) => <TextField {...params} />}
+                    />
+                    <Button onClick={handleViewAll}>View All Orders</Button>
+                  {/* </Stack> */}
+                </LocalizationProvider>
+              </div>          
               <TableContainer component={Paper}>
                 <Table aria-label="collapsible table">
                   <TableHead >

@@ -58,6 +58,16 @@ module.exports = class Request {
       console.log(err);
     }
   }
+
+  static fetchCompleteByDate(date) {
+    try{
+       const result =db.execute('SELECT orders.orderId, user.fname, user.lname, user.email, orders.total , orders.latitude, orders.longitude,orders.contact ,orders.no_Item, orders.status, orders.cost, orders.date, orders.address, orders.no_item FROM user INNER JOIN orders ON orders.userId = user.id WHERE (orders.status = ? OR orders.status = ?) AND orders.date = ? ORDER BY orders.date DESC', ["complete", "cancel", date]);
+       return result;
+    }catch(err){
+      console.log(err);
+    }
+  }
+
   static fetchCompleteById (id){
     try{
       const result =db.execute('SELECT orders.orderId, user.fname, user.lname, user.email, orders.total , orders.latitude, orders.longitude,orders.contact ,orders.no_Item, orders.status, orders.cost, orders.date, orders.address, orders.no_item FROM user INNER JOIN orders ON orders.userId = user.id WHERE orders.status = ? AND orders.userId = ? ORDER BY orders.date DESC', ["complete", id]);
@@ -94,8 +104,21 @@ module.exports = class Request {
     }
   }
 
+  static fetchOrdersCompleteByDeliveryIdAndDate(id, date) {
+    try{
+       const result = db.execute('SELECT * FROM orders WHERE orders.status = "complete" AND orders.deliveryPerson = ? AND deliveredDate = ?  ORDER BY deliveredDate', [id, date]);
+       return result;
+    }catch(err){
+      console.log(err);
+    }
+  }
+
   static  fetchAllbyUser = (id) => {
-    return db.execute('SELECT orders.orderId, user.fname, user.lname, user.email, user.phone_number, orders.total, orders.date, orders.no_Item , orders.latitude,orders.longitude, orders.address, orders.contact , orders.status, orders.cost, orders.no_item FROM orders INNER JOIN user ON orders.userId = user.id WHERE user.id = ?', [id]);   
+    return db.execute('SELECT orders.orderId, user.fname, user.lname, user.email, user.phone_number, orders.total, orders.date, orders.no_Item , orders.latitude,orders.longitude, orders.address, orders.contact , orders.status, orders.cost, orders.no_item FROM orders INNER JOIN user ON orders.userId = user.id WHERE user.id = ? ORDER BY orders.date DESC LIMIT 20', [id]);   
+  }
+
+  static  fetchAllbyUserDate = (id, date) => {
+    return db.execute('SELECT orders.orderId, user.fname, user.lname, user.email, orders.total , orders.latitude, orders.longitude,orders.contact ,orders.no_Item, orders.status, orders.cost, orders.date, orders.address, orders.no_item FROM user INNER JOIN orders ON orders.userId = user.id WHERE orders.userId = ? AND orders.date = ? ORDER BY orders.date DESC', [id, date]);   
   }
 
   static totalSum(date) {

@@ -15,8 +15,8 @@ const {getUser, getAllUser, addUserByPhone , getAdminUser, verifyAdmin,
 
 
 const {addOrder, getOrders, getInprogressOrders, getOrdersbyId, changeStatus,
-   getPendingOrders, changeStatusAccept, changeStatusComplete, getOrdersbyDeliveryId,
-    getCompleteOrders, countOrderById, getRecentOrderLocations, getPendingOrderCount} =  require('../controller/ordersController')
+getPendingOrders, changeStatusAccept, changeStatusComplete, getOrdersbyDeliveryId,
+getCompleteOrders, countOrderById, getRecentOrderLocations, getPendingOrderCount,getOrdersbyIdDate, getCompleteOrdersByDate, getOrdersbyDeliveryIdAndDate} =  require('../controller/ordersController')
 
 
 const { addOrderDetail, getOrderDetails, getTopProductByQuan, 
@@ -123,7 +123,10 @@ router.post('/getInprogressOrders', getInprogressOrders);
 router.post('/getPendingOrders', getPendingOrders);
 router.post('/getCompleteOrders', getCompleteOrders);
 router.post('/getOrdersbyDeliveryId', getOrdersbyDeliveryId);
+router.post('/getOrdersbyDeliveryIdAndDate', getOrdersbyDeliveryIdAndDate);
 router.post('/getOrdersById', getOrdersbyId);
+router.post('/getCompleteOrdersByDate', getCompleteOrdersByDate);
+router.post('/getOrdersbyIdDate', getOrdersbyIdDate);
 router.post('/countOrderById', countOrderById);
 router.post('/changeStatus', changeStatus);
 router.post('/changeStatusComplete', changeStatusComplete);
