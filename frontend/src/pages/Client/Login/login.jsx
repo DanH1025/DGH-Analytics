@@ -292,7 +292,7 @@ export default function Login(){
                                     {/* <img onClick={google} src="https://img.icons8.com/color/344/google-logo.png"  width={40} height={40} /> */}
                                     {/* <GooglePlusOutlined className="googleIcon" /> <span>Google</span> */}
                                     { loader ?
-                                    <CircularProgress />:
+                                    <CircularProgress style={{color: "white"}} />:
                                         ""
                                     }
                             </div>

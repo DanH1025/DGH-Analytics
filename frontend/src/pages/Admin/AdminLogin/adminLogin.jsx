@@ -387,7 +387,7 @@ export default function AdminLogin() {
 									</div>   
 									<div>
 										{ loader ?
-											<CircularProgress />
+											<CircularProgress style={{color: "white"}} />
 											:""
 										}
 									</div>                        
