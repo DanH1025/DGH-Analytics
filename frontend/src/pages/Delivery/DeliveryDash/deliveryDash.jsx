@@ -161,12 +161,6 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-
-
-
-
-
-
 export default function Delivery_Dashboard() {
   const dispatch = useDispatch();
     const [cookies, setCookie, removeCookie] = useCookies(['user']);
