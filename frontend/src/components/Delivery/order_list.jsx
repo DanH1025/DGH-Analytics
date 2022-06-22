@@ -107,7 +107,7 @@ export default function Order_list() {
                     <TableCell>Date</TableCell>
                     <TableCell align="right">
                       Sub-Total</TableCell>
-                    <TableCell align="right">
+                    <TableCell align="center">
                       Location</TableCell>
                     <TableCell align="center">Status</TableCell>
                   </TableRow>

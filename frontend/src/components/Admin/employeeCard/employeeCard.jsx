@@ -43,7 +43,7 @@ export default function EmployeeCard({key, user_name, email, accessKey, status, 
 
   const handleActivation = async() =>{
     window.alert("Are you sure you want to Activate User");
-    if(empInfo.Status === 'Diactive' || empInfo.Status === "pending"){
+    if(empInfo.Status === 'Deactive' || empInfo.Status === "pending"){
       setEmpInfo({...empInfo, Status: "Active"})
       const response = await axios.post('http://localhost:5000/api/activation', {
         email: email
@@ -70,23 +70,23 @@ export default function EmployeeCard({key, user_name, email, accessKey, status, 
   const handleDiactivation = async()=>{
     window.alert("Are you sure you want to Diactivate User");
     if(empInfo.Status === 'Active'){
-        setEmpInfo({...empInfo , Status: "Diactive"})
+        setEmpInfo({...empInfo , Status: "Deactive"})
 
-        const response = await axios.post('http://localhost:5000/api/diactivation',{
+        const response = await axios.post('http://localhost:5000/api/deactivation',{
           email:email
         })
         console.log(response.data.message);
     
         if(response.data.isSuccess){
-          message.success("User Has Been Diactivated");
+          message.success("User Has Been Deactivated");
           setOpen(false);
         }else{
-          message.error("User Diactivation Has Failed");
+          message.error("User Deactivation Has Failed");
           setOpen(false)
         }
     }else{
       setOpen(false);
-      message.error("User Is Already Diactive")
+      message.error("User Is Already Deactive")
     }
 
     
@@ -140,7 +140,7 @@ export default function EmployeeCard({key, user_name, email, accessKey, status, 
           {
             empInfo.Status === 'Active'? 
             <Button onClick={handleDiactivation} color="primary">
-              Diactivate
+              Deactivate
             </Button>  :
             empInfo.status === 'pending' ?
             <Button onClick={handleActivation} color="primary">

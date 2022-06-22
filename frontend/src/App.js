@@ -77,6 +77,7 @@ function App() {
             <Route exact path='/orderlist' element={<Orderlist />} />
             <Route exact path='/search' element={<SearchResult />} />
             <Route exact path='/productDetails/:id' element={<ProductDetails />} />
+            <Route exact path='/about' element={<About/>} />
 
             <Route element={<UserAuth />}>
               <Route exact path='/checking' element={<Checkout />}/>
