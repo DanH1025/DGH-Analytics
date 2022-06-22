@@ -9,9 +9,19 @@ import { message, Upload } from 'antd';
 
 import { Input,Button } from 'antd';
 
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import {ArrowBack} from '@material-ui/icons';
 import { Divider,  Typography, Space } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { Checkbox } from 'antd';
+
+import { makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
+import Dialog from '@material-ui/core/Dialog';
+import MuiDialogTitle from '@material-ui/core/DialogTitle';
+import MuiDialogContent from '@material-ui/core/DialogContent';
+import MuiDialogActions from '@material-ui/core/DialogActions';
 
 import {MenuItem, Select} from '@mui/material';
 
@@ -25,17 +35,55 @@ import { projectStorage, projectFirestore, timestamp } from '../firebase/config'
 
 import { useDispatch, useSelector } from 'react-redux';
 import { createProduct } from '../../../redux/actions/productActions';
-import { getCagegory } from '../../../redux/actions/categoryActions';
+import { getCagegory, createCategory } from '../../../redux/actions/categoryActions';
 
-import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
+// import {CircularProgress, CircularProgressWithLabel} from '@mui/material';
+import {LinearProgress} from '@mui/material';
+import {Box} from '@mui/material'
 
-// const { Option } = Select;
+const styles = (theme) => ({
+  root: {
+    margin: 0,
+    padding: theme.spacing(2),
+  },
+  closeButton: {
+    position: 'absolute',
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+    color: theme.palette.grey[500],
+  },
+});
 
-// https://i5.walmartimages.com/asr/076705ce-1368-4a07-98ce-91fe3589f24b.50ad01b1b2a6404a1a041160d0ad031d.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF
-// https://m.media-amazon.com/images/I/81mFSlcmWqL._AC_UY500_.jpg
+const DialogTitle = withStyles(styles)((props) => {
+  const { children, classes, onClose, ...other } = props;
+  return (
+    <MuiDialogTitle disableTypography className={classes.root} {...other}>
+      <Typography variant="h6">{children}</Typography>
+      {onClose ? (
+        <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
+          <CloseIcon />
+        </IconButton>
+      ) : null}
+    </MuiDialogTitle>
+  );
+});
 
-export default function AddProduct() {
+const DialogContent = withStyles((theme) => ({
+  root: {
+    padding: theme.spacing(2),
+  },
+}))(MuiDialogContent);
+
+
+const useStyles = makeStyles({
+  table: {
+    minWidth: 300,
+  },
+});
+
+export default function AddProduct({onMorePage}) {
     
+	const classes = useStyles();
 	const [fileList, setFileList] = useState([1]);
 	const dispatch = useDispatch();
 	const [productData, setProductData] = useState({
@@ -48,20 +96,39 @@ export default function AddProduct() {
 			amount: '',
 			productDetail: ""
 	})
+	const [categoryData, setCategoryData] = useState({
+			categoryName: "",
+			categoryValue: "",
+			categoryImg: "",
+	})
 	
 	useEffect(() => {
 		dispatch(getCagegory());
 	}, [])
 
+	// for the dialog box
+	const [open, setOpen] = React.useState(false);
+
+	const handleClickOpen = () => {
+    // setUserInfo({...userInfo , fname: fname})
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+	const [dialogPage , setDialogPage] = useState(0)
+
 	const categories = useSelector((state) => state.getCategory.categories);
-	console.log(categories);
+	//console.log(categories);
 
 	const [imgPreview, setImgPreview] = useState('https://img.icons8.com/color/344/gallery.png');
+	const [imgCatPreview, setImgCatPreview] = useState('https://img.icons8.com/color/344/gallery.png');
 
-	const onChange = async(e) => {
+	const [progress, setProgress] = useState(0);
 
-		// setFileList(newFileList);
-		// const {url} = UseStorage(newFileList[0]);
+	const onCategoryImgChange = async(e) => {
+
 		const file = e.target.files[0];
 		console.log(file);
 		 let url;
@@ -90,22 +157,59 @@ export default function AddProduct() {
 		const storageRef = projectStorage.ref(`imageProduct/${file.name}`);
     const collectionRef = projectFirestore.collection('images');
     
-    storageRef.put(file).on('state_changed', null, 
-		(err) => {
+    storageRef.put(file).on('state_changed', (snapshot)=> {
+			const prog = Math.round(
+				(snapshot.bytesTransferred / snapshot.totalBytes) * 100
+			)
+			console.log(prog);
+			setProgress(prog);
+		},(err) => {
       console.log(err);
     }, async () => {
       url = await storageRef.getDownloadURL();
-	  setImgPreview(url);
-      const createdAt = timestamp();
-      await collectionRef.add({ url, createdAt });
-      console.log(url);
-			setProductData({
-				...productData, 
-				productImg: url
-				}
+
+			setImgCatPreview(url);
+				const createdAt = timestamp();
+				await collectionRef.add({ url, createdAt });
+				console.log(url);
+				setCategoryData({
+					...categoryData, 
+					categoryImg: url
+					}
+				)
+			});
+		console.log('url: ' + url);
+	};
+
+	const onChange = async(e) => {
+		const file = e.target.files[0];
+		console.log(file);
+		let url;
+		if (!file) return;
+
+		const storageRef = projectStorage.ref(`imageProduct/${file.name}`);
+    const collectionRef = projectFirestore.collection('images');
+    
+    storageRef.put(file).on('state_changed', (snapshot)=> {
+			const prog = Math.round(
+				(snapshot.bytesTransferred / snapshot.totalBytes) * 100
 			)
-    });
-	
+			console.log(prog);
+			setProgress(prog);
+		}, (err) => {
+      console.log(err);
+    }, async () => {
+      url = await storageRef.getDownloadURL();
+			setImgPreview(url);
+				const createdAt = timestamp();
+				await collectionRef.add({ url, createdAt });
+				console.log(url);
+				setProductData({
+					...productData, 
+					productImg: url
+					}
+				)
+			});
 		console.log('url: ' + url);
 	};
   
@@ -204,10 +308,6 @@ export default function AddProduct() {
 				window.location.reload(true)
 				message.success("New Product Created")
 			}
-			
-
-
-
 
 		// if(fileList?.length){
 		// 	console.log(productData);
@@ -229,16 +329,44 @@ export default function AddProduct() {
 		// }
 	}
 
+	const handleAddCategory = () => {
+		// console.log(categoryData);
+		if(categoryData.categoryName === ''){
+			message.error("Category Name is missing")
+		}else if(categoryData.categoryImg === ''){
+			message.error("Category Image is missing")
+		}else if(categoryData.categoryValue === ''){
+			message.error("Category value is missing")
+		}else if(! /(?=.*[A-Za-z]).{2,}/.test(categoryData.categoryName)){
+			message.error("Invalid Category Name")
+		}else if(! /(?=.*[A-Za-z]).{2,}/.test(categoryData.categoryValue)){
+			message.error("Invalid Category Brand")
+		}else if(fileList?.length){
+			console.log("this is the product data so far")
+			console.log(categoryData)
+			dispatch(createCategory(categoryData.categoryName, categoryData.categoryValue, categoryData.categoryImg))
+			handleClose();
+			// categoryData.location.reload(true)
+			message.success("New Category Created")
+		}
+	}
+
   return (
     <div className='add_product'>
 		<div className="add_product_wrapper">
 			<div className="information">
 				<div className="form_side">
 					<div className="form_wrapper">
+				<div className="tops">
+      	  <Button onClick={() => {
+      	    onMorePage(0);
+      	  }}> <ArrowBack fontSize='large'/> </Button>
+      	  <h3>Add Product</h3>
+      	</div>
 
 						<div className="aboutProduct_holder">
 							<div className="aboutProduct_container">
-								<p>Name </p>
+								<p className='title'>Name </p>
 								<input 
 									className='product_name_input' 
 									type='text' 
@@ -253,7 +381,7 @@ export default function AddProduct() {
 								  }} />
 							</div>
 							<div className="aboutProduct_container">
-								<p>Description</p>
+								<p className='title'>Description</p>
 								<textarea 
 									className='product_detail_input' 
 									placeholder='Product Description' 
@@ -271,25 +399,24 @@ export default function AddProduct() {
 						</div>
 
 						<div className="productPricing_holder">
-							<h3>Pricing</h3>
-							<div className="productPricing_container">
-								<p>Price </p>
-								<input type="number"
-									min={0}
-									className='product_price'
-									placeholder='Price'
-									value={productData.productPrice}
-									onChange = {(e) => {
-										setProductData({
-											...productData, 
-												productPrice: e.target.value
-											}
-										)
-								  }} />
-							</div>
 							<div className="productPricingCalculator_holder">
-								<div className="productPricingCalculator_container">
-								    <p>Cost per items </p>
+								<div className="productPricing_container">
+									<p className='title'>Price </p>
+									<input type="number"
+										min={0}
+										className='product_price'
+										placeholder='Price'
+										value={productData.productPrice}
+										onChange = {(e) => {
+											setProductData({
+												...productData, 
+													productPrice: e.target.value
+												}
+											)
+										}} />
+								</div>
+								<div className="productPricing_container">
+								  <p className='title'>Cost per items </p>
 									<input type="number"
 										min={0}
 										className='product_price'
@@ -302,21 +429,20 @@ export default function AddProduct() {
 											)
 										}}/>
 								</div>
-								<div className="productPricingCalculator_container">
-									<p>Margin</p> 
+								<div className="productPricing_container">
+									<p className='title'>Margin</p> 
 									<span>{productData.productPrice === 0 || productData.productPrice === 0 || productData.productPrice === '' ? 0:  ((productData.productCostPrice / productData.productPrice)*100).toFixed(2) > 100? 'Unbalanced':((productData.productCostPrice / productData.productPrice)*100).toFixed(2)} %</span>
 								</div>
-								<div className="productPricingCalculator_container">
-									<p>Profit</p> 
+								<div className="productPricing_container">
+									<p className='title'>Profit</p> 
 									<span>{   (productData.productPrice - productData.productCostPrice) < 0 ? 'Unbalanced' : (productData.productPrice - productData.productCostPrice)} ETB</span>
 								</div>
 							</div>
 						</div>
 						
 						<div className="productInventory_holder">
-							<h3>Inventory</h3>
 							<div className="productInventory_container">
-							  <p>Stock Keeping Unit</p>
+							  <p className='title'>Stock Keeping Unit</p>
 								<input type="number"
 										min={0}
 										className='product_price'
@@ -336,42 +462,34 @@ export default function AddProduct() {
 						
 						<div className="productBrand_holder">
 							<div className="productBrand_container">
-								<p>Category</p> 
-								{/* <input type="text" 
-									className='product_chategory'
-									placeholder='Chategory'
-									value={productData.productCategory}
-									onChange = {(e) => {
-										setProductData({
-											...productData, 
-												productCategory: e.target.value
-											}
-										)
-								  }} /> */}
-								
-								<Select
-									value={productData.productCategory}
-									onChange={(e) => {
-														setProductData({
-															...productData, 
-																productCategory: e.target.value
-															} ) 
-													}}
-								// defaultValue={categories[0].ctgr_title}
-									label="Category"
-									labelId="demo-simple-select-label"
-									// inputProps={{ 'aria-label': 'Without label' }}
-													>
-									{categories?.map((item) => {
-										return(
-										<MenuItem value={item.ctgr_value}>{item.ctgr_title}</MenuItem>
-									)}) }
-								</Select> 
+								<p className='title'>Category</p> 
+								<div className='select'>
+									<Select
+										value={productData.productCategory}
+										onChange={(e) => {
+															setProductData({
+																...productData, 
+																	productCategory: e.target.value
+																} ) 
+														}}
+									// defaultValue={categories[0].ctgr_title}
+										label="Category"
+										labelId="demo-simple-select-label"
+										// inputProps={{ 'aria-label': 'Without label' }}
+														>
+										{categories?.map((item) => {
+											return(
+											<MenuItem value={item.ctgr_value}>{item.ctgr_title}</MenuItem>
+										)}) }
+									</Select> 
 
+									<Button style={{margin: '10px 20px'}} className='selectButton'
+									onClick={handleClickOpen}>Add Category</Button>
+								</div>
 							</div>
 
 							<div className="productBrand_container">
-								<h3>Brand</h3> 
+								<h3 className='title'>Brand</h3> 
 								<input type="text" 
 										className='product_brand'
 										placeholder='Brand'
@@ -391,14 +509,16 @@ export default function AddProduct() {
 							</div>
 							<div className="productMedia_container">
 								<input type="file" onChange={onChange} />
+							
+								<Box sx={{ width: '100%' }}>
+    						  <LinearProgress variant="determinate" value={progress} />
+    						</Box>
+							
+								{progress} %
 							<div className="productMediaImage_container">
-								<div className="imagePreviewHolder">								
-
+								<div className="imagePreviewHolder">
 									  <img  src={imgPreview} alt={productData.productName}  />
-								
-
 								</div>
-
 							</div>
 						</div>
 
@@ -409,12 +529,79 @@ export default function AddProduct() {
 
 					</div>
 				</div>
-
-			
 			</div>
-
-			
 		</div>
+
+		<div>
+      <Dialog  onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
+        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
+					<div className="dialog_userInfoHolder">
+						<h2>Categories</h2>
+					</div>
+        </DialogTitle>
+
+				<DialogContent>
+					<div className="dialog_category">
+						<div className="dialog_category_wraper">
+							<div>
+								<h3 className='title'>Title</h3> 
+								<input type="text" name="category" id="category" placeholder='Title' 
+								value={categoryData.categoryName}
+								onChange = {(e) => {
+									setCategoryData({
+										...categoryData, 
+											categoryName: e.target.value
+										}
+									)
+								}}
+								/>
+							</div>
+							<div className="">
+								<h3 className='title'>Value</h3> 
+								<input type="text" 
+									className='product_brand'
+									placeholder='value'
+									value={categoryData.categoryValue}
+									onChange = {(e) => {
+										setCategoryData({
+											...categoryData, 
+												categoryValue: e.target.value
+											}
+										)
+									}}
+									/>
+							</div>
+							<div className="productMedia_holder">
+								<h3>Media</h3>
+							</div>
+								<div className="productMedia_container">
+									<input type="file" onChange={onCategoryImgChange} />
+								<Box sx={{ width: '100%' }}>
+    						  <LinearProgress variant="determinate" value={progress} />
+    						</Box>
+									
+								<div className="productMediaImage_container">
+									<div className="imagePreviewHolder">
+										<img  src={imgCatPreview} alt={categoryData.productName}  />
+									</div>
+								</div>
+							</div>
+							<Button onClick={handleAddCategory}>Add Category</Button>
+							{/* <ul>
+								{
+									categories?.map((category, index) => {
+										return(
+											<li>{category.ctgr_title}</li>
+										)
+									})
+								}
+							</ul> */}
+						</div>
+					</div>
+				</DialogContent>
+      </Dialog>
+    </div>
+
     </div>
   )
 }

@@ -32,7 +32,7 @@ const { getOrderLogs, addOrderLog ,getUserLogs, getUserLogInHour, getDeviceType,
 const {loginWithPhone , adminRegister } = 
   require('../controller/loginController')
 
-const {getAllCategories} = require('../controller/categoryController')
+const {getAllCategories, addCategory} = require('../controller/categoryController')
 
 const {getNewProductManager , accessKeyGenerator , saveAccessKey, activatePM, diactivatePM} = require('../controller/productManagerController')
 const {calcCheckoutRate,getRecentCart} = require('../controller/calcController');
@@ -82,6 +82,7 @@ router.post('/getMonthDayOrderReport', getMonthOrderReports)
 
 //get all the categories from db
 router.get('/getAllCategories', getAllCategories)
+router.post('/addCategory', addCategory)
 
 // product routes 
 router.post('/addToStock' , addProduct); 

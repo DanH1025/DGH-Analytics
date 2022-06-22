@@ -12,7 +12,9 @@ export default function OrderMap(){
     const Order = useSelector(state => state.getOrder);
     const {orders} = Order;
     console.log(orders.length + "this is teh number of orders there is")
-    console.log(orders + " this are the orders")
+
+    // console.log(orders + " this are the orders")
+
     // var pending = 0
     // orders.map((order)=>{
     //         order.status === 'inProgress' ? (pending = pending + 1) : ''

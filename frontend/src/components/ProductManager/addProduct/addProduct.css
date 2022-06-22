@@ -1,6 +1,12 @@
 body{
     padding: 0;
     margin: 0;
+    font-family: sans-serif;
+}
+
+.form_wrapper .title{
+    font-weight: bold;
+    font-size: 13px;
 }
 
 .add_product{
@@ -78,8 +84,17 @@ body{
     font-size: 12px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-weight: lighter;
+}
 
-
+.dialog_category input{
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.111);
+    border-radius: 2px;
+    padding: 6px;
+    margin-top: 5px;
+    font-size: 12px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: lighter;
 }
 
 .product_detail_input{
@@ -222,12 +237,30 @@ body{
     
 }
 
+.productPricingCalculator_holder,
+.productMedia_holder,
+.productBrand_holder{
+    background-color: white;
+    padding: 1rem;
+    margin: 10px 0;
+}
+
+.productPricingCalculator_container{
+    padding: 1rem;
+}
+
+.productPricingCalculator_holder{
+    padding: 1rem;
+}
+
 .aboutProduct_container,
+.productInventory_holder,
 .productPricing_container{
     display: flex;
     flex-direction: column;
-    
-    
+    background-color: white;
+    padding: 1rem;
+    margin: 10px 0;
 }
 
 .aboutProduct_container p,
@@ -269,6 +302,13 @@ body{
     width: 50%;
     float: left;
     padding-right: 1rem;
+}
+
+.productBrand_container .select{
+    display: flex;
+}
+.productBrand_container .select .selectButton{
+    padding: 0 10px;
 }
 
 .productPricingCalculator_holder{
@@ -345,4 +385,29 @@ body{
     object-fit: contain;
     align-items: center;
     justify-content: center;
+}
+
+@media(max-width:550px){
+    .productPricingCalculator_holder{
+        display: flex;
+        flex-direction: column;
+        justify-content: right;
+        width: 100%;
+        height: fit-content;
+        padding: 0;
+        margin: 0;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .productPricing_container{
+        padding: 0;
+        align-items: left;
+    }
+    .productBrand_holder{
+        display: flex;
+        flex-direction: column;
+    }
+    .productBrand_container{
+
+    }
 }

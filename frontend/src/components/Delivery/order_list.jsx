@@ -125,6 +125,7 @@ export default function Order_list() {
                           contact = {val.contact} 
                           longitude = {val.longitude}
                           latitude = {val.latitude} 
+                          address = {val.address}
                           total = {val.total}
                           status = {val.status}
                           admin = {true}
