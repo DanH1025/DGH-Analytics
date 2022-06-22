@@ -16,7 +16,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 //for signup
 
-
+import { CircularProgress} from '@mui/material';
 
 
 import { message } from 'antd';
@@ -33,14 +33,9 @@ export default function Login(){
 
     const history = useNavigate();
 
-
-
-
-
     const [isLogin ,setIsLogin] = useState(true);
     const [cookies, setCookie] = useCookies(['user']);
     const dispatch = useDispatch();
-
     const [inputRule, setInputRule] = useState({
         required:true,
         Emessage:"Email is required",
@@ -55,14 +50,16 @@ export default function Login(){
     const userRef = useRef();
     const errRef = useRef();
     
-
+    
     const navigate = useNavigate();
     const location = useLocation();
-
+    
     const user = useSelector((state) => state.getUser.user);
-
+    
     const from = location.state?.from?.pathname || "/";
-
+    
+    //const lead = useSelector((state) => state.getUser.load);
+    const [loader, setLoader] = useState(false);
 
 
     const checkuser = async(phone) => {
@@ -81,90 +78,76 @@ export default function Login(){
         return res.data;
     }
 
-
-
-
-
-
-
         // finishing up registeration
-        const onFinish = async (values) => {
-            console.log(values.FirstName)
-         if(inputState.name === "phone_number"){
-             const existNumber = await checkuser(values.phone_number);
-             console.log('exsnum:' + existNumber);
-             if(!/^(?=.{4})[a-z]([_]?[a-z\d]+)*$/i.test(values.FirstName) || !/^(?=.{4})[a-z]([_]?[a-z\d]+)*$/i.test(values.LastName)){
-                setSignUpErr("Invalid Name")
-             }
-             else if(values.password !== values.confirm_password){
-                // message.error("Passwords dont match")
-                 setSignUpErr("Passwords dont match")
-             }
-             else if(values.password.length < 6){
-               //  message.error("Password must be more than 6 characters")
-                 setSignUpErr("Password must be more than 6 characters");
-                 console.log(signUpErr)
-             }
-             else if(existNumber){
-                // message.error("Phone number already in use")
-                 setSignUpErr("Phone number already in use")
-                 console.log(signUpErr)
-             }
-             else if(values.phone_number.length !== 10){
-              //  message.error("Invalid Phone Number")
-                //setErrMsg("Invalid Phone Number")
-                setSignUpErr("Invalid Phone Number")
+    const onFinish = async (values) => {
+        console.log(values.FirstName)
+        if(inputState.name === "phone_number"){
+            const existNumber = await checkuser(values.phone_number);
+            console.log('exsnum:' + existNumber);
+            if(!/^(?=.{4})[a-z]([_]?[a-z\d]+)*$/i.test(values.FirstName) || !/^(?=.{4})[a-z]([_]?[a-z\d]+)*$/i.test(values.LastName)){
+            setSignUpErr("Invalid Name")
+            }
+            else if(values.password !== values.confirm_password){
+            // message.error("Passwords dont match")
+                setSignUpErr("Passwords dont match")
+            }
+            else if(values.password.length < 6){
+            //  message.error("Password must be more than 6 characters")
+                setSignUpErr("Password must be more than 6 characters");
                 console.log(signUpErr)
-               // setInputRule({...inputRule , Pmessage: "Invalid Phone Number"})
-             }
-             else{
-                 dispatch(createUserByPhone(values.FirstName, values.LastName, values.phone_number, values.password));
-                     setIsLogin(true)
-                     message.success("SignUp successfull"); 
-             }
-         }  else{
-             const existEmail = await checkemail(values.email);
-             console.log('exsnum:' + existEmail);
-             if(values.password !== values.confirm_password){
-                 message.error("Passwords dont match")
-             }
-             else if(values.password.length < 6){
-                 message.error("Password must be more than 6 characters")
-             }
-             else if(existEmail){
-                 message.error("Email already in use")
-             }
-             else{
-                 dispatch(createUserByEmail(values.FirstName, values.LastName, values.email, values.password));
-                     setIsLogin(true);
-                     message.success("SignUp successfull"); 
-             }
-         } 
-         };
+            }
+            else if(existNumber){
+            // message.error("Phone number already in use")
+                setSignUpErr("Phone number already in use")
+                console.log(signUpErr)
+            }
+            else if(values.phone_number.length !== 10){
+            //  message.error("Invalid Phone Number")
+            //setErrMsg("Invalid Phone Number")
+            setSignUpErr("Invalid Phone Number")
+            console.log(signUpErr)
+            // setInputRule({...inputRule , Pmessage: "Invalid Phone Number"})
+            }
+            else{
+                dispatch(createUserByPhone(values.FirstName, values.LastName, values.phone_number, values.password));
+                    setIsLogin(true)
+                    message.success("SignUp successfull"); 
+            }
+        }  else{
+            const existEmail = await checkemail(values.email);
+            console.log('exsnum:' + existEmail);
+            if(values.password !== values.confirm_password){
+                message.error("Passwords dont match")
+            }
+            else if(values.password.length < 6){
+                message.error("Password must be more than 6 characters")
+            }
+            else if(existEmail){
+                message.error("Email already in use")
+            }
+            else{
+                dispatch(createUserByEmail(values.FirstName, values.LastName, values.email, values.password));
+                    setIsLogin(true);
+                    message.success("SignUp successfull"); 
+            }
+        } 
+        };
 
-
-
-
-
-         const [loginInfo, setLoginInfo] = useState({
-             email:'',
-             phone: '',
-             password:''
-         })
-
-
-
-
+    const [loginInfo, setLoginInfo] = useState({
+        email:'',
+        phone: '',
+        password:''
+    })
 
     const loginHandler = async () => {
         //console.log('Success:', values);
-
+        setLoader(true);
         console.log(loginInfo)
 
         try{
             let response;
-            if(inputState.name === 'phone_number'){                
-                // dispatch(loginWithPhone(values.phone_number, values.password, cookies, setCookie))
+            if(inputState.name === 'phone_number')
+            {           
                 response = await axios.post('http://localhost:5000/api/app', {
                     phone: loginInfo.phone,
                     password: loginInfo.password
@@ -191,16 +174,18 @@ export default function Login(){
                 :setCookie('email', response.data[0].email, {path: '/', expires})
                 
                 setCookie('access_token', response.data[0].accessToken, { path: '/',  expires})
-
+                setLoader(false);
                 // console.log(cookies.uid);
                 // return ( <Navigate to='/' /> )
                 console.log(from);
                 navigate(from, { replace: true });
             }else{
+                setLoader(false);
                 console.log('login failed');
                 console.log(cookies.uid);
             }
         }catch (err) {
+            setLoader(false);
             console.log(err);
             if (!err?.response) {
                 setErrMsg('No Server Response');
@@ -214,42 +199,39 @@ export default function Login(){
         }
     };
       
-        const onFinishFailed = (errorInfo) => {
-          console.log('Failed:', errorInfo);
-        };
+    const onFinishFailed = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+    };
 
-        const [inputState , setInputState] = useState({            
-            name: "email",
-            type: "email",
-            placeholder: "Email Address"
-           
-        })
-        const switchHanlder = ()=>{
-            if(inputState.name === "email"){
-                setInputState({
-                    name: "phone_number",
-                    type: "number",
-                    placeholder: "Phone Number"
-                })
-            }else{
-                setInputState({
-                    name: "email",
-                    type: "email",
-                    placeholder: "Email Address"
-                })
-            }
-          
-        }
-        const google = ()=>{
-            window.open("http://localhost:5000/auth/google", "_self")
-        }
+    const [inputState , setInputState] = useState({            
+        name: "email",
+        type: "email",
+        placeholder: "Email Address"
+        
+    })
 
+    const switchHanlder = ()=>{
+        if(inputState.name === "email"){
+            setInputState({
+                name: "phone_number",
+                type: "number",
+                placeholder: "Phone Number"
+            })
+        }else{
+            setInputState({
+                name: "email",
+                type: "email",
+                placeholder: "Email Address"
+            })
+        }
+    }
+
+    const google = ()=>{
+        window.open("http://localhost:5000/auth/google", "_self")
+    }
 
     return(
         <>       
-
-
-
         <div className='UserloginHolder'>
             <div className="dimBackground">            
             <div className="UserloginContainer">
@@ -267,11 +249,11 @@ export default function Login(){
                         <p ref={errRef} className={errMsg ? "loginErrMsg" : "login_offscreen"} aria-live="assertive">
                         {errMsg}</p>
                         <Form
-                            name="normal_login"
-                            className="login-form"
-                            // initialValues={{ remember: true }}
-                            onFinish={onFinish}
-                            >
+                        name="normal_login"
+                        className="login-form"
+                        // initialValues={{ remember: true }}
+                        onFinish={onFinish}
+                        >
                             <Form.Item
                                 name={inputState.name}
                                 // rules={[{required: inputRule.required 
@@ -300,17 +282,21 @@ export default function Login(){
                                 />
                             </Form.Item>
                        
-    
                             <Form.Item>
                                 <Button  onClick={loginHandler}  type="primary" className="userLoginFormButton">
                                         <p>Login </p>
                                 </Button>
                                 <br />
     
-                                <div className="signUpWithGoogle"  >
-                                        <img onClick={google} src="https://img.icons8.com/color/344/google-logo.png"  width={40} height={40} />
-                                     {/* <GooglePlusOutlined className="googleIcon" /> <span>Google</span> */}
-                                </div>
+                            <div className="signUpWithGoogle"  >
+                                    {/* <img onClick={google} src="https://img.icons8.com/color/344/google-logo.png"  width={40} height={40} /> */}
+                                    {/* <GooglePlusOutlined className="googleIcon" /> <span>Google</span> */}
+                                    { loader ?
+                                    <CircularProgress />:
+                                        ""
+                                    }
+                            </div>
+
                                     <p className='goToRegister'  onClick={()=>setIsLogin(!isLogin)} >Or register Now!</p>
                                 {/* Or <Link to='/signUp'>register now!</Link> */}
                             </Form.Item>
@@ -335,69 +321,71 @@ export default function Login(){
                
             
                         <Form
-                            name="normal_login"
-                            className="login-form"
-                            initialValues={{ remember: true }}
-                            onFinish={onFinish}
-                            >
-                                    <Form.Item
-                                        name='FirstName'
-                                        rules={[{required: true}]}
-                                        
-                                        >
-                                        <Input type='text' 
-                                        prefix={<UserOutlined className="site-form-item-icon" />} 
-                                        placeholder="First Name" 
-                                        
-                                        />
-                                    </Form.Item>
-                                    <Form.Item
-                                        name="LastName"
-                                        rules={[{required: true}]}
-                                        colon="false"
-                                        >
-                                        <Input type="text" prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Last Name" />
-                                    </Form.Item>
-            
+                        name="normal_login"
+                        className="login-form"
+                        initialValues={{ remember: true }}
+                        onFinish={onFinish}
+                        >
                             <Form.Item
-                                name={inputState.name}
-                                rules={[{required: inputRule.required 
-                                        , message: inputState.name==='email'? inputRule.Emessage:inputRule.Pmessage
-                                        , pattern: inputState.name==='phone_number'? /(\+\s*2\s*5\s*1\s*9\s*(([0-9]\s*){8}\s*))|(0\s*9\s*(([0-9]\s*){8}))/ : /(^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$)/  }]} 
-                            >
-                                <Input type={inputState.type} prefix={inputState.type === "email" ? <MailOutlined className="site-form-item-icon" />: <PhoneOutlined className="site-form-item-icon" /> } placeholder={inputState.placeholder} />
-                            </Form.Item>
-                            <Form.Item
-                                name="password"
-                                rules={[{required: inputRule.required , message: inputRule.passMessage}]}
-                            >
-                                <Input
-                                prefix={<LockOutlined className="site-form-item-icon" />}
-                                type="password"
-                                placeholder="Password"
+                                name='FirstName'
+                                rules={[{required: true}]}
+                                
+                                >
+                                <Input type='text' 
+                                prefix={<UserOutlined className="site-form-item-icon" />} 
+                                placeholder="First Name" 
+                                
                                 />
                             </Form.Item>
                             <Form.Item
-                                name="confirm_password"
-                                rules={[{required: inputRule.required , message: inputRule.CPmessage}]}
-                               // rules={[{ required: true, message: 'Please Confirm Password!' }]}
-                            >
-                                <Input
-                                prefix={<LockOutlined className="site-form-item-icon" />}
-                                type="password"
-                                placeholder="Confirm Password"
-                                />
-                            </Form.Item>                         
-            
-                            <Form.Item>
-                                <Button   type="primary" htmlType="submit" className="login-form-button">
-                                        <p>SignUp </p>
-                                </Button>
-                                <br />
-                                <p className='goToRegister'  onClick={()=>setIsLogin(!isLogin)} >Or register Now!</p>
-                                {/* Or <Link to='/login'>have account! Login here?</Link> */}
+                                name="LastName"
+                                rules={[{required: true}]}
+                                colon="false"
+                                >
+                                <Input type="text" prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Last Name" />
                             </Form.Item>
-                        </Form>
+            
+                        <Form.Item
+                            name={inputState.name}
+                            rules={[{required: inputRule.required 
+                                    , message: inputState.name==='email'? inputRule.Emessage:inputRule.Pmessage
+                                    , pattern: inputState.name==='phone_number'? /(\+\s*2\s*5\s*1\s*9\s*(([0-9]\s*){8}\s*))|(0\s*9\s*(([0-9]\s*){8}))/ : /(^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$)/  }]} 
+                        >
+                            <Input type={inputState.type} prefix={inputState.type === "email" ? <MailOutlined className="site-form-item-icon" />: <PhoneOutlined className="site-form-item-icon" /> } placeholder={inputState.placeholder} />
+                        </Form.Item>
+
+                        <Form.Item
+                            name="password"
+                            rules={[{required: inputRule.required , message: inputRule.passMessage}]}
+                        >
+                            <Input
+                            prefix={<LockOutlined className="site-form-item-icon" />}
+                            type="password"
+                            placeholder="Password"
+                            />
+                        </Form.Item>
+
+                        <Form.Item
+                            name="confirm_password"
+                            rules={[{required: inputRule.required , message: inputRule.CPmessage}]}
+                            // rules={[{ required: true, message: 'Please Confirm Password!' }]}
+                        >
+                            <Input
+                            prefix={<LockOutlined className="site-form-item-icon" />}
+                            type="password"
+                            placeholder="Confirm Password"
+                            />
+                        </Form.Item>                         
+            
+                        <Form.Item>
+                            <Button   type="primary" htmlType="submit" className="login-form-button">
+                                    <p>SignUp </p>
+                            </Button>
+                            <br />
+                            <p className='goToRegister'  onClick={()=>setIsLogin(!isLogin)} >Or register Now!</p>
+                            {/* Or <Link to='/login'>have account! Login here?</Link> */}
+                        </Form.Item>
+                    </Form>
                         
                     </div>
                 </div>
