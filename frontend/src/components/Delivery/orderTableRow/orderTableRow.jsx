@@ -125,9 +125,9 @@ export default function Row(props) {
         <TableCell component="th" scope="row">
           {props.id}
         </TableCell>
-        <TableCell align="right">{props.date}</TableCell>
+        <TableCell align="center">{props.date}</TableCell>
         <TableCell align="right">{props.total} BIRR</TableCell>
-        <TableCell align="right">{props.address}</TableCell>
+        <TableCell align="center">{props.address}</TableCell>
         
         { 
         props.status === 'pending' ? (

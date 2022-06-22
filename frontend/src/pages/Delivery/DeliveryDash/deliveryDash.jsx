@@ -161,12 +161,6 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-
-
-
-
-
-
 export default function Delivery_Dashboard() {
   const dispatch = useDispatch();
     const [cookies, setCookie, removeCookie] = useCookies(['user']);
@@ -288,12 +282,12 @@ export default function Delivery_Dashboard() {
       {
                   loading? <p>Loading...</p> : error? <p>{error}</p>:
                   (
-                    <div className="profileInfoHolder">
-                    <div className='profileInfWrapper' >
-                        <div className="profileIconHolder"  onClick={()=>setCompCounter(2)}>
+                    <div className="delivery_profileInfoHolder">
+                    <div className='delivery_profileInfWrapper' >
+                        <div className="delivery_profileIconHolder"  onClick={()=>setCompCounter(2)}>
                             <AccountCircleIcon/>
                         </div>
-                        <div className="profileInfo">
+                        <div className="delivery_profileInfo">
                                 <p>{user.user_name}</p>  
                                 <span>{cookies.ADemail}</span> 
                         </div>
@@ -359,15 +353,6 @@ export default function Delivery_Dashboard() {
       </MenuItem>
     </Menu>
   );
-
-
-
-
-
-
-
-
-
 
 
 

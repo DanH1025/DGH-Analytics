@@ -78,17 +78,17 @@ const diactivatePM = async(req,res)=>{
     console.log('inside diactivation');
 
     const {email} = req.body;
-    const diactivation = "Diactive";
+    const deactivation = "Deactive";
 
     const [user,metaD] = await UserModel.fetchAdminUser(email)
 
-    if(user[0].status === diactivation){
+    if(user[0].status === deactivation){
         res.json({
-            data:"User is already diactive",
+            data:"User is already deactive",
             isSuccess: false
         })
     }else{
-        const [data, metaData] = await UserModel.activatePM(email,diactivation);
+        const [data, metaData] = await UserModel.activatePM(email,deactivation);
         res.json({
             data:data,
             isSuccess: true

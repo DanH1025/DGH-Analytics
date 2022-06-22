@@ -53,7 +53,7 @@ td {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-weight: bold;
 }
-.MuiTableCell-root.MuiTableCell-head{
+/* .MuiTableCell-root.MuiTableCell-head{
   font-size: 12px;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-weight: bolder;
@@ -69,7 +69,7 @@ td {
   line-height: 1;
   border-bottom: 1px solid rgba(224, 224, 224, 1);
 } 
-  
+   */
 
 .MuiSvgIcon-root { 
   font-size: 15px;
