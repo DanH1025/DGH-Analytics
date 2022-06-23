@@ -103,13 +103,17 @@ export default function Order_list() {
                 <TableHead >
                   <TableRow>
                     <TableCell />
-                    <TableCell>Order Id</TableCell>
-                    <TableCell>Date</TableCell>
+                    <TableCell><p className='deliveryOrderListTableHeader'> Order Id</p></TableCell>
+                    <TableCell><p className='deliveryOrderListTableHeader'> Date</p></TableCell>
                     <TableCell align="right">
-                      Sub-Total</TableCell>
+                    <p className='deliveryOrderListTableHeader'> Sub-Total</p>
+                    </TableCell>
                     <TableCell align="center">
-                      Location</TableCell>
-                    <TableCell align="center">Status</TableCell>
+                    <p className='deliveryOrderListTableHeader'> Location</p>
+                    </TableCell>
+                    <TableCell align="center">
+                    <p className='deliveryOrderListTableHeader'> Action</p>
+                    </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>

@@ -57,7 +57,7 @@ export default function Profile({userName,email, role , signUpDate}) {
     const [passwordChange , setPasswordChange] = useState({
         oldPassword: '',
         newPassword:'',
-        confirmNewPassword:''
+        confirmNewPassword: ''
     })
 
 
@@ -265,8 +265,9 @@ export default function Profile({userName,email, role , signUpDate}) {
                         <p ref={errRef} className={errMsg ? "loginErrMsg" : "login_offscreen"} aria-live="assertive">
                             {errMsg}</p>
                             <div className="changePasswordSide">
-                                <input type="password" placeholder='Old password' 
-                                    className='old_password_input' value={passwordChange.oldPassword}
+                                <input type="password" placeholder='Old password' name='old_password' id="old_password"
+                                    className='old_password_input' value={passwordChange.oldPassword} autocomplete="false"
+                                  
                                     onChange={(e)=> setPasswordChange({...passwordChange , oldPassword: e.target.value})}
                                     />
                             <input type="password" placeholder='New Password' 

@@ -251,14 +251,14 @@ export default function Row(props) {
       </TableRow>
             
       { props.status === 'inProgress' ? (
-        <>
+        <div className='deliveryInProgressBtnHolder'>
           <TableCell align="left">
-            <Button className='btn' onClick={handleCompleteOrder} style={{border: '1px solid black'}}>Complete</Button>
+            <Button className='deliveryComplete_btn' onClick={handleCompleteOrder} style={{border: '1px solid black'}}>Complete</Button>
           </TableCell>
           <TableCell align="left">
-            <Button className='btn' onClick={handleCancelOrder} style={{border: '1px solid black'}}>Cancel</Button>
+            <Button className='deliveryCancel_btn' onClick={handleCancelOrder} style={{border: '1px solid black'}}>Cancel</Button>
           </TableCell>
-        </>
+        </div>
       ) : '' }
 
     </React.Fragment>

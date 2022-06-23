@@ -105,6 +105,7 @@ export default function AddProduct({onMorePage}) {
 	useEffect(() => {
 		dispatch(getCagegory());
 	}, [])
+	const categories = useSelector((state) => state.getCategory.categories);
 
 	// for the dialog box
 	const [open, setOpen] = React.useState(false);
@@ -119,7 +120,7 @@ export default function AddProduct({onMorePage}) {
 
 	const [dialogPage , setDialogPage] = useState(0)
 
-	const categories = useSelector((state) => state.getCategory.categories);
+	
 	//console.log(categories);
 
 	const [imgPreview, setImgPreview] = useState('https://img.icons8.com/color/344/gallery.png');
@@ -472,10 +473,10 @@ export default function AddProduct({onMorePage}) {
 																	productCategory: e.target.value
 																} ) 
 														}}
-									// defaultValue={categories[0].ctgr_title}
+									
 										label="Category"
 										labelId="demo-simple-select-label"
-										// inputProps={{ 'aria-label': 'Without label' }}
+									
 														>
 										{categories?.map((item) => {
 											return(

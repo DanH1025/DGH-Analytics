@@ -49,7 +49,7 @@ const getProducts = async(req,res) => {
   console.log('in appi get product');
   const [product, metaData] = await ProductModel.fetchActive();
   // console.log(product);
-  res.send(product);
+  res.send(product.splice(0,15));
 }
 
 const getActiveProducts = async(req,res)=>{
@@ -85,27 +85,20 @@ const getAllProducts = async(req,res) => {
   console.log(product);
 
 
-  // const keys = ["productName", "productBrand", "productCategory","productPrice"];
-
-  // const search  = (data) =>{
-  //   return data.filter((product)=>{
-  //     //keys.some((key)=> product[key].toLowerCase().includes(sq));
-  //     keys.some((key)=>{
-  //       product[key].includes(sq)
-  //     })
-  //   })
-  // }
+  
 
   
   const {sq} = req.query;
-  console.log(sq);
-  res.json(product.filter(pro=> pro.productName.toLowerCase().includes(sq.toLowerCase())).splice(0,9)) 
+  console.log("this is the search string  "+ sq);  
+
+
+  res.json( product.filter(pro=> pro.productName.toLowerCase().includes(sq)).splice(0,9)) 
 
  // res.send(product.filter(product=> product.productName.toLowerCase().includes(sq)).splice(0,10));
 }
-
-
-
+ 
+ 
+ 
 const getProductsByCatagory = async(req,res) => {
   console.log('in get product by catagory');
   console.log(req.body.category);
@@ -132,16 +125,19 @@ const deleteProduct = async(req,res)=>{
   const id= req.body.id;
   const [ product, metaData] = await ProductModel.deleteProductById(id)
     
-}
+} 
 
 const editProductValues = async(req,res)=>{
   console.log("im editing products right now");
   const {id,name,price,brand,category,detail,image,count_in_stock,status} = req.body;
+ 
 
+
+  
   await ProductModel.updateProduct(id,name,price,brand,category,detail,image,count_in_stock,status);
 
 
- 
+  
 }  
 
  

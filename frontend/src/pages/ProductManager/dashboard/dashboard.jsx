@@ -190,25 +190,25 @@ const {user , loading , error} = data;
          <MenuIcon />
        </IconButton>
        <Typography variant="h6" noWrap>
-         {
-                loading? <p>Loading...</p> : error? <p>{error}</p>:
-                (
-                  <div className="profileInfoHolder">
-                  <div className='profileInfWrapper' >
-                       <div className="profileIconHolder"  onClick={()=>setCompCounter(1)}>
-                          <AccountCircleIcon/>
-                       </div>
-                       <div className="profileInfo">
-                              <p>{user.user_name}</p>  
-                              <span>{cookies.ADemail}</span> 
-                       </div>
-                       <div className="logoutButtonHolder">
-                          <ExitToAppIcon   onClick={handleLogout} />
-                       </div>
+          {
+                    loading? <p>Loading...</p> : error? <p>{error}</p>:
+                    (
+                      <div className="Admin_profileInfoHolder">
+                      <div className='Admin_profileInfWrapper' >
+                          <div className="Admin_profileIconHolder"  onClick={()=>setCompCounter(1)}>
+                              <AccountCircleIcon/>
+                          </div>
+                          <div className="Admin_profileInfo">
+                                  <p>{user.user_name}</p>  
+                                  <span>{cookies.ADemail}</span> 
+                          </div>
+                          <div className="logoutButtonHolder">
+                              <ExitToAppIcon   onClick={handleLogout} />
+                          </div>
+                      </div>
                   </div>
-              </div>
-                )
-          }
+                    )
+                  }   
        </Typography>
      </Toolbar>
    </AppBar>
