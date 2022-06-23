@@ -219,7 +219,11 @@ export default function Row(props) {
 
                   <p className='totalInfo'>Total:     {props.total} Birr</p>
 
+                {props?.admin?
+                  ""
+                : 
                   <Button className='btn' onClick={handleReorder} style={{border: '1px solid black', justifyItems: 'right '}}>Reorder Items</Button>
+                }
                 </div>
               </div>
               {/* {orders.map((order) => ( 
