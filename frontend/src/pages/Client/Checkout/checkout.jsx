@@ -316,7 +316,7 @@ export default function Checkout() {
                               <p>SubTotal Price:</p> 
                           </div>
                           <div className="amount">
-                            <p className='totalPriceNumber'>${getTotalProductPrice().toFixed(2)} </p>
+                            <p className='totalPriceNumber'>{getTotalProductPrice().toFixed(2)}  ETB</p>
                           </div>
                       </div>
                       

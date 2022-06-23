@@ -34,16 +34,8 @@ export default function CategoryCard(props) {
                 src={props.image}                
                 alt={props.title} />
             </div>
-            <div className="cardBodySide">
-                  {/* <span>                    
-                    <StarBorderIcon style={props.rating >=1? {color:'orange',fontWeight:'bolder'}: {color:'#80808066'}} />
-                    <StarBorderIcon style={props.rating >=2? {color:'orange',fontWeight:'bolder'}: {color:'#80808066'}}/>
-                    <StarBorderIcon style={props.rating >=3? {color:'orange',fontWeight:'bolder'}: {color:'#80808066'}}/>
-                    <StarBorderIcon style={props.rating >=4? {color:'orange',fontWeight:'bolder'}: {color:'#80808066'}}/>
-                    <StarBorderIcon style={props.rating >=5? {color:'orange',fontWeight:'bolder'}: {color:'#80808066'}}/>
-                  </span>  */}
-                    <p>{props.title}</p>
-                    {/* <p><a href="/">view more</a></p> */}
+            <div className="cardBodySide">                 
+                    <p>{props.title}</p>                   
             </div>
         </div>
     </div>

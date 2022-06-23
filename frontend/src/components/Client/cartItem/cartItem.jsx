@@ -19,7 +19,7 @@ export default function CartItem({item , qtyChangeHandler ,removeFromCartHandler
             <Link to={`/productDetails/${item.product}`}>
                 <p className='cartItem_name'>{item.productName}</p>            
             </Link>
-            <p className='cartItem_price'>${item.price}</p>
+            <p className='cartItem_price'>{item.price} ETB</p>
 
             <select className='cartItem_select' value={item.qtyCounter} onChange={(e)=>qtyChangeHandler(item.product, e.target.value)} >
                 {[...Array(item.countInStock).keys()].map(x =>(
