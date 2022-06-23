@@ -412,8 +412,8 @@ export default function ProductList() {
 														}}
 									
 										label="Category"
-										labelId="demo-simple-select-label"
-                    placeholder={editValues.category}
+                    defaultValue={editValues.category}
+										labelId="demo-simple-select-label"                   
                     style={{width: '100%'}}
 									
 														>
