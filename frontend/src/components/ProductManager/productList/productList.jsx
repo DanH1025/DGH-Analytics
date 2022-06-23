@@ -15,12 +15,13 @@ import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined'
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 
 
-import { Drawer, Form, Col, Row, Input, Select, DatePicker, Space } from 'antd';
+import {MenuItem, Select} from '@mui/material';
+import { Drawer, Form, Col, Row, Input,  DatePicker, Space } from 'antd';
 import axios from 'axios';
+import { getCagegory, createCategory } from '../../../redux/actions/categoryActions';
 
 
-
-const { Option } = Select;
+// const { Option } = Select;
 
 
 
@@ -46,9 +47,15 @@ export default function ProductList() {
     const [searchCategory , setSearchCategory] = useState('');
     const [category , setCategory] = useState(0);
 
+
+    useEffect(() => {
+      dispatch(getCagegory());
+    }, [])
+    const categories = useSelector((state) => state.getCategory.categories);
+
     useEffect(()=>{
       const fetchProducts = async ()=>{
-        const res = await axios.get(`http://localhost:5000/api/getAllProducts?sq=${searchInput}`);
+        const res = await axios.get(`http://localhost:5000/api/getAllProducts?sq=${searchInput.toLowerCase()}`);
         setProducts(res.data);
       }
 
@@ -63,7 +70,7 @@ export default function ProductList() {
 
   const getAll = async ()=>{
     setCategory(0);
-    const res = await axios.get(`http://localhost:5000/api/getAllProducts?sq=${searchInput}`);
+    const res = await axios.get(`http://localhost:5000/api/getAllProducts?sq=${searchInput.toLowerCase()}`);
     setProducts(res.data)
   }
   const getDiactive = async ()=>{
@@ -393,12 +400,28 @@ export default function ProductList() {
             label="Category"
             rules={[{ required: true, message: 'Please select a category' }]}
           >
-            <Input value={editValues.category} onChange={(e)=> setEditValues({...editValues, category: e.target.value})}  placeholder={editValues.category} />
+            {/* <Input value={editValues.category} onChange={(e)=> setEditValues({...editValues, category: e.target.value})}  placeholder={editValues.category} /> */}
 
-            {/* <Select placeholder={editValues.category} value={editValues.category} onChange={(e)=> setEditValues({...editValues, category: e.target.value})}  >
-              <Option value="xiao">Television</Option>
-              <Option value="mao">Smart-Phone</Option>
-            </Select> */}
+            <Select
+										value={editValues.category}
+										onChange={(e) => {
+															setEditValues({ 
+																...editValues, 
+																	category: e.target.value
+																} ) 
+														}}
+									
+										label="Category"
+										labelId="demo-simple-select-label"
+                    placeholder={editValues.category}
+                    style={{width: '100%'}}
+									
+														>
+										{categories?.map((item) => {
+											return(
+											<MenuItem   style={{width: '100%' , justifyContent: 'left', marginLeft: "4px"}} value={item.ctgr_value}>{item.ctgr_title}</MenuItem>
+										)}) }
+									</Select> 
           </Form.Item>
 
 

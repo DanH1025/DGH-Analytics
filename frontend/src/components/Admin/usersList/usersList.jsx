@@ -392,7 +392,7 @@ export default function UsersList() {
                             mapStyle="mapbox://styles/mapbox/streets-v11">
                             {
                               loading ? <p>Loading ...</p> : error ? <>{error}</>: (
-                                recentOrders.map(order=> order.status === 'complete'?  (
+                                recentOrders?.map(order=> order.status === 'complete'?  (
                                   <>
                                     <Marker 
                                       key={order.orderId}

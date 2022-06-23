@@ -49,7 +49,7 @@ const getProducts = async(req,res) => {
   console.log('in appi get product');
   const [product, metaData] = await ProductModel.fetchActive();
   // console.log(product);
-  res.send(product);
+  res.send(product.splice(0,15));
 }
 
 const getActiveProducts = async(req,res)=>{
@@ -85,22 +85,20 @@ const getAllProducts = async(req,res) => {
   console.log(product);
 
 
- 
+  
 
   
   const {sq} = req.query;
-  console.log(sq);
-
-  
+  console.log("this is the search string  "+ sq);  
 
 
-  res.json(product.filter(pro=> pro.productName.toLowerCase().includes(sq)).splice(0,9)) 
+  res.json( product.filter(pro=> pro.productName.toLowerCase().includes(sq)).splice(0,9)) 
 
  // res.send(product.filter(product=> product.productName.toLowerCase().includes(sq)).splice(0,10));
 }
-
-
-
+ 
+ 
+ 
 const getProductsByCatagory = async(req,res) => {
   console.log('in get product by catagory');
   console.log(req.body.category);

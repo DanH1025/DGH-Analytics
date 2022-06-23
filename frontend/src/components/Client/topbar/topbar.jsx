@@ -277,10 +277,12 @@ export default function Topbar() {
             <div className="topSide">
               <div className="topSideWrapper">
                 <div className="leftSide">
+                   
+                       <a href="https://www.instagram.com/?hl=en"> <InstagramIcon   style={{color:"red"}} /></a>
+                       <a href="https://www.facebook.com/">  <FacebookIcon  style={{color:"#3b3b8f"}} /></a>
+                        <a href="https://twitter.com/?lang=en"><TwitterIcon   style={{color:"#00a9ff"}} /></a>
+                 
 
-                    <InstagramIcon style={{color:"red"}} />
-                    <FacebookIcon  style={{color:"#3b3b8f"}} />
-                    <TwitterIcon   style={{color:"#00a9ff"}} />
                 </div>
 
                 <div className="rightSide">
