@@ -275,6 +275,7 @@ export default function Orders() {
                               fname = {val.fname}
                               lname = {val.lname}
                               date = {val.date}
+                              address = {val.address}
                               contact = {val.contact === null ? val.contact : null} 
                               total = {val.total}
                               status = {val.status}
