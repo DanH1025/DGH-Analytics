@@ -5,6 +5,7 @@ import {ArrowBack} from '@material-ui/icons';
 
 import { Table , Switch , message, Button} from 'antd';
 
+import {DataGrid} from "@mui/x-data-grid";
 import Chart from "react-apexcharts";
 import {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
@@ -162,17 +163,40 @@ export default function DetailSessionAnalysis({onMorePage}) {
       sorter: (a, b) => a.converted - b.converted
       // render: (text) => <span>ETB {text.toFixed(2)} </span>,
     },
-    {
-      title: 'Conversion Rate',
-      key: 'tags',
-      dataIndex: 'average',
-      render: (a) => {return(
-          (Number(a.session) / Number(a.converted))
-        ) 
-      },
-      // render: (text) => <span>{text != null ? text.toFixed(2) : text} %</span>,
+  ];
+
+  const ConversionGetter = (data) => {
+    return  (Number(data.row.session) / Number(data.row.converted)).toFixed(2) + 'ETB ';
+  };
+
+  const columns = [
+    { field: 'date', headerName: 'Date', width: 170 },
+    { field: 'session', headerName: 'Session', width: 130 },
+    { 
+      field: 'addToCart', 
+      headerName: 'Added to cart', 
+      width: 180
     },
-    
+    {
+      field: 'reachedCheckout',
+      headerName: 'Reached checkout',
+      width: 130,
+      sorter: (a, b) => a.addToCart - b.addToCart
+    },
+    {
+      field: 'converted',
+      headerName: 'Session converted',
+      width: 130,
+      sorter: (a, b) => a.converted - b.converted
+    },
+    {
+      field: 'conversionRate',
+      headerName: 'Conversion Rate',
+      description: 'This column has a value getter and is not sortable.',
+      // sortable: false,
+      // width: 150,
+      valueGetter: (data) => ConversionGetter(data)
+    },
   ];
 
 
@@ -186,19 +210,19 @@ export default function DetailSessionAnalysis({onMorePage}) {
         <h3>Session </h3>
       </div>
       <div className="cha">
-          <h3>Number of visits</h3>
-          <Chart
-            className="order_barChart"
-            title='Orders'
-            options={stat.options}
-            series={stat.series}
-            type="bar"
-            height="200%"
-            width="100%"
-             />
+        <h3>Number of visits</h3>
+        <Chart
+          className="order_barChart"
+          title='Orders'
+          options={stat.options}
+          series={stat.series}
+          type="bar"
+          height="200%"
+          width="100%"
+            />
       </div>
 
-      <div>
+      <div className='table'>
 
       <div>
         <Select
@@ -246,6 +270,9 @@ export default function DetailSessionAnalysis({onMorePage}) {
         <Table 
           columns={colum} 
           dataSource={displayOrders} />
+        <div >
+          
+        </div>
       </div>
     </>  
   )

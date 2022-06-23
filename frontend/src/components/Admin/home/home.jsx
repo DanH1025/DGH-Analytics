@@ -56,7 +56,7 @@ export default function Home({onMorePage}) {
   const orderReports = useSelector((state) => state.getOrderReport.orderReports);
   const userLog = useSelector((state) => state.userCount.userLog);
 
-  const days = ['Mon','Tue','Wen','Thu','Fri','Sat','Sun'];
+  const days = ['Fri','Sat','Sun','Mon','Tue','Wen','Thu',];
 
   let totalUserNo = 0;
   let totalOrderNo = 0;
@@ -79,7 +79,7 @@ export default function Home({onMorePage}) {
       
       addCartCount = (userlog.cartCount/totalUserNo*100).toFixed(2);
       reachedCheckout = (userlog.checkCount/totalUserNo*100).toFixed(2);
-      purchaseCount = (userlog.purchaseCount/totalUserNo*100).toFixed(2);
+      purchaseCount = (totalOrderNo/totalUserNo*100).toFixed(2);
       userByHour = userlog.noOfTotalUserByDateHour;
       deviceType = userlog.deviceType;
       locations = userlog.location;
@@ -160,7 +160,7 @@ export default function Home({onMorePage}) {
                   <Charts 
                     title='Total Sales'
                     middleTotal={ totalPrice + ' ETB'   }
-                    dates={dates.reverse()}
+                    dates={days.reverse()}
                     // persent = {}
                     chartData={prices.reverse()}
                     chartType="area"
@@ -170,7 +170,7 @@ export default function Home({onMorePage}) {
                 </div>
                 <div className="chart">
                   <Charts 
-                    title='Total Orders'
+                    title='Total No Of Orders'
                     middleTotal={orderNo}
                     dates={days.reverse()}
                     // persent = {2}
@@ -182,8 +182,8 @@ export default function Home({onMorePage}) {
                 </div>        
                 <div className="chart">
                   <Charts 
-                    title='Averages'
-                    middleTotal={average}
+                    title='Average sale per Order'
+                    middleTotal={average + ' ETB' }
                     // persent = {2}
                     dates={days.reverse()}
                     chartData={priceAverage.reverse()}
